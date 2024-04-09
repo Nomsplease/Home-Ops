@@ -4,11 +4,17 @@ creation_rules:
   ##
   # Standardized Encryption Rules
   ##
-  - path_regex: ingress.yaml
-    encrypted_regex: "^(data|match|secretName)$"
+  - path_regex: .*ingress.ya?ml
+    encrypted_regex: "^(data|match|secretName|services)$"
     age: >-
       age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
-  - path_regex: database.yaml
+
+  - path_regex: .*service.ya?ml
+    encrypted_regex: "^(data|ports|externalName)$"
+    age: >-
+      age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+
+  - path_regex: .*database.ya?ml
     encrypted_regex: "^(data|bootstrap)$"
     age: >-
       age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs

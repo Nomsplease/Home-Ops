@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-server
+  namespace: homepage
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: code-server
+  template:
+    metadata:
+      labels:
+        app: code-server
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: 
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - homepage
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: code-server
+        image: lscr.io/linuxserver/code-server:4.23.0
+        env:
+          - name: TZ
+            value: America/New_York
+          - name: DEFAULT_WORKSPACE
+            value: /config
+        volumeMounts:
+          - name: config
+            mountPath: /config
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: homepage-config-pvc

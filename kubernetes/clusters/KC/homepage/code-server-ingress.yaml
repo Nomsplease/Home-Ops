@@ -1,0 +1,38 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: code-server
+    namespace: homepage
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:jdO2LhdqFD/5v9Am5r8XrygaBBNX3+0A4L/++x4=,iv:BpkUem9oNBDJ5GiliS5ZoL6QxQr3UtET87PXtzE1uHQ=,tag:b4tD458GTII3/8dMnzfcVw==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:641aKIDlyIQJkV8=,iv:A5RybqGOkjte96AXD22+FSgEi986Ddq5dD2dKq0tGB8=,tag:80l9z0bq4G5CsordJuQ4/A==,type:str]
+              port: ENC[AES256_GCM,data:BwcGkQ==,iv:V0sI5+ln/x2DbQHeUXgfy/AERJhZ5f8Zvo0pF+TszAI=,tag:1WW8xjcjM/ABu6da1jOYQQ==,type:int]
+    tls:
+        secretName: ENC[AES256_GCM,data:spkxfzYzVALJ8dc=,iv:Oj3HDVfyRs4PeWUDcsIqLhemZPqVdA+OwN1EslhkdsE=,tag:ondk3/49Kcrqto0c8oWEZA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBucWJWZzhLekpZSDl3a2Fz
+            Q0FaQkIzWVpwamRydTEyazRqd2pZaGdWWVhvClp6L0RJdFlaSFEwZlNtYllaVGUr
+            ZHRUVWZTaUFqS1NiTXhJRy9odnhvYTgKLS0tIE1ocjZpVUtuOFZQSnJHV0RENHh2
+            NU1pc3I1RllhQ05PRmxVN1k3OTlzOVkK13oVRdLfp0dhN6TCG9qmerqUr0Ids3EZ
+            3QOoIMOBlIwElevjou9T56V1a1ZUVgzRadrU0TnJE4JuB5bTK1LlTg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T14:40:19Z"
+    mac: ENC[AES256_GCM,data:W5MXzpHQ/Btdr8AKPRgUeKiOwV6CCSA+2SlnBbiL/GDIbYGGcw4mb77s2kUNMqugNG8KDwRSr+yFbknGk6O6M9DlIBfYcO5K3O/dyd5izuukIxWXMccH11Qv2FJqk3zRhHCYMgR8w7Otpqe2Kv/79eu8D7BgB8Bf/YEum9quwiM=,iv:zPa3eaaB5bCnWS9cdg0GxJ3oStNdczhwy7nnKmngDlY=,tag:XJIVAHPYr4u9og/VI03nJg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|match|secretName|services)$
+    version: 3.8.1

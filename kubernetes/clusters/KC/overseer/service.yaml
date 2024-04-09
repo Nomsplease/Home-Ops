@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: overseerr
+    namespace: overseerr
+spec:
+    selector:
+        app: overseerr
+    ports:
+        - port: ENC[AES256_GCM,data:cCXNhQ==,iv:JEueKyyAFae+N0ksPSa1Z5UuWnutEqPSCibe4aUvVZQ=,tag:RjsHnOmT5JcYn7xZQAi18g==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0bDd5VWl0N25jTHdnMGsr
+            UVlDNWhaQnIvWmRTWklkN2cwdDNHTHorQXp3CkVzdnBSMThRR3V1ZFoyS3NmV3hk
+            a0ZBam5UaForMGNsbitZQlB2TWkzaTAKLS0tIHRqVWFyWTBKQnl6aERpbWpkNkxH
+            K24rK01DaVBtM2VpL0lSQWpmMVV5Um8K1Et4vPCMuiaJvwe0R0ytZ2ky3A9MLONH
+            HyZY6EXWOOBf2V7z509QEg4TmNXxN9dyH32pjgm3UaetC/Wo9lDlGw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T15:28:06Z"
+    mac: ENC[AES256_GCM,data:s9IMV6gZSxxtMveHrAGmkyOqEmrijilupqYwUqx9yaI0FavE+IcO6enB3+VF5Yp6ZiU8jonW7qKkIf67U0BFB7WzPh5Hs29CFTY5eklRlOlueOLy39EQhBsq6rDg9DJqngZqEovKZeqxqOleJ+nQUZ3FaLhDaumg7BdjW/w+Lu4=,iv:HHhIwX0e5Yl5igs99aHo7E2vKFsvhWYrcQE7BYCtzYE=,tag:h8HzjF3o7vmg2UXn4OOWGg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
+    version: 3.8.1

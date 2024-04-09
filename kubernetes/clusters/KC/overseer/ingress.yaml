@@ -1,0 +1,39 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: overseerr
+    namespace: overseerr
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:emKVYW+1GAByiTySygfxvdgFK6eSkWE=,iv:OCG0znlyGlcrx0iJcuywq13QABv4dKBJrbT6nG+wrSA=,tag:nlHOO5Axdh/bOgunKiDeMQ==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:+kLXmq4xCDIk,iv:2Lo8Bo/ZIwBoCU1a2Itr64i436QkssWVrOYd96RwJ6o=,tag:H68rW/SqElsTnG5dGqRuTw==,type:str]
+              namespace: ENC[AES256_GCM,data:zZT3ZUX0TqV/,iv:gurTJRpkYGdggTWTAHyOcmVyZ6EzHWEPes5AFg4NhZg=,tag:G742LLe0eZkMjK8pEbVHtg==,type:str]
+              port: ENC[AES256_GCM,data:dqDJfw==,iv:heURCoOadVi85oM/0t2X2OlBb0GQLSPji7eQBXfZhEo=,tag:wDiu5k3BpviSca4ln+nHEA==,type:int]
+    tls:
+        secretName: ENC[AES256_GCM,data:uavJf9TJ8BgGHEA=,iv:Jg28Cj00qCsX88xUsHN/8KR4VFWH4NFjfWZrenzAea8=,tag:24212QL+K8a17a75JpWaFQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAwcTlaMTZJaWszMjNqRDJw
+            eW4wQnZVdzJzSUdRSFE4Tko5VHVVUW9LOVVrCk9WK3k5NWh2cUI4NTZZcjFRaXQ3
+            dVh5dFA1Q2hWeHBjWEhhbUpyWm94RkkKLS0tIEhoYmNIS1o3bThyc2RybG5YM25C
+            a1NLMGJvVUQ3NjNxajBLamtJUE1CMlkKNq4GhcFTIkkfRhtbY5dnxZBOvchzZY7O
+            yYBmbPWpzrzSan0UVfaojQw9qwWQ7uae2xNvO6TyS+6pH/nVvPP5ow==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T15:27:47Z"
+    mac: ENC[AES256_GCM,data:F9lJg1NNvWcRzsA4Q5ozp2+IA3iZOGfhZFIjSYSk16r2GSZEj9nbU7FdtYaSugaYATSdzdmeh+CKbuiezwnPnQmdsSXmQtC/RRS6RdaU+JbyD7gHCBKy7A+gjZjHM7nHemEes352Bh+Xqvm41M4eMvkj6VkQioAREzUW5AEL93g=,iv:Dn+4sH+767S7FLxY1ajHikKgIRYVeOo/8/M3pWaRVxM=,tag:Mgf4HToLAfXQRIoVEI+Uow==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|match|secretName|services)$
+    version: 3.8.1

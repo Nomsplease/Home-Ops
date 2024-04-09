@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: mosquitto
+    namespace: mosquitto
+spec:
+    selector:
+        app: mosquitto
+    type: LoadBalancer
+    loadBalancerIP: ENC[AES256_GCM,data:4/+yoWMmPK0UyqA=,iv:IfazWKSD5P9u2fcR1t2X8i9961bAJrSfQLS9C6eT43g=,tag:Czna9pydTQhZs2McsVAS7g==,type:str]
+    ports:
+        - name: ENC[AES256_GCM,data:aN95HQ==,iv:dlUrmRX6uKnDrjrJ1lUW8fqFvzZuJFh9gdmwrd2g+3Q=,tag:3fr8c5zLU0Q9d+lo94oG7w==,type:str]
+          port: ENC[AES256_GCM,data:Y920kA==,iv:9OHpTJEjRysjtG746r9vVHBevwBAnoQxNxe2F5gcTUQ=,tag:uRy1uujgA8O/zOvB9GkEqg==,type:int]
+        - name: ENC[AES256_GCM,data:JN+rRKUZqhTj,iv:IDP3xoriEcFBVlbygALktvRFfOnBZspuqrgU9bihuM0=,tag:UZqrgCjj4p2c7vcJ/CULig==,type:str]
+          port: ENC[AES256_GCM,data:j/NcqA==,iv:oBSRRc94lvcsB5SijcqH1BacwOaxol8F6//6wI8f/aE=,tag:r7pe27g4Mm43kvCX3IRWVQ==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB5bTZTWnFoVFZRcEgwUENI
+            UVZPUVlXQlRjcGNMNndRbWN5bHFoU1FZeVRzCnd3OWpOSVdJRG5BeFlrbVBmYmlE
+            YU5WWFByQjl2Vk5Yb0JWSnlxbVozVTgKLS0tIG9kNTIzN3JCR0NUL3BKUWxQdHlZ
+            OWE5bFZQTThmL3N5VldrYU9VdlNjRHcKsm0Oz5MOUZwmSFXH500V8VhsQneijCox
+            gR+eQ0QhLPOsx0wlprTbMCIBQP5YMj8NC/m6t0hF9KVgs0jeaJfWAw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T15:24:18Z"
+    mac: ENC[AES256_GCM,data:biUZjxQJk5qEgNMWvcPjpdHPML8O2832DepBF/KvV9Ez/jyQXol7/oywG+Yx0sux880M1dpmBJt1pGg4D03m68bPpRVBcpM38gQjOjs1373QM/dKqvHS8a3VXhcPBV28ocxOK9+/y2JtFg9HGQ+prNYGMD5XOgxppnVGQlMxvk0=,iv:2KNuiNlN4JUyKNESZMsYL5py/FPY5zmKoYZ/ckLvOcY=,tag:CT2VodXP86zt0KNfBW6JxA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
+    version: 3.8.1

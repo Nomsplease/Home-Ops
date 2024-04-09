@@ -1,0 +1,14 @@
+---
+creation_rules:
+
+  ##
+  # Standardized Encryption Rules
+  ##
+  - path_regex: ingress.yaml
+    encrypted_regex: "^(data|match|secretName)$"
+    age: >-
+      age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+  - path_regex: database.yaml
+    encrypted_regex: "^(data|bootstrap)$"
+    age: >-
+      age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs

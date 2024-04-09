@@ -19,7 +19,7 @@ spec:
         spec:
             containers:
                 - name: paperless-ngx
-                  image: ghcr.io/paperless-ngx/paperless-ngx:2.6.2
+                  image: ghcr.io/paperless-ngx/paperless-ngx:2.7.2
                   imagePullPolicy: Always
                   env:
                     - ENC[AES256_GCM,data:jpRlLpF+iFUofahZr89YnKKHWHE89kRpphU7hS0=,iv:/WtOYkY3HvR8LA17pWt6V3TBixbLbTt5LfYyAyS9ehI=,tag:VvF57SCLspLrYLApDy4vUg==,type:comment]

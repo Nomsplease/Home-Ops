@@ -10,7 +10,7 @@ creation_rules:
       age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
 
   - path_regex: .*service.ya?ml
-    encrypted_regex: "^(data|ports|externalName)$"
+    encrypted_regex: "^(data|ports|externalName|loadBalancerIP)$"
     age: >-
       age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
 

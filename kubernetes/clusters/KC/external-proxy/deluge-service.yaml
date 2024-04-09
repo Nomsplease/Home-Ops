@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: deluge
+    namespace: external-proxy
+spec:
+    type: ExternalName
+    selector:
+        app: traefik
+    ports:
+        - name: ENC[AES256_GCM,data:yhjK3Iyn,iv:6VqsVpkaE0e3AA2cV971zGuLYiQ9ctycI49a7VGo7UQ=,tag:6IbAuRKbSJvbPdHW8zH7Xg==,type:str]
+          port: ENC[AES256_GCM,data:uvS7UA==,iv:Nd1oS6PRmIlu9mdgzb0R4iWBp8ie8A0NYxbPrsxKmkk=,tag:2mUEKUvzEYqUZIMK9myWjA==,type:int]
+          targetPort: ENC[AES256_GCM,data:qW/jwg==,iv:VLQFKWpQRF77Ps+kSaSA6fl3tfxljKl9hPqA+Y0mhC0=,tag:ne80e0AOt2DGqKgOt9ChIg==,type:int]
+    externalName: ENC[AES256_GCM,data:/YKyeqygBCncbzA=,iv:r3p5c5H/Uut9ksuQOdRCU2Jr4LsHpNavb3a6jirfoak=,tag:rc8VuB4ws6XwivqQ87rFHw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBXb1BsRWRlbFhzeEpIZUti
+            VDJsK0xPcEhsTFpHQUsyMFMvT08yUHFGdzFjClQwelM5RkNjakc2R0I5WlhtT3JM
+            UXNrR09uZWFZWmRkckFMNDIyQ3JZamMKLS0tIElHak55OHkzRU1Jci9CWjdlT0ta
+            Rzc0MFE0ZEhnVU4wU09wNVM0ZjlpdncKbN56hb9cXMj0uAhxwdaWcUEjDzGBq0yq
+            z3Pbs6O3LMISBDkJ9IVjWc7e5Uv0qQTwnCzKaTNLOePWEQu5jR2H7A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T14:23:07Z"
+    mac: ENC[AES256_GCM,data:V05Qn+91SKLf2347UILzG9avlrx84942vyAEkH6SSkPxMppPLqSkDSXqbbTjTaAKVdIflIPsYZKs1/Uk0UnfFpxpn9HP3lNoYmi+1tXQo7d5UdVoE/rfMg4bMiO223IIrATgs8XcA8SeLl5oRCSXaFBbY7C9gnxXVMWULX7P3Ls=,iv:HXipqHTXXerJiaZuwvV2jst7rfST7B3gDegc1BWvuXA=,tag:tpKFFf/b4Zq2GkVP57zrsQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName)$
+    version: 3.8.1

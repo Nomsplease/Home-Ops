@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: overseerr
-        image: linuxserver/overseerr:1.33.2
+        image: linuxserver/overseerr:2021.12.12
         imagePullPolicy: Always
         env:
           - name: TZ

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: minio
+    namespace: external-proxy
+spec:
+    type: ExternalName
+    selector:
+        app: traefik
+    ports:
+        - name: ENC[AES256_GCM,data:dIwaz7Y=,iv:c+rX1b3r2Iaktz0tonRx4laCBflOWM8aFqq/x9e4HEU=,tag:GM1JDRbrD9cytqGKfVuz7A==,type:str]
+          port: ENC[AES256_GCM,data:c7wAXA==,iv:9UjYQ5QpEs6J9sxOGHGAAe0H1T4QkYoQV9ROFIZZVK8=,tag:DyDO/YWHTgjUDssm5iBdVQ==,type:int]
+          targetPort: ENC[AES256_GCM,data:K6cDbw==,iv:hQa7LJsZJYGBwaT6HEsbGZC+fnfGEAEdlWjs5X32fBc=,tag:5gjewS12znyA0/fxsMO0bw==,type:int]
+        - name: ENC[AES256_GCM,data:jX7iY88M3k4=,iv:eylc/Yev8BU3CxHF8AoQLEX3D+V9NzOS2RZ0eCPAXm4=,tag:O/MI3wFao3OXjHFR+BP/4g==,type:str]
+          port: ENC[AES256_GCM,data:NX6/LA==,iv:Sovv58Cw3xvo6He4C2m4EIcsSadhMTvRASxqyV50FB0=,tag:J2gSEjJ7uC1XEJ9KzKIDyA==,type:int]
+          targetPort: ENC[AES256_GCM,data:mou51Q==,iv:qHc09dHKD1RjgX9kyO83QnzuDxiKbcMcb3nJA/sUxDo=,tag:mf2ZN4QgfA+oQd3wDX10FA==,type:int]
+    externalName: ENC[AES256_GCM,data:aqjGas5dssTmH8o=,iv:YlIGpqZOWc+ODuCjL8QjolW+2apJzOvtRyVJ5ZKPeqE=,tag:r25bKBs+j5TPlEnPf9/I+Q==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBrQ0xSbVkzVkRPeTcyNnBI
+            akFydXVaanlIZkJQSGVhcnl5Umt2Q2ZaOWl3CnFLVkp0U1lUNVg3bG95KzJvQ0lq
+            MjZINkFQZHBpR1VDTUVNUFRVTCs5ZEkKLS0tIFkwdEUzUHFMUmNzazdLSDNaOWdl
+            SFpGZXVzekRseFMrNVh2bGpnSU11TmMKAAt3/nEAUe8G1Ne4bTB4rRcMzrP3TEtE
+            O28+KVjCesgo8wPn2mNWcRJkPh2pxNE8qBXJOeUZXF00H/iJQ3+apw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T14:24:47Z"
+    mac: ENC[AES256_GCM,data:/VrLC3K5h+Yic+ITctnDQ1X7jeuRXn/70yV+FA2kdwSDfcaoHSdCvCOAsR7oBjnsa2z+Wbx5FdCSd5sUGN6hRn59LX8+JHUdHManFNXng1P9N0GH0iDGoXWpXtEHcubrgOZswQR/KO5cPgcnv0wJ34usiNDS905q3c65N2bQosg=,iv:asnxahnCRSKbiL6zBrZZarBmcpTYDiD1URezs4ZE8VU=,tag:bnUl0lfUyqYlGqMROoli7w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName)$
+    version: 3.8.1

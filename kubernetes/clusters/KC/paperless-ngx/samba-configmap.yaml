@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: samba
+    namespace: paperless-ngx
+data:
+    smb.conf: ENC[AES256_GCM,data:qRXQYef7uFQWKGjIgQQkrWBYzf8BKlSGAmwUMIdwVH3/Cc81VNiyQQ6oFU7PDKyq+55ISJ9Ep8StqJgeAYs/PSz/dQjJJxLBhfjZGI/nkT8L+pA+KReh6TyCEAl6F4rmBqp2pvl45ssrCWX93yv9WmaZ706qeobYS6yF3XFd9NWg0QSV9kg2Soe3hfzFxM6BLTLH3vNKiWoy0NVh9ZXrbgsccLzO2At9yNKhZo5TQvPNn9owhe4ngjNoXMTzunKTmkKajPMRDucIzCf8Ogg7S0e7xkdi7Bya4KgL0dqxn3zUM6yedhmWD5mqFJaOzCfcgNWBwCrPaftZv3SrRQHqSa8W12Ro/3NzOiZDu9ZBdnIkRJa4NqjP7xB8uXjs4E1GPMhHw0iN9o/mtH3+ypC/GGkU4xgO0akAfbfdoAnLlOOSGihUMuirNm+yM6IdoANkBNRkVc/cEb48mvw70+yMcl5giI0JpJmXDniSHIPWWuL1Vx8oVTNwxWE9rnGcn7I/s0JLWG/8mdc1OPd7tAFNaqOFot1E6iQVq2X1evk1wFG/PGpH/hLftF2xcr0HAJO3g8eFvV9fqdqnYbnd2pfHqgt8nz0HNxQqODP9ZjHxEXpUbE4pNV4MZVV4Cn/EUg8qpto9zwVC/6nRbsrqQQc+RpEhT+1hT2nBfFBP+f9obrsDH2wWMnzXeEDNKWfYH1/tMPZuYzl17LzceCDsPR4B4YqtogvEjHl4bbmhUmlcWdC/zqTARzSBleGuCMLcqekA6HNi7DBk6XWFd7SojBRZc9yx54QCDy1vVehrU3Jod45ItPPzARVAxbfr3O+pTeuPtxTzvA3ox86IJiS/+sw=,iv:czMhPXBRE7VFQdRDFGdrFjWXt4e3fpoaTZN1qs9VkXQ=,tag:a9sQW4WsvDihBIV4y+Pv9g==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBydVZVT1ovbXdxMmJLR0hT
+            YnFnUlJJQkJrVStJcGJ5L3J0OFhadHJzVTFrCjN2bmQwcGY1MkRDV2ZxaG1ONTd4
+            Z3ZRSzlUQ2hySUNzVnNtZG5kYkI4TjAKLS0tIG5PcFpIMVZ5aHZzcVpKL2s1VjI1
+            amxnWWc5WWdNdjc1RHd1K2tlejJoRHcKOnDB+uODlMV03Dsoe7z+n3M4ODNwIhZl
+            ewm3f4ihaDJM2vHQoMHr/WbAbfmOKlikqKcu775bwV6vJme8OkAtag==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T15:40:16Z"
+    mac: ENC[AES256_GCM,data:7fUd4dknGFNpWEhYRO1qWppHBuWE3FI7VSw9KUGYk4FQWYKwbSliys+XWiDwEGKHST5haaGqdUHgLpFDKZD8g0Quk2EDIPkEljN/PRbanjZ7gYugnqLrdk3sxFrZxmJXC+ypEfxY2gLOBoFdqTLcOw0THa3nnwLzKc/PWX0a1KA=,iv:Bo9+aKWz9OBW3sPgHBbQoEIIUEKCMsxSqHkQRcKskm8=,tag:wSayuObiqkgYcqPQC1zLkQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|data)$
+    version: 3.8.1

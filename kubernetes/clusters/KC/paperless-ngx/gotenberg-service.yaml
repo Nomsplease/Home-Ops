@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: gotenberg
+    namespace: paperless-ngx
+spec:
+    selector:
+        app: gotenberg
+    ports:
+        - port: ENC[AES256_GCM,data:9rCbAA==,iv:YYtO8ZeG/1X8thOY+E79toCCAcFrklAycKeWF3QpPDk=,tag:mNOge3L72fGENz2sRR8Qvg==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0Q0ZEY2dIY0d5djhYQUps
+            VG5zRjhwSGJmLzZobFVBK1ZUbVdReHNYTGlFCm5aWUNudFlENXE5NmpoZDFyLy95
+            VUlTa0hsOERMdkk2cnZuaUJGc21lazAKLS0tIGt1emY3T0dhd3NvU1dCSENyeWxy
+            WkozSmRYbFc2MUk1SXExZjFOWjRLMk0Kc8jnmXNBah25tFe8FKfdToI2nhOHlx+C
+            TB8Hnc/3qLKL3ngOB9nDeSYwp1VbPKsaYtOtQN1QcXroBzmIvTyzrA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T15:41:00Z"
+    mac: ENC[AES256_GCM,data:jJGujBd3cWK+80CuwEjoD3q4alSSuN3JUWLZPtv6P9fIvp9e/3HZ1xgkebuYe5bxqMtpPE6Uf6zXlnvc9ofoG/IJHtaYygfVu2eMncl7OVuh8cpQeYQPOJNasMtzFTxs/3wGAI5ksyManPmFM153+ZcogMtamxFr+Ml4grXrywY=,iv:YQJCWEVtNfNVjacgJkmm6MZo6kd3KOp7i7hzG83z9HM=,tag:R/gjMMYahG/66n+fp3EYdA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
+    version: 3.8.1

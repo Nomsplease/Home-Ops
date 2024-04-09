@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: samba
+    namespace: paperless-ngx
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: samba
+    template:
+        metadata:
+            labels:
+                app: samba
+        spec:
+            containers:
+                - name: samba
+                  image: ghcr.io/dockur/samba:4.19.4
+                  imagePullPolicy: Always
+                  resources:
+                    requests:
+                        cpu: 512m
+                        memory: 512Mi
+                    limits:
+                        cpu: 1024m
+                        memory: 1Gi
+                  env:
+                    - name: ENC[AES256_GCM,data:WL8pvA==,iv:H4O4E00I9x85kAm2X81wdXYzTbxHbjNXBCIiZ70cKzo=,tag:l4eI7ePxlEMVNdkTasdMuw==,type:str]
+                      value: ENC[AES256_GCM,data:DJ5mmb8NDQ==,iv:8HHqdFHYxqlW7NO7MiZE/EJqjl2hBoghF4vHDRAyG5c=,tag:NPd5W57lncBt0KyVojTStg==,type:str]
+                    - name: ENC[AES256_GCM,data:5oh/zg==,iv:U6FVqB3uWr6zGJGFrD7yzqp3gWv/tWHyUZmKMusSqrE=,tag:t8DWO2dewQJp0tvr0edyoA==,type:str]
+                      value: ENC[AES256_GCM,data:ItmSoJspdUL9NBMR7NM=,iv:3UIfnhUE0uoO4jRq4C/WgH/88BD30Z+4tMD3zY9mtzk=,tag:vxkCddKMZxrIFneFA+lFKg==,type:str]
+                  volumeMounts:
+                    - name: config
+                      mountPath: /etc/samba/
+                      readOnly: true
+                    - name: pvc
+                      mountPath: /export
+                      subPath: export
+                    - name: pvc
+                      mountPath: /consume
+                      subPath: consume
+            volumes:
+                - name: pvc
+                  persistentVolumeClaim:
+                    claimName: paperless-ngx-pvc
+                - name: config
+                  configMap:
+                    name: samba
+                    items:
+                        - key: smb.conf
+                          path: smb.conf
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB4M3JVYy8xRm81REhrMlIw
+            TFZwclByNExLOHpVTTB5UHJyNjBGVXB5R25JCno3UFRQNC9uRjlobTIrT2RzTkxJ
+            cGROdHpHV0dTV3ROUlBGSzZFbnNtemcKLS0tICtXaUtkRVcyajlSYzVOZE8wNEZz
+            cExzcGxsSDhsZWtzQ0JEWDVTbjVDUzgK329WL/GwKiKhhyL5aSli586f89gkPdum
+            B6nedk+1awqxiRGoJsja73T6s4xPMybUE8OdDLTakXLC2/fvqpSiVw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T15:38:55Z"
+    mac: ENC[AES256_GCM,data:8Tay3n7P/W3XRxwXLFU1KNCvCnJoNg/9rJPgEsN+RsRszbzkLEmp5H3uxNzAHERdU0QyMgZsfdJenYRKa2sMv3LTzZMxXFDR3nBPVEEZwaTmx4tA4y2W/PYJlkORtTR6QR+AKT4SIgzTQNifN1nRZdQXwVftH4ux22tb/wLMuD4=,iv:NwkMU7TlgcZK/+aHxHSIbKR3zZjXfQSkLHI5G289mR8=,tag:hlqkZWbH/Xd+uvCkAMErvQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|env)$
+    version: 3.8.1

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: tika
+    namespace: paperless-ngx
+spec:
+    selector:
+        app: tika
+    ports:
+        - port: ENC[AES256_GCM,data:+1jcCQ==,iv:6PZzbv3uczrikIYyfd0zTUx+ZGzrdx/kjZreLnUUOqo=,tag:eeiVyaRjHOrFSqRDzl70yw==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBsV3RSUVpQZkRxNzZKaElU
+            bTdDdnI3Q2g0TzB4U1RRNVRZWmVWZFRhaldvCjdGQXFGMjNtc3NYaWxaWFdtOVVy
+            SUYvSytnVEdCdWRELzlTd3NjUHVvSDQKLS0tIFN4b0ZKV0FwSWlCWWtTSzhxRnJw
+            YWhEK1pqQ3FaMVF1dGdlNWdnTmM3MG8KX5X+kJWN5LrNVDAXgNZsdZDbD2D5j1g4
+            O1/babxiJKgDDxgmO64cvt+7Cm8M0cFwGJOdDEWQ6WL0Nz3wvBCClw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T15:41:16Z"
+    mac: ENC[AES256_GCM,data:J6fZTl0WnTOZ+YaW4XPTR6gcMcsJqeztLITD2QJTaYf4iXzNhJan+1rtmjVLskF6Q210tZqhgY8W2xxIcZRIIBPz+6AoxTb2tAfOFkOQljP2Z94mfVCPLi4tgrJ+FH8f3n5+tIf6FWcvt5UQs9bF+VMBXtH6YI2GscxnnJIVhcg=,iv:7vTEnPm19hfXPxxO8zkVj/lYGvqo0LYkh+eVAHfw6y4=,tag:78fE/LlXY0DEy7xGSsCh7A==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
+    version: 3.8.1

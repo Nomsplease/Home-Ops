@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: chronograf
+    namespace: influxdb
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 300
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: chronograf
+    template:
+        metadata:
+            labels:
+                app: chronograf
+        spec:
+            containers:
+                - name: chronograf
+                  image: chronograf:1.10
+                  imagePullPolicy: Always
+                  env:
+                    - name: ENC[AES256_GCM,data:QDzSuSXGOtdBlDmX,iv:N9Yvb6ct3ASff74AxfQ+XVjLice5I0kFUkUJ6z29LVM=,tag:H/0IK7m+X/Tk/K4MVqBo5Q==,type:str]
+                      value: ENC[AES256_GCM,data:kSD+e6uuUFJWufAi37AzDbx2gbyzXX1RqMdFJJ2795iZXuf6uKlviJTkXMm+Mxc=,iv:yzGDxFHDuw9ehty6pDJyMlP/l6oflxFFNA6rdcTO90c=,tag:o0TISYK0eL6AZ2VDJ0+5dQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQRVM2eExSS2FmWE1TTXB3
+            NmdWeHZWZk1aTklLcDhtTU5KRmtXVnBucGxVCkVlMXlMZGhJREFqNVdodEZvU1NO
+            U2dDc0d5Q0NBUFdGMWdZbFE3TGxSVTgKLS0tICtpeG1QOS9sSy80ZU41UTNiRTdz
+            YVpzc2oxQmVHQklmVkt2bDUxTlNub1UKmDYqNmfuYVXDIB35xvfEJS2xn6mPSyZ8
+            am5gyLPkOub3HSk6QCwr1XovjtfBfbOD5tzoFhLVa/tlz70X2BMcVQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T15:18:59Z"
+    mac: ENC[AES256_GCM,data:L6jKCaa+pPdC3g2DTkdbMyhW1LIR/2ScuObPtmac60qxx43sXmJi+5S+IIa1fKD9sYSN6rbL7XkYzHEspUH0Z9Stm7GfDZs1pp+RH5e8KMKN/0UfBNHFFGnM0Xayw/5G9Ztwrg0/rX+cgRYnFwwBxKndGELtGaJeA7KYnyRrerI=,iv:lOPbWNgXTxhBKm+CBJFtLMdMjdxDjc+8TjTf3XN/NH0=,tag:Ns/3YyOXRoS6L5JnOhq2mw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|env)$
+    version: 3.8.1

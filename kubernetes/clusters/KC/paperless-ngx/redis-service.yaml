@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: redis
+    namespace: paperless-ngx
+spec:
+    selector:
+        app: redis
+    ports:
+        - port: ENC[AES256_GCM,data:iev+Jw==,iv:kPb2OwChM2RtrYIQNi+Vwias4/G+MIK6vI5qzqtg4pQ=,tag:YFCAuyZIZKNDE3TNQq6kVQ==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBGczBjVThJUmNoMG1XOTd3
+            WmI3ZjRLeUhZZkVhanRweW13TW1HL2FtYUNRCndBNnpFU09NZlVrdHZ4VE1OK3ZY
+            M3Vya1lmdWFVUHQ4QVJTcnhyN3htenMKLS0tIERyalgzRkJrdUhMWnFnamtRQ0tT
+            eWNSNU9TZ1lCcXFrQVlnaHFWamlMcTAKoilCVKvJBX0pa5gYsB9H759hkJXLoqQJ
+            Q3Z3sM2DpRDbUgRH8bGZnK6WvaZhJUUMTKqqFIP+E0P9LMpTTPq5sA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-09T15:40:44Z"
+    mac: ENC[AES256_GCM,data:24qiNcKfvWZk/6OR7nhzR6eiwOYsu725GTIAL70K09hJRWgk5BTipfXBLy7RNQ5vecB/axDj+R5P/aH3lziHtlYqLvC7B7ZicPgzOr37YAn6THrdA9rfG2VpYNqlY1tjMyCmGSdIAe2k7IgbmB/kBpav3S8l5BPvbbuOb6s0EZM=,iv:x98ipufChQXNxEk9e0C28SSCd8AEPeCRzFOitKVFpc0=,tag:5MB1VNtdERi5CWnqhalXXw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
+    version: 3.8.1

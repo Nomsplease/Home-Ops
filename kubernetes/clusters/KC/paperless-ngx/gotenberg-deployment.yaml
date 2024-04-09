@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: gotenberg
+    namespace: paperless-ngx
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: gotenberg
+    template:
+        metadata:
+            labels:
+                app: gotenberg
+        spec:
+            containers:
+                - name: gotenberg
+                  image: gotenberg/gotenberg:7.10.2
+                  imagePullPolicy: Always
+                  args:
+                    - gotenberg
+                    - --chromium-disable-javascript=true
+                    - --chromium-allow-list=file:///tmp/.*

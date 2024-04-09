@@ -1,0 +1,39 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: esphome
+    namespace: esphome
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:ttgu3iqoGJmemzEDv/5Dnb+xpcqh1SQls7/+,iv:X9Pjhlcw5YTP8hsgshd/CciDnLvVM8ko/mpzo3EQynk=,tag:th8Bl4n36ijQCoTffHMbYQ==,type:str]
+          kind: Rule
+          services:
+            - name: esphome
+              namespace: esphome
+              port: 6052
+    tls:
+        secretName: ENC[AES256_GCM,data:psW97zu5QcpdEVA=,iv:BQuAfmnPE/NGFZH6lRQblFn+bEQfh3zEwj44qJ+CNks=,tag:sH/6nXzaEbWYnworecMk3w==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBkY2JTYzlaZmVEenlxazlE
+            QmpjVndpZWMvU0x0ZGZyMDBpSDJsZGtKYlY0ClFaSjhYb3gwZUEzUXIyZHBoOVZv
+            Z1VuVUN4SWw5QzVBejl3ODJ2K3Y0OE0KLS0tIHlRRXk2bExFam5nbnFtU1UzSmdk
+            NU4vTENzQXd5RHlSOGREejl3QUxJRk0KNpZjcDCfe+WYOClqH9nfDVzhcjy8fcKQ
+            2Z9F135RNHqMhnuhpgAuk+YDFkPTGdZcla+Sy/HkV9+HQRad4I1Kyw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-08T16:16:08Z"
+    mac: ENC[AES256_GCM,data:HtYPnZ82IZ2a2B8qGRBBXKbqWSpNf1YM1+T7d8w4TyM3sq8gYj4zzZlQTukLpYxDvmQdPRjfWJRtYE2nRmwpp8QAKD3KBzTRROU6m3K2RZDyK4nN9Q8nof4yWoHzGVtDL9YqL99jveKjxuxAA7lqrQHMNeQAjeTc/GlNWU89VFQ=,iv:OCHxt6TJXLbzEmmOb1MOM8vzdLtxv221eGS5QA5FgAM=,tag:eev4+FvKJh4PTfpfsfFCbA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|match|secretName)$
+    version: 3.8.1

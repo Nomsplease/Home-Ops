@@ -4,18 +4,17 @@ metadata:
     name: portainer
     namespace: portainer
 spec:
-    type: ClusterIP
-    ports:
-        - name: ENC[AES256_GCM,data:MdYTOQ==,iv:vp3KYRlItZ0pVwUxpLu6GIr4Zh5NoAihuoBaDaoyOY8=,tag:Cnec8AH/5uzU1WzN1OKSbg==,type:str]
-          port: ENC[AES256_GCM,data:TXwAjw==,iv:9ubLtRzdnMXxK166Y0H1IsjHl4AXFSuJQdZqf3qk+90=,tag:BLONJROoleZA8DvzWLVX9A==,type:int]
-          targetPort: ENC[AES256_GCM,data:2OGsmg==,iv:2u1l7QrCDV7eCN1AjH/jP+s2kYsXMkVyNuS5+3/qxZM=,tag:o8NV4x9u487RKgGEZ5b35w==,type:int]
-          protocol: ENC[AES256_GCM,data:tDu2,iv:giFHXVwYTLbpm3JXUbfMFrZGYgUoMqobuTezMDX0YlY=,tag:uPqvRKjwnPqcgIBDYp0/UQ==,type:str]
-        - name: ENC[AES256_GCM,data:zYpOr4I=,iv:WkhXC4MqB2M9r28BqMwxL3umUruPJF9bqElBVZq1LyA=,tag:nWpG/uqHdzRD4iEeU8Ox6A==,type:str]
-          port: ENC[AES256_GCM,data:IhfrzA==,iv:PCXFtdz1g/mwsarLjFlOliU2k9AekRHM+XgDHKCInLg=,tag:aLG4AnlpM0VHUlnLSme/YQ==,type:int]
-          targetPort: ENC[AES256_GCM,data:fdeq+Q==,iv:LGkoVawu+qN3LNjFgTzMTCTcbTjAPi6sP5KlUWjlAO8=,tag:BDsig/DMk9gXZiwY4HdK8Q==,type:int]
-          protocol: ENC[AES256_GCM,data:J7bv,iv:GyHsFya0ylQ4KDidhzYloQ2e4WFLBFDiI74z+LRRcKw=,tag:LUvPP1LuJajjDL0GjVLrYw==,type:str]
     selector:
         app: portainer
+    ports:
+        - name: ENC[AES256_GCM,data:74N7sw==,iv:MlsUt7YkfFxchsAGVJ8oP7OM0k0hjTv8Z7U7grN3qYA=,tag:IKYPkmxOCH+AaXxB1t1VjA==,type:str]
+          port: ENC[AES256_GCM,data:nfs0SA==,iv:QDzZtqtFsv33O4cZwBElGWwahakoD4fIXQFBG9Pl2kc=,tag:/YQx8hREHfK8D4ba/RLbuA==,type:int]
+          targetPort: ENC[AES256_GCM,data:TFqMGQ==,iv:FCekYHwdBewaoWfWWXe8NofwljfseTzXpAiGoI6vP0c=,tag:Aq56F2ILjyzLpDbGqsmvVg==,type:int]
+          protocol: ENC[AES256_GCM,data:mxaD,iv:72zhuLx037wc1/KOHDfgDjYK+6QdfJ/kykOk98Bcwxo=,tag:cPzwEBzF1QMWkJzw+1buEQ==,type:str]
+        - name: ENC[AES256_GCM,data:lO5clOQ=,iv:R2s26iG9T3ERD0UGHbgGC5MNp7w4EvYmZmECz8v931w=,tag:QUNamE3nZOBG5445mPE9Rg==,type:str]
+          port: ENC[AES256_GCM,data:rKbEKw==,iv:l63b3q9e2xvj7pbzBM4YFHci9g26XOYG966jAG0L6bM=,tag:MTkVEkg61kTqdbwhDABHcw==,type:int]
+          targetPort: ENC[AES256_GCM,data:DI0sCQ==,iv:epeQVatgfV0s2tGqMK03NeL7iVfcUuybtf3eA5pRbeI=,tag:atDvmgGsaq6r+djHmG2t4Q==,type:int]
+          protocol: ENC[AES256_GCM,data:9ycL,iv:S1b6HMCNAiy2lA9XwPiYga9nZ27H6AG5CxW8utLTK5M=,tag:Jtt/KGE8+GuGqILnq2G+WQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -25,14 +24,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAyYUh6WklHMXdRQmpiSUxC
-            WkdEM3JJZ2ExSDRpbzJjdTROc0p6RGNReWhvCkRST21LbGNocWVxQlZOTHQ0eHIy
-            eUtNK3BybzNMaFNVUVY5OG0yNnlHK1UKLS0tIDR3VlQxazVNZkI3aUVqa2Rxc3BK
-            bEdQbU5jTUFPcTA4QWFGQ0N4VHkyYmsKj/EsOH76cp8uCgE91gOumKcJCf2u0D8W
-            PxNEZm6lZEeW89mL5vJM8FEdQLsDWw13iC17uV40VZb6Erc408Z2Kg==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBtczRMRWMzdnM4QTlnSmRK
+            dk9RV1RBOVRKRFZkZDJKLzEvYzRqQ0lLZ240Cm1aRTAydWZYU2pzK1dVbkN0NUxY
+            Q0NzQ3R1MXRHMll4QkpweDR1YnJkaGsKLS0tIDFZblpISitUZHcvSW9ZREJERjd3
+            c2FLZk5MaFlrSE9XdzF0emJjU2JUYTgKYsOOlwzw/AnCgK5oPAjBephPL6keoklk
+            FUUorpFWoCX/Pl3vbmMVyC8TnThtRrhQDDiN1aQs7lWGvvpKkSKiDQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-10T14:13:04Z"
-    mac: ENC[AES256_GCM,data:t1sm/K5jiVQgzo2cA0CZSC2seFLPthg+9E3lxXh4rZpW3Hr3OSKHNpH3QxfbmeHwKh1Dk3Ha941pOhmyDZrdVgdD+fVxLW5ByrYjxndlYVRzSUHz0/fIL5phvuwivb7J+I5tVxSwyjN8WPpkGkqh8pa6JYfKLRmR+/coc6FRin0=,iv:aFrWVtTEyzBGyTSw4loYtFVUSQxRbAXE452rryYPKFg=,tag:qAK3qV1pELCOwyuwdx6vkg==,type:str]
+    lastmodified: "2024-04-10T14:17:01Z"
+    mac: ENC[AES256_GCM,data:Pj6i1ew65p3z5N57yHmXYZgUHzIlB3EeskxcWE+WOLxwwrk/l9UlTtvaVgPf2Aow8DsUH0qDA8Lf6DiO9WJAxwFMFtdmBtqHhidhci7Hml8fLI6nKI3FPHWzamdh3KHSR7XAyGpFz4O5YGu+sc7SgBiT+h7DMiPWymD8/myqHGo=,iv:7tvddf2WCVL54PoW2fynkorxePHKuewFzTdqXT33NJY=,tag:JVJq/tw97qp9kd0GLNY7FA==,type:str]
     pgp: []
     encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
     version: 3.8.1

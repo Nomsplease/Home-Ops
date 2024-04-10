@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: postgres-config
+    namespace: postgres
+data:
+    POSTGRES_USER: ENC[AES256_GCM,data:/z1iNaFR+g==,iv:pTlqZNHQvKfizV2GV4sd6eEGlflYnCJQ4Y3QDAMKqsU=,tag:qe5FwSwZsyeDbf9St870Jw==,type:str]
+    POSTGRES_PASSWORD: ENC[AES256_GCM,data:j/Fot60qPoZS6dLltX+GvwMcKiY=,iv:5xZh4FuG8XZsB9iZa/z6RS4aSfZnO4X0VO2x6gCpq6k=,tag:7vQTrpMVBLClJM/q3z0bCg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBPaExLNXBmVFZvY0F4cFA5
+            NXhVbEdBeXZ3bG5YUlhheDNNdXdoSXRQN1U4CklqWHptRXNTNXR2Qmk3ZnNPY2tU
+            djFqazRFWDFORmszM1JKbCtKOTZuRGcKLS0tIFcvWkpvSlZjZWVqYWd6TDkwZ0pH
+            ODFkK3FoL0JEeE5JK282WEZqSFhZMmsK81syXHdGGtqB7qrIOaiIkjCekO//pTug
+            ZWKyEU766ztzj6zebGnT672zRIcUaN01ZmWuanCcgHYsHFIEcPz+Gg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-10T14:28:14Z"
+    mac: ENC[AES256_GCM,data:ha1uh0WjUXCay9yKGJJdD/xVI/KFV/JOrSLJoz/3VyesZYrQjDoR1zjI9XPcNhvudqupLgtzpAnusK/t/kZw3+m7RGmyUy3twzGgZ8EiTSy04CYejqBME1CrqhZFrPpCCucH1xka4aq2DbVKuqI89hv4UHibHzL0r1BGPTKuSq8=,iv:yAxrYYp18ZVI7ZNrUcYe7v4cl3Ap180gBqxjMpKWPn8=,tag:o3YFNeaohXgPEwIzDuOYDA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|data)$
+    version: 3.8.1

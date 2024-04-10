@@ -29,10 +29,10 @@ spec:
                         cpu: 1024m
                         memory: 1Gi
                   env:
-                    - name: ENC[AES256_GCM,data:1YcEAw==,iv:occxcj8JkYq60WaiLJZmc9PYtrMrZLynn/19yBfXarg=,tag:xK2QRr0vljf6tgiJDCAYfA==,type:str]
-                      value: ENC[AES256_GCM,data:tv3gapk3MQ==,iv:13wJsOP3gdE/SCGbrPubxkgP0wKavZQjBE8kZ6y0wPg=,tag:WtG4EntHa1ByDfD94Z2uWQ==,type:str]
-                    - name: ENC[AES256_GCM,data:gNC4+w==,iv:6I1qdrVKpYYdb0E+Ad96vEkXr3sS0KOSQTLyR3pRFTc=,tag:SXg2uhCdxMwOLy7oXvao1w==,type:str]
-                      value: ENC[AES256_GCM,data:IsIYkNJoiZgf87q4FcU=,iv:ecWxfczPaEC+OqRw/uGa85H5bB8/KsCVbflkWon9Bp4=,tag:5CXZ0KLtc1adFDOJMjRygw==,type:str]
+                    - name: ENC[AES256_GCM,data:IWdcmw==,iv:VEElHVZ/MqwkgU5y1NxUo9qbDHgkXl6H/EpI2Jf7Voo=,tag:vv2Jb9+FDR2loK3aMko/aQ==,type:str]
+                      value: ENC[AES256_GCM,data:iVQwGjWcIQ==,iv:M3SYyztXnXnNCrGjsFZTU2neIQj5zxX4ur6IgasA5/M=,tag:D/CFSgIZU3bcIWtUMmnRzA==,type:str]
+                    - name: ENC[AES256_GCM,data:tVmFHw==,iv:+TPErYWvFdqFULjIfV8YSs+W/NiXutdmqUXEf+vcWKQ=,tag:RVnXmNVvlycgFFavqNA1bw==,type:str]
+                      value: ENC[AES256_GCM,data:9oyoduNYu2jjz3IUfSQ=,iv:1wTsP/zUpza06sHDOB15C6SPNMQpx0sCgQSWKGHvOxs=,tag:UD5u4HpulFfgnU4PBZFXiQ==,type:str]
                   volumeMounts:
                     - name: config
                       mountPath: /etc/samba/
@@ -52,7 +52,7 @@ spec:
                     name: samba
                     items:
                         - key: smb.conf
-                          path: smb.conf
+                          path: smb.custom
 sops:
     kms: []
     gcp_kms: []
@@ -62,14 +62,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBmdElUcURXUjFBYWpHWmww
-            aUw2Y25tRXhCR09vQkxaWCtuYXR3dEhNUjJBClFCQmQyeW9ndEtnSmE1TnBBMXlO
-            ZXlLTXFQNGtpWmp1a0M5VC8wVFQ3ZE0KLS0tIFlBVnQrUzZDblhQQ2N5TVViUXVO
-            YzdLYmMwUnFoekFmVDBBQUc4VEhoc0UKMtKIsL3CmrxR7B/37OMC7bvkpeGAhmU+
-            pYdRqDXTLGaKD9JLGlnhnKDJ39otcRVp9xiujQECfk+5mEMwxjGTfw==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA0MTVtY25iTXJ5aGJsNDRy
+            bVRGWStodDRYdElKVWtDSmo3MmNUZnRzckZrClVSSnlZYnRUa01GNzdGNDZZRUJx
+            eGNSK05ndlE1emFVdi9rRUw5QWU0WDgKLS0tIGpZdmc0TkZ2TFdrZWV3MFFIcnJS
+            M3VsZ0xmRFoyOHV2US9pT3BnV1dIUzAKWFRHmPjKq/DwuUVxIwSZQmmGL2cCggXk
+            OaffagH9LqcpM3GvlN4iecGEofZco90fdednRxGkcJUgKhgGX+tKUg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-10T14:34:57Z"
-    mac: ENC[AES256_GCM,data:06e0oG3v0ksIT6lUNFRpH9Ss5PWZnTSicoILoN2eSANPnsoQdJtEgmVGUtQFyuoapogM6yNNDt+ElgSzFTu0Y4m9MKdllOMcj/zDibVhlSZ05XCPDKhQIDNM8KAi5ZimaTko1vlkQR27QzWUn6/Ow9BbQ6Jm0L9qiPk75uwLEo0=,iv:9u7X9INlLxyhIyw8DZZYrhhslc+tIGxnknttTUEfWpw=,tag:d+18ka7evPiSYKbIfTV/kw==,type:str]
+    lastmodified: "2024-04-10T14:40:37Z"
+    mac: ENC[AES256_GCM,data:wZI0YA+3gxS/cJgHjbqYeZIMeJSt9nKHbpIKJNEMfIHAmEVpzV2Pxez73mA949EJezt8uZhXVJGyg06sqcJKe6pL0twz07cjJ6KG/HW+0y/sivTdWPZbfBkeq4qTAA0ixDz/nRI2sRAdPuYvy850aY+ZBzNPHsdv+bF5sVQ/mS4=,iv:I75onaRmqbj8/ESHZdtOMcKxSjp3CWZEFovUBKwNQ88=,tag:3wskeodHg7pkyNVdWAa1Ng==,type:str]
     pgp: []
     encrypted_regex: ^(data|env)$
     version: 3.8.1

@@ -9,11 +9,13 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: portainer
+      app.kubernetes.io/name: portainer
+      app.kubernetes.io/instance: portainer
   template:
     metadata:
       labels:
-        app: portainer
+        app.kubernetes.io/name: portainer
+        app.kubernetes.io/instance: portainer
     spec:
       serviceAccountName: portainer-sa-clusteradmin
       volumes:

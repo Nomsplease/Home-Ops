@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: portainer
+    namespace: portainer
+spec:
+    type: ClusterIP
+    ports:
+        - name: ENC[AES256_GCM,data:MdYTOQ==,iv:vp3KYRlItZ0pVwUxpLu6GIr4Zh5NoAihuoBaDaoyOY8=,tag:Cnec8AH/5uzU1WzN1OKSbg==,type:str]
+          port: ENC[AES256_GCM,data:TXwAjw==,iv:9ubLtRzdnMXxK166Y0H1IsjHl4AXFSuJQdZqf3qk+90=,tag:BLONJROoleZA8DvzWLVX9A==,type:int]
+          targetPort: ENC[AES256_GCM,data:2OGsmg==,iv:2u1l7QrCDV7eCN1AjH/jP+s2kYsXMkVyNuS5+3/qxZM=,tag:o8NV4x9u487RKgGEZ5b35w==,type:int]
+          protocol: ENC[AES256_GCM,data:tDu2,iv:giFHXVwYTLbpm3JXUbfMFrZGYgUoMqobuTezMDX0YlY=,tag:uPqvRKjwnPqcgIBDYp0/UQ==,type:str]
+        - name: ENC[AES256_GCM,data:zYpOr4I=,iv:WkhXC4MqB2M9r28BqMwxL3umUruPJF9bqElBVZq1LyA=,tag:nWpG/uqHdzRD4iEeU8Ox6A==,type:str]
+          port: ENC[AES256_GCM,data:IhfrzA==,iv:PCXFtdz1g/mwsarLjFlOliU2k9AekRHM+XgDHKCInLg=,tag:aLG4AnlpM0VHUlnLSme/YQ==,type:int]
+          targetPort: ENC[AES256_GCM,data:fdeq+Q==,iv:LGkoVawu+qN3LNjFgTzMTCTcbTjAPi6sP5KlUWjlAO8=,tag:BDsig/DMk9gXZiwY4HdK8Q==,type:int]
+          protocol: ENC[AES256_GCM,data:J7bv,iv:GyHsFya0ylQ4KDidhzYloQ2e4WFLBFDiI74z+LRRcKw=,tag:LUvPP1LuJajjDL0GjVLrYw==,type:str]
+    selector:
+        app: portainer
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAyYUh6WklHMXdRQmpiSUxC
+            WkdEM3JJZ2ExSDRpbzJjdTROc0p6RGNReWhvCkRST21LbGNocWVxQlZOTHQ0eHIy
+            eUtNK3BybzNMaFNVUVY5OG0yNnlHK1UKLS0tIDR3VlQxazVNZkI3aUVqa2Rxc3BK
+            bEdQbU5jTUFPcTA4QWFGQ0N4VHkyYmsKj/EsOH76cp8uCgE91gOumKcJCf2u0D8W
+            PxNEZm6lZEeW89mL5vJM8FEdQLsDWw13iC17uV40VZb6Erc408Z2Kg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-10T14:13:04Z"
+    mac: ENC[AES256_GCM,data:t1sm/K5jiVQgzo2cA0CZSC2seFLPthg+9E3lxXh4rZpW3Hr3OSKHNpH3QxfbmeHwKh1Dk3Ha941pOhmyDZrdVgdD+fVxLW5ByrYjxndlYVRzSUHz0/fIL5phvuwivb7J+I5tVxSwyjN8WPpkGkqh8pa6JYfKLRmR+/coc6FRin0=,iv:aFrWVtTEyzBGyTSw4loYtFVUSQxRbAXE452rryYPKFg=,tag:qAK3qV1pELCOwyuwdx6vkg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
+    version: 3.8.1

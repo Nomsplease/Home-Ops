@@ -29,10 +29,10 @@ spec:
                         cpu: 1024m
                         memory: 1Gi
                   env:
-                    - name: ENC[AES256_GCM,data:WL8pvA==,iv:H4O4E00I9x85kAm2X81wdXYzTbxHbjNXBCIiZ70cKzo=,tag:l4eI7ePxlEMVNdkTasdMuw==,type:str]
-                      value: ENC[AES256_GCM,data:DJ5mmb8NDQ==,iv:8HHqdFHYxqlW7NO7MiZE/EJqjl2hBoghF4vHDRAyG5c=,tag:NPd5W57lncBt0KyVojTStg==,type:str]
-                    - name: ENC[AES256_GCM,data:5oh/zg==,iv:U6FVqB3uWr6zGJGFrD7yzqp3gWv/tWHyUZmKMusSqrE=,tag:t8DWO2dewQJp0tvr0edyoA==,type:str]
-                      value: ENC[AES256_GCM,data:ItmSoJspdUL9NBMR7NM=,iv:3UIfnhUE0uoO4jRq4C/WgH/88BD30Z+4tMD3zY9mtzk=,tag:vxkCddKMZxrIFneFA+lFKg==,type:str]
+                    - name: ENC[AES256_GCM,data:1YcEAw==,iv:occxcj8JkYq60WaiLJZmc9PYtrMrZLynn/19yBfXarg=,tag:xK2QRr0vljf6tgiJDCAYfA==,type:str]
+                      value: ENC[AES256_GCM,data:tv3gapk3MQ==,iv:13wJsOP3gdE/SCGbrPubxkgP0wKavZQjBE8kZ6y0wPg=,tag:WtG4EntHa1ByDfD94Z2uWQ==,type:str]
+                    - name: ENC[AES256_GCM,data:gNC4+w==,iv:6I1qdrVKpYYdb0E+Ad96vEkXr3sS0KOSQTLyR3pRFTc=,tag:SXg2uhCdxMwOLy7oXvao1w==,type:str]
+                      value: ENC[AES256_GCM,data:IsIYkNJoiZgf87q4FcU=,iv:ecWxfczPaEC+OqRw/uGa85H5bB8/KsCVbflkWon9Bp4=,tag:5CXZ0KLtc1adFDOJMjRygw==,type:str]
                   volumeMounts:
                     - name: config
                       mountPath: /etc/samba/
@@ -62,14 +62,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB4M3JVYy8xRm81REhrMlIw
-            TFZwclByNExLOHpVTTB5UHJyNjBGVXB5R25JCno3UFRQNC9uRjlobTIrT2RzTkxJ
-            cGROdHpHV0dTV3ROUlBGSzZFbnNtemcKLS0tICtXaUtkRVcyajlSYzVOZE8wNEZz
-            cExzcGxsSDhsZWtzQ0JEWDVTbjVDUzgK329WL/GwKiKhhyL5aSli586f89gkPdum
-            B6nedk+1awqxiRGoJsja73T6s4xPMybUE8OdDLTakXLC2/fvqpSiVw==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBmdElUcURXUjFBYWpHWmww
+            aUw2Y25tRXhCR09vQkxaWCtuYXR3dEhNUjJBClFCQmQyeW9ndEtnSmE1TnBBMXlO
+            ZXlLTXFQNGtpWmp1a0M5VC8wVFQ3ZE0KLS0tIFlBVnQrUzZDblhQQ2N5TVViUXVO
+            YzdLYmMwUnFoekFmVDBBQUc4VEhoc0UKMtKIsL3CmrxR7B/37OMC7bvkpeGAhmU+
+            pYdRqDXTLGaKD9JLGlnhnKDJ39otcRVp9xiujQECfk+5mEMwxjGTfw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-09T15:38:55Z"
-    mac: ENC[AES256_GCM,data:8Tay3n7P/W3XRxwXLFU1KNCvCnJoNg/9rJPgEsN+RsRszbzkLEmp5H3uxNzAHERdU0QyMgZsfdJenYRKa2sMv3LTzZMxXFDR3nBPVEEZwaTmx4tA4y2W/PYJlkORtTR6QR+AKT4SIgzTQNifN1nRZdQXwVftH4ux22tb/wLMuD4=,iv:NwkMU7TlgcZK/+aHxHSIbKR3zZjXfQSkLHI5G289mR8=,tag:hlqkZWbH/Xd+uvCkAMErvQ==,type:str]
+    lastmodified: "2024-04-10T14:34:57Z"
+    mac: ENC[AES256_GCM,data:06e0oG3v0ksIT6lUNFRpH9Ss5PWZnTSicoILoN2eSANPnsoQdJtEgmVGUtQFyuoapogM6yNNDt+ElgSzFTu0Y4m9MKdllOMcj/zDibVhlSZ05XCPDKhQIDNM8KAi5ZimaTko1vlkQR27QzWUn6/Ow9BbQ6Jm0L9qiPk75uwLEo0=,iv:9u7X9INlLxyhIyw8DZZYrhhslc+tIGxnknttTUEfWpw=,tag:d+18ka7evPiSYKbIfTV/kw==,type:str]
     pgp: []
     encrypted_regex: ^(data|env)$
     version: 3.8.1

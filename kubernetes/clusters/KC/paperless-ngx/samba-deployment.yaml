@@ -19,7 +19,7 @@ spec:
         spec:
             containers:
                 - name: samba
-                  image: ghcr.io/dockur/samba:4.19.4
+                  image: ghcr.io/nomsplease/samba:4.19.5
                   imagePullPolicy: Always
                   resources:
                     requests:
@@ -29,10 +29,14 @@ spec:
                         cpu: 1024m
                         memory: 1Gi
                   env:
-                    - name: ENC[AES256_GCM,data:g3WMiQ==,iv:JH8nFDEIJeJ1UC7KVvRUkMHQHNAxW6KReWUfXcofWuM=,tag:mwEQWZGmcsVMi8bPifE6qw==,type:str]
-                      value: ENC[AES256_GCM,data:0UzPdvf/cA==,iv:du8KPPvF6khpKwQ5aBdxSD4TJ19Zk3tg6on0zx6hwNM=,tag:HoFjGQqYrF/pmcg0xfqQ5A==,type:str]
-                    - name: ENC[AES256_GCM,data:QE1j2w==,iv:9xMmbLjHvg9ZdN8+2o1aMfJy+Rt4ppQnmgZM9+u6n2w=,tag:AgVok+e/w/PlvC3YPQ6v5Q==,type:str]
-                      value: ENC[AES256_GCM,data:cvL/ykIVgxb9DBmuie8=,iv:rgUDqSMKx9jqvNzCLy4NDVaHcXRZaK1mKwVeeV6dDEA=,tag:ZDTYdS26cwmNF+JRSYKMRg==,type:str]
+                    - name: ENC[AES256_GCM,data:kYOjhhq7F+a2vipm,iv:98XlCkM2oRxjpH6SToQXIfYv84DOR6I8VaO8HEI/1Wk=,tag:F6BT1BLqHIcjZJGo0hLPvg==,type:str]
+                      value: ENC[AES256_GCM,data:NIuJlA==,iv:A7wQee0PzK6ybJBwR2i2qoqqn/SWKJS1UUncxId7dQk=,tag:GzsCVg2fFS1TA2ys2/pvkQ==,type:str]
+                    - name: ENC[AES256_GCM,data:1mDvjPXS,iv:R/TWeHzFIfhsa9k5XsL/cj1JtMqHJp/ZSGsy/CLeFrM=,tag:jnQ81/yB7wslrZ8vxBYI3w==,type:str]
+                      value: ENC[AES256_GCM,data:jq+7n/y5qD+lJl+CqfVHXAgukaF6,iv:gysu00b1R13rO8E9UoLFCxGyDddGmY73erTOpph6ark=,tag:ZFBf6yfGnkoT4sIDmLCUJA==,type:str]
+                    - name: ENC[AES256_GCM,data:2p8LBQ==,iv:xe8gdLj3cS0wMR8yYH/frjl7IiXDCxIeC2f2sSHTZWI=,tag:TL23ImSV8WIBh6YHAHwviw==,type:str]
+                      value: ENC[AES256_GCM,data:7ZYrgIwOkw==,iv:nAd7chG6ivbjTbKCU/qzcdCNl+OPku/DvlLJTrSx1H8=,tag:qoJwTv8KW99zJ0vQkhfGSg==,type:str]
+                    - name: ENC[AES256_GCM,data:7iByDA==,iv:tvFv6iDFyBYKL2Vi3wEcNi1LIwupr+Djtfx4uur8esg=,tag:8nlut9etPIsjU9vigRrL1Q==,type:str]
+                      value: ENC[AES256_GCM,data:t6PXDL5zIHF4H4KnZQg=,iv:fnQeFvHXEJT9/JVkwwek42plovBr/5tFx2tH07T8Xsc=,tag:Fn5Y37MK9JF7YQYNRF5ugw==,type:str]
                   volumeMounts:
                     - name: config
                       mountPath: /etc/samba/
@@ -52,7 +56,7 @@ spec:
                     name: samba
                     items:
                         - key: smb.conf
-                          path: smb.conf
+                          path: smb.custom
 sops:
     kms: []
     gcp_kms: []
@@ -62,14 +66,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBlbkY3dERzejB5ZUowQk41
-            WGlBRFB5N2tNZVhaN2ZmSEJxZ3dBVVFlcG5NCjZ3Y01Ra2pzVlY2VG83UEhLQlYz
-            cGFXZy9jeXJSS2Rjci83SW53UDFPUTQKLS0tIDFvK0ZjaTZjUmNQblhuK0F0WlJv
-            RzlmMmZVVlZQbDdaY0Z2aDBIWXZxNTAKSafXeHxBaQfDj0KoH1+LztX/WBQYWhkg
-            x9zKCRcyhYlQHjjbx07Eux8OMGtJs2ctVa7jZGGWqSam/gfN75P44Q==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBaMWcyemR6SDM0b0RodENa
+            ZWFhQitGaEZ0TW55d3JQQVJnbGc1bEU4b2hvCnpWZ1k4NHJlbUNUT3JhR0t0amp5
+            V0VRMUd2NHJHeHp1WWdyR0tHNkhPdjQKLS0tIEhOL1RNbDNOU21WNjZMQkU4TzVw
+            QkFtKzA4OXRvcS8rLzNweFkydTJkUFUKgWBAXV++gfdYPFlIFpq5oIWvdUkq7no1
+            4K8QOB+QLEORKBFAoH5h7p7ydiymN2nr/9hLy0gST8rJ+cJ7II+ueA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-10T14:46:21Z"
-    mac: ENC[AES256_GCM,data:Q4zz4S7T8xkHNDB1p+7gfadoIMWd2l096h6c3fHkrPtXoK9i7rGPb3A06Ub4DWWKHsAfhPGb9IFPbqa5d9dCYB5cfWrA1VBKAsMoxdhNdK+CqadzY42ge8aBBoKmeWH8Yd1mXyLZNuVb2qaR5xPv5ZkQRx01sh5IiSzGVnZKUE8=,iv:p804wCCsIp9d+FXwYwCWCwTTjw2RjZHQZi41XY9IHrM=,tag:6/QZ2WvPVqy6ZnkEVUd8ew==,type:str]
+    lastmodified: "2024-04-10T21:30:13Z"
+    mac: ENC[AES256_GCM,data:c6XvkRsxbWIH3K+kIcbCCuDChuZOTtARk1g9L0aFn6HV5wYMhhU1DcrNZ8u4tu68us0wmJ4dMq8iRGXY+PEwIDJNzf3jJUNQ+dbHaI8qT/nljWh34tqckHz0KAbmwWmVXIeMHCTnq7mAyLe/jd5oAWkTbaNIdj/tZszym6W9DQc=,iv:s/fNarfKBqLPOQwaMfZCiVMO3NqwYVlMUK7XOrlJtHM=,tag:Un1imxgskgitkexDAwqprg==,type:str]
     pgp: []
     encrypted_regex: ^(data|env)$
     version: 3.8.1

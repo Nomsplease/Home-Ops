@@ -1,0 +1,43 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: portainer
+    namespace: portainer
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:BI90xtF9BgIduS1rb4k7yzirjg9pHMmZuQ==,iv:h9Rwo9pkxhFp9qOakYP7djUudNy3Ht/PkQM01JFSk6I=,tag:44yI5B/HjPPr8FBS/pYeyA==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:2ji4N1s3QFa+,iv:hLyvd6oEWZ+yDhpLd53dQ9bohtXW4fbn4Zl/Ca10yiQ=,tag:qQ87fRNm+KpHrHYPna3nCA==,type:str]
+              port: ENC[AES256_GCM,data:T1D9Iw==,iv:lafTestXmpsXeQ3g8jspK+wcRYN3co0zWu5tBLNAaXs=,tag:hm4Ck25Jr/F/8mbb3kTh4w==,type:int]
+        - match: ENC[AES256_GCM,data:PAqXZVyjoXQNjKeCP4Xa+Ms9wcC7E6xjkInF36U=,iv:JjUWhgDKCJ/am7p/Cei6Moobje7Grmd+7wOXG7AybC0=,tag:YrOd3Qu/MV5apkgPxmkAJg==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:K6wHGTHaXjyo,iv:75z9JdAExqPThGfb4E0rv+Vl1EKFl9K9RmRzoPUY4D8=,tag:LhIda0bq6g/5RpZT4Xh+FQ==,type:str]
+              port: ENC[AES256_GCM,data:OH3MLw==,iv:6fawC9PAjVKozeUPjnQa8FLZAx56NZo3LoV/qn6St00=,tag:hi0C5WxTAZcsLKN0ArG+jg==,type:int]
+    tls:
+        secretName: ENC[AES256_GCM,data:6xfAM8r110LenF8=,iv:T0pV3IkCAD1Tok+/Iy7VdrJ0hJSBypzmkyHRwzrkn3M=,tag:nG7sfbzqnLmzrJhPR5Th/w==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3WGlqZjM1VVhuOGkwQk5Y
+            aCsvTGRBU2E5d2M5Y1RXelRCNTJyclV6N0MwCi95elAweVg5UGZhTXhDSjBjS3Ns
+            RDBHTmZvQWlSVnFjbGw4Y3IwNUZXa0EKLS0tIDhYTmcrT3NJMGp3Z1JJOHpkL0RC
+            WmhnU1RnNlA2cS96S1VLUjRESFNRMjQKJAhodAjkjCRaA4FthoU0smkYssY2bmgG
+            hnlJ+gGDV1fhvQ9FpkENeq7ynXpweI7C5SkoERniZAOn5XjOtdsSxw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-10T14:09:41Z"
+    mac: ENC[AES256_GCM,data:G3fgTD5lepii80U6l089KAgeS1ckrBihkX+vq4juM70xzXC2mQ42P5NeSNuoMU6Tp+m3Tl1Z/FHt+HEgYfpEXUVDY/pUmRDAU4MvE67/7gxhtc6IBQvz+HbZjE/8K3bcwn4mufwle5OxDWlNYCmbro9g5pyPSJTTNV/A14Z32M8=,iv:imnN8DvRvXxXMIHHf3gfWte/wFrZxiuP6h7g1D7giGg=,tag:UzITjCv6u2OsDCpcFR51YQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|match|secretName|services)$
+    version: 3.8.1

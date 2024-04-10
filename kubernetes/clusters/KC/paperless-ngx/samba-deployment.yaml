@@ -29,14 +29,14 @@ spec:
                         cpu: 1024m
                         memory: 1Gi
                   env:
-                    - name: ENC[AES256_GCM,data:VIM5L8dJe+F3SUqw,iv:LScIMQBQrhk1Fp5wO8wPKe3F3f87RvooqyzHajEZ5K8=,tag:VRX72aoos7WRx5E3X8vtrQ==,type:str]
-                      value: ENC[AES256_GCM,data:MV4ONp4i,iv:A8IAveP51/YMoXHO5wwhJDV7xwiHgkFgJT6HzEbosuk=,tag:RSmckKQc30MnWD76MzRYdw==,type:str]
-                    - name: ENC[AES256_GCM,data:MrUdLRfe,iv:gKb95DIG9mKcUa9HqEj/t8ZhJ9IfVtLXPawvwYvKPug=,tag:ckrDU+k2zZP7XuSBuZEwoQ==,type:str]
-                      value: ENC[AES256_GCM,data:cdpqD7o5i+zwRGmtXSUyFnfggltM,iv:j9X1JH12TuQ8QfPu8iS1D379b3LhgiSkKYfsJV+XhGo=,tag:uKv3JZ4eQUhTauOVmx7DtQ==,type:str]
-                    - name: ENC[AES256_GCM,data:CQokzg==,iv:CeAcwZmnHUGvsbimo1dO8nW3qSUjAYtTS4XdkcBkQ9Y=,tag:Gvrlim4O0jWXzvvL1oEURw==,type:str]
-                      value: ENC[AES256_GCM,data:R4tx3p6wCQ==,iv:Afh4KaJTxQ/YYUOX7uQwPKd9+ob+Ux1jMWeD/gQoCWA=,tag:rAhDYUSUNKY5ZPwFdVguRQ==,type:str]
-                    - name: ENC[AES256_GCM,data:jVzbYQ==,iv:zdbmUPq0Y/sqtp9vfoWsbY+gxs/fjO8QtSEfcWHjlss=,tag:bRTTwPVpyfXfIixztPE/og==,type:str]
-                      value: ENC[AES256_GCM,data:lroI1a9JMmoqoAG2RYg=,iv:tK60TClkvnQ2pkzc510HE2//M+98xXCfQhjnOme1ZFk=,tag:YDythsaQKls6uSWPengV6g==,type:str]
+                    - name: ENC[AES256_GCM,data:IXWtFBW/NybaWYSR,iv:M8Iz0aOmzoa9Me6tmxH8mW9hI+w7LAvGIheciwgglI0=,tag:9ZefHyKuAzioCCRo7dOCaw==,type:str]
+                      value: ENC[AES256_GCM,data:IBIx+Q==,iv:1x+CG+B6EC2Va3EA0WqceexyGKuh4kHuZVE5RupqjgQ=,tag:WOIhVfKfTkpgrBZdvpo89g==,type:str]
+                    - name: ENC[AES256_GCM,data:ZAyPR0Ip,iv:pzufxKsik8Zp9V7gMViF/DhxDN/5f2PmJDjGbA1DHzA=,tag:eyuFaSjE/rVbLHDi4YANBA==,type:str]
+                      value: ENC[AES256_GCM,data:CGL21DJIwkwfc0v3yxBIGffKDR7V,iv:DTaIf5yxf0sKKGOp/BH9W82wEBhXS61ZS9AB+KcEtF4=,tag:ud2I8LvZTu0lRVfSQ4yP/g==,type:str]
+                    - name: ENC[AES256_GCM,data:KRe6Gg==,iv:MWp2lNcrJp3wTjXzKV715upGkiCLSCMI8kR/LMtwtBQ=,tag:gZXd98m4BgCsR8HY/6w+Wg==,type:str]
+                      value: ENC[AES256_GCM,data:jVO+V77UqA==,iv:s2WK8LjCnb+SmM9z/0biH8JTLqUP0Zak8UR3+jmBqaY=,tag:Bo4wzgIwb3rUK2XWzSHpkg==,type:str]
+                    - name: ENC[AES256_GCM,data:8xOF3A==,iv:uur/4ihjE8crR6BTGWgSfladPptiC3F7iNT7SIO00wI=,tag:YwAG7sTovrPXCFMKd6YhuA==,type:str]
+                      value: ENC[AES256_GCM,data:7G8tEikL+mgmDIxOyCo=,iv:SI2zts1hDU1s4isJoTXzwJn2wJhmznu5xi04H7t1G9s=,tag:snFQ9MK1E8FlqNgFUaJ5SQ==,type:str]
                   volumeMounts:
                     - name: config
                       mountPath: /etc/samba/
@@ -66,14 +66,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAwUVJsZUcrZmdvdzFEanhX
-            WW1qVEQwaWxtUkJ3VC9PRkw1RVExZ0p3NlVzClNnNjFLZ2tuQkJBajE5UmYzN1V5
-            OU0xZzRMQ0VhMXhhZDJIclEvb0JvczAKLS0tIEh0OHMrZjYxWVNISVJnVEZ6OHFP
-            L1hRYzZnOUhaYmV2Y2c0aXBaYURuUTAK8u+v/jpBI8xBv00Jf6bHhjSSaGZa8xT6
-            5XkV0inFrFvqEUFV6XNsS5l5wJ9MmrA0OYJcdhi81LStwCmzekxLwA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiZ0k5ZzMwaVJJcTVlWTlX
+            a0VyNFFQSGZaNUlkcEtjano0ejMxUkh2am5rClk3T3ZFb2tnR1RmbDBnMzJIOUdk
+            Mlp6VVhzVWpFajBic0R6ZW9WK0Z0a0EKLS0tIENWa3lJU3VQT2dZVjVZSFAyUHpk
+            YjhBZUtKTzBrdkpReHg2N3VYUVNyT1EKnWLbbgn0ZrJj4YzSLNmhJI1Qt8CPkin/
+            Q8n6tj2YrvQcdmMazt6y255nIWb79UEkznxKTOyW/DJj2H7JOaZYJg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-10T21:47:16Z"
-    mac: ENC[AES256_GCM,data:jMTRvAZ9xUPDVWVyz2VJSGOCC6+ytihyBTHOzgIWAty/FatGw0Uq0iHJan6NwXOxsN54YLPdztQAtbIYNbcbvxFvdnJBEBeI2wWpGcLCnsQffeBMiD4yJ6hvVGUEp6P3/H7dYtZv2+LzUJSDSgqJgb2IYBzC/4IOu8JpFaTXLBs=,iv:dUTvNTecmtT54F6wqG5Au4wnSSMG8VMM/c39812XdKo=,tag:x591uYh3PJFbIyeW60K/Hw==,type:str]
+    lastmodified: "2024-04-10T21:54:29Z"
+    mac: ENC[AES256_GCM,data:1Dh5QKm6PdmYzeArclb/c854sbYOJYSlcpoHvvq3OOdiBApXR65fMz02G6g0OZijjCprp6gyRsWozr0vSYF20D1iAxDb16MRN2tOx3Hou3HzBv+jKqnsJ9KSQZNIO8Bj1GPEKyWi74DT6DPD99Bei2Zv2DY5ROAcAeXMpCu/Izs=,iv:lLHVZ5fMYxs6SaVkxYZfYDLecdk1e0da1MhdbzuPU/k=,tag:GHLr4zajDXSn6suKxAii3Q==,type:str]
     pgp: []
     encrypted_regex: ^(data|env)$
     version: 3.8.1

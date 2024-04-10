@@ -4,49 +4,48 @@ metadata:
     name: portainer
     namespace: portainer
 spec:
-    replicas: 1
-    strategy:
-        type: Recreate
-    selector:
-        matchLabels:
-            app: portainer
-    template:
-        metadata:
-            labels:
-                app: portainer
-        spec:
-            serviceAccountName: portainer-sa-clusteradmin
-            volumes:
-                - name: data
-                  persistentVolumeClaim:
-                    claimName: portainer
-            containers:
-                - name: portainer
-                  image: portainer/portainer-ce:2.19.4
-                  imagePullPolicy: Always
-                  args:
-                    - --tunnel-port=30776
-                  volumeMounts:
-                    - name: data
-                      mountPath: /data
-                  ports:
-                    - name: http
-                      containerPort: 9000
-                      protocol: TCP
-                    - name: https
-                      containerPort: 9443
-                      protocol: TCP
-                    - name: tcp-edge
-                      containerPort: 8000
-                      protocol: TCP
-                  livenessProbe:
-                    httpGet:
-                        path: /
-                        port: 9443
-                        scheme: HTTPS
-                  readinessProbe:
-                    httpGet:
-                        path: /
-                        port: 9443
-                        scheme: HTTPS
-                  resources: {}
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: portainer
+  template:
+    metadata:
+      labels:
+        app: portainer
+    spec:
+      serviceAccountName: portainer-sa-clusteradmin
+      volumes:
+          - name: data
+            persistentVolumeClaim:
+              claimName: portainer
+      containers:
+          - name: portainer
+            image: portainer/portainer-ce:2.19.4
+            imagePullPolicy: Always
+            args:
+              - --tunnel-port=30776
+            volumeMounts:
+              - name: data
+                mountPath: /data
+            ports:
+              - name: http
+                containerPort: 9000
+                protocol: TCP
+              - name: https
+                containerPort: 9443
+                protocol: TCP
+              - name: tcp-edge
+                containerPort: 8000
+                protocol: TCP
+            livenessProbe:
+              httpGet:
+                  path: /
+                  port: 9443
+                  scheme: HTTPS
+            readinessProbe:
+              httpGet:
+                  path: /
+                  port: 9443
+                  scheme: HTTPS

@@ -19,7 +19,7 @@ spec:
         spec:
             containers:
                 - name: samba
-                  image: ghcr.io/nomsplease/samba:4.19.5
+                  image: ghcr.io/dockur/samba:4.19.5
                   imagePullPolicy: Always
                   resources:
                     requests:
@@ -29,12 +29,10 @@ spec:
                         cpu: 1024m
                         memory: 1Gi
                   env:
-                    - name: ENC[AES256_GCM,data:MMxLdIV8,iv:QNwM1JftER/EaQybFQL+e0mrFuh6MLj1e3JGsWL7/Kw=,tag:eApkDlOu6zOHNAH5l/ZWew==,type:str]
-                      value: ENC[AES256_GCM,data:EBSGCmZs/3an88Z24kQOTSpHq31n,iv:Yp0DjLvDVkkJNVhTvm6Z9xELbncHB6EMlPIQjOP8XdE=,tag:BO5snqUo1V6cr5B9G5E2uQ==,type:str]
-                    - name: ENC[AES256_GCM,data:seI5wQ==,iv:KWC8aohTicSY8r3lu4+o+lZ8oqNsBPsHwRaMOnVfmaw=,tag:GRVF0j8ZrOaNZAqOZ3OFwQ==,type:str]
-                      value: ENC[AES256_GCM,data:pwq20Lkrzg==,iv:PMPesvF19xdJGFOkYsX06wSfBa2x7WoYtR0Is9LqtvQ=,tag:r/2NPh876705GqedlxzXVQ==,type:str]
-                    - name: ENC[AES256_GCM,data:zD88yQ==,iv:1hHcjBpCeOnvRfMf7RR+mQwqqiEu/XQ7ephAHY/E+hs=,tag:SLgzFmYYLE/BCq9RPP1hkw==,type:str]
-                      value: ENC[AES256_GCM,data:P4IpGBKcfu+vbGylilQ=,iv:Ia4P5M+qXrAZ4y+7phLLdekUnY/kYFDp3pq9YWd5xu0=,tag:Ea6WZNPUs+b0IFzASLEO8Q==,type:str]
+                    - name: ENC[AES256_GCM,data:FxuJeA==,iv:lUSmNnRUPogzeJQKcD5tNr74++g0jmufZ9EmH0Rvmag=,tag:5szjsXG37zhgNzNMQFxZPQ==,type:str]
+                      value: ENC[AES256_GCM,data:IN66Ct1MOw==,iv:1QL6NMpsfOjGRqajbyEY+vf+rOVQbG99SFayxDLMqng=,tag:quA4rnuCcDjNu8TT4lFUzg==,type:str]
+                    - name: ENC[AES256_GCM,data:xnK6LQ==,iv:PGCaVfgivUwDLUxgGv2JpdOku2oRJrrPQTYdUU4XG48=,tag:PP9GFU221FG/BaCAS6xtOA==,type:str]
+                      value: ENC[AES256_GCM,data:BX7NK46evCFyt/PD1Q8=,iv:fOIPoqUaGrgX+xguSayTDqZRhVFK7oI202zgXNT2MBI=,tag:/puW8q30HIeE9AP4UBj4mQ==,type:str]
                   volumeMounts:
                     - name: config
                       mountPath: /etc/samba/
@@ -54,7 +52,7 @@ spec:
                     name: samba
                     items:
                         - key: smb.conf
-                          path: smb.custom
+                          path: smb.conf
 sops:
     kms: []
     gcp_kms: []
@@ -64,14 +62,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBzQVFpTlNZcmQ4OGhVb3RB
-            ZSszRHU5ak9HMm5NWnZucWxSR3hvWlYrWVQ4CnlSaW1BaTQyRUE4bkZwbU1ZNFlT
-            UHF0aUFVWERWUDNXeEZUODdPQmJRY1UKLS0tIGJ6UkhLbUJWMXI4dktBOTFNNGNw
-            T2hWdU1xbnVaMUZzcjVSTkpsRjdoR1EK+Z+fNSe0lEhQMLmaSzqBcChwL9y4HPsk
-            FOEvgLhg5tMQRjxkCIhNo/LrXK4WXLkTqPAPJ+0c926N029183Du2Q==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBYQXpLcHpaRU1nUEd3OEdM
+            NEJmTDFFNWpRQTA3TDBFd2VIWUJMcjJQZkhzCkJ5bDBZelhjclZ6UmlYTitsdFpa
+            Q2RUVVBuc1loRVFGMjY1dHR1MklBRlkKLS0tIEVSVTRSRkx6NkhyTG0vS0ZjMXlj
+            Vkg4UXgvL2xqYnVDRzN2eE5HdFRwTTAKV+Ze0NOcUaUvwSRONvhbGc42pkqLOENK
+            8mcFtZkD/W+cVNvnZgjzvnev01ZYAPpUBOEmn6BTiXp1JARWlcH+mw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-11T15:34:21Z"
-    mac: ENC[AES256_GCM,data:Xd9MqBnzE8JvVKCIwlOgEokzKSYV7P7JYZdcdrx5u/BH50pjbpeV9cYsh4WzkZ9eYvKyXEa9fFLG1ixuMA9f6/TFxxeny+bqtXeXEOQFE8GyvpVRy2TYg8ZbtA1Opio9f7DfBZf6kjTDaLiN+1FJ40BJzqc/sTzUgTRVRQuRHYg=,iv:colCv80psSC7PeXXybXi4jS0CERA3k6jPgMDdB5M0kM=,tag:5zIT640qIBBj4PR/O9pbiw==,type:str]
+    lastmodified: "2024-04-11T15:47:49Z"
+    mac: ENC[AES256_GCM,data:eMqB9L5X03/0ccEu02YwWzfEgPDTzz7vG8XzPM+LJa00vwX4e8czLglH5AlXMl3COyGrHD4CIBKJskGEGlgJzl5VhsCIZNtdUwDp/IS+XeJd8oDon6pHTbFbWvt0TmrZKH3Hi2pAIu7BX6prItQVjH94dNmxfab26GoTKIvOVVA=,iv:zoQsj0golMB/SJStwA4mRt2s8Bl1Inyz9iwElFuB6Ww=,tag:oI2dg/riTLiT920aF20kXg==,type:str]
     pgp: []
     encrypted_regex: ^(data|env)$
     version: 3.8.1

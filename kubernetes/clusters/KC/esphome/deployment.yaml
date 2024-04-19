@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
     name: esphome
     namespace: esphome
-    annotations:
-        k8s.v1.cni.cncf.io/networks: ENC[AES256_GCM,data:OK6Lb8TOIqOOg4yGtPLuf7uP4zqwqyziRqBurk/EipGCv/SYGtWAOqNWBgVrqYTz//gTFvqLMyuNe0M5DVsy6tBuEz39IHYPuzu9r6YjTe+8sERLh2IxDaZABS0LhgK8YrKy0CjhaDSpYDOGi5WqyCk=,iv:KwmM7+hs2l8MYVhGoeaizBw/ZaT5pHz28LniM4Cuibg=,tag:8LMXPu3aTg1K24cxJN2vCw==,type:str]
 spec:
     replicas: 1
     progressDeadlineSeconds: 600
@@ -18,13 +16,15 @@ spec:
         metadata:
             labels:
                 app: esphome
+            annotations:
+                k8s.v1.cni.cncf.io/networks: ENC[AES256_GCM,data:5/uo/5zOfqM7dbxbaRifbD2/eyTOvsfmYF5H4gRh7jirRrefD6eFxYXBzOOJIQQpALi6Q2dkF5XSZD0b6ePVC9o3k6TzguuyN/O1/8VAe6I/+kooZBwxz1g9D133TEJy8IqzFQXt+0YPsaXjs5FexS0=,iv:ZI4utgwtVn38++U4tkBBG/mf5CeXTGQ0YbP++b2EcgU=,tag:ozrbhoieHz1D+D9UgwpxMA==,type:str]
         spec:
             containers:
                 - name: esphome
                   image: ghcr.io/esphome/esphome:2024.3.2
                   env:
-                    - name: ENC[AES256_GCM,data:eDclPcBxpuvtUc5SnB7MWB7mYYOO0XW5z6k=,iv:4a5AZeAR9IStNjV46+WUo8SGCW+3nYbhK60edVOs24o=,tag:o1vRrne+Mv0aP5bHO20yhw==,type:str]
-                      value: ENC[AES256_GCM,data:Rbq4rA==,iv:bqZPSe5tKAMWzehAbZGun+5FFGQ9b9iMdETKl1upkiU=,tag:BhSo9zY8ootysGkqw4ripw==,type:str]
+                    - name: ENC[AES256_GCM,data:5v573fZd8Ltd5MaFc4N+LQlId6TCXyo58Fs=,iv:B2JDg0LlhbOEfe248Je9OFrORNNs4I3wlh/rr2L6jIo=,tag:EvWe5dBY9EKTZkIIimiKow==,type:str]
+                      value: ENC[AES256_GCM,data:q6xSUw==,iv:oKVV65rL704woi6YExlsvR71mI9bHCp0/OiCFpp8Xh8=,tag:404KZJQsjGlaM2z8jhAsfg==,type:str]
                   volumeMounts:
                     - name: pvc
                       mountPath: /config
@@ -42,14 +42,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBEZm90SkZzWEhSZ3dBVXpr
-            Mmoramg1U2JlRVlJR1UvTHNJcTZQQmNHL0c0CllNSUMvWFQwUlZyaXIxYVNSdjJX
-            UXZVNEhYaEJnUkt0d0JQOEhHTms2UXcKLS0tIHB2Rm9XMFRKYVY5c2NjUGErNWVl
-            TmRvYUREc1JUUWZPZ3FQWGhtNXh6ajgKw22qKTmx+NfAGW5jMRrQu/MNRlG0AdQc
-            GVJYvki/ZN8OqZesTW5naWtCYqEVNeRfKV4AMEXHh1FCZ19Z8c4JJQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBnM0Zlc0VTSzRYaWNxTWNh
+            WHVVeE9wbkJNeWJQU0JqczV2bi8yeXFWL2pVCnE1dEpOeWlwM1hKOXBSSmJEOThG
+            RDVXSkVRN2NacmJ3eWJxMmhZc0w4OXMKLS0tIEZCa3F5QkNWWlJvTm9ZeUFJN2pn
+            clVHTk9ObVEzT3BQWlMwMm9zM0JLUFUKtwxCd+zZ1gVTaqZFG+J9gxgba1hF+/we
+            peD/5IJ8eOcV8M+qN7L1kYBD1jj4X7OAx1z67bnGTGk5Td4f0aRqOQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-19T19:31:32Z"
-    mac: ENC[AES256_GCM,data:uA7OBl3JrHTi5jmP6ydDy/Si10BlZp5Sct+AvYFHmqecA9gwSXh3gJnEZlt6c0UPScRKE1YqMeIS+vwrejBwdzMEGqj+YdyubcYZhK5p7H1TuxDDH018tyaP9o/iSl3yI3reCDFZRUjW9eze2Hi4Y1SVkCbI8ztc28xjUwqYZWk=,iv:gUVRvs+D7uZDKo1vF3osAwY8i7oPNzVUnYLR8is24rc=,tag:H6tseOz+qEKq6nyviK2X9g==,type:str]
+    lastmodified: "2024-04-19T19:45:04Z"
+    mac: ENC[AES256_GCM,data:4y13dNxnWaT6vHNCR1+fFWaeyohV6nlSsKV3DgDMDt3wyzbGr36wzsi4TrSv617uJb3Qk+JlQyGx61WMvhAGHq2qio0BRVn8TsvAiWq0Cj/JsGgCPq/LWw7nI1pc/SvRpxlAcg+tGr/P9NPNUET+hQ5oyQTVc4cjWQk+f33qqeA=,iv:ekHaguThzSkOc4EJDhcitaEqT/hMt8y894ZMUYsgC9M=,tag:w1n1gdwtWXHoiLbnwTPfdw==,type:str]
     pgp: []
     encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1

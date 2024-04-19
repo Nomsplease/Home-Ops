@@ -12,6 +12,8 @@ spec:
   secretRef:
     name: flux-system
   url: ssh://git@github.com/Nomsplease/Home-Ops.git
+  ignore: |
+    multus/
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

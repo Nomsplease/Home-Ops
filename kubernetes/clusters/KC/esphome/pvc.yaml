@@ -6,7 +6,7 @@ metadata:
   namespace: esphome
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   storageClassName: longhorn
   resources:
     requests:

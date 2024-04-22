@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: homeassistant
+    namespace: homeassistant
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: homeassistant
+    template:
+        metadata:
+            labels:
+                app: homeassistant
+            annotations:
+                k8s.v1.cni.cncf.io/networks: ENC[AES256_GCM,data:bKVcO38WQ4mYDWhzOb3rEKiYyD4nJNp/MFxM0HHJmmkRTtWTm0W8kte+AbmMBHlqa1KLdHfAzI5yWvSUP9w1WASbENmc0G6gM1pR8WbvG+n7a9flDNO9SPmypGzJO5mfJbziY/iuqdHXFVEWbWa/bC4=,iv:IWAXG9QRIBdgAgy/Ym7hsPgTctvFoeYrc5QjQVaPrBs=,tag:/+cnOKToTh8sHox3+kUgcg==,type:str]
+        spec:
+            containers:
+                - name: homeassistant
+                  image: ghcr.io/home-assistant/home-assistant:24.4.3
+                  env:
+                    - name: ENC[AES256_GCM,data:suQ=,iv:yHDUqmcReqEi/2LLHfI0QfUlCei4tbjDxq4ws6L0+90=,tag:FcNAXMGQqimXjvGij+G7FQ==,type:str]
+                      value: ENC[AES256_GCM,data:f6JhDBMm6i5VlLrOkWeHJA==,iv:E2z5gK+F5WFBsWwPmKzwscqkH5MLm5GsZV5Un7HEHZ8=,tag:bzdjtUoEeajPxsU/7Z5p7w==,type:str]
+                  volumeMounts:
+                    - name: pvc
+                      mountPath: /config
+                      subPath: config
+            volumes:
+                - name: pvc
+                  persistentVolumeClaim:
+                    claimName: homeassistant-pvc
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBkVld3bE9ReW1OWXY3Q05r
+            ZWM2V2g4WUYwcE9GenRtNzJzWEh3UEhLS1NBCitwVnVVOEdncHNRR3dOVVpLVWM0
+            SWJMRVgrczFTbUNPUzQwcU1pU3J0VVUKLS0tIHJ3YmJobHY3NGJtMEc4TFgzOXkv
+            TzdkeTFqdDFDVEp3ZTR5WnRKam9ZRGMKm/wBw81irMLImKQoqNNBaHQGjsI9Ig61
+            lVX+IbOm31vLXx5Usyzk5lyVarIN4NWHOUYNYO1e+2nvgdmgyYdF0Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-22T15:15:22Z"
+    mac: ENC[AES256_GCM,data:Ii/A0Y6y+MTPhxlqCG/IQri8oENFbdv/ZkHEYU9vpGQkI5IvUS022j1g5s3Hk21SlHzfMxgZK/1EAmuuhhKTKq5uX22SbvdGkBS+H7yc05IIe67NM6/iWVjRjxrkpjRYSxiy9Q0bsf+VhJkQowNjLrCv8dEb3s/ZDaPNZxV6nLU=,iv:TaUn2nxe7v2/FWeO8AAY4XqSA1iTa+TSWWBKkM0dzLg=,tag:gMZQcAqEV5ZxdkMOUgMrRQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

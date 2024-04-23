@@ -21,7 +21,7 @@ spec:
         spec:
             containers:
                 - name: homeassistant
-                  image: ghcr.io/home-assistant/home-assistant:2024.4.3
+                  image: ghcr.io/home-assistant/home-assistant:2024.4.4
                   env:
                     - name: ENC[AES256_GCM,data:dus=,iv:02gLm370AriAN7pX9P7dKqwlkPeUrpOKEOMzxnuuIX4=,tag:nlDIclyjbmG2QwiBf9Py7Q==,type:str]
                       value: ENC[AES256_GCM,data:UmBBEgJDImiFgSaJJGLR2g==,iv:0fpdsnBLnsgPinQCATGD8OfSepIwMw1RhvIin9zvJrw=,tag:rnjMdhExvWZb0DAgh0qnYw==,type:str]

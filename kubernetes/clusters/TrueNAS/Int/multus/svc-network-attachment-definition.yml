@@ -1,0 +1,27 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+    name: multus-svc
+    namespace: default
+spec:
+    config: ENC[AES256_GCM,data:exTW//u8xjxhN5VXFsELC5A8x7RmC/W8sRnvnSg40AWTXw8XA2PObiEptBPc6qLWnoimu7yqBETm/XUpR9hCfbF9j8P1bCFfOfbPz+MKzXqi1pEonA7mp6zv3EBCw9yZKgaaFxbRk+zSNfrhR158YcYJbzOUROd/leLx1b15EjNHJqZkNVU6sO7rJZMdxsoMIldzFYiTQsPA95rsacWCzmtPS//xbHTWXvtaUF8Y3e3OkersBKaftlA=,iv:YTGUEJoTM3fMxMrVQXom61KglV87GTdTdm0eVDJ0Zkc=,tag:7ZPipWj18UCotsr/c7025Q==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBDNDAvcjBrcE41ckNWbGZp
+            aTZqKzl5eE5xNVZGQnBFaDEraXVCZ2R4OWhzCm95MEMzZlZyeExobnFxeDl0Z1Yz
+            YUtTYVhMTXl1a0RDbERNSWVBSGVvRlkKLS0tIFN5STBXV05ua3RLdGdBQmVoTXQ1
+            VlR2a1paMHpQSThtUktBeVZjU0tPaUkK+m4BKSgrUUGBCx4MXLRp3sqr16PaJ7Zr
+            VB0L+clAkkeVKIKcr6lsuEkFfrUNGtUiY0eNgDAWvvGkMINLvHNaCg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-29T17:13:41Z"
+    mac: ENC[AES256_GCM,data:5Dudgu3noTb0I4YRUkZTjOar8ql0wtYwH0I1MrSVL/L/WWW1Vamr2dADrvhHHHU+ubZ0dOCqbDr7dv0lWhB/IxnPx6PdM9B/FNkzglkP10pqUyrw4mVVwpJYkQFRDItkZcdK1/fSg3PDhoi8QJxaqGI/IdKYo8DBG6lf7MMmNQ8=,iv:8qbeTLNRF19/Nyol3C5yhnNEfidtl7zPeR7pj/xFxmM=,tag:IH0qre/VDZiPABDsIC7gUQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|config)$
+    version: 3.8.1

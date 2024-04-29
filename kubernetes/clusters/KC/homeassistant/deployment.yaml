@@ -4,7 +4,7 @@ metadata:
     name: homeassistant
     namespace: homeassistant
 spec:
-    replicas: 0
+    replicas: 1
     progressDeadlineSeconds: 600
     revisionHistoryLimit: 2
     strategy:
@@ -17,14 +17,14 @@ spec:
             labels:
                 app: homeassistant
             annotations:
-                k8s.v1.cni.cncf.io/networks: ENC[AES256_GCM,data:3IuJrEdE0g/zHhFn21NoxlOr8hUux6ul42xFN6KxMq7VioNPaV1QxRm4jI+IlsVwTfOAxuj5cJLC8CcDvRV37JsojnxaS0LrfB82pCl+2TGOe68O0AXESFUzCAf+E/MVCGBhiBtwIYnY3ICSwqkzF5s=,iv:OyUnOUwzX5XjW2f0twOH9bZVz9MYb6xYvpffoQZ+Sn0=,tag:m/dNKXPuCR5zkZwReZI+7w==,type:str]
+                k8s.v1.cni.cncf.io/networks: ENC[AES256_GCM,data:0RX/Pm+nR94qpv6UeIeBBQkm4lp5tM5VF3P7WdztWtFCfqk1j3vWJPhvjuNgeKq4UZBe3Coq6JcOR6MqmiFS4A4NDfJ5/LqIvQSCM++jGU9p+fQQuHxxpZG8I9vEfGYPnVagKMGltEKMRd5yHiwlX1E=,iv:OyAv/MXZIsCxUSOVWPlHiDvAqw7yXipVREVxO1isHz4=,tag:2EM+WC9keX2sKuSUqKyQ9Q==,type:str]
         spec:
             containers:
                 - name: homeassistant
                   image: ghcr.io/home-assistant/home-assistant:2024.4.3
                   env:
-                    - name: ENC[AES256_GCM,data:xzc=,iv:43/pkbrL2xSzz/aomnRgY9McvukqlJlgOXVpjwoEU6o=,tag:G1/iLYc7rT1GzHoXkktBIQ==,type:str]
-                      value: ENC[AES256_GCM,data:a4oQpF7xO3LoUKyckhSmOg==,iv:3n+hZ2h+no/xrseknaCdlDkMHNHFd4ogzCz5E7awIw0=,tag:brlFiDroo5ep1ZVZSf7k0g==,type:str]
+                    - name: ENC[AES256_GCM,data:PvI=,iv:y7MAmcvec896s54wr3RgDJyNIOZUCXoMgPgqZ2H60WY=,tag:Zn7KxOOiAHYYUZKPdhYrjQ==,type:str]
+                      value: ENC[AES256_GCM,data:Jfr+ngB4AuUOojiq61yCkg==,iv:HuBGdzIwOgws01tctBPD4bubWen65Ia/HLdCXDxRQ2M=,tag:lF0FzzYfN/Mc0Y69ac3YuQ==,type:str]
                   volumeMounts:
                     - name: pvc
                       mountPath: /config
@@ -42,14 +42,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB6U1lzZzIrM2F5Nm9wUnlW
-            Q1RQTDloaFhnaFFSQVczSDJPNGJhV0JzY1NrCk9xeXpqQWI5WDAvemlkcDV1MTdE
-            bmppQmxhd0tpdlBOQitHY2lYQUQ1WU0KLS0tIHpLanlZWStpSFBQMitTQUpLRDdH
-            YnpHOUVtRmMzM2E5c3p2dmlVR2R0NGcK5+3Nmo8T1W99WfWJXyY0dPG9kV5QCluG
-            DFuin0T/G5tXZBnqI4NNgi1kEV4q7Wy/tazKGDunpmCt5SfUfNivgw==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBvL3BsRzlJdGVuZ2ZhQy9z
+            K3VWU1krZkxPWEt0SzZyNGIyT1pvL1JMSVc4ClUydDBoZjBqTEpPWG5zbkFWVWRI
+            NXgzNTlEU2MxdHNuKzBzMjN2cUJlODQKLS0tIGdPSHJjOEpBTnVyNGxMc1dDR3Y5
+            SUtJeGFiRDZPTk5QNUVmeEJhV1NSUncKkxbN0nHCsCNXCfd/xrT1kYRWm6RkeZtI
+            5tIS/79uLQhj5AeB+DTCh8Jhz2I7uWklDySLYcwZxsPoHPjJ9oNpbw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-29T22:20:34Z"
-    mac: ENC[AES256_GCM,data:LJ4x4xsyPZ++5//+VdR5PS1owh2J58lpQBzdpiN109OwRsTo+50NHr9FXbu7DC1DV78QI8RBcikFln/2o4UM1v02FK9wRRX7n38kF2qaXWLJr4IoUHVwTkHjz8fVaF6JrZhi3P1rkaq3KJ9V5WoHE2yhVw9EZvMPEH1zgBl6FJs=,iv:IMYSckACECblGCW1J2M0pLdy4PtFF1Q6e6KkQ0OkLLU=,tag:sRiWlR3qAVhWLyuNC/ltLg==,type:str]
+    lastmodified: "2024-04-29T22:32:08Z"
+    mac: ENC[AES256_GCM,data:WKqRBZqiSqx9O5IikI3okb86zhk0bnK6dfs32RMC/4+NfMHIlDeRG+77oZtW9Ol+ApGjRYQNDB4p41UJZpGNpPEfV2Tn0H0ycqb73Cv8XyF8jXlMcq55kzWNQqxivjKmYOHQ2WOSgcINuQOLEnYLIcXA7cckagMbs1iYnBSk17Y=,iv:7PSHetsvsiVm+IfY+Equ6Bg/HdTHeN66FMWr95FQjXk=,tag:gVt2tOFsjjI6AIM4JjPQGQ==,type:str]
     pgp: []
     encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1

@@ -23,7 +23,7 @@ spec:
                   resources:
                     limits:
                         memory: 1Gi
-                        cpu: 1Gi
+                        cpu: 100m
                   ports:
                     - containerPort: 8384
                       name: syncthing
@@ -60,14 +60,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHZ1RFalRRc3FsaUliOHlJ
-            M3ZpbnNTSFBqSEpFeVZHWG42bC91ampNaERnCnd3akdTdVhhMlVNU2IwYk11bHZu
-            bTdPWFZvaVRteU5nV1FuU3d1azJWNTQKLS0tIFhPTXlFbXVocWlRZkJ6YUtDUlJO
-            ZHk0N2hsYnlmZ0hUSjF5YmxmUjJWRjQKnbipWz0xX+Hohj52s2gYXzNHQUS9IJBJ
-            svMvGpAKem1OlD6VtRznZ5dxG7LgdJnV1koY+/s0ZzQSSL5M2Iw+3g==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB2NWwrd2I0elpoWHRxenlI
+            MnlHNEFjSlR6SFpQZUEzSEUxTC9OaWVYbUZ3CjBXZHNYZ1l1Yi9YZithNTFZUFBX
+            d3NPZjRxRkNtTkdLYXQrM3ZRYnpUeXcKLS0tIFNRR083NlhYNWhmVFcvWVlPNDZQ
+            bmh1OWZtSFFjcDhPVnRVMHVyL0V1ZnMKo8LjfEIgyYF3SqbqZJMBlDKZGSqj/4x8
+            5nqKYdBiwOeuxi4Wuz14VHvxN/N6oiNjZ41HO+t7sBk8s/EkggE7Cg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-29T21:22:28Z"
-    mac: ENC[AES256_GCM,data:r/d25/eDwvNPoCglHWP+UMUOD5qpzSe/ajih03K5ozhkFzlJoQExXMWfe0jrq34sbnQuq/rn8Ht3niu51J/IQT8rOhe5WwaqN8jAvkrGNxY5xZhVUGfvsggE62jR4UOJuPSIe/kdCW9iHAf3xCpTqlTEHyNWBGLzfGM+39PkLYU=,iv:zEPQw7vHOmckk95+kEhFW765ucN7sJydmyRu/K7WUD8=,tag:X5VdCHqEPTCAVhPo+fi8nw==,type:str]
+    lastmodified: "2024-04-29T21:29:31Z"
+    mac: ENC[AES256_GCM,data:TEzyT7JBXSyphZ3bRZFbnvlJltkEwNxIuaBKplwxcMbMcV/Q0XFvImhTEeAc0OsU7VGEhB7l67NV1NdhqVVfOp3E2Kfl5URMDezesyE9IEfL+jQEI/RS49Fnk4Z3K+oLhCed8iPrWuzXSXamw/1ZXGKa4Sis3katPvRouTa8DhM=,iv:esNjjzaKju5LYOUU3n6xLXbFqG0eIjLAFAvFfFJ5zZQ=,tag:X3LT5GvYVHckGF2vXdruVw==,type:str]
     pgp: []
     encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1

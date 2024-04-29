@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: syncthing
+    namespace: default
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: syncthing
+    template:
+        metadata:
+            labels:
+                app: syncthing
+        spec:
+            containers:
+                - name: syncthing
+                  image: syncthing/syncthing:1.27.5
+                  resources:
+                    limits:
+                        memory: 1Gi
+                        cpu: 1Gi
+                  ports:
+                    - containerPort: 8384
+                      name: syncthing
+                      protocol: TCP
+                    - containerPort: 22000
+                      name: to-listen
+                      protocol: TCP
+                    - containerPort: 22000
+                      name: to-discover
+                      protocol: UDP
+                  volumeMounts:
+                    - name: config
+                      mountPath: /var/syncthing
+                    - name: data-bigpool
+                      mountPath: /Data-BigPool
+                    - name: data-fastpool
+                      mountPath: /Data-FastPool
+            volumes:
+                - name: config
+                  hostPath:
+                    path: /mnt/FastPool/AppData/SyncThing/Config
+                - name: data-bigpool
+                  hostPath:
+                    path: /mnt/BigPool/AppData/SyncThing/Data
+                - name: data-fastpool
+                  hostPath:
+                    path: /mnt/FastPool/AppData/SyncThing/Data
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHZ1RFalRRc3FsaUliOHlJ
+            M3ZpbnNTSFBqSEpFeVZHWG42bC91ampNaERnCnd3akdTdVhhMlVNU2IwYk11bHZu
+            bTdPWFZvaVRteU5nV1FuU3d1azJWNTQKLS0tIFhPTXlFbXVocWlRZkJ6YUtDUlJO
+            ZHk0N2hsYnlmZ0hUSjF5YmxmUjJWRjQKnbipWz0xX+Hohj52s2gYXzNHQUS9IJBJ
+            svMvGpAKem1OlD6VtRznZ5dxG7LgdJnV1koY+/s0ZzQSSL5M2Iw+3g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-29T21:22:28Z"
+    mac: ENC[AES256_GCM,data:r/d25/eDwvNPoCglHWP+UMUOD5qpzSe/ajih03K5ozhkFzlJoQExXMWfe0jrq34sbnQuq/rn8Ht3niu51J/IQT8rOhe5WwaqN8jAvkrGNxY5xZhVUGfvsggE62jR4UOJuPSIe/kdCW9iHAf3xCpTqlTEHyNWBGLzfGM+39PkLYU=,iv:zEPQw7vHOmckk95+kEhFW765ucN7sJydmyRu/K7WUD8=,tag:X5VdCHqEPTCAVhPo+fi8nw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

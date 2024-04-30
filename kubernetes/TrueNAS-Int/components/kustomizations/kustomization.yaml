@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
 - core-components-kustomization.yaml
-- tenants-kustomization.yaml
+- apps-kustomization.yaml

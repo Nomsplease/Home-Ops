@@ -5,7 +5,8 @@ metadata:
     namespace: metallb-system
 spec:
     addresses:
-        - ENC[AES256_GCM,data:yhUekU/ANhMORZBiSg==,iv:1Z8d1hvgPHAkHb+7RYxFy7RFXe2Nakm8lhEFu2PW3oE=,tag:Qj5UPKwfhDHkRh7BFdbNNQ==,type:str]
+        - ENC[AES256_GCM,data:QvSfcEr+cDGj0+fi3w==,iv:BPuq0yHU412gPjisGYIG6H3IQXvQkQ/T9e4FtsPlg5U=,tag:DmdCzb5PvtsdbsZJiKqCfg==,type:str]
+    autoAssign: false
 sops:
     kms: []
     gcp_kms: []
@@ -15,14 +16,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBabkFJczFHNG96Z1l6em96
-            Y29MNXpvemdwUFcrRmlPTUVSY2xjZldENUVFCnhkOVh6bTRSRVB3ZXBicjBJUWtP
-            VVpBbHpHQkc1VkE4dUJSZnRPc1F0eW8KLS0tIGhXT1NCcVhhYzg5OXNiWWkvQlYr
-            cFQ4aW1zSnJFaFFpTnZMMmc4dlJnNEUKXxbwi1/mhUqP9f2rrOoQeHDsqdi4JXwQ
-            TkKoEOnNgZ3LaqykC2Bjr4T6dnjI6a3pFNNLX/PIWSpeBUAbWKgjXg==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA5MmZFL1ZkTm8veTNpazU0
+            SisxSFBYNDRwbkxGbG1GM3dlZUpYTC9OZVE4Ck5KTm05SGFVYnlaNGsyaHA5RVVw
+            Z21BTmxkV0dFeVJqbWhvWHQxaEJBNXMKLS0tIHNQUWs0aWR5a3oza2xxeTVwS21u
+            bTBhZkdhM0p3YUIyOGM4aG9uQXU0Rk0Ku0MkmZUbl8MzRtozL1w+rHkwSo9NbRYb
+            SAjt+V9/es6Pn1mCgmm8AvjRHbDrRXy6hJJWB71OaosrhzweDJOFAw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-30T18:06:22Z"
-    mac: ENC[AES256_GCM,data:f5hMTSwJD7psyB849OZWnYD+4+9Qi6OsE4FIsyzZ0u+n50TpindgNSU8DdMAbs6sWsq5h84RwdM/GG66AuP8nx3chNBo2TMI9I4M6IpN8aCktsc4CSD7a4RDI0mqPOMZ2Hx1Cri/iA/BhQ9eN0PrTDu8KdY+CqRL0CJouDYqjZg=,iv:/5/5ONSdirCH9Y6ImMmAM2EJxdc4jmWSMJmUNbx5S2w=,tag:8UqMBcXCEX30IK95jZ6RLA==,type:str]
+    lastmodified: "2024-04-30T19:19:05Z"
+    mac: ENC[AES256_GCM,data:Zc4bEHnC64sOAFQBTiD1NkI8ou2EuxS8x265RZfGUGaq/PoSvHbpyEW2nCcwjrubfXkfZ/F42+KETKk3saVOwj2uW5NLHWht71gaeQl5Sh+0WNmuoVeLX4yEHJsXlIsUDjUNj0tYxzv2YUVXSE90YXg8Yx8M+I4zg02d7ZaTENU=,iv:D+AxtpqMtlKYbZ5dyidKus7yy0x2dddC1LS4qTiPv5k=,tag:1dDbKEmMFtI7elTptnJg6w==,type:str]
     pgp: []
     encrypted_regex: ^(data|addresses)$
     version: 3.8.1

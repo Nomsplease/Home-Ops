@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 15m
   dependsOn: 
-  - name: multus
+  - name: kube-multus-ds
   path: ./kubernetes/TrueNAS-Int/core-configs/multus/
   prune: true # remove any elements later removed from the above path
   timeout: 2m # if not set, this defaults to interval duration, which is 1h
@@ -19,6 +19,6 @@ spec:
       name: sops-age
   healthChecks:
     - apiVersion: apps/v1
-      kind: HelmRelease
+      kind: DaemonSet
       name: multus
       namespace: kube-system

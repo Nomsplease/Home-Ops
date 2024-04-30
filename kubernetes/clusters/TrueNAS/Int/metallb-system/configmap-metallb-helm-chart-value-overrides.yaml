@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metallb-helm-chart-value-overrides
+  namespace: metallb-system
+data:
+  values.yaml: |-  
+    # <upstream values go here>

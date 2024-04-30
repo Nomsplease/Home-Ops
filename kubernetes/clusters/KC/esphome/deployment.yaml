@@ -17,7 +17,7 @@ spec:
             labels:
                 app: esphome
             annotations:
-                k8s.v1.cni.cncf.io/networks: ENC[AES256_GCM,data:T9ZF6my88V0NER/HYpTpZA3mXRvuOKIi8p0gGsQ5lb0LO4JiEAMRrqaNDzMx7tUxjxe5AnSM4NMMjp1v7PlCzyNLdDfHAe6pET6N2IXjl+7oVmHVrrw08TvYmK1qerydD2vr8azPvjmum3wFb5plTtQ=,iv:neWochQZKm4AsCcCLFsiBDDiVcwYRE/vlKPtFaMmMPY=,tag:pGm/4LHWaPADdsdeWe2TRA==,type:str]
+                k8s.v1.cni.cncf.io/networks: ENC[AES256_GCM,data:oAmBgiofMwgWukPQnumZZoxkZjLfBMPyT9GhqDc48n1QBK7gWAsszEiobfJHSVPjIgxT6QOAoHwpYQMxpyN26GzJ2mp3l48HdIumtuugMxvDrAAs9BjdPqHkse6jNDtHRlkNFTA4hwZB9IpXpGEvzbQ=,iv:D2PXMGOMk5lb0fS2BHNvY11u8QmaPfpfcStoCpdUjMY=,tag:aYgUvrio1BhUgZap7VaggQ==,type:str]
         spec:
             containers:
                 - name: esphome
@@ -39,14 +39,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA3VXBkQlk4cjFpS05BdFp0
-            Vk15Sjl2TmNGQno5dUwybWIyTWt0emwrK1ZVClozZFR6YnljbVhJZEhSOXBRVEU5
-            Z3IrVW84R1RqanZ0UjI3R053OGNURk0KLS0tIDkrUGtmRmM0SUtUNzNteUhmNjZ6
-            TDloTkRQTUtRZktIZzJjK1U0cC9QTjAKjhs/v+K1O/frtmFH2pXws9UITOk0XpTr
-            QFR5hWMGCPBfOD1rpnPZUoVxh6s2i9kmZAKRUGM8cfgoZ5mr30UOIA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBmM0JQU1dlVnZ1TXY3S2xm
+            RWJxdjVBWmV5L28vS2J4SXBNbFB6ZVFCbUVjCndOL2o4aFh3QllqakExRlVLdGtJ
+            ZGVWUEV0S0lrZnBUR0lXdnZDTHpydGMKLS0tIFNHOWk5bGlSLzZacSt2a3FqcWgz
+            QTdndGtJOENXaU9MdFBXRkVRYjFWWWsKJlO1IZSDbczhcDd6wQpGS1imWdihgLub
+            gRRik1IIlsQPXNkgZSrcPIvr6l/NqA4PqZX6/byIzIwl1o7vAHA7wg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-19T19:47:40Z"
-    mac: ENC[AES256_GCM,data:93dDx2MobQovUhDs0dFErVDohonTHrzLR9joPYp42kwHsEZ/nHvy1IWXRhGCuda7uqoBaeXJObqOEpx5CUZU7juovAzUBT+Gf2bAmGfe1lhXqtVhh55f2bGNnhzUL/Wr77tW0reewrXShXPdeJylAx3+h0S9STIKnbnoCEzlijg=,iv:scu2p+OctkGedR3riY3ZA179ZCCiGuS5a8QOQJYaSRg=,tag:9+kBsbPPdbRZ9729Axmh6A==,type:str]
+    lastmodified: "2024-04-30T15:45:07Z"
+    mac: ENC[AES256_GCM,data:DmIwd5l37X9JKbfkcW9qXF1QreQTxBFJ9lqbRaaclIZ+OxmUTBM2ZyoXQ6NpkhIT6cZh07SBKgfRhoaHHPLPI4KJC/YfOQ6FsHfnxJo4SbZ64u8zQGTcp4uTn/dbhLGVyXGM0rSAkXj88YZHFc6VHrVkLrbs1FHJIVU1jKLtBbI=,iv:qdMnUfMyosLMnWtgoO/5uIR619hSpuWGSai4sx6SnN4=,tag:8roj+zJXStoy39dDZDJ/Vw==,type:str]
     pgp: []
     encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1

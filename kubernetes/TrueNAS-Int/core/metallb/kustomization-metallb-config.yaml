@@ -13,6 +13,10 @@ spec:
   sourceRef:
     kind: GitRepository
     name: cluster-truenas-int-gitrepo
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment

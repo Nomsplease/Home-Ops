@@ -5,6 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
+  retryInterval: 1m
   path: ./kubernetes/TrueNAS-Int/core/multus/
   prune: true # remove any elements later removed from the above path
   timeout: 2m # if not set, this defaults to interval duration, which is 1h

@@ -5,6 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
+  retryInterval: 1m
   dependsOn: 
   - name: core-component-multus
   path: ./kubernetes/TrueNAS-Int/core-configs/multus/

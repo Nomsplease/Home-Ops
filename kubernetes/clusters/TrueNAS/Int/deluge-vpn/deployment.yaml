@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: delugevpn
+    namespace: default
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: delugevpn
+    template:
+        metadata:
+            labels:
+                app: delugevpn
+        spec:
+            containers:
+                - name: delugevpn
+                  image: ghcr.io/binhex/arch-delugevpn:2.1.1-4-09
+                  resources:
+                    limits:
+                        memory: 8Gi
+                        cpu: 250m
+                  env:
+                    - name: ENC[AES256_GCM,data:PnS1Dg==,iv:1xU57/4+IN1OvnOYKhssWxUBjcUDlvxgUyTsSKxneYo=,tag:AuV04Tq3F/+k+Y7vEAJqKQ==,type:str]
+                      value: ENC[AES256_GCM,data:axxD,iv:0507Q+U1YjE6YtCNlL8c7Jia+odjkbIlAXPSQSQtRpE=,tag:o1oyiQ1RU+q6hT4OX50ifg==,type:str]
+                    - name: ENC[AES256_GCM,data:dZkCEA==,iv:5ZGcPCKxk1fai73ENqz5Q9ySQHUDD67SB9UKACgzYj4=,tag:R7Mk9vL+VBvOPsxQkKBzjA==,type:str]
+                      value: ENC[AES256_GCM,data:PBzW,iv:ddqoP9OCgTLPEIeuVzZQeJXo11TYVadfZtYXftdquOY=,tag:OAtD+SiBnoaRyWfGZw/hcQ==,type:str]
+                    - name: ENC[AES256_GCM,data:fG1AP1FPtRQNTPo=,iv:24s7ptzIu0b7nvu/K4DFAfpFGDNHTGidc6Gqo7/We8M=,tag:WU9C84moXQvqEC1DsFJlDw==,type:str]
+                      value: ENC[AES256_GCM,data:JeV0,iv:BIsOoRFA5SNVbol8kdwo9JG9CGDq5tbIo2n3seOE3NM=,tag:m/kabvWXH8dN3Y8abzn3Mw==,type:str]
+                    - name: ENC[AES256_GCM,data:cns5VKu7LqM=,iv:zNKXMVCut+ozKNDMLnQGMjgG2L/cF50vbIJO0u9mL8g=,tag:V8AVGbQObT6CtuvXMiADAw==,type:str]
+                      value: ENC[AES256_GCM,data:+SFQGg2RUZQ=,iv:DlVI/CANZTsqWKise6WCi2kd9rJ+ffOPBNNvZlLmwYk=,tag:pti3ebOChtEMXL9TVG3Cig==,type:str]
+                    - name: ENC[AES256_GCM,data:Y87bMYLUurc=,iv:pYWmV2nnazvS0oeZneumQF6yYrRJnxAWgP9nrItEWqg=,tag:kxzBBsXbmQi6n7Pz32Q6UQ==,type:str]
+                      value: ENC[AES256_GCM,data:moxxrAPCI3DUMQ==,iv:0RUyS7ZwoBJ51iMUDz6jsMshnfnRei2Kzw4kx0lbjeI=,tag:3mGhizMI11r+kpv1YoDMFw==,type:str]
+                    - name: ENC[AES256_GCM,data:anYatTsQ0pE=,iv:JytOs75fVEla10dZFEj+vrY/FK6GPj4JXmvAZUeCP5o=,tag:L6zQQbA8RPguaE6DzDKVtQ==,type:str]
+                      value: ENC[AES256_GCM,data:POGl,iv:TJHUw74ByE4TXdn/Yz9ndc9lP2MYXPHZTwJyPOCxdAQ=,tag:F9uNGoOAm66ZnFWI+LJSzQ==,type:str]
+                    - name: ENC[AES256_GCM,data:bw2mfn/Ph8dlgA==,iv:2ZbnE9uJ/Tb6L/TAXk9l7orFk08jJba3xUD6wDSiJyg=,tag:eKaCzQFgutguLz3+Lt7jUw==,type:str]
+                      value: ENC[AES256_GCM,data:iV/VocWP6lzy,iv:J0XuG9race/9TRh6RC80o3CecEtnDSblVxDxxYgSl5A=,tag:gTb1x485urYbtg/mVbsl4g==,type:str]
+                    - name: ENC[AES256_GCM,data:2JcZGxtfdJ8O8phOR0++y05bcA==,iv:wxcq/D80OzKTnHOMgRGifrTy75HeNRfoFmIoeO9a+OU=,tag:dAAVbo+FwfvDTr0fXehb+w==,type:str]
+                      value: ENC[AES256_GCM,data:f0PA,iv:SqRupnAhYOtEZIiQLkCyfIK5ToxpXhy/fjQVUQfdfiA=,tag:z88pds6hdUvso2akER5hSw==,type:str]
+                    - name: ENC[AES256_GCM,data:eHus4iK16DGjVnQyZ0s=,iv:oFnh/jULnky+08YzvINc1ukKFQ/2XkKTlCeOyFIV6rw=,tag:0teeqkpe5OwEWn5MiUJQDA==,type:str]
+                      value: ENC[AES256_GCM,data:5w4=,iv:IiblVPcdPokTrveWCKjZQH8nZ77zUyllw+iCLyY44ok=,tag:U3FtIvMkHgPF+MzTWaMKtw==,type:str]
+                    - name: ENC[AES256_GCM,data:JUk081DTQrCZb3U=,iv:1EOXMyDUWrQjqslgGlo/WeXmeMlcC5OkWqonGPx9Gcs=,tag:qvGtD3Qn3snqmpJHw+NVPQ==,type:str]
+                      value: ENC[AES256_GCM,data:UnohUKeeKfInZZIPNQ==,iv:zqyNesNA/eXMVxpQgpz6O06hHKqnqe6dFXKRIX+0QVc=,tag:6xMs43MQB2mvG23mqpAwNg==,type:str]
+                    - name: ENC[AES256_GCM,data:njnnt38Lrk/3GLUI,iv:X235kwIm4nfV3xBEKYn/d9Byem1HY7xOZ/czHpTcjzo=,tag:RPGYGnc5gBx8PBRM2pyOZA==,type:str]
+                      value: ENC[AES256_GCM,data:NLBPOwiewgYTXa/6Rv0O,iv:L5/UascO0lAJfWe13WXYr9jjPRYtSeWSL7/Ym5U5Oyo=,tag:D9NI/h7ea3qD29kKnGNV9Q==,type:str]
+                    - name: ENC[AES256_GCM,data:oG8wksODRs5PZqyDSe4WwqbSkgqSDpMzqqLWVw==,iv:VkAuwyEJHbMjnEv3aGLLBfd0vSo49f/ofXeXtbSaPGA=,tag:kXRuvgJbmfIaBwm3pXv6dQ==,type:str]
+                      value: ENC[AES256_GCM,data:L+o=,iv:GkEdtLRcl5fHIWo5/VzqfGRxExOnE7M3b2nOr3Bh/PI=,tag:OWS+OS4gFZD9oD+0Fyzy1A==,type:str]
+                    - name: ENC[AES256_GCM,data:8+pHnCE=,iv:n5MGlOPUF5J+Bl0H9DskMR3eBrYV0+ftYwmZAR4fKJI=,tag:hgTGuQoKxGAiVQ/HeU5bdw==,type:str]
+                      value: ENC[AES256_GCM,data:A49c,iv:Fk0o66cSJsj/ftwMrzSjbvMbNIwCONLjHgse/YJSsj8=,tag:GiLkkqP5Z23N7ZtJ8cWJiQ==,type:str]
+                  volumeMounts:
+                    - name: config
+                      mountPath: /config
+                    - name: downloads
+                      mountPath: /Downloads
+                    - name: media
+                      mountPath: /BigPoolMedia
+            volumes:
+                - name: config
+                  hostPath:
+                    path: /mnt/FastPool/AppData/Deluge/test
+                - name: downloads
+                  hostPath:
+                    path: /mnt/FastPool/Downloads
+                - name: media
+                  hostPath:
+                    path: /mnt/BigPool/Media
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNK1lxakJZNFJtUEczbVUr
+            b293a2U1bENrY01WY0JrQm0reW9RSU5vSDJjCkRiNlZGN3VTSGVCOHNHMWRTRHY1
+            czJCcEdqa3RRNmQxSlg0dklGZHNnYjgKLS0tIFRzcmFDMjcvTm5yMHVhVmdTci9I
+            N2U5Mk9NQ0lLTHE1MGdEMXFRWForSEkKZadjpWhZjZ+JB9FoM/GlKZdOe/HoQ34j
+            G2T4qq9NYULXRMSMBskHGmN1yB0XLVv0fI7h5nIHsFamzk1BPe5jnQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-30T16:06:26Z"
+    mac: ENC[AES256_GCM,data:lDPbMr2qp3J2HCZ4bPD+XMmp87RL/uD+TBT970HVrzYOWqEYqjLoaV9X0BhwJcw8/MOMG/kbypjLyi+1z62u9zXPZHw9vUJzx4JeLF5wiQcemenS7qBDX1BEPqleyKxJAsUE0P4fAUGMewkByXJwkg6QE9YTie2CQrImEoaZyGE=,iv:71yLEhWIe9iiy6bSXgOm1/rfrL+2u4d+vJaGb4fGU8A=,tag:wgbZULpHtZqWk7BM+Da0pA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

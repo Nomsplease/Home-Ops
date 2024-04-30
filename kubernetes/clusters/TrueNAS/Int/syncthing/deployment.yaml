@@ -19,7 +19,7 @@ spec:
         spec:
             containers:
                 - name: syncthing
-                  image: syncthing/syncthing:1.27.5
+                  image: syncthing/syncthing:1.27.6
                   resources:
                     limits:
                         memory: 1Gi

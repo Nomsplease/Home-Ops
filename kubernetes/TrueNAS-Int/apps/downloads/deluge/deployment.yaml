@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: deluge
+    namespace: downloads
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: deluge
+    template:
+        metadata:
+            labels:
+                app: deluge
+        spec:
+            containers:
+                - name: deluge
+                  image: lscr.io/linuxserver/deluge:2.1.1-r9-ls266
+                  resources:
+                    limits:
+                        memory: 16Gi
+                        cpu: 250m
+                  env:
+                    - name: ENC[AES256_GCM,data:hEMSkA==,iv:Mj0hvAymYsuDVPjhR8SXMTpdTOtO8rTCrqVYma1yPPc=,tag:+USwL4XxlBU0jN/Ka7hSLA==,type:str]
+                      value: ENC[AES256_GCM,data:7PlA,iv:VvHvMcgXNDVBekeO3HQKm1RgomYrfA1HYXdr1osTpDM=,tag:xWGjwd7ZIL9eh7XtF7Agrg==,type:str]
+                    - name: ENC[AES256_GCM,data:c8i3Sw==,iv:2LS3z3ImMm3rkRab/M+lIuh62jQ2bP5ELvKgKyQ3pU8=,tag:Aq64e2m3rkAuTmabTzsKhg==,type:str]
+                      value: ENC[AES256_GCM,data:E4AO,iv:u16S+mwZ1uwF5V+eEN9Of4D1aadEHy4A95VRDdv6R7U=,tag:lubSYP8Xuv3X2KpEkTjWmQ==,type:str]
+                    - name: ENC[AES256_GCM,data:Zlw=,iv:as0CGwvl2wYL5wNVvpLH8t5xYI7khRdnSn6pQeXG2Y8=,tag:yvb70YIoK0ysv819cJYiPA==,type:str]
+                      value: ENC[AES256_GCM,data:Boh14I0+zThvJywLMIIolA==,iv:NdwMuXX8sw/wZan+dVV1ePacRSFc3ZbX8aXICBRIN28=,tag:y/AvxmLrdGcK0pRWMXd4Cg==,type:str]
+                    - name: ENC[AES256_GCM,data:sJ8C+7Juz8wPPIpWiMM4,iv:ZQ0YuogwO3a/1ysg2XTs4mMWUq+cLQHeW826CaXEjpo=,tag:zlPtWVzTWV9saHA5dab0eg==,type:str]
+                      value: ENC[AES256_GCM,data:Q2uwAA==,iv:Z2A6AwIkguZSLCQpX2tZo1d9uk5fZt5owMGrqZqnKE4=,tag:dV8lJs9VUtVv4sMwJfEpuQ==,type:str]
+                  volumeMounts:
+                    - name: config
+                      mountPath: /config
+                    - name: downloads
+                      mountPath: /Downloads
+                    - name: media
+                      mountPath: /BigPoolMedia
+            volumes:
+                - name: config
+                  hostPath:
+                    path: /mnt/FastPool/AppData/Deluge/test
+                - name: downloads
+                  hostPath:
+                    path: /mnt/FastPool/Downloads
+                - name: media
+                  hostPath:
+                    path: /mnt/BigPool/Media
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHckxScjBiYjZhYkw4Y2Vh
+            NERUNXlTczFMZFgwdm91MktRV1FlMzZqTWk4CnhTMVdkZ21sbm1vb3ZrTUFocTZH
+            RFZXendqRURMemVNZ1oyR245c3h5aGsKLS0tIERacjRCZUxoWnJHRUN6Wm51YUlV
+            TVhHUVlRaE9nRitYS2RvQVJEOWxvM2cKNPShjE/dFQvfBM/fGolemymZoqOxYa6D
+            +OxGX7OqGoyK1v5oVVKuYaE3Sd7/2pdHwQ82Bw+OLdwbts2PMopxQQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-01T15:39:59Z"
+    mac: ENC[AES256_GCM,data:hQSBA3n8Q5Z8bx67rlnlB1uwXkjSkKnEHpraE+TFrTo2ZEXQgHQ9gnf/yYZ/igyofK9H0nVyCWKoBX/CgwS46Q03kJJL+Dyq7fTweDjN0KSYQJjg0ZcMiUrnZPPnv2FHxWYXfvwOguMNPKWCKyltjsBC6qz73TNd1SDYakhT3+I=,iv:bk6u9iv7mtpXifME24zkShqIW32l4fPxw5aEjSyyCg4=,tag:P2vkdSAo297pfpcm6F2Rag==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: deluge
+    namespace: downloads
+spec:
+    selector:
+        app: deluge
+    type: LoadBalancer
+    LoadBalancerIP: 172.16.2.17
+    ports:
+        - name: ENC[AES256_GCM,data:xXafkPY=,iv:bhIbRsLvBCuiCR4wQJ6moMTiR2ZV0OZwR8kbNIsG1Rc=,tag:ZbVo2ZtNIOsXMPwCgbFG2Q==,type:str]
+          port: ENC[AES256_GCM,data:eNuU/w==,iv:UtPZS/FYA6MeEmsQj1iHBLs39hMJ24mKv5gT2wEPF30=,tag:daeDPoIoyk+poMasXBM8MA==,type:int]
+          targetPort: ENC[AES256_GCM,data:bmtYXQ==,iv:ZUDXJtBGmDkQDx7IpQv5GCErYB9VvA9U9WB+RnnKZdY=,tag:VsBWPOsPwb0IPeseLBAODA==,type:int]
+        - name: ENC[AES256_GCM,data:xxi68Xctag==,iv:cMNAVHC5Z57byNf0h506uEyMhu2I8dPHE4q/2Gb+7nU=,tag:3WmxEPedL01DqE8n2Y4AWw==,type:str]
+          port: ENC[AES256_GCM,data:Qca9rA==,iv:SEPW36Du2gw2l19n8eoYNDkzlzUYqPWElA8dK+4hHFQ=,tag:0hB2ZWPTmlXhmKHovjH7zQ==,type:int]
+          targetPort: ENC[AES256_GCM,data:1EsQBw==,iv:v66l1Ef4HLt7IUavfL1axYDRe4ulJVbATbrmy46KecM=,tag:xgsDfOQi0JZrtm2XLnDUeA==,type:int]
+        - name: ENC[AES256_GCM,data:2RV3wEHC8w==,iv:Tv8PEwuBvc53UclUJK9Rwfol2PNWtfox8oAx6O2NoWc=,tag:U67iGmpfwdBBgTuObN0pIA==,type:str]
+          port: ENC[AES256_GCM,data:yiibHCA=,iv:1d6vunbT9EuTpX7CMnRI+trqTTFDdDAEW/cIiiMsp1M=,tag:N7o76RCnI/0McvVetTtXQw==,type:int]
+          targetPort: ENC[AES256_GCM,data:N1fC6M0=,iv:QzN2bP6DPlP+r6wunLdptIkBYLWmLuRft6gKQ03QK24=,tag:fBSESRRLYJRs3zwBJV9Pew==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBTVis4QmxobFRMUjVQTUFS
+            T2RlYlE3b3p1RE14VWw5VlV1Z2VXV2xwWGtNCklJMWFOQ05uUzhVY3Vkdkg4bkRq
+            Q1hMbC93azNwcXhVR1JxRjlRVWpreDgKLS0tIGNHTDUxNE9wcnhuUURWMXNqV05h
+            WEpDOERESkJrUjZTcFRMU3FEUXpWakUKPP+9rkPPklnk4a4vjzY4kfWGkCciIHhr
+            vFRHAUhE+QNllt3eclOPXzSX8tWiZcey6l4z7AW2Rb89o0/4SPJrRQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-01T15:41:19Z"
+    mac: ENC[AES256_GCM,data:mRYeLZdajMJ/UypV0QEk2Ln33immplKKh5VFge3wy5JTt0K7BWcw6yB7cmfiPyhPskGz0wLRTsUOuboM3YRGvrhV9f37BVSobPovafZSESiGvDqBVd7BH0zeaZDyorDBJn9MxrcUMtme0AqmRcSD11SPCYdL/+o6gQH4nj6UIyg=,iv:h6euiXYus7EfUwinPBZAIVsQbFdZ98C698fJR6ULv3c=,tag:H7y7OtVNegqBTGihjPM1eQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
+    version: 3.8.1

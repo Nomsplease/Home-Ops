@@ -18,6 +18,40 @@ spec:
                 app: deluge
         spec:
             containers:
+                ## Gluetun Container
+                - name: gluetun
+                  image: ghcr.io/qdm12/gluetun
+                  securityContext:
+                    capabilities:
+                        add:
+                            - NET_ADMIN
+                  resources:
+                    limits:
+                        memory: 2Gi
+                        cpu: 100m
+                  # You can optionally specify ports that are used by your containers, but it is not strictly necessary
+                  # ports:
+                  # - containerPort: 8080
+                  env:
+                    - name: ENC[AES256_GCM,data:tXw=,iv:crgnmoBR2dywIO5zMVhtt9QPpatVRVjSIaVR+D/SYqE=,tag:VzcxEf+ZlLUC2RB3OVesUw==,type:str]
+                      value: ENC[AES256_GCM,data:nML1W8w8imVvRQMTV6v7TA==,iv:ucozp/mAwQFltj4ql/MVlmXhGtRdJ3AMydvdOBtUfLc=,tag:l9PQn86DEhtBiePX4r4YOw==,type:str]
+                    - name: ENC[AES256_GCM,data:nPKAhM5xtZX4S9HhUb2fJRnrVik=,iv:c3aXaUEDsJOkerWHhhv1YvKsa3RE3V30BQkb8UJbeyk=,tag:r2iKiqUve5mFxYG1y1EADQ==,type:str]
+                      value: ENC[AES256_GCM,data:jvJJuMG1xwgc5x5lQWPPYEA14Atw6YI=,iv:Ed0AAb0zi996LVmH9Q1dhmuxOYD07tH5PO40lhasHfE=,tag:rPEvaSMnC2cm46gf2UmQKg==,type:str]
+                    - name: ENC[AES256_GCM,data:/uSzvz7yF2omYTCt9cc=,iv:Hf6kcHGRSBdzZy2ByhYqW7EUshq92bUrgZNQk6Rbb6g=,tag:q+S5OWwdi3Bmgghz0OOKuw==,type:str]
+                      value: ENC[AES256_GCM,data:Kv+Vv3zBKmqrL/A=,iv:+JMEpUXH83UidKytwhTUZdMDo55/OaJeqdwz2NrVLAM=,tag:xUGgOkTZBJxTjJby2NYhhA==,type:str]
+                    - name: ENC[AES256_GCM,data:5z3NcfvUO1tNS3Gv,iv:3atpJmrG53aHUX6FWDbeijx3HUBHKmXgN7GHBX0HQfA=,tag:p1e42tFeF8jG87jTwWZNbw==,type:str]
+                      value: ENC[AES256_GCM,data:H1J5mlAYS2k=,iv:iGLZ0a3IdLhs7oWHFp+voUdbuCMjhRUxBe1cfhpOpPU=,tag:4h0TIYxpXEhqYCb6M0b+Eg==,type:str]
+                    - name: ENC[AES256_GCM,data:iSZrjPofTABdXE5RxS7ZYQ==,iv:4flpJzk14vywWal267I5MfDNdcdHHaWfAnKa/gth87U=,tag:lpgIQCsSRKG8sWe0ONRdrg==,type:str]
+                      value: ENC[AES256_GCM,data:2gLpICdyJJIP0w==,iv:LLaUrfTEl2cYnPTdmKWcCcLxHU5xnpNbFq4jDx8eaH4=,tag:Uzok8IuUi5hNf3g/45msJA==,type:str]
+                  # If you having connection issues, try enabling these variables to help diagnose it.
+                  # - name: FIREWALL_DEBUG
+                  #   value: "on"
+                  # - name: FIREWALL_INPUT_PORTS
+                  #   value: "8080"
+                  volumeMounts:
+                    - name: gluetun-config
+                      mountPath: /gluetun
+                ## Deluge Container
                 - name: deluge
                   image: lscr.io/linuxserver/deluge:2.1.1-r9-ls266
                   resources:
@@ -25,14 +59,14 @@ spec:
                         memory: 16Gi
                         cpu: 250m
                   env:
-                    - name: ENC[AES256_GCM,data:be0HGA==,iv:kFTS3226QpEh9pu0z8TebBm6aqcvvMTwm/3TPFnUCiM=,tag:1r8dVu/SVM65VybXeUGhYg==,type:str]
-                      value: ENC[AES256_GCM,data:UVt8,iv:+iTWWVXn7othBxEPsoMvpZcIhqVRRVqe9JT6R2djIcw=,tag:t2/53IkDPkBOFC145fmJ+w==,type:str]
-                    - name: ENC[AES256_GCM,data:F02Xlg==,iv:qQw1DJNmiGYORtDsW462MVqv3XXj8z5K/H6yceQHFoA=,tag:Z9tUi+VWGGm68sCnS+wb3g==,type:str]
-                      value: ENC[AES256_GCM,data:oQE6,iv:0Rm5Yvti3qFMLr+dfhw0UmdyP5+UOCJi3FOa22Qrgpw=,tag:vj3M8IQmT0iFU5eZtekRCg==,type:str]
-                    - name: ENC[AES256_GCM,data:c0c=,iv:kbmk9KPbRk1IqPnk5yNviVw/sFFL5+GieEpFH0AbBPg=,tag:yCjgqoAq7A6zkWl92eDysQ==,type:str]
-                      value: ENC[AES256_GCM,data:YKbE4rPB2oWvEG3aMw343w==,iv:0lSfwLLHk8m9qIP0OHyxumbfMxRjXXP4/yvCHIGmBE0=,tag:94GzM/nYLUt/VffX+S/6jg==,type:str]
-                    - name: ENC[AES256_GCM,data:bZ8I1F5Hug1OeAb+Pqh8,iv:ZFx78APcj8qKolA1DHKA1x54BqEf7GL0oq7Fex2O7a4=,tag:qt/LsdOt8dYZ7YYzl7YLvQ==,type:str]
-                      value: ENC[AES256_GCM,data:QADNxw==,iv:VdZXDhrro2LUNf5Qak6mj/uqCGWqnT5VSKj98ZOrx9E=,tag:CX/8ojZ+Ja2ToDf6A3TIqw==,type:str]
+                    - name: ENC[AES256_GCM,data:tL+cFA==,iv:CSEJZS946PF3txylHCRP7uqZ6naskLuthUNXBInv/co=,tag:CIwB5GyX/Do7yR2YW92eeQ==,type:str]
+                      value: ENC[AES256_GCM,data:clmu,iv:K6h4G6uvjTgq7B/W7KmAhGhrXmr2wftgNMigm7FH+cU=,tag:DBnbjQ/M/2MZzFPDs6vldw==,type:str]
+                    - name: ENC[AES256_GCM,data:brh+tg==,iv:Je24FSYnrf3avJJIiLaJPhdcDgev9FWM2RP8FsRzLSs=,tag:4LU64EXu/6lICKAAwxGHzA==,type:str]
+                      value: ENC[AES256_GCM,data:77Ae,iv:ilzp3N4wbYl2ISgBMQZLW3yq/X9gvW+h9OY/8z3i4ts=,tag:0tNtz8WoTOaH6YIOd7nZNA==,type:str]
+                    - name: ENC[AES256_GCM,data:Slw=,iv:rP30s2T7lLFWOzIRoKFge4DbtEcfo1Edv9OX1L3/urw=,tag:GhzhCs23kG5YHUISoqGcjQ==,type:str]
+                      value: ENC[AES256_GCM,data:hDpnZnAieWA36dk/2DhkwA==,iv:wCVOlozQvcalVH9Y/FycGp+VsQTZs/jhzAAaEBec0Iw=,tag:zeDUB05Cd1UwGjPD576Ozg==,type:str]
+                    - name: ENC[AES256_GCM,data:91fvJ5h3QProYxTwBJS2,iv:ZSkQ5J1i8HWmHH3233wXU38qkEskFc5D8XuM+rb0BUs=,tag:fAybzZ3hODYrFNMjZP4vAQ==,type:str]
+                      value: ENC[AES256_GCM,data:fRGquA==,iv:wT5mkcXO+VWFa2J2y8XlFX5sIpSKBcoUWnNfyVQB5Yw=,tag:GPb3BjmF01LzFc0M2ZAy7w==,type:str]
                   volumeMounts:
                     - name: config
                       mountPath: /config
@@ -41,6 +75,9 @@ spec:
                     - name: media
                       mountPath: /BigPoolMedia
             volumes:
+                - name: gluetun-config
+                  hostPath:
+                    path: /mnt/FastPool/AppData/Deluge/gluetun
                 - name: config
                   hostPath:
                     path: /mnt/FastPool/AppData/Deluge/test
@@ -59,14 +96,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA0eVBNcmRmQm5yUXVEUXhx
-            OXJrUm9GL0ZzZHRlWnNWYnBZcVpRZWlQVlRnCmorMGxlWUxzWDNYOXBuakNDU3R3
-            Sm1oRWRtaklxejhmWG9OejU1RFROdjAKLS0tIHZzekQvWG1UKzIxYXJKbkFxVmRx
-            dGQyamlzb2JWdEVwVTBqY2o0aDIySVkKEAFFKKqTS8atW90cOdPku52QRIgJSAnN
-            cWkplwRYLLtTTZQwcTpqw8Sfz7w6t9HyDZagrxgU6rurufOmumlQew==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA1a21zY2xZT1RMM1lGNHFx
+            eUJHbU1LNitvVFJJN3VEL3pxc08wcUxTL0NvCmdzRk9lcWpZdm9VZEJUbjluTmxC
+            YlB3NUplVUJ6dTBqSElSd1d6alFGdGcKLS0tIDJkbEVNeElUU2hmdWllWUlTOWgy
+            ZjRKUzhJamQzWm1EaHNyNllyY3FiR0kK39bubyO70JMqWsklsUGo66nIx+ip5a+F
+            e4LP+40vejNgz8unwvaQhhiRyC+aS6NY09R5pOWRxhjikQvw+pXyTw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-01T18:47:04Z"
-    mac: ENC[AES256_GCM,data:8fUL+xfXsPa4cVA8fpXXA7TLUZ9SwRWo45MOszq8ek4zmboKd+9jHyWSTl0CVT4xoWytJ7gqaQERHu6jKzW4vvYZWpTiOrcdPPxYctBl8OmbrcirPCtuKcf1p5v79DCYZlGVAMvsKloA95QeXsqgZHqA106cIdRBH+BULeNLrCg=,iv:Kc+RhKb2mA9yhKYkFiYEkTKnuqAVSbtmBuzhH2LoFHk=,tag:mU+u/9WdWXA8FJ9LKyTHEA==,type:str]
+    lastmodified: "2024-05-01T21:13:13Z"
+    mac: ENC[AES256_GCM,data:Dk9E9VQSbZUXgluYGgGgiY+l6QbVMPHn2TilmVDsrDgsBRj8/551yQoAEmNQdRTOGz3O9bUUjmSUDXmDsQZsEUq3yRlnhfrVKEFQ62XyxiGf4s198bAZtCbJjHxEL9BgkQEvU8DZ7eIEiiUQgsW895Zit+aO3UCkVCz1OFQfL2Q=,iv:dk5iuFVn6zkavdK2gl+Td0eRFjWIufp01AbkU84tBRs=,tag:rRhH+kJwrB5fu9K9FVWDCQ==,type:str]
     pgp: []
     encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1

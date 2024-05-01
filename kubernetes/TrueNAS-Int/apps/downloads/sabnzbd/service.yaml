@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: sabnzbd
+    namespace: downloads
+spec:
+    selector:
+        app: sabnzbd
+    type: LoadBalancer
+    loadBalancerIP: ENC[AES256_GCM,data:Yyr8Tk3jKjF6N8c=,iv:6MveJxTEzMgnXFKwy99SyiXA/zwiH1ocKVtH0VfONUA=,tag:DuUsaDOT+GQYtamMZ4qeOA==,type:str]
+    ports:
+        - name: ENC[AES256_GCM,data:2ks7qqc=,iv:tTY0UTBzujDThb1Qjx8UFXcVBqfgulwZdi3NdwnkqH4=,tag:KRI1EAD4TpbIMGVDtzZAAg==,type:str]
+          port: ENC[AES256_GCM,data:uHSVPA==,iv:RYDW7RL2h7wePTOQOLrm/6LQGTWF/OPBIs343hUnKMY=,tag:FLDrHf8SUvcQcluq78DIwg==,type:int]
+          targetPort: ENC[AES256_GCM,data:CQd6bQ==,iv:L5pambyH3SXSemYPed1YaQ+sQgjcm9yFC4pxtDL+5Ws=,tag:z4i/5X1z8oJveeRaGkSTRA==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBTUHhpWVJGbXlkOVIxYTRD
+            ampMLzBUeG1NQkpwTHlZUS9DZU9CdVpwSGhvCnJvWnh6bm9ZeUJqaWZENXJpbklK
+            ZXdNODU3Qm91VzY3QjdvbUNOem9TMXMKLS0tIHRQaTdoamw1d090T2UvQ1AwNE9H
+            cjRxMGVnUVlDWCsrRFlDZjc2dWtjcFUKp7Ad1+om22rThWFHZi1WkPf4l75H2BO4
+            WW2GP8t7Vdsn0taENnSSh/3HbRfGYLEVUjnNiOG3tUZMV4nzi5T61w==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-01T18:51:52Z"
+    mac: ENC[AES256_GCM,data:kba65PKuqfCj41YQ/lFC252S++KARyzwbi5G4mraRLWPsyOiv0JK74jGzCOtra1DBNQSIZWuTqRX9tzCrLuug+8RYgzlYXANpFO5LWHTDuEqqR4bkYes5rLPwuEhohhati+0jKzqf3/2sGpx/+xOdw7dHdIOhFj68iZijAZ4zQI=,iv:OvGt6SKl2PQCp6QOgAUanm/BVE96VHzFCovE9IL0keY=,tag:pm0VGpQhTiMytULKub7yWA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
+    version: 3.8.1

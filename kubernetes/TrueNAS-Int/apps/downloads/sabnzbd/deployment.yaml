@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sabnzbd
+    namespace: downloads
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: sabnzbd
+    template:
+        metadata:
+            labels:
+                app: sabnzbd
+        spec:
+            containers:
+                - name: sabnzbd
+                  image: lscr.io/linuxserver/sabnzbd:4.2.3
+                  resources:
+                    limits:
+                        memory: 32Gi
+                        cpu: 500m
+                  env:
+                    - name: ENC[AES256_GCM,data:BkT9dw==,iv:UspqX+o4uDikDJmKHvmKzs07H3tCERVR1yN4HW1k0RE=,tag:mqcnr1jP+GvD4YoIPED24A==,type:str]
+                      value: ENC[AES256_GCM,data:Wq32,iv:jjDwKHl6lIa3IMQSnJ3793kaRhZLBkcm7tU8G7Sz6bo=,tag:v1S82z9yz+PeqDZufOzgaA==,type:str]
+                    - name: ENC[AES256_GCM,data:boZxvg==,iv:RFcOCsXnPZXOo8xMeB4O+F+0LoFX20EwIVH8rCZh+TU=,tag:EdY1C4UlxdkGLhzrPxScdA==,type:str]
+                      value: ENC[AES256_GCM,data:lOGq,iv:qpJU01+xhPz6FI3M62XmfJ/wNXPhKA9ua9DeDGlz71w=,tag:1U3XIVv+T/y6UiopNRhjyA==,type:str]
+                    - name: ENC[AES256_GCM,data:Ze8=,iv:gkRype0aUS+H1v082ok+y2rXiwuJlkYdo/dBgGoxPUk=,tag:I1UvhPBjsuSQZan87McsZQ==,type:str]
+                      value: ENC[AES256_GCM,data:BnZfNufTVRIqTjvTLjLQAA==,iv:F4qQjWKsEo+hdULdtWp/El1uFDfCPV6ndDGjI7KH+60=,tag:j0ql+1Cw9jFjFA1zoWIAvg==,type:str]
+                  volumeMounts:
+                    - name: config
+                      mountPath: /config
+                    - name: downloads
+                      mountPath: /Downloads
+                    - name: media
+                      mountPath: /BigPoolMedia
+            volumes:
+                - name: config
+                  hostPath:
+                    path: /mnt/FastPool/AppData/Sabnzbd
+                - name: downloads
+                  hostPath:
+                    path: /mnt/FastPool/Downloads
+                - name: media
+                  hostPath:
+                    path: /mnt/BigPool/Media
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBTMDBqc0x1QnV2Q1J6ZjY4
+            emhtN2tvamxnVlltRW0xdEtNNEdaZUtHd0g4CjlDb3Nxb2JoNW8yRWpYa2hhTnY0
+            WUkrRWx1NTlrNG8zd0IrVVFLODhuOGcKLS0tIEJZV2QxRVVFRWdvQXdNeW1YcUhL
+            TXlJMWtrNmdnNjdKTGhtMmF3ZTlTSmsKGj80luqkEwUSI8gNkNh4AGFRvVU9lG6K
+            dGaeowE49OPTL4xHAZN+JmEiyl0Z5sahpTkNKpw2qgGowd/DPUl2jg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-01T18:51:07Z"
+    mac: ENC[AES256_GCM,data:7JkQSjVhcYuJwI27QtJpy8ovAbTmgSzjAYz4zJ/TotpiEb1Tdy9gtrcJzJXzri4sGO1Ugk8KRnQnW/9Gy+UMN+weRsCe4ekGIyenAaOACdNwsVKzkSbD1Z9w76dLD+zmZWk13imMfIk2k4rRGREiURC5plzEBGGCcJKsVIuiqwQ=,iv:xt+PLnsk6a5j0hohqPJPUJvO8fHzPNawOtd84H6yYX0=,tag:DoX3nv71jWk/KBzvH/Rz0A==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

@@ -29,23 +29,22 @@ spec:
                     limits:
                         memory: 2Gi
                         cpu: 100m
-                  # You can optionally specify ports that are used by your containers, but it is not strictly necessary
-                  # ports:
-                  # - containerPort: 8080
+                  ports:
+                    - containerPort: 8112
                   env:
-                    - name: ENC[AES256_GCM,data:tXw=,iv:crgnmoBR2dywIO5zMVhtt9QPpatVRVjSIaVR+D/SYqE=,tag:VzcxEf+ZlLUC2RB3OVesUw==,type:str]
-                      value: ENC[AES256_GCM,data:nML1W8w8imVvRQMTV6v7TA==,iv:ucozp/mAwQFltj4ql/MVlmXhGtRdJ3AMydvdOBtUfLc=,tag:l9PQn86DEhtBiePX4r4YOw==,type:str]
-                    - name: ENC[AES256_GCM,data:nPKAhM5xtZX4S9HhUb2fJRnrVik=,iv:c3aXaUEDsJOkerWHhhv1YvKsa3RE3V30BQkb8UJbeyk=,tag:r2iKiqUve5mFxYG1y1EADQ==,type:str]
-                      value: ENC[AES256_GCM,data:jvJJuMG1xwgc5x5lQWPPYEA14Atw6YI=,iv:Ed0AAb0zi996LVmH9Q1dhmuxOYD07tH5PO40lhasHfE=,tag:rPEvaSMnC2cm46gf2UmQKg==,type:str]
-                    - name: ENC[AES256_GCM,data:/uSzvz7yF2omYTCt9cc=,iv:Hf6kcHGRSBdzZy2ByhYqW7EUshq92bUrgZNQk6Rbb6g=,tag:q+S5OWwdi3Bmgghz0OOKuw==,type:str]
-                      value: ENC[AES256_GCM,data:Kv+Vv3zBKmqrL/A=,iv:+JMEpUXH83UidKytwhTUZdMDo55/OaJeqdwz2NrVLAM=,tag:xUGgOkTZBJxTjJby2NYhhA==,type:str]
-                    - name: ENC[AES256_GCM,data:5z3NcfvUO1tNS3Gv,iv:3atpJmrG53aHUX6FWDbeijx3HUBHKmXgN7GHBX0HQfA=,tag:p1e42tFeF8jG87jTwWZNbw==,type:str]
-                      value: ENC[AES256_GCM,data:H1J5mlAYS2k=,iv:iGLZ0a3IdLhs7oWHFp+voUdbuCMjhRUxBe1cfhpOpPU=,tag:4h0TIYxpXEhqYCb6M0b+Eg==,type:str]
-                    - name: ENC[AES256_GCM,data:iSZrjPofTABdXE5RxS7ZYQ==,iv:4flpJzk14vywWal267I5MfDNdcdHHaWfAnKa/gth87U=,tag:lpgIQCsSRKG8sWe0ONRdrg==,type:str]
-                      value: ENC[AES256_GCM,data:2gLpICdyJJIP0w==,iv:LLaUrfTEl2cYnPTdmKWcCcLxHU5xnpNbFq4jDx8eaH4=,tag:Uzok8IuUi5hNf3g/45msJA==,type:str]
-                  # If you having connection issues, try enabling these variables to help diagnose it.
-                  # - name: FIREWALL_DEBUG
-                  #   value: "on"
+                    - name: ENC[AES256_GCM,data:QeE=,iv:nRtq3bh0zYRxsTK4LgFz/OaCJouhbX84yT2L7dIC+Q8=,tag:xzPew1uCZqKAVKOIvqzEeA==,type:str]
+                      value: ENC[AES256_GCM,data:dLadlfznuDAT+5DT+wpY6A==,iv:ZkUmAfvJTFr4QxDGKKMWUsH36iXg98VfGfRWQX0DRyA=,tag:X80kiodWjGzESy24+gJVTw==,type:str]
+                    - name: ENC[AES256_GCM,data:kohTVJMFRQzs+LaPBAFJgHWoQmI=,iv:2hjdiJLOBEebfeCNWwPRJV0suefB3VIwTT/fIwhbBds=,tag:W5EEI7IKfGsswo/FTsowMw==,type:str]
+                      value: ENC[AES256_GCM,data:6IecUZAhA7M4wDU9tDDeMQ1Scf2NT7w=,iv:49HJfaDybdem+QspoTjCVo52ER3NUCYBcnmsxMhqnZw=,tag:690xI3G0vGLMj9VNRMhtPg==,type:str]
+                    - name: ENC[AES256_GCM,data:iMviNzg1ne+YA8AQgFo=,iv:iqz/HanMmb0MAleddfH0P3TO98rB5UK3ZjfwoQoRheM=,tag:Oy7LGP7w4O4SJeaw3TyBnQ==,type:str]
+                      value: ENC[AES256_GCM,data:fTogpTRNaAkckF0=,iv:Nnjwt8uF0n3yRO3Z+vd1LgAbsRnl7WQ3zo5jXJCRbTc=,tag:xISXf7St7KoFBkGT1GcX/Q==,type:str]
+                    - name: ENC[AES256_GCM,data:13YGmCA3PENZvn93,iv:MLknz3QCf4U4q3XOhLOWMaEqkovWl4nljzbE82aulOo=,tag:UParBXxg+wbnKcHw9eEDlw==,type:str]
+                      value: ENC[AES256_GCM,data:FyAtSOeba6I=,iv:DNR98jrhPpfrDF1cs67X1DNgIiN0rvdpMqwJPAHtnAQ=,tag:GyTNCvxIztkW3OwWoDRDcg==,type:str]
+                    - name: ENC[AES256_GCM,data:O3GcFIsP826VvRtD2c7G9w==,iv:5hE+VV9UU7CKkm9t/QaTZvk4LeTiK1ZPbupqVpJpRs0=,tag:AXzBGWECIIoLhw0pWTnmlg==,type:str]
+                      value: ENC[AES256_GCM,data:RIpprCnLVQTXrA==,iv:6CZyt6aORpdT8coyEaVvNtGRJpTyBr+GguthRrU/GlI=,tag:eQP26CTcRmyGmYXHbgiJnA==,type:str]
+                      #ENC[AES256_GCM,data:J61LmTojB15GyDOET+Sv5Jde52kWXOMyX5BAosb8/9/kB3LyGElT13kk1k8IucHMU7Lb1Bq8YnIQb4vyBSC4IkoogDzl9hNTsSmbdl5QqPAn2r8=,iv:J1ynHQBpYjFsH3fP151bE2iaOkjDaZCGOPEvDvdjgx0=,tag:n9OtaAGVTjDAXyjx8r/ocQ==,type:comment]
+                    - name: ENC[AES256_GCM,data:49rIZm6JNzC+mmpFV38=,iv:EjgN3zftIS917qhJf8rjpzbBQID3AzVwCaTdp69OpFI=,tag:6iCQx4OcoNeEeGchxZeW0w==,type:str]
+                      value: ENC[AES256_GCM,data:CB4=,iv:Jxl/xn9BTVa1e73T7aNwS3eXhggm24Aa01ZngdB0iDs=,tag:73IyG+57TmoDvttGsfxooA==,type:str]
                   # - name: FIREWALL_INPUT_PORTS
                   #   value: "8080"
                   volumeMounts:
@@ -59,14 +58,14 @@ spec:
                         memory: 16Gi
                         cpu: 250m
                   env:
-                    - name: ENC[AES256_GCM,data:tL+cFA==,iv:CSEJZS946PF3txylHCRP7uqZ6naskLuthUNXBInv/co=,tag:CIwB5GyX/Do7yR2YW92eeQ==,type:str]
-                      value: ENC[AES256_GCM,data:clmu,iv:K6h4G6uvjTgq7B/W7KmAhGhrXmr2wftgNMigm7FH+cU=,tag:DBnbjQ/M/2MZzFPDs6vldw==,type:str]
-                    - name: ENC[AES256_GCM,data:brh+tg==,iv:Je24FSYnrf3avJJIiLaJPhdcDgev9FWM2RP8FsRzLSs=,tag:4LU64EXu/6lICKAAwxGHzA==,type:str]
-                      value: ENC[AES256_GCM,data:77Ae,iv:ilzp3N4wbYl2ISgBMQZLW3yq/X9gvW+h9OY/8z3i4ts=,tag:0tNtz8WoTOaH6YIOd7nZNA==,type:str]
-                    - name: ENC[AES256_GCM,data:Slw=,iv:rP30s2T7lLFWOzIRoKFge4DbtEcfo1Edv9OX1L3/urw=,tag:GhzhCs23kG5YHUISoqGcjQ==,type:str]
-                      value: ENC[AES256_GCM,data:hDpnZnAieWA36dk/2DhkwA==,iv:wCVOlozQvcalVH9Y/FycGp+VsQTZs/jhzAAaEBec0Iw=,tag:zeDUB05Cd1UwGjPD576Ozg==,type:str]
-                    - name: ENC[AES256_GCM,data:91fvJ5h3QProYxTwBJS2,iv:ZSkQ5J1i8HWmHH3233wXU38qkEskFc5D8XuM+rb0BUs=,tag:fAybzZ3hODYrFNMjZP4vAQ==,type:str]
-                      value: ENC[AES256_GCM,data:fRGquA==,iv:wT5mkcXO+VWFa2J2y8XlFX5sIpSKBcoUWnNfyVQB5Yw=,tag:GPb3BjmF01LzFc0M2ZAy7w==,type:str]
+                    - name: ENC[AES256_GCM,data:Jjqsgw==,iv:ZrXVDxC1QZXGWmPZ+1ZQ8085BXS6fkJgxXlJT3vm0Vs=,tag:HmcMOdH3j9+tVXBlalyRiw==,type:str]
+                      value: ENC[AES256_GCM,data:/Aze,iv:idMcLMIdeMDCJBjV8BV1F2+7JmuYU3K8+PcUANbiCt4=,tag:ESkqEUMtsDuwiIxhqo7Y9A==,type:str]
+                    - name: ENC[AES256_GCM,data:+nPVMQ==,iv:plbA4qKx4jY+MO/fDjg1qG0JCfjvq6cWQqYXrU+1yVY=,tag:ZpfRei3lYJAaFoL5XCRf1g==,type:str]
+                      value: ENC[AES256_GCM,data:HyGQ,iv:azQQvlSaF3EQBboW1mPBBeztf1S3lVbK8tu018Z85II=,tag:v3sFCGe+KkgXPzZC8s37tA==,type:str]
+                    - name: ENC[AES256_GCM,data:61I=,iv:vChei6yKaXUAefu9MKSlgjhcSFZS2qM7gNfNaE1w7M8=,tag:gY2r3KlDfLvasQMx8q+6rQ==,type:str]
+                      value: ENC[AES256_GCM,data:xSyW21xI0vpd1Ka4G5V7+w==,iv:9J4GWWLukOpz65m0uKxjIlYF6XQf/eDKmzyTlP0Iv3c=,tag:wmL+adEEK/mOppe+UdWdNQ==,type:str]
+                    - name: ENC[AES256_GCM,data:VoWNueep6vsENZbLmPYW,iv:qlTEtekZiyTnJkyou66WaCkSwx8AqE0TEArnowc/w/s=,tag:POwy68JyeIDIEoBP9eWsPA==,type:str]
+                      value: ENC[AES256_GCM,data:CvUIdQ==,iv:guBSSDG7OF+spsOKeXTXmgdmq8G0NZicb/SNL6BEkxc=,tag:7dVKGzFjS7qg3GPQSo6pcw==,type:str]
                   volumeMounts:
                     - name: config
                       mountPath: /config
@@ -96,14 +95,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA1a21zY2xZT1RMM1lGNHFx
-            eUJHbU1LNitvVFJJN3VEL3pxc08wcUxTL0NvCmdzRk9lcWpZdm9VZEJUbjluTmxC
-            YlB3NUplVUJ6dTBqSElSd1d6alFGdGcKLS0tIDJkbEVNeElUU2hmdWllWUlTOWgy
-            ZjRKUzhJamQzWm1EaHNyNllyY3FiR0kK39bubyO70JMqWsklsUGo66nIx+ip5a+F
-            e4LP+40vejNgz8unwvaQhhiRyC+aS6NY09R5pOWRxhjikQvw+pXyTw==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBBdHNFa3p2SXI2ejNZZURl
+            eTI2UTdQUWEwT0w3NC9pRnlkN3hMU3N4eDI0ClozdUViczlHQ2dldEpBOWdVc3p0
+            S3lUQ3dyaWFwbmljLyt1NEhGUnRleTAKLS0tIHJ1Rjg1SWNFTExlNjNFajAwUkhL
+            eHlvSmNaVFpyVXJldnc5aTNsbjUydmMKonl/j5V+fdXsGbvSFos+zG1b+IMCx7+A
+            sz7vn+k8sNeeUoG8e2riYWsBy6CwPiBGlDQ0QnNaSzNAxpg5bSHPOw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-01T21:13:13Z"
-    mac: ENC[AES256_GCM,data:Dk9E9VQSbZUXgluYGgGgiY+l6QbVMPHn2TilmVDsrDgsBRj8/551yQoAEmNQdRTOGz3O9bUUjmSUDXmDsQZsEUq3yRlnhfrVKEFQ62XyxiGf4s198bAZtCbJjHxEL9BgkQEvU8DZ7eIEiiUQgsW895Zit+aO3UCkVCz1OFQfL2Q=,iv:dk5iuFVn6zkavdK2gl+Td0eRFjWIufp01AbkU84tBRs=,tag:rRhH+kJwrB5fu9K9FVWDCQ==,type:str]
+    lastmodified: "2024-05-01T21:19:01Z"
+    mac: ENC[AES256_GCM,data:2/+b11d9BfkdM/D+js/GJeAmVhL2V6NPtgMR6ri4ImsZ3ihKcayM1ZluGZqv0GYHPh/yWch5Yq493/USG782pFo5NXtOdC9lJXYS1nq0YQsH5qz9KOkfew8lRrDUFtk1jLnk3sbk2I7yH0nQaJgPLclguC0AYM2xoz6USzy6V8Y=,iv:TSxs4cjeANdN3g1RnFgucO5DJj0Tj6Zfwl6DRNkb0gM=,tag:69k73vkgw1hlhSJzpShntA==,type:str]
     pgp: []
     encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1

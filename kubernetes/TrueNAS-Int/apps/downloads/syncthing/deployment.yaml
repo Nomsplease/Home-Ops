@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: syncthing
-    namespace: default
+    namespace: downloads
 spec:
     replicas: 1
     progressDeadlineSeconds: 600
@@ -25,10 +25,10 @@ spec:
                         memory: 1Gi
                         cpu: 100m
                   env:
-                    - name: ENC[AES256_GCM,data:/7smqQ==,iv:12PHX9lDAAF0YUVPa5cncJ7jr9qot9ULjiK4z2GgNaA=,tag:Ol4WQUFPjCxVpPW2pE1qiA==,type:str]
-                      value: ENC[AES256_GCM,data:O0Nh,iv:qWQamGrFmzxWyPcbq7XIS8/dwjDS3rT+ZzsXJJ4y0C0=,tag:XKgkG6qQYzBFFGdRQ7m0/Q==,type:str]
-                    - name: ENC[AES256_GCM,data:kCnVVQ==,iv:TCiN6GmEhbAr0El620zsBHQoIEnvQBVbhk3UvKzDMy0=,tag:zjYLitcCkySu9xJq8dNeuQ==,type:str]
-                      value: ENC[AES256_GCM,data:agj7,iv:4FfLzXXTcscuPW305LOXqU1RidN2tul3LkyQ50F+Tis=,tag:gh9zWkwtaBzzbJDX3erODA==,type:str]
+                    - name: ENC[AES256_GCM,data:eoqbpQ==,iv:Vo2Z/fpPlRsFRra4M++rAOnN3a2Mkzz+DMVII+vki0s=,tag:HybtOwagECw4MMUx6xy22w==,type:str]
+                      value: ENC[AES256_GCM,data:ECrH,iv:a9yOUtZwYuasejOhGGu+jfQE3y1u9lkQyrliPwtKB0U=,tag:4OH5r3AMPjJ8PWa3Sm8ebQ==,type:str]
+                    - name: ENC[AES256_GCM,data:eit58A==,iv:Yhot4Z820KCe6dnWOkF/Lo5q5mf30cqXOLh/cfgw0Dk=,tag:vBPGY+we4BJS2oq4MA7OZQ==,type:str]
+                      value: ENC[AES256_GCM,data:ke5H,iv:SlhMxM6tUNo5O1zkFvJD8Q2143og7XruIPylF9xQuVU=,tag:GYaFuidWHYSz/w0Is39YGw==,type:str]
                   ports:
                     - containerPort: 8384
                       name: syncthing
@@ -65,14 +65,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQWUtOMDJSN0tFWThkb1V4
-            VnNCTjRxZ3RZN2pSUjJtclByS0I4ZjMwUFVrCnpmcDkrQXNCa2NCQ0tpbXY2RUIx
-            elcrV1cydXBmVnh1dDJ3WUloM1hlUVEKLS0tIGJqV0VwekcySGlyU1FQSlFVM3ZP
-            TTJoeFB4R0hOZ0o3SzI1L3hmclFDMGcKxZgrhVXdUWkZo7Z7vZz/IplklmCLsM5e
-            qFhZToLrV4orMfqiI0DFnxURh/1EO68Xs0qrDbNMS4ezbIxa2eQzeQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBmdUloSVAzMTY5Z3FwVUJx
+            OGZ3QjRUNHFJMklxZmYxV1ZBaTNUWHV4OEZNCklIZURCNFRqdE05eWt4Zm56Y0gy
+            disyaXVMbUoyNTNpUHhKUnBFS2tNYjgKLS0tIHdGOXVDREVEREQ0dGo3YjdONTNq
+            aHBpdW1ZZ3h3bmhUa1Y4dUViNkFDNXcKIzLHlqrKokWWgkdChGhznlzyh0pSX3gs
+            RE6oigy3P0g7jwiDc/qzXIr/GoLfFhG5dKgtqcJ8jMHbq5105GK5EA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-30T15:47:49Z"
-    mac: ENC[AES256_GCM,data:34f2SdtI5eywjhEo45i+N6y/MJv/n2FDCL3sln6vbyA5dzBhhIbhv60i/G58c0kXD7/XHJV+HSDP3JYcBrVOdAqQ6S+moA0vvnOqlJQaycUWPPqi5MJYi/VMl125lG/Evp653JYoVBWeNcFSWzUZh2yY0BeWo69LTHIIawC5OMY=,iv:PE8zyFEJZbxXL6UcdoM5baUAStSasr72lkX5r/sPWMU=,tag:xNe3fI/NroTNnVmgznJdWQ==,type:str]
+    lastmodified: "2024-05-01T14:24:39Z"
+    mac: ENC[AES256_GCM,data:t4r1BedTI1O2LvgzKfApCnICOGmWp+D4riX/MFNDTsvwbo427Csxew46CMhc9qxewNcmYlpvhp2V0aRQ58WRFWVD8a8bdtG36KsBby5pTFEU1cK0Rgp6bZaIn7JrrxFDJWVrt+lr4e8G3rvptaVy7/dNS60WsVDkPrqoEwtVDoE=,iv:/Ce51e1h/mNfDR+9q82oW5S6fE/iezjbiz+xnRiWlyg=,tag:dkppjODQz89sPGU2pVu68A==,type:str]
     pgp: []
     encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1

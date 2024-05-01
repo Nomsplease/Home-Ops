@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: syncthing
+    namespace: downloads
+spec:
+    selector:
+        app: syncthing
+    type: LoadBalancer
+    loadBalancerIP: ENC[AES256_GCM,data:nsGmeCV3YeVsbNA=,iv:SnPhVJNMjpwiFW6+u1Pi6S1eAxuynZS9Ga+fcV0FGbk=,tag:1qkxzmppt+MI9PDh/Bm3tQ==,type:str]
+    ports:
+        - name: ENC[AES256_GCM,data:x1nnaA==,iv:4EfH2rlJ75zrjna1uc3aOgRyCLDOgKPwQx8+shs2Oas=,tag:Z6N5theN7Lp6KHvco4iIuQ==,type:str]
+          port: ENC[AES256_GCM,data:HHlApg==,iv:3fmMz+Whcd6KUMETpUvtAtqs59w2dzp5nqs6guZFgkQ=,tag:mhof5NWBfzmE8nVto0iOZQ==,type:int]
+          targetPort: ENC[AES256_GCM,data:Y9v6Ag==,iv:IpmF2PEE/c+hkooMi1UAdB0QrElqwL6tgYhbfKPEALA=,tag:O1wSZBBoT07+6nCrcvWG8Q==,type:int]
+          protocol: ENC[AES256_GCM,data:U8Hq,iv:GWmhbsMopwwcECQorM6ZSofPCC+J59Z5jKY1iPbON54=,tag:YmD4o7HrrvTdGtzpmYwFRg==,type:str]
+        - name: ENC[AES256_GCM,data:KG1yerd1IWuV,iv:6ShdkosfYflHt4NFZDiC0T6E7nDi7wtcYLlssd71A2M=,tag:oDLw/awesiheIOjpTGtK6Q==,type:str]
+          protocol: ENC[AES256_GCM,data:pdI9,iv:mbekQ8mnmuplsFyHFSVRR3+fPu/amn/CNNSVNTVMpCs=,tag:xFPrWOUaP+8JPjOHkydZsQ==,type:str]
+          port: ENC[AES256_GCM,data:cMhWugE=,iv:r4nkrgqev9TZB4PZOuVJEfi1GNWL2+vZ+QEYq5xNOmU=,tag:/7K5CC/D3wzh6rQCyf2XyQ==,type:int]
+          targetPort: ENC[AES256_GCM,data:HSJcupM=,iv:rMP+TM9J10yN0VmRe2A4ZDwZKJUgS1FN6aS5+I+CxMw=,tag:OkIdLEByzAqm/V3voajZOw==,type:int]
+        - name: ENC[AES256_GCM,data:FjZzfv2aOEq7sks=,iv:jf/+PGfQv2GxgejEAoAZwFgj2J6Cpl3qOod5LTejsdA=,tag:19OFUTcwPe/6tdhu+AHf7A==,type:str]
+          protocol: ENC[AES256_GCM,data:Pcqt,iv:IMpdRwSh0o4sMBhM+UsA25y0TQmAAgrsqEtdHgjJXbo=,tag:UFeINE498x3NJiJgHerbbg==,type:str]
+          port: ENC[AES256_GCM,data:v4gyM/g=,iv:xQsr/r1S0evuXzqx3G0YOAGLFnhLiCPd2/V/dFD831I=,tag:Cv8O6u5hLI30FxwSyNJvUA==,type:int]
+          targetPort: ENC[AES256_GCM,data:ks0XD1g=,iv:gEyRJ3y2YMWCj+9mVwG7qQ5vg8AS59LXo5SFgRhexe8=,tag:PjgMEx0oDEj7InD8KY+QZw==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBoVnVjWHJFVFpEeWYybUxR
+            T05UdlNlbGRZZDhvK3did0tpWW9qcHR1WkVFCmN2dVZMZWJRZGF5bi9BRm1nNDlu
+            Z0FheW9lWEFrcFBvTjZLRFJQQ1E0MHMKLS0tIHQ4SmtFbUlHeEhua2J5bEIzbXpY
+            TVgzczQwNEU2NHlmQ0RoQmZ4NXJkbWsKN2B9mGgs27A1psR6N2NNubowq2RXg6v6
+            Q+oA17/XIP2KRcaCsNHr92aaBnidmPPTsi5UonaZNeZcUIafpHhilA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-01T14:25:24Z"
+    mac: ENC[AES256_GCM,data:IiNmze8a1t+kUlsOAUKeiJYsF3OhUmaAKLxExdyOGRRPM0KopkeLWsA1D5dRAm6i8PxwaESzJJ0Uc8NUZ+0RtlEwYCg5pKz3oCQn5/9Bmdep2PAo9MrOAqUcrijDM+rdGC4xjlEy5W9TFe0UFyzRqNfaIObc6+wpRe85frbPr7A=,iv:7WhhW+dQ11VZ1Z1WKxfKxoh1jfpm3Smo9aqbvmxeaG8=,tag:5vyHbKgqbnlTJkTNgIWTwg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
+    version: 3.8.1

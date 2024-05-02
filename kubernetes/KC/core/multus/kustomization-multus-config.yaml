@@ -20,6 +20,6 @@ spec:
       name: sops-age
   healthChecks:
     - apiVersion: apps/v1
-      kind: DaemonSet
-      name: kube-multus-ds
+      kind: HealmRelease
+      name: multus
       namespace: kube-system

@@ -5,11 +5,11 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
+  targetNamespace: kube-system
   chart:
     spec:
       chart: rke2-multus
       version: '>=4.0.2'
-      targetNamespace: kube-system
       sourceRef:
         kind: HelmRepository
         name: rke2-helm-charts

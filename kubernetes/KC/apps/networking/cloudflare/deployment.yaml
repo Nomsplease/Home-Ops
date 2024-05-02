@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: cloudflare-ddns
+    namespace: networking
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: cloudflare-ddns
+    template:
+        metadata:
+            labels:
+                app: cloudflare-ddns
+        spec:
+            containers:
+                - name: cloudflare-ddns
+                  image: oznu/cloudflare-ddns@sha256:19bd73d8aea9641dc329ec18ae693b2b9c33ff7cdc007f368266ce584446f995
+                  env:
+                    - name: ENC[AES256_GCM,data:NmvTb5pU+w==,iv:FUarJoewmhQoJAM7dtukGX0KLWvwWmFVVIyKWEAJzMg=,tag:YJTrYlHs0QgA/pUA3F6VCA==,type:str]
+                      value: ENC[AES256_GCM,data:Lq+3J5wqFCdONAAtp+WkVt40oePGkXdZDy0iVjghWOctHQ9HXkIvxA==,iv:XixwqbhbP1tzfWlw2VUvdyWW3wRoiD6bb1a3LJNPFbc=,tag:QA0Q5ngnwxkvQBcYU9okSg==,type:str]
+                    - name: ENC[AES256_GCM,data:7xBQYQ==,iv:wwn5yJWo+dkfNwmfY5/LBIFF+ClFi9Kx16yNJKMBqWg=,tag:Nc81ZTYURuWUpF1t9yVSgw==,type:str]
+                      value: ENC[AES256_GCM,data:xqhhSz2bSA==,iv:TcS7hLAYdAsrkYFrk9koTLMXVgtoFW3I6TccZhrLjzk=,tag:EyXHFwDKQ7kZdx95Q2Wb2Q==,type:str]
+                    - name: ENC[AES256_GCM,data:qt/6F1KMlxAu,iv:0PVXh1fO8SICAbXrujV+U5ry6QiDEMtJX/64fTSz5JY=,tag:amag8kDaM3GbzKJCrdRFJQ==,type:str]
+                      value: ENC[AES256_GCM,data:5u3P+ZF0,iv:4G6ISKrAeGhPWDm5iFFsaYjmitYYr6S6V0xxDvnunJg=,tag:kFYGcaCdmBtlo24osh5wyA==,type:str]
+                    - name: ENC[AES256_GCM,data:8oTH0gp0RQ==,iv:bOTG5bu8uEAhDtZJe+ZUOqb8U8c1ziJ0XqydK+Z5p4E=,tag:4LZTgtv6d1KFYwwxAaf7LQ==,type:str]
+                      value: ENC[AES256_GCM,data:sonI8iM=,iv:QRyYvQ6SUjng0Ke3x/PJGw6eskcDzIqnwE+y0VkQ5+c=,tag:Hm3JLOP4HNE100w42xBo0w==,type:str]
+                    - name: ENC[AES256_GCM,data:2Nrs1XlL,iv:JtonW8js2Q97c8QIlOwmRhSfhUkMLXvcAi7pYTg8Wss=,tag:aYyNpBLzEnvYWdTSheAOrg==,type:str]
+                      value: ENC[AES256_GCM,data:Gw==,iv:ntoLKwZJMdp9Gzvd72doomEgoPb+NEhMuBXJuKm+NkU=,tag:MsB4UvnJVjBR0s2xPhPvkQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBJUDFLSTRnR0pWRDVJeGRP
+            L1Z1Q1M3S1JDMEZ4QW1SeDBFZWgyRGpoRVFrCjRMaFN1M0RVNkxKV3pNaGp3WWNv
+            eHNuOUZMbWk1ekJwYzNNb3crOW1iT3MKLS0tIGhnbWJHd2lvWlRib2lhd0hFeTdO
+            NExvMkE0amdvWDFoaXprbmN1elRaV1EK207CQszRysqV1n64JIA9dTjE10exRJCG
+            AeUX+va/ctbK0wAIIF4Oq+LTbKaAE6mU+EbIOhI5xUdrY3A+V71Z/A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-02T22:46:34Z"
+    mac: ENC[AES256_GCM,data:FqP2Qc60aNcWzT3t6C/FLC6yr3kaaAARMOj3vDSCaHOTdtkQ46yOjAZ1Royh3H7eRjqqXCI2jJ+PnTb3zTJZ3rpzWFWuqisphEgdJizQQx38OmIxMpo6WeiVpDIBYKulvENtdeqO0t9aTuyczaqeKC2HpFJJ8vnwY7BNetRi9W4=,iv:cPJF9uar83S9uB95GdxcPZeGuMl3RQdkSy1lPpZIRN8=,tag:bt7bvbWnMvNC3rgRnXoncA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

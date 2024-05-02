@@ -23,14 +23,14 @@ spec:
                   resources:
                     limits:
                         memory: 32Gi
-                        cpu: 500m
+                        cpu: "8"
                   env:
-                    - name: ENC[AES256_GCM,data:BkT9dw==,iv:UspqX+o4uDikDJmKHvmKzs07H3tCERVR1yN4HW1k0RE=,tag:mqcnr1jP+GvD4YoIPED24A==,type:str]
-                      value: ENC[AES256_GCM,data:Wq32,iv:jjDwKHl6lIa3IMQSnJ3793kaRhZLBkcm7tU8G7Sz6bo=,tag:v1S82z9yz+PeqDZufOzgaA==,type:str]
-                    - name: ENC[AES256_GCM,data:boZxvg==,iv:RFcOCsXnPZXOo8xMeB4O+F+0LoFX20EwIVH8rCZh+TU=,tag:EdY1C4UlxdkGLhzrPxScdA==,type:str]
-                      value: ENC[AES256_GCM,data:lOGq,iv:qpJU01+xhPz6FI3M62XmfJ/wNXPhKA9ua9DeDGlz71w=,tag:1U3XIVv+T/y6UiopNRhjyA==,type:str]
-                    - name: ENC[AES256_GCM,data:Ze8=,iv:gkRype0aUS+H1v082ok+y2rXiwuJlkYdo/dBgGoxPUk=,tag:I1UvhPBjsuSQZan87McsZQ==,type:str]
-                      value: ENC[AES256_GCM,data:BnZfNufTVRIqTjvTLjLQAA==,iv:F4qQjWKsEo+hdULdtWp/El1uFDfCPV6ndDGjI7KH+60=,tag:j0ql+1Cw9jFjFA1zoWIAvg==,type:str]
+                    - name: ENC[AES256_GCM,data:ufKZEg==,iv:CXAG3r6MP9ScZneLoRni6sGXD6QNRmtgTeQeuD8/dk0=,tag:6MuclaVrW/LePL2hPqJOCQ==,type:str]
+                      value: ENC[AES256_GCM,data:wdaA,iv:JrpXpgxWdSTE9BOfackOdAL30KUdy8UvuB6Fq1PI/OE=,tag:CYQe5r5s6BIoxlx4kcDLDg==,type:str]
+                    - name: ENC[AES256_GCM,data:e7Phcg==,iv:7IYc9567m7sJt8shriqjF80veloCxM8i38EGiietA/c=,tag:9SlQDabDtUzg2IN/XBr4WA==,type:str]
+                      value: ENC[AES256_GCM,data:tP0f,iv:LXRBH/DY3cwO7Tmo81yxOSF8KdPozN617zdXbiavevM=,tag:+Y0svwmnOgGhf5FLmEoENw==,type:str]
+                    - name: ENC[AES256_GCM,data:zgg=,iv:ZRgql/6WAsWCgAAGESmjfTmvdkRAOrX1i8bJ6MQErdI=,tag:oQmu8cbls6QMwVAWT/bFuQ==,type:str]
+                      value: ENC[AES256_GCM,data:1RCFB7y0XeVy5Jgk68mQlw==,iv:f4iQfJpIiK8SKA/vs4eywia6q5RP3TVZ+oB0lJVb9bs=,tag:xVtWOExpEfbZbXCj5Zt6XA==,type:str]
                   volumeMounts:
                     - name: config
                       mountPath: /config
@@ -57,14 +57,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBTMDBqc0x1QnV2Q1J6ZjY4
-            emhtN2tvamxnVlltRW0xdEtNNEdaZUtHd0g4CjlDb3Nxb2JoNW8yRWpYa2hhTnY0
-            WUkrRWx1NTlrNG8zd0IrVVFLODhuOGcKLS0tIEJZV2QxRVVFRWdvQXdNeW1YcUhL
-            TXlJMWtrNmdnNjdKTGhtMmF3ZTlTSmsKGj80luqkEwUSI8gNkNh4AGFRvVU9lG6K
-            dGaeowE49OPTL4xHAZN+JmEiyl0Z5sahpTkNKpw2qgGowd/DPUl2jg==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSeURzSy94Yzd1R0dKQTho
+            bFhnYUxiOWlyNW1adkNFRVVwenpna0hkNjJzCmxoR2FzTmxVUmVZaU9iTXJTWTRG
+            RzNaN1lueG9zNkNlTWQ1dXdnZzNDWFUKLS0tIGkwREIrc0taMnFxVG1Ic1VJUWdw
+            dzNvWVBCZi8zbklROFdsTmZ4a1hnM0UKnuhvGok/pdsLDbMBXl8LXC7uxRijWcU6
+            /TiDhPzWAczPLBnxml5P+q+7z+ApVXBrhoCmtKdq/VbvRnrHAgFfkA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-01T18:51:07Z"
-    mac: ENC[AES256_GCM,data:7JkQSjVhcYuJwI27QtJpy8ovAbTmgSzjAYz4zJ/TotpiEb1Tdy9gtrcJzJXzri4sGO1Ugk8KRnQnW/9Gy+UMN+weRsCe4ekGIyenAaOACdNwsVKzkSbD1Z9w76dLD+zmZWk13imMfIk2k4rRGREiURC5plzEBGGCcJKsVIuiqwQ=,iv:xt+PLnsk6a5j0hohqPJPUJvO8fHzPNawOtd84H6yYX0=,tag:DoX3nv71jWk/KBzvH/Rz0A==,type:str]
+    lastmodified: "2024-05-02T19:05:33Z"
+    mac: ENC[AES256_GCM,data:JJXFs31aMilDmXudCsCBc/CinceZunadd1gVw9H6+/ABvKEQk/c7A5uD9DrcICBOxspajrywBKnHfdnyoZMlyIpT+tFWcS6Q/wAEfMYTfBoSHmqy6ww4cfdunsU3x2JSKuvlfv6nMrhK9S/eTURpSpxjY73DlJb1+o151hBXLGc=,iv:Y+HhE5tevxvCadLfw2fqnHr8fNMThmdJhMTz+ZZHe34=,tag:+Ol02RqtsryQruYRmoxckg==,type:str]
     pgp: []
     encrypted_regex: ^(data|env|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1

@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: syncthing
+    namespace: external-proxy
+spec:
+    type: ExternalName
+    selector:
+        app: traefik
+    ports:
+        - name: ENC[AES256_GCM,data:+2yCs6nnV0MC,iv:jlPVptdKwfsmnv/b/cG8nw4gRKedhFFBQ6+jUK7Si/4=,tag:e3fVdku43fvgxJNd0Bc/ow==,type:str]
+          port: ENC[AES256_GCM,data:3VI=,iv:51ZCy9dvsWwEV4SIxOsc11zEJygfJwE5BOBWhP8bguU=,tag:/eFxBjue1TrH2+B8cXOj+Q==,type:int]
+          targetPort: ENC[AES256_GCM,data:/Nw=,iv:AVbSnUwQM2qo10aSwBp6lEmCPzod3MHR25WYKMDqJlw=,tag:eoRWKCjqN/qgBVikdrBRFg==,type:int]
+    externalName: ENC[AES256_GCM,data:CTjIDqp1sPKmM4w=,iv:Ca6Hf9anJiAz6ktA66vOB8Oo8WkLCGW35JmOnVTu+bQ=,tag:Wq/LNTNCAXql+4/Qcf4ygg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3bGVYUWtJNm1SU21MYS9L
+            SlBLSGc2N29EeWVKVG5LWjFGaGt1UHNGd3ljCk1UcEVRZnBHS0lCbjIveklVU3Vr
+            VWtSZ2lmdnJBUGQvNzNqSnQvRWdaQTAKLS0tIG5OcEV5QmVDM1VsaHBtRnYzU2lQ
+            YzAzTEVnRDlFTWJSdzAzc3dtZ0VFREkKqzvBrPK6FsVspkCMliITkdTVWjq4+GyL
+            cNFom56d57uW6byOjeM9VnOYetpcpkaGmgeM+tmOAgvKH9AeUMMO1w==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-02T16:02:49Z"
+    mac: ENC[AES256_GCM,data:hsns7OO4ap6tsVJFATdZrrYbZ6SmzcuUIp5bHFkLIB+6KGNII2+wXA7n8vNLAEy912HO0BjwR3V9n4ofgB8OM6PzMFS2MDSfI8KeX2uLlU20JFjYk0GD4Ka0xBqBVI7FdzxjoZI4rHxQpuqEo7m4BKS5dIjMFBSgQzCIT5rvUkI=,iv:FZQwnSicsxbdqT56A712g8jqOF3uhQwDJDfWHCb2UB0=,tag:1MTjHpVAsu0g7c5XWiUcjg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
+    version: 3.8.1

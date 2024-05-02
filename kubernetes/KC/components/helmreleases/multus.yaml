@@ -7,7 +7,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: multus
+      chart: rke2-multus
       version: '>=4.0.2'
       sourceRef:
         kind: HelmRepository

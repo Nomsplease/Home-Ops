@@ -19,6 +19,6 @@ spec:
       name: sops-age
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HealmRelease
+      kind: HelmRelease
       name: helm-release-multus
-      namespace: kube-system
+      namespace: flux-system

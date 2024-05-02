@@ -1,23 +1,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: core-config-multus
+  name: core-component-multus
   namespace: flux-system
 spec:
   interval: 15m
   retryInterval: 1m
-  dependsOn: 
-  - name: core-component-multus
-  path: ./kubernetes/KC/core-configs/multus/
+  path: ./kubernetes/KC/core/multus/
   prune: true # remove any elements later removed from the above path
   timeout: 2m # if not set, this defaults to interval duration, which is 1h
   sourceRef:
     kind: GitRepository
     name: cluster-gitrepo
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   healthChecks:
     - apiVersion: apps/v1
       kind: HealmRelease

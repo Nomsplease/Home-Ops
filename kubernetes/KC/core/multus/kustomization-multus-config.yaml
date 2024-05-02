@@ -4,8 +4,7 @@ metadata:
   name: core-config-multus
   namespace: flux-system
 spec:
-  interval: 15m
-  retryInterval: 1m
+  interval: 1m
   dependsOn: 
   - name: core-component-multus
   path: ./kubernetes/KC/core-configs/multus/

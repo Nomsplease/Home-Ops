@@ -1,10 +1,12 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  name: cluster-xxxx-gitrepo
+  name: cluster-gitrepo
   namespace: flux-system
 spec:
   interval: 1m0s
   ref:
     branch: main
-  url: https://github.com/christianh814/example-kubernetes-goflux-repo
+  secretRef:
+    name: github-deploy-key
+  url: ssh://git@github.com/Nomsplease/Home-Ops.git

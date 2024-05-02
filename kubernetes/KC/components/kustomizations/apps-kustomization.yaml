@@ -1,12 +1,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: core
+  name: apps
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./cluster-XXXX/core/
+  path: ./kubernetes/KC/apps/
   prune: true
   sourceRef:
     kind: GitRepository
-    name: cluster-xxxx-gitrepo
+    name: cluster-gitrepo
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age

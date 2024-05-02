@@ -13,7 +13,7 @@ spec:
     kind: GitRepository
     name: cluster-gitrepo
   healthChecks:
-    - apiVersion: apps/v1
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HealmRelease
       name: helm-release-multus
       namespace: kube-system

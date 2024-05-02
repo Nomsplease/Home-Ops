@@ -4,6 +4,11 @@ creation_rules:
   ##
   # Standardized Encryption Rules
   ##
+  - path_regex: .*\.sops\.ya?ml
+    encrypted_regex: "^(data|stringData)$"
+    age: >-
+      age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+
   - path_regex: .*ingress.ya?ml
     encrypted_regex: "^(data|match|secretName|services)$"
     age: >-

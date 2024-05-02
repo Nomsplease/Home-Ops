@@ -10,11 +10,10 @@ spec:
     selector:
         app: deluge
     type: LoadBalancer
-    loadBalancerIP: ENC[AES256_GCM,data:iRPIjkRxpNqY67I=,iv:RBD92juV5KyLSah21znzFzu8jqlY0K8ChpoiTpO8RLk=,tag:FZK+knnTpc+TOXX1H9mh/g==,type:str]
     ports:
-        - name: ENC[AES256_GCM,data:9YkonoU=,iv:FnXOh5NuNYcOAZITyPlNHBgy3ZVfwCRFVtU5bWgODX8=,tag:cNFh+VObs4qa5foFcYpTCw==,type:str]
-          port: ENC[AES256_GCM,data:jmksuQ==,iv:H4MjNTWFzqzHl1Ho8wiToIpgRsCTsaFy2MJiohDaESI=,tag:AAjgw0qQD493GTyOChW+Mw==,type:int]
-          targetPort: ENC[AES256_GCM,data:v+LsZg==,iv:PnY7sE3nuYBUckNfKc8uyHsr5VBVYEYvqxH7eWV7DO4=,tag:Q9xtdfgprkb2upD5V7rGSw==,type:int]
+        - name: ENC[AES256_GCM,data:Grgh9hI=,iv:YDFW9MsGF9NhN9BgBkvcmL7Bh1zvbWTTfitUZdVa0+k=,tag:6z+wMWxul8TLpImPL9sVaQ==,type:str]
+          port: ENC[AES256_GCM,data:QHSiOw==,iv:T/VavgPxzOpdrt2nnr9XPlIbxtKHf6WwxvZrtkviBIM=,tag:YosnC6jdcK76SD172nSlCQ==,type:int]
+          targetPort: ENC[AES256_GCM,data:IyejBA==,iv:+7JwWkbSxZymnBgEyZ76jK2yIyqsG2NBcFhLBgWRYkw=,tag:FOev/kaLVuPrf2+fBxe2PQ==,type:int]
 sops:
     kms: []
     gcp_kms: []
@@ -24,14 +23,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBCTm0ydW5NbS9CWWtZc3Jp
-            SEN2RzlHUVBZMHpkcXA2cHdvajRxZi80OVJVCmRmUS9Dd21zbTBEY1VzSjJ3d1po
-            RExscUEwN1I2K2ZPNGlBUXVCOHNOU1UKLS0tIGVJZ3Z6Q0NhVGJySlBPRFYzSUpn
-            UmRldzU2Q3dwMkg5WjFydCtCOGh0cncKbVh4ItRyKr4ak4I6Q1fd/iSF04qLxiLd
-            1l3MkrT2OVSOXpTNF0Tg9Ulyg8xRxPldCSFjous91ovl443wBCfkFA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHZWZSSWdQZldLUE1WeHhE
+            c013Z2JXU0p1SHd1Mm1BV1l5Z2JXemhkeVFBClZMTnJkcUhleGVnYTNseUN1SGQz
+            RnZBaWhsZlVtQWdoRWVmeTBpUHpxWGsKLS0tIFhHZWVsSjIwN1hFQkdFNktycmtj
+            VzJTUm15T2lDWXZwem0rQWxSS25BbG8KmobC4LHo7JuNnTKMoZRBfspkD+qN8gfn
+            JgFsTEluFim473n5XZVybcfy5D9suM0pE+B9kEcT2vrzqYXOtbD2SQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-02T17:21:57Z"
-    mac: ENC[AES256_GCM,data:iZVkIMLVmifTbsJqmHRKuZOTDPfr2jIoeUtKwuHRXOgdsg8YtzjhG3QTwGVJZ3GzOurkkcH2scXJeI62WgdjtRZ79htqpUDWprw425VDkD3CiG8sSmdCGunxHEvTipsdRHsKjYO+O9QgIP6AZw/uxKM3qk+Iil7s5EeH5rtFjmA=,iv:3riZB2JoddRpagDTpUDhmEvCHzGzR9UZBsfYsPfBIwY=,tag:hg4UCIza5QzSbsflGZd/Fg==,type:str]
+    lastmodified: "2024-05-02T17:24:04Z"
+    mac: ENC[AES256_GCM,data:ZeIgNh7OP9Z/qtP1aT0Hrvy0WmGQ3WwGeW37Wt+0yW7AZgCk7MlZdTHdRhfiQZu9flW8EqJqQ+pqXBT+gF8YVxfV/V6I4N96ZkzZAaS121tsW0CMZQJEL+e5DJ0LSW60yxJ3ekh26IDmIXwOEpf9+1JKWzd0EXW/ZOh+QS/M7wY=,iv:amWSo6OjO4O0Yz0G810dErUj9GPg9HKMkvxFEEZWRGA=,tag:WYNs8JZC4LU1YHIm3pUv0Q==,type:str]
     pgp: []
     encrypted_regex: ^(data|ports|externalName|loadBalancerIP)$
     version: 3.8.1

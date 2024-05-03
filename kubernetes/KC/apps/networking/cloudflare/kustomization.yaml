@@ -1,20 +1,8 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1
+apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-metadata:
-  name: apps-networking-cloudflare
-  namespace: flux-system
-  labels:
-    app.kubernetes.io/sops: enabled
-spec:
-  interval: 5m
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
 resources:
-- configmap.yaml
-- daemonset.yaml
-- deployment.yaml
-- install.yaml
+  - configmap.yaml
+  - daemonset.yaml
+  - deployment.yaml
 

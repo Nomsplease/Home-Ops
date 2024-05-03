@@ -14,17 +14,17 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  patches:
-    - patch: |-
-        apiVersion: kustomize.toolkit.fluxcd.io/v1
-        kind: Kustomization
-        metadata:
-          name: all
-        spec:
-          decryption:
-            provider: sops
-            secretRef:
-              name: sops-age
-      target:
-        kind: Kustomization
-        labelSelector: app.kubernetes.io/sops=enabled
+  # patches:
+  #   - patch: |-
+  #       apiVersion: kustomize.toolkit.fluxcd.io/v1
+  #       kind: Kustomization
+  #       metadata:
+  #         name: all
+  #       spec:
+  #         decryption:
+  #           provider: sops
+  #           secretRef:
+  #             name: sops-age
+  #     target:
+  #       kind: Kustomization
+  #       labelSelector: app.kubernetes.io/sops=enabled

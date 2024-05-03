@@ -8,6 +8,10 @@ metadata:
     app.kubernetes.io/sops: enabled
 spec:
   interval: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
 resources:
 - configmap.yaml
 - daemonset.yaml

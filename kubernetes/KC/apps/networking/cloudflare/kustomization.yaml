@@ -7,16 +7,10 @@ metadata:
   labels:
     app.kubernetes.io/sops: enabled
 spec:
-  targetNamespace: networking
-  path: "./kubernetes/KC/apps/networking/cloudflare/"
-  sourceRef:
-    kind: GitRepository
-    name: cluster-gitrepo
-  dependsOn:
-    - name: core-component-metallb
-    - name: core-component-multus
-  prune: true
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 5m
+resources:
+- configmap.yaml
+- daemonset.yaml
+- deployment.yaml
+- install.yaml
+

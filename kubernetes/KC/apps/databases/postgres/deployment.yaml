@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
-  namespace: self-hosted
+  namespace: databases
 spec:
   replicas: 1
   progressDeadlineSeconds: 600

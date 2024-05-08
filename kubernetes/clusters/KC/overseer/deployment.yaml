@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: overseerr
-        image: linuxserver/overseerr@sha256:9e6ac53bf9e88ebb0a07fc5d065ab0c0206445d7a0196955526ca3ffe60ac82a
+        image: linuxserver/overseerr@sha256:ebbd85f5ada1de79fcd18410639c08b7bf1fdac1977e2b8718dad466747e145f
         imagePullPolicy: Always
         env:
           - name: TZ

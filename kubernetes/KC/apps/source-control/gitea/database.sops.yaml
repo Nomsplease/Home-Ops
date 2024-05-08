@@ -6,10 +6,10 @@ metadata:
 spec:
     enableSuperuserAccess: false
     instances: 3
-    #bootstrap:
-    #    initdb:
-    #        database: gitea_production
-    #        owner: gitea
+    bootstrap:
+        initdb:
+            database: ENC[AES256_GCM,data:4qoq9JE5wQyy3fwIObm9cg==,iv:9UXw49r31O6EYykddeTufXVbpXEw8DCGZ1dFS2WjaVg=,tag:C6dvpIkf5kDIfygLmvFQtQ==,type:str]
+            owner: ENC[AES256_GCM,data:U31y3LA=,iv:1UTxIKKSeN9pHvP3vFDLYyXoY7NomqBLnxwnburUwpY=,tag:UARD8CRvE7QtdhVfQalnUg==,type:str]
     storage:
         size: 1Gi
 sops:
@@ -21,14 +21,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBwcEdvRDlZMVZKMGFFa2I0
-            c0cyVlBZNlpWb3pTOGwrT21kMlJkRXdMd1ZNClphYW04Rlo2czNrQzdSUWZRR2hz
-            dDdBQktsWDVsbEE1VlR2RWx5Y1ZrWk0KLS0tIEJQV1pkdGg3Y3cyck5YVU1kaHE1
-            ODE4bXR5RUVCcmpLT3JIcTArcTNLRlkK9W/IhY5JZyPWfug53zcEgNTWx3lrUJmW
-            gqWXNaBX0csoxx5cDVpjqo8dL1PDMBDCBOZt5+UAkZavaCiPLfEmRQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNVlRJc1p6dHJ3bk1kMkkw
+            QXdLUThPRWhNeUExQ1ExOGl0QXVrTDRLd1VZCjNEK2MwV3F4ZFgvMEM1bXh0ekt2
+            SGZXbTVCWXpvcEE4bDFHd0hraUZRaFkKLS0tIHpSQ2t5bmVGUFlHd3JzY2Q2UWFD
+            VS94UlVQaFMrSGhac0VsUk84aTBtVXcKlQdkqhBfoaaNC2LR+deqRA4D8f/Pqghm
+            r41fkJAJQLI4RpMteSJlm18j26RJWi6sh9gyPC2bSAVI9NHuBKrtUA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-08T20:25:18Z"
-    mac: ENC[AES256_GCM,data:Bx0qsN5eTWgic6DZZtqer1xuMQLfkuHMd9EI/XzUJiqyfF3tO8GrOPtzered+0qAfOntvdyKipySN7AluBOMcq1dRuTFXfbizarJzvbXAOFCozYSipwE8rua08siLw5Q6GpDKDJV919w6fLdNvlZd+0lCgtzx+MuNJv38cQGr4M=,iv:/LC2NGprKMuf1pzB3XtWzr4ISs9p9DYqJxq0BrLKYdY=,tag:XNC4sd9IoyWImMeyYaa/7A==,type:str]
+    lastmodified: "2024-05-08T20:40:31Z"
+    mac: ENC[AES256_GCM,data:R3W5Hcgp8IgiWw7EDwYEP6Q8LDpd9NYQ6Ws2dtmW3WwBa3F3WnSHwSfShwwqYvkZYaTqT6FTP7Cj+YVglD7+vPhYLQJ2qmiei/wJmN5xYr3Y2GY3OUaV0P9I+ud3AvzW+EF25WsPqRc2/GwT+ckOqGDCtmelYiFX0uqrP2vKZfg=,iv:xoFWpXv/iWMvZLTotszI/PeqMJWnGn7oXvc3l21tTfM=,tag:r3JwsFPj5kUt0Js1u4z3iw==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1

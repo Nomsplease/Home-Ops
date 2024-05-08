@@ -1,0 +1,39 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: esphome
+    namespace: esphome
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:SqWOIGxKrTSsSqtqZMVdJHGZK7wFEzoyiAk4,iv:pCwZJhlXxh09WBMcwFgl8gfQV4449Ua7Eeq2waTMP/k=,tag:xmiCxVcrntW6FcbNIN9IHA==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:P9U7SAWFQg==,iv:J35MprPBUsU7AKgpSl1aTVxzulgA2HXd7GtXkDn78Q8=,tag:QV4YLAH0xoYbVvWIQ4Q/Eg==,type:str]
+              namespace: ENC[AES256_GCM,data:UPwmnSCcDw==,iv:52FsFnLCDK8sWI6P9bucyo5/xVudusTMOnda47XVYtc=,tag:HYtPbYZ7B0/k3sAxXcDt/g==,type:str]
+              port: ENC[AES256_GCM,data:/QYZ9Q==,iv:oJn3AeuFFKvYny6CbNG9EmSJe9PnaiM/5x31EYub+uY=,tag:hUp2KEsxsHcHLTNP4thnmQ==,type:int]
+    tls:
+        secretName: ENC[AES256_GCM,data:pwN+AOLgOwQLSzI=,iv:x26WVog0edGbQ+cL3q4H5M1Wm2ijM6hTgAjvyREUh5g=,tag:sH6ukjpVCp8huMZqHJk8lw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBpeXA1dTNIcU9zZDFnTHVX
+            c1VqNE1EbTVTWml6UFhudW9BbklDWlhPc0ZzCnlXMDdhb2hFdXhqeVNNQTBVd2VF
+            NFE4Wi9lQ1IzajB1bmMrbFdBN0RnNEkKLS0tIGVqSnZwRlF2eXBNMFdtM25TVGdP
+            UENTNmNHTG1TRWl5bUdqVzk3VzBhS0UK+TVGKFEn1ha7Z9vW2qALo8LUwUKKKcQU
+            wtBHenCZiQaAlny4cBqavpxjiRKH9gIuHm0uu4STtLjjsotLL4D4Kg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-08T18:37:36Z"
+    mac: ENC[AES256_GCM,data:GYHyjJ0QssPk2kITQU2FljsAPP1NsYBCzzhaHZmcvaGd5inooHvGyZ27G2ix+d8JyTWT38iJIYxaG/S+uYKBLO7qqcV1nrOp/YwisJTtfz6Kl9wqMtK3vn2yZfTI63k3R8jjMarShV/xoaUq4uJF9jnonW0WxgsymlFR5m6e4T4=,iv:8yyRnj/2vHpyRPC6NajhRgc63m51gRE+ms833BDb9Ck=,tag:TkBfwTxlvggftzPKo7zckg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

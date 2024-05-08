@@ -3,4 +3,5 @@ kind: Kustomization
 
 resources:
 - core-kustomization.yaml
-- networking-kustomization.yaml
+- apps-kustomization.yaml
+- secrets-kustomization.yaml

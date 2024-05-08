@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: testing-sops-apps
   secretRef:
     name: github-deploy-key
   url: ssh://git@github.com/Nomsplease/Home-Ops.git

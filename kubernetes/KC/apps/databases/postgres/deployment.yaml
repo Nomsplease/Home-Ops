@@ -21,8 +21,8 @@ spec:
       - name: postgres
         image: tensorchord/pgvecto-rs:pg16-v0.2.0
         envFrom:
-          - configMapRef:
-              name: postgres-config
+          - secretRef:
+              name: env-postgres
         volumeMounts:
           - name: pvc
             mountPath: /var/lib/postgresql/data

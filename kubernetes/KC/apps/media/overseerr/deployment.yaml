@@ -23,9 +23,9 @@ spec:
           envFrom:
             - secretRef:
                 name: env-overseerr
-    volumeMounts:
-      - name: pvc
-        mountPath: /config
+          volumeMounts:
+            - name: pvc
+              mountPath: /config
     volumes:
       - name: pvc
         persistentVolumeClaim:

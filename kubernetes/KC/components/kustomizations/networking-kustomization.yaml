@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./kubernetes/KC/apps/
+  path: ./kubernetes/KC/apps/networking/
   prune: true
   sourceRef:
     kind: GitRepository

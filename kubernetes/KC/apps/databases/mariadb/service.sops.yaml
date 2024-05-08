@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: mariadb
+    namespace: databases
+spec:
+    selector:
+        app: mariadb
+    type: LoadBalancer
+    loadBalancerIP: ENC[AES256_GCM,data:CSdJh9opWPs5r+M=,iv:u1T4zy1uWf/OvoV0MZJ5qg+5Hzt2YTP38wOVU1iOjbw=,tag:6094baZeRj1GPsNxZy5cqg==,type:str]
+    ports:
+        - name: ENC[AES256_GCM,data:99ZpGXDYMQ==,iv:krrjcaf4lvY6es3akMiv1MNi1jb8tgLfiq5YHgk82Rw=,tag:8PsRoi7HStHfbcYIWgmQaw==,type:str]
+          port: ENC[AES256_GCM,data:kHSRfw==,iv:4GTXYuJ8uuoh10hMmVvIUzeJXWE40hZIdnTewo4eblM=,tag:eknSjYAAkXUbn1XUauIi7Q==,type:int]
+          targetPort: ENC[AES256_GCM,data:peY7pw==,iv:1jVGdjnj1ZApId3dY9G3VR/JvRVUvNerp0bSd2yEOis=,tag:cDqPZcGggkc/ABUWA5DVpA==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBDTXR4dVd5Y04rZmpUUWdJ
+            aGQ0R1c5eXZON2tmRnU2MGhvclF0aGkxUlZZCmVkNis3ZUxvMUs4ZTBWZGJaOWxq
+            ai9saDY5dU1FbGZWSmNQMGIzRkczZGsKLS0tIEVlVjU3WHZDS0hKdHpYU3RLU2p4
+            dXRNT3JsZmZ2N2NEckFvNlBqb0FPY00KtVm5174vB/8tW3l2GzcVlBY9zCevpHhe
+            +iL0hSm31232khT73Kn7jr7R6KTvz28Y8OPWN4aBnbPK6da6P7u34Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-08T21:28:48Z"
+    mac: ENC[AES256_GCM,data:hnDYXnnXpWHR/+yrvCFEDa4TvK4YFBDtE7qosOGwdcvDZm40yzdzm0n6X6yeEiD2xeFf0Uezh/zireOgdqz2A987ofeyrZK60MvM4fgycqjVBhMbymR/6KlNJ+JMQj5g1jmrvMV7fCtJcLplAhc4RUuKnSmV9B3EX5PReTqXMcw=,iv:nKvIKF2q++eq0m+86DeApEra/EDm/RhPgQ9ojYOgN4g=,tag:5sc0mFfJOQBYDg3e6hynSw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

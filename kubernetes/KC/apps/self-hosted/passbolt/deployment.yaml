@@ -20,6 +20,9 @@ spec:
       containers:
         - name: passbolt
           image: passbolt/passbolt:4.7.0-1-ce-non-root
+          envFrom:
+            - secretRef:
+                name: env-passbolt
           volumeMounts:
             - name: pvc
               mountPath: /etc/passbolt/gpg

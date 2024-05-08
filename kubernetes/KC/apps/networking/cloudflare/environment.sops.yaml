@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: env-cloudflare-ddns
+    namespace: networking
+type: Opaque
+data:
+    API_KEY: ENC[AES256_GCM,data:FM4AjBovdbXbcIQe3BpdS0a0ul5g0QnoIuMNcrVT6zqIxa+ceJohuw==,iv:dcOjKGmqf7jjFUZILx4MZvi7azFO+dbjZtsAYgDlOrQ=,tag:g/vychPN2QjymcaR44kNCw==,type:str]
+    ZONE: ENC[AES256_GCM,data:1dAXBHBDbQ==,iv:8z3O1j+tBtfUDT+n1N+ccUFsUm0x4CuOkqBegfUO8kI=,tag:YOhNM2SbT106Qv5DTwtBfg==,type:str]
+    SUBDOMAIN: ENC[AES256_GCM,data:Ux56s03F,iv:JFzRwrBSbZlVYCDHlSgoNOXF4JedhgTbJvBa7TfJdQg=,tag:11i3KPstanYnbafqLhBVdQ==,type:str]
+    PROXIED: ENC[AES256_GCM,data:OZguYnc=,iv:Gub2+xVXncjWU5oIQ7vo2QZ0PetK83KTWSLJewJkUhs=,tag:jQlpAew+OSg2AFpLPHzSkA==,type:bool]
+    RRTYPE: ENC[AES256_GCM,data:mg==,iv:JC44J9Yp+R0ZjS/X74PjwQn212VizcBa0Fi2oDfEt/I=,tag:qoXMTsEoJbdt9jAQB0a3dA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBhZjd5djdxR0JKSHdqeTNS
+            QlVOblUyd3o3d1FOcEdHTHZqMDhwb2tNWGhZCjYrZXJiN0kycDEzR1ViUWsyODlR
+            Q1pWa3BQZkFrbDU3bElvOVd0Q3NkOXcKLS0tIGRsVzlBYWdIUDRtOG5EbXppT1Zi
+            bFNacXdNclVrOFZJVEFKakppeU41cGsK5O8aWdjEHMdRdkLaCUMdLwN6oSQtQYRQ
+            BmSaC0fDolIhz8hfP2hYHj3/JyNWOQBBrLDhexBIIiDZu/D2Kz5zJw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-08T15:27:29Z"
+    mac: ENC[AES256_GCM,data:mHanpgBlQtsOy+33/HSHvBJU3mcWXZlh+ohkZBQSLeMd8ARVNQlhvYcQOl4W+usCfRxqYEt5Ns8ALPIUxheHfQoiiTupjkFKRwZcUKTc98afNMoax2PPGiX9cy1mpcHk88CLKvrmX8gujXcTFLW2BjBlbC0W0ch20ZTtgU1ofb8=,iv:4kI9Gg2kClJSbS9D59ileN1CyFCJC4fzFFRQsTKphkQ=,tag:8dsnuS9zgfladLqbJBW97w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1

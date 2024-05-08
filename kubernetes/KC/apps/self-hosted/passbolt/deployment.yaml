@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: passbolt
+  namespace: self-hosted
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: passbolt
+  template:
+    metadata:
+      labels:
+        app: passbolt
+    spec:
+      containers:
+        - name: passbolt
+          image: passbolt/passbolt:4.7.0-1-ce-non-root
+          volumeMounts:
+            - name: pvc
+              mountPath: /etc/passbolt/gpg
+              subPath: gpg
+            - name: pvc
+              mountPath: /etc/passbolt/jwt
+              subPath: jwt
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: passbolt

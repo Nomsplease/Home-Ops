@@ -42,9 +42,7 @@ spec:
       volumes:
       - name: creds
         secret:
-          # kubectl create secret generic tunnel-credentials \
-          # --from-file=credentials.json=/Users/yourusername/.cloudflared/<tunnel ID>.json
-          secretName: tunnel-credentials
+          secretName: tunnel-credentials-cloudflared
       - name: config
         configMap:
           name: cloudflared
@@ -53,6 +51,4 @@ spec:
             path: config.yaml
       - name: cert
         secret:
-          # kubectl create secret generic tunnel-pem \
-          # --from-file=cert.pem=/Users/yourusername/.cloudflared/cert.pem -n <cloudflare ns>
-          secretName: tunnel-pem
+          secretName: tunnel-pem-cloudflared

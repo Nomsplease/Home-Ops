@@ -1,6 +1,7 @@
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./cloudflare-ddns
-  - ./cloudflared
+- cloudflared/configmap.sops.yaml
+- cloudflared/daemonset.yaml
+- cloudflare-ddns/deployment.yaml
+- cloudflare-ddns/secret.sops.yaml

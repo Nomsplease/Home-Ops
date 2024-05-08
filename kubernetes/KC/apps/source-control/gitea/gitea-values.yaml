@@ -1,0 +1,105 @@
+replicaCount: 1
+strategy:
+    type: RollingUpdate
+    rollingUpdate:
+        maxSurge: 100%
+        maxUnavailable: 0
+image:
+    repository: gitea/gitea
+    pullPolicy: IfNotPresent
+    rootless: true
+podSecurityContext:
+    fsGroup: 1000
+service:
+    http:
+        type: ClusterIP
+        port: 3000
+        clusterIP: null
+    ssh:
+        type: LoadBalancer
+        port: 22
+        loadBalancerIP: ENC[AES256_GCM,data:alnIDmbDJS8ZhhE=,iv:l/PFMmPHUatR8lrBMxZYJAiipMnXpCY/lWWGbSSNxrA=,tag:RTjIdRqPPhlrqykHTO6K9w==,type:str]
+persistence:
+    enabled: true
+    create: true
+    mount: true
+    claimName: gitea-shared-storage
+    size: 50Gi
+    accessModes:
+        - ReadWriteMany
+    annotations:
+        helm.sh/resource-policy: keep
+gitea:
+    config:
+        APP_NAME: ENC[AES256_GCM,data:5nTdQj/4s5eETf9L3B+pjWnkmQ==,iv:mZ+N2uBNFWSjzjjTLmfycvsZeFNRUo5IxwiYhW0hFZQ=,tag:2NMCUU3pvM7WwSLLHFwOZw==,type:str]
+        database:
+            DB_TYPE: ENC[AES256_GCM,data:DrjBpdlxYwM=,iv:oRhc56Ude5RAssFeYqv5Cdq5k7KI+jxs2NAKH8DcGUc=,tag:zMZWdsEOpxImsIE+THxI0A==,type:str]
+            HOST: ENC[AES256_GCM,data:TnUEqNXfvx/fmFhQmg==,iv:1lruHE9mrhyxhSQLZMs3JEffp/wjUNOlNueIVKxWgGk=,tag:nho4E/VkcrONFziE3MSVWA==,type:str]
+            NAME: ENC[AES256_GCM,data:GxYJ95+3Qq8chIJcYfqVrA==,iv:Pi4j03+Ksc9kLeC/JybuFCBvxLurBWoOXeShxigz37w=,tag:6P3L+Nsl4iOz51DwaGZgTg==,type:str]
+            USER: ENC[AES256_GCM,data:n/FyX0k=,iv:UTstw0ab89ZRkuz7Pyup0YZWs1uDQxsn6TyDHSDDaQw=,tag:QrvGE3AoHRmnFgZdJ1Z+jQ==,type:str]
+            PASSWD: ENC[AES256_GCM,data:Wg7s7h1qAuG42aILwKWRb9sgQw8c/I5/bDi3hVVrLxGHC6iZ/DVp+StXbCTZJ55AXdZoz7DQUbKwfShPXu6PMQ==,iv:Cla+6USeaHVHeN9V/rIkrZl2rPPYj/n94O+s4cm6ujM=,tag:5irqB7xSpuppUfibxBCvOQ==,type:str]
+            SCHEMA: ENC[AES256_GCM,data:6BldLpMf,iv:ZBfcrMXmstnN9ewwaB/8KzPx46b09PmLbhQGgH8e180=,tag:OqEYAmHt/DlDGxtZ8z4OCg==,type:str]
+        service:
+            DISABLE_REGISTRATION: ENC[AES256_GCM,data:y7eVXQ==,iv:EK6ZvMMZN2zgb1yuXWwxbkhCH+HhW28JTQcVH0qIn5s=,tag:H0LEUeOv/RM22IvhKhHOGw==,type:bool]
+            REQUIRE_SIGNIN_VIEW: ENC[AES256_GCM,data:yE5jog==,iv:GPKZnj+kjWupUDggSJuJ8yyneNCD0ooyy1Yiq7XkxHY=,tag:F9aRnx+46b0WYlHWBH8k1g==,type:bool]
+        server:
+            ROOT_URL: ENC[AES256_GCM,data:J3BK2NWVU7Cbz3rDO+tS68R1qw==,iv:FckBfDH4oNjqFfZFs4r+KwM/A7n6gA8SdQQyVkmpCsc=,tag:d0IC8FNs+lJLQHyTJoAxMA==,type:str]
+            SSH_DOMAIN: ENC[AES256_GCM,data:mQ9uol/LcY51LmNesWM5,iv:g4K0Em/W5d0r3Zv23EEiDc0U8QQJNRDf4PZ6Uz/5Bvw=,tag:vqm/sXIyjrKPtWccGZWqsw==,type:str]
+            SSH_LISTEN_PORT: ENC[AES256_GCM,data:G+vMtw==,iv:XZ+EmNo47rdBTUSaExpq3nzZ5RFY7vSwsQ9y73xBQ1U=,tag:bG8Mxmz8r+Rm9+x6Bdqpuw==,type:int]
+    livenessProbe:
+        enabled: true
+        tcpSocket:
+            port: http
+        initialDelaySeconds: 200
+        timeoutSeconds: 1
+        periodSeconds: 10
+        successThreshold: 1
+        failureThreshold: 10
+    readinessProbe:
+        enabled: true
+        tcpSocket:
+            port: http
+        initialDelaySeconds: 5
+        timeoutSeconds: 1
+        periodSeconds: 10
+        successThreshold: 1
+        failureThreshold: 3
+    startupProbe:
+        enabled: false
+        tcpSocket:
+            port: http
+        initialDelaySeconds: 60
+        timeoutSeconds: 1
+        periodSeconds: 10
+        successThreshold: 1
+        failureThreshold: 10
+redis-cluster:
+    enabled: true
+    usePassword: false
+    cluster:
+        nodes: 3
+        replicas: 0
+postgresql-ha:
+    enabled: false
+postgresql:
+    enabled: false
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBRemQyUzFnWDR3TDRrUmlL
+            WHhzemNHczc5eFF3dEJRbEhGdSs3OXJISnpRCjJFVTRTdXlJTTBZcG54S0RDUzZL
+            L2NMbWVvR1lkUlpSNWhZVitvS3UrWHcKLS0tIEdURENKSU1IWG14TndPOGgrK0Zs
+            UWRVTC9PSGZqSkpYRlNNamdqZG1aRTAKvxk8o1LQCejBTbG6sQ8GNZExc8+GhPhY
+            EzXyP/k9mLbVvi7dSMvNvoti0NHo7htI+u+/4GVUsvpQajDZEcu1JA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-08T20:09:20Z"
+    mac: ENC[AES256_GCM,data:DvehqVPeS/jEtnekuZeJOPG4fsjx0EJI8zsYhjf4+7XLoyUXEnOJvlIQ7WQWH53aCr+qDogiARomjsAaDcSDcmtnSysaM9KwdtNa9bcC7Ev7IRWbt/rjovbqVQjwuJjjkGXMTrvarMCY7153/VDpeW6mcN9bmzZISl8b13END0E=,iv:k0eFW7UzRk2T5aWz0d4/0l5odRYr+Alb4OB+9/uBcJU=,tag:e7qyyKSQuDib2sICK9hXBw==,type:str]
+    pgp: []
+    encrypted_regex: ^(loadBalancerIP|config)$
+    version: 3.8.1

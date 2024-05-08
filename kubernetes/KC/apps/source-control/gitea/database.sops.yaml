@@ -1,0 +1,34 @@
+kind: Cluster
+apiVersion: postgresql.cnpg.io/v1
+metadata:
+    name: cnpg-gitea
+    namespace: source-control
+spec:
+    enableSuperuserAccess: false
+    instances: 3
+    bootstrap:
+        initdb:
+            database: ENC[AES256_GCM,data:zNcUYA3WHrSN54Z1gmmzcg==,iv:cDc1hXpPJatKuhWqve35OUla6Qtl/58puuHAIeW9/hQ=,tag:k7Mq3cuZMkFJb2ilJuE2fg==,type:str]
+            owner: ENC[AES256_GCM,data:xpSAxpQ=,iv:S9rT2mazvLNXwGhTtU1mWs8B/e6XSJCp9XE3YtMpAjA=,tag:dHz9yJdQNYi6/Sp1XfkwGA==,type:str]
+    storage:
+        size: 1Gi
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBjalBaWEl5bzgzK3E5K1pC
+            cmxYd2cwYVBOcFpnVXVoR0kzMVgrYWVDT2s4CmhHckg2K0dwK0N5Mm9BRXA0Y3Bp
+            VUZVdVo4WjI2S0xBaWh2Z1VWNjFCQkUKLS0tIGtnVEhZV05CSWZIVTVzSnorRVJX
+            MkoyUnVpSFV4Qnl3QUE0Q3ZGcUwvVTQKV2HFhpEqgcMUmWhY8fvSeO1tIlC3ys8D
+            zGYh76jYT5/onJNM/p/SrLqLzDOOvYs1Y0Z5SpEGNqP0Sc4Qdh3vFA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-08T19:46:39Z"
+    mac: ENC[AES256_GCM,data:tyUeAtDNPdjBsk/JnuMtiEoxqatdAq0+ldPe9TJN2mQH3gcUxrHappsNrw3WFJ88WVzmE+8zqqDQpWv1kHleGb01j2Nc3dCJep0GH2HsGl+io6Pb0fkXirsIc+uLcUtAWzAFYSTRTjhIBSN8xqP9zya+JLaJwlDqfogdfgkCMQQ=,iv:YIcI7Lf6vZV2xSU7my4QpmBkWie3B7uU276uu+DsYLw=,tag:cC3Nih0XGaCmAAuyLBWylw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

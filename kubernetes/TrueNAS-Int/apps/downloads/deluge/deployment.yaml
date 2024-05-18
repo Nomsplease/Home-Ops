@@ -20,7 +20,7 @@ spec:
             containers:
                 ## Gluetun Container
                 - name: deluge-vpn
-                  image: ghcr.io/qdm12/gluetun@sha256:caf7d14d4734ecc149d161d40a1dc1dfb1a8c1df4d0da366cf4f294024ce1dfa
+                  image: ghcr.io/qdm12/gluetun@sha256:f501359827a9c8523d78add8ce68791a31634c146c8eef0fd8700a68b8160cfd
                   securityContext:
                     capabilities:
                         add:

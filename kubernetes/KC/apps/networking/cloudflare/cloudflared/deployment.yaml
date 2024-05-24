@@ -4,6 +4,8 @@ kind: DaemonSet
 metadata:
   name: cloudflared
   namespace: networking
+  annotations:
+    configmap.reloader.stakater.com/reload: "cloudflared"
 spec:
   selector:
     matchLabels:

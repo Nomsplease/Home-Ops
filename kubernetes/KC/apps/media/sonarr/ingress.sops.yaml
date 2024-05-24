@@ -1,0 +1,38 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: sonarr
+    namespace: media
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:kCMfLiSwcwjHNrbw6shX8qqk9pLGsEUoQPc=,iv:lRX49zIbtjPHIAz9TlwFNZSHj9i6drDD2kLpuhTZ1SA=,tag:Hf9E2o/IUXq9udUkMtd3hw==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:FvVIvztX,iv:buCSQLsQTGrT7UhVlUcfeOXxGWwLk88a6wPKzAP3LKM=,tag:x2Fb047HMj2aP+ONFH44KA==,type:str]
+              port: ENC[AES256_GCM,data:BM7PTw==,iv:KSMTqQued0//tsgmUJpVG1RtKKBxc9m53Rl51nl1LGU=,tag:mJ+jMToVfIbWgwot6tNXyg==,type:int]
+    tls:
+        secretName: ENC[AES256_GCM,data:7v6GAcHZ7FWPDNA=,iv:u9pi58nimSo6KpyGhbEe1vYoFTE/tg3UBdpUL47FJBg=,tag:wA8XUH5WHYk1LPZbv3Vw6A==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBmL0dUNGExVWMwZDR3YjdN
+            S3RSTkFDUlBSemYxV3l4M0NSNnQwbENtL1E0CkZhSG5HQ2xQcVR5Vzgrd3dsMHZp
+            ZGlwNFdvL2ZacVlWSkdIU2dSaHB2cDQKLS0tIEppYjNsTGxlVVIrVVVGYTdGeHZr
+            VExocU9iQ1RZU1hheHAxczcrYyt0V0kKMxfWRICLReC7y+vXucPeWv3LqmUOs/D6
+            FzGrcuUfryR8s/Lxw7jk8zVqc9MHHJoJM9cdIkAobSjsclIJ6H+Y9Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-24T21:02:42Z"
+    mac: ENC[AES256_GCM,data:GH7hHQUMRsuNOWccjEiZifGsbtYRUBa5ylQiDvYc4nL13Rruf9yYup/BaXL0+toPpT6nGu/3F3gFn8o2RqVWIJ0iieeuk+2apKeQWkWgrcCDEkUcn/JaXEu4zNIlhbpX5+R7bbL2VdjSDftzA8vN0FVRutWHA7yc4fQ9yLMqO94=,iv:zmj93ZYP1aauJ+RiMa1E9Cg2kCfzlk1k/89Z0Hgkyj0=,tag:aAQgjPHkTfC77VM43INTIA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

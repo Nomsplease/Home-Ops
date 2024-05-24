@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: homeassistant
-          image: ghcr.io/home-assistant/home-assistant:2024.5.4
+          image: ghcr.io/home-assistant/home-assistant:2024.5.5
           envFrom:
             - secretRef:
                 name: env-homeassistant

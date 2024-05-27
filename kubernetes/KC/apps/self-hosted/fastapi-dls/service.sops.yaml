@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: fastapi-dls
+    namespace: self-hosted
+spec:
+    selector:
+        app: fastapi-dls
+    ports:
+        - name: ENC[AES256_GCM,data:ENTp1a4=,iv:OPiP6TLCPM0r0YfI7DDcF0ELq1h2N41dyzQ5sx9GH4Y=,tag:WbMoxDQhpk76RL0dgpuHcQ==,type:str]
+          port: ENC[AES256_GCM,data:cSYC,iv:rtUojTEATB0WIX46bj09RygTVnCbJX+txosg3pRaUoo=,tag:xksw7PcmMooR9s3Pa6RDug==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBnbHRQVXNoZkpxbGZDZmFy
+            ejNzdzdiZFR4UGJvSkUvMnR2dDdqUUJoU2o0ClR5R3B2NDZWaFl5dnFXNDdZQUVk
+            eFhKbWRRdTBEZEpqalNxd1VvNlAzU3MKLS0tIFRTSlpjdXk0UjdqY2pWM2tHL055
+            cnBObmtDdFhua0xVTVNWbFExZ1dockEK142efv83bOy2Ig5gvM2wVzLamO80uwf5
+            5V71eMOzobwm/BUrNOMcfS7R8g+PiAhdeY2p/21QFplXWEVemQl4wA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-27T18:48:14Z"
+    mac: ENC[AES256_GCM,data:NA7dK9XPhf2m+bPhRoWDDJEpC4mPmrwZWI+Y6cHhs+NjgHx4S2XHdJ+FkB4/4y3j2Hq05xs0Hgjufowdz55Oq1pG0muLCJcS26kzZyxGD2QWFfFyE6jrA3NXTR8P3a45J81GX1iYCJ1nJhZWA2txpnVnCUcECRDrZTmv/fa4S98=,iv:t5WAwGBNGxUxQnQ9R40YzhGE4G5z7q6WW5f2ErI1k7Y=,tag:VldoVmRvGWlmilwb4RnH9A==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

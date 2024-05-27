@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-dls
+  namespace: self-hosted
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: fastapi-dls
+  template:
+    metadata:
+      labels:
+        app: fastapi-dls
+    spec:
+      containers:
+        - name: fastapi-dls
+          image: collinwebdesigns/fastapi-dls:1.3.11
+          envFrom:
+            - secretRef:
+                name: env-fastapi-dls
+          volumeMounts:
+            - name: cert
+              mountPath: /app/cert
+              readOnly: true
+            - name: pvc
+              mountPath: /app/database
+              subPath: database
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: fastapi-dls
+        - name: cert
+          configMap:
+            name: noms-tv-tls
+            items:
+            - key: tls.crt
+              path: webserver.crt
+            - key: tls.key
+              path: webserver.key

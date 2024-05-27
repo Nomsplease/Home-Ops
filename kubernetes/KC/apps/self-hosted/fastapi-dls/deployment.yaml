@@ -24,8 +24,11 @@ spec:
             - secretRef:
                 name: env-fastapi-dls
           volumeMounts:
-            - name: cert
+            - name: cert-webserver
               mountPath: /app/cert
+              readOnly: true
+            - name: cert-instance
+              mountPath: /app/cert/instance
               readOnly: true
             - name: pvc
               mountPath: /app/database
@@ -34,7 +37,7 @@ spec:
         - name: pvc
           persistentVolumeClaim:
             claimName: fastapi-dls
-        - name: cert
+        - name: cert-webserver
           secret:
             secretName: noms-tv-tls
             items:
@@ -42,3 +45,11 @@ spec:
               path: webserver.crt
             - key: tls.key
               path: webserver.key
+        - name: cert-instance
+          secret: 
+            secretName: env-fastapi-dls-certs
+            items:
+            - key: instance.private.pem
+              path: instance.private.pem
+            - key: instance.public.pem
+              path: instance.public.pem

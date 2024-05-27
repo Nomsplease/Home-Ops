@@ -35,8 +35,8 @@ spec:
           persistentVolumeClaim:
             claimName: fastapi-dls
         - name: cert
-          configMap:
-            name: noms-tv-tls
+          secret:
+            secretName: noms-tv-tls
             items:
             - key: tls.crt
               path: webserver.crt

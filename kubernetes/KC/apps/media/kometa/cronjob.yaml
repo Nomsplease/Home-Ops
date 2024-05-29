@@ -1,10 +1,10 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: plex-meta-manager
+  name: kometa
   namespace: media
   annotations:
-    configmap.reloader.stakater.com/reload: "conf-plex-meta-manager"
+    configmap.reloader.stakater.com/reload: "conf-kometa"
 spec:
   schedule: "0 */2 * * *"
   jobTemplate:
@@ -12,11 +12,11 @@ spec:
       template:
         spec:
           containers:
-            - name: plex-meta-manager
+            - name: kometa
               image: meisnate12/plex-meta-manager:v1.21.0
               envFrom:
                 - secretRef:
-                    name: env-plex-meta-manager
+                    name: env-kometa
               args: [ "--run" ]
               volumeMounts:
                 - name: pvc
@@ -26,10 +26,10 @@ spec:
           volumes:
             - name: pvc
               persistentVolumeClaim:
-                claimName: plex-meta-manager
+                claimName: kometa
             - name: config
               configMap:
-                name: conf-plex-meta-manager
+                name: conf-kometa
                 items:
                     - key: config.yml
                       path: config.yml

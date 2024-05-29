@@ -1,0 +1,182 @@
+---
+## Paperless-NGX
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless
+  namespace: self-hosted
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: paperless
+  template:
+    metadata:
+      labels:
+        app: paperless
+    spec:
+      containers:
+        - name: paperless
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.8.1
+          envFrom:
+            - secretRef:
+                name: env-paperless
+          volumeMounts:
+            - name: pvc
+              mountPath: /usr/src/paperless/data
+              subPath: data
+            - name: pvc
+              mountPath: /usr/src/paperless/media
+              subPath: media
+            - name: pvc
+              mountPath: /usr/src/paperless/export
+              subPath: export
+            - name: pvc
+              mountPath: /usr/src/paperless/consume
+              subPath: consume
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: paperless
+---
+## Gotenberg
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless-gotenberg
+  namespace: self-hosted
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: paperless-gotenberg
+  template:
+    metadata:
+      labels:
+        app: paperless-gotenberg
+    spec:
+      containers:
+        - name: paperless-gotenberg
+          image: gotenberg/gotenberg:8.5.0
+          args:
+            - gotenberg
+            - --chromium-disable-javascript=true
+            - --chromium-allow-list=file:///tmp/.*
+---
+## Tika
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless-tika
+  namespace: self-hosted
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: paperless-tika
+  template:
+    metadata:
+      labels:
+        app: paperless-tika
+    spec:
+      containers:
+        - name: paperless-tika
+          image: ghcr.io/paperless-ngx/tika:2.9.1-minimal
+---
+## Redis
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless-redis
+  namespace: self-hosted
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: paperless-redis
+  template:
+    metadata:
+      labels:
+        app: paperless-redis
+    spec:
+      containers:
+        - name: paperless-redis
+          image: redis:7.2.4
+          volumeMounts:
+            - name: pvc
+              mountPath: /data
+              subPath: redis
+          volumes:
+            - name: pvc
+              persistentVolumeClaim:
+              claimName: paperless
+---
+## Samba
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless-samba
+  namespace: self-hosted
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: paperless-samba
+  template:
+    metadata:
+      labels:
+        app: paperless-samba
+    spec:
+      containers:
+        - name: paperless-samba
+          image: ghcr.io/dockur/samba:4.19.5
+          resources:
+            requests:
+                cpu: 512m
+                memory: 512Mi
+            limits:
+                cpu: 1024m
+                memory: 1Gi
+          envFrom:
+            - secretRef:
+                name: env-paperless-samba
+          volumeMounts:
+            - name: config
+              mountPath: /etc/samba/
+              readOnly: true
+            - name: pvc
+              mountPath: /export
+              subPath: export
+            - name: pvc
+              mountPath: /consume
+              subPath: consume
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: paperless
+        - name: config
+          configMap:
+            name: conf-paperless-samba
+            items:
+                - key: smb.conf
+                  path: smb.conf

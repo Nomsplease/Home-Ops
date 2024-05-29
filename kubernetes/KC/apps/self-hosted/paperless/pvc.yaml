@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless
+  namespace: self-hosted
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: longhorn
+  persistentVolumeReclaimPolicy: Retain
+  resources:
+    requests:
+      storage: 50Gi

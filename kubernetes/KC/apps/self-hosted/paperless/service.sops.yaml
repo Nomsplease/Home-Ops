@@ -1,0 +1,166 @@
+## Paperless
+apiVersion: v1
+kind: Service
+metadata:
+    name: paperless
+    namespace: self-hosted
+spec:
+    selector:
+        app: paperless
+    ports:
+        - name: ENC[AES256_GCM,data:BTnTIA==,iv:2L+4patjxr7AAlr53XmswhYucoRWEFlHWzYG/BMz9cU=,tag:QfWM2m3eWDyAIWULl31nRg==,type:str]
+          port: ENC[AES256_GCM,data:SREFNA==,iv:08ME2O3GYBzLKltkcW+5WJqScrjS+3yfVbAetquOdZ4=,tag:arldS8ClrSpXA9bqlkA78w==,type:int]
+## Gotenberg
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVOVBRRzlVMm1tSUxhSnox
+            eFNTUGFmb3lKREh1dWF4Wk5RYm43MmNPUUZzClVGUHAzZjBIUnYvRGZIVGJPRklr
+            K1FzbnFkRjlPWDByOWRTdUVPa3RZMVUKLS0tIEtVTWxkdW1xb0djQUJzMkV4Mlk2
+            MzVlRFNGcU12SHorMTkrcDY1bE1XWkUK2Uy8IStxbvg53kLl3l8feNwvvYVhe6VZ
+            R5ZgOAH7Ftt/IL8B1tt+jm90STN/BgiCv2Rl594mwOI179Ygg1QIww==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-29T13:46:43Z"
+    mac: ENC[AES256_GCM,data:QcunamzAAbZeVEk/r1DwWEGZGGc37c+qKc1UqCW2QA6Vlx/QB8C1tL3Q8QFmtPQjMlfSjbF2m+42AyL1CWXDC9vOPWQ6BjF5BztR61cEMyOl0HaW3yQZ4OQRr3lCeJE71QFCxNkYFT2OLyRqfoefJvF3ttmpKy2XYfyIiwv/fnQ=,iv:0cLrc3Wn6+XfEWBijmbYfmsjvzAhSWGJn+eqBB4dBOg=,tag:UJz2jAhlptViA7WgHiLb9w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: paperless-gotenberg
+    namespace: self-hosted
+spec:
+    selector:
+        app: paperless-gotenberg
+    ports:
+        - name: ENC[AES256_GCM,data:bUJEwQ==,iv:OOnWqOKnE5aCiksa8J05KRtgbAu0t45Y+h5UbuIHzsg=,tag:tb/FsZ5I2uPp+d5A+HpeQg==,type:str]
+          port: ENC[AES256_GCM,data:fS2++g==,iv:f4ql1NYVx2AgG7loPOIq2gslGfNE5Vfpnmtl/WSEv+4=,tag:yqGY7okd5MLmuJfw013wmQ==,type:int]
+## Tika
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVOVBRRzlVMm1tSUxhSnox
+            eFNTUGFmb3lKREh1dWF4Wk5RYm43MmNPUUZzClVGUHAzZjBIUnYvRGZIVGJPRklr
+            K1FzbnFkRjlPWDByOWRTdUVPa3RZMVUKLS0tIEtVTWxkdW1xb0djQUJzMkV4Mlk2
+            MzVlRFNGcU12SHorMTkrcDY1bE1XWkUK2Uy8IStxbvg53kLl3l8feNwvvYVhe6VZ
+            R5ZgOAH7Ftt/IL8B1tt+jm90STN/BgiCv2Rl594mwOI179Ygg1QIww==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-29T13:46:43Z"
+    mac: ENC[AES256_GCM,data:QcunamzAAbZeVEk/r1DwWEGZGGc37c+qKc1UqCW2QA6Vlx/QB8C1tL3Q8QFmtPQjMlfSjbF2m+42AyL1CWXDC9vOPWQ6BjF5BztR61cEMyOl0HaW3yQZ4OQRr3lCeJE71QFCxNkYFT2OLyRqfoefJvF3ttmpKy2XYfyIiwv/fnQ=,iv:0cLrc3Wn6+XfEWBijmbYfmsjvzAhSWGJn+eqBB4dBOg=,tag:UJz2jAhlptViA7WgHiLb9w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: paperless-tika
+    namespace: self-hosted
+spec:
+    selector:
+        app: paperless-tika
+    ports:
+        - name: ENC[AES256_GCM,data:A7hlcQ==,iv:delfAw3urdjdJrNS7lxoLz03bPh6GKb/1wNrLbAbf4k=,tag:ScDn/PHL7h119gf0Os2mPw==,type:str]
+          port: ENC[AES256_GCM,data:hoRiIw==,iv:ikr1SURDSR9NFymENHr4z3YQS1MguwMNGrqDxU6g4Kk=,tag:COQWBMPoxLeYxm/r/KHrcQ==,type:int]
+## Redis
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVOVBRRzlVMm1tSUxhSnox
+            eFNTUGFmb3lKREh1dWF4Wk5RYm43MmNPUUZzClVGUHAzZjBIUnYvRGZIVGJPRklr
+            K1FzbnFkRjlPWDByOWRTdUVPa3RZMVUKLS0tIEtVTWxkdW1xb0djQUJzMkV4Mlk2
+            MzVlRFNGcU12SHorMTkrcDY1bE1XWkUK2Uy8IStxbvg53kLl3l8feNwvvYVhe6VZ
+            R5ZgOAH7Ftt/IL8B1tt+jm90STN/BgiCv2Rl594mwOI179Ygg1QIww==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-29T13:46:43Z"
+    mac: ENC[AES256_GCM,data:QcunamzAAbZeVEk/r1DwWEGZGGc37c+qKc1UqCW2QA6Vlx/QB8C1tL3Q8QFmtPQjMlfSjbF2m+42AyL1CWXDC9vOPWQ6BjF5BztR61cEMyOl0HaW3yQZ4OQRr3lCeJE71QFCxNkYFT2OLyRqfoefJvF3ttmpKy2XYfyIiwv/fnQ=,iv:0cLrc3Wn6+XfEWBijmbYfmsjvzAhSWGJn+eqBB4dBOg=,tag:UJz2jAhlptViA7WgHiLb9w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: paperless-redis
+    namespace: self-hosted
+spec:
+    selector:
+        app: paperless-redis
+    ports:
+        - name: ENC[AES256_GCM,data:tg7+TA==,iv:l3CWCicZwqpX2kSXvK1uuXqriiIuFKiXs5/ew016MSI=,tag:+OUCToBhsJ3iBvVltUc5ZQ==,type:str]
+          port: ENC[AES256_GCM,data:4gD3fg==,iv:OjArUt2OexCMdd/QbXlpoB4q59YSE+N8UebYk9NqhfY=,tag:cJ5tTpKuerVMw6JCDOSWFQ==,type:int]
+## Samba
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVOVBRRzlVMm1tSUxhSnox
+            eFNTUGFmb3lKREh1dWF4Wk5RYm43MmNPUUZzClVGUHAzZjBIUnYvRGZIVGJPRklr
+            K1FzbnFkRjlPWDByOWRTdUVPa3RZMVUKLS0tIEtVTWxkdW1xb0djQUJzMkV4Mlk2
+            MzVlRFNGcU12SHorMTkrcDY1bE1XWkUK2Uy8IStxbvg53kLl3l8feNwvvYVhe6VZ
+            R5ZgOAH7Ftt/IL8B1tt+jm90STN/BgiCv2Rl594mwOI179Ygg1QIww==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-29T13:46:43Z"
+    mac: ENC[AES256_GCM,data:QcunamzAAbZeVEk/r1DwWEGZGGc37c+qKc1UqCW2QA6Vlx/QB8C1tL3Q8QFmtPQjMlfSjbF2m+42AyL1CWXDC9vOPWQ6BjF5BztR61cEMyOl0HaW3yQZ4OQRr3lCeJE71QFCxNkYFT2OLyRqfoefJvF3ttmpKy2XYfyIiwv/fnQ=,iv:0cLrc3Wn6+XfEWBijmbYfmsjvzAhSWGJn+eqBB4dBOg=,tag:UJz2jAhlptViA7WgHiLb9w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: paperless-samba
+    namespace: self-hosted
+spec:
+    selector:
+        app: paperless-samba
+    type: LoadBalancer
+    loadBalancerIP: ENC[AES256_GCM,data:WW9f3WlObwppyWw=,iv:UiVVAKAgIUkdJ5ROjXd3eSvd8eKtn7UQ+9Y4kCZ7ie8=,tag:A6S+Oi4PpvaabpOCFT4ldw==,type:str]
+    ports:
+        - name: ENC[AES256_GCM,data:D1CQ,iv:nPUOd3O3zahvlJuG6CUhQNaAhf6PR7PL7RMlqGOqD0g=,tag:hzD7g4uyC2xufndWzDQYHA==,type:str]
+          port: ENC[AES256_GCM,data:2hsk,iv:DaPk1tInLx1v/ATiJSXRo35vKnDspxF8QC6oB9VXG18=,tag:5RfIJ5V5SKtbxtDRmZqQ7A==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVOVBRRzlVMm1tSUxhSnox
+            eFNTUGFmb3lKREh1dWF4Wk5RYm43MmNPUUZzClVGUHAzZjBIUnYvRGZIVGJPRklr
+            K1FzbnFkRjlPWDByOWRTdUVPa3RZMVUKLS0tIEtVTWxkdW1xb0djQUJzMkV4Mlk2
+            MzVlRFNGcU12SHorMTkrcDY1bE1XWkUK2Uy8IStxbvg53kLl3l8feNwvvYVhe6VZ
+            R5ZgOAH7Ftt/IL8B1tt+jm90STN/BgiCv2Rl594mwOI179Ygg1QIww==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-29T13:46:43Z"
+    mac: ENC[AES256_GCM,data:QcunamzAAbZeVEk/r1DwWEGZGGc37c+qKc1UqCW2QA6Vlx/QB8C1tL3Q8QFmtPQjMlfSjbF2m+42AyL1CWXDC9vOPWQ6BjF5BztR61cEMyOl0HaW3yQZ4OQRr3lCeJE71QFCxNkYFT2OLyRqfoefJvF3ttmpKy2XYfyIiwv/fnQ=,iv:0cLrc3Wn6+XfEWBijmbYfmsjvzAhSWGJn+eqBB4dBOg=,tag:UJz2jAhlptViA7WgHiLb9w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

@@ -11,4 +11,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   resources:
     requests:
-      storage: 1Gi
+      storage: 5Gi

@@ -7,6 +7,8 @@ metadata:
     configmap.reloader.stakater.com/reload: "conf-kometa"
 spec:
   schedule: "0 */1 * * *"
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:

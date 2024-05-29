@@ -14,13 +14,15 @@ spec:
           containers:
             - name: plex-meta-manager
               image: meisnate12/plex-meta-manager:v1.21.0
-              imagePullPolicy: IfNotPresent
+              envFrom:
+                - secretRef:
+                    name: env-plex-meta-manager
               args: [ "--run" ]
               volumeMounts:
                 - name: pvc
                   mountPath: /config
                 - name: config
-                  mountPath: /config/
+                  mountPath: /configmap/
           volumes:
             - name: pvc
               persistentVolumeClaim:

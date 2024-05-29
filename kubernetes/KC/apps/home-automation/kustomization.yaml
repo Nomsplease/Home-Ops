@@ -6,3 +6,4 @@ resources:
   - ./esphome
   - ./homeassistant
   - ./tasmoadmin
+  - ./zigbee2mqtt

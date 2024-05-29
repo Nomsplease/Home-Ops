@@ -19,7 +19,7 @@ spec:
         spec:
             containers:
                 - name: gotenberg
-                  image: gotenberg/gotenberg:8.5.0
+                  image: gotenberg/gotenberg:8.5.1
                   imagePullPolicy: Always
                   args:
                     - gotenberg

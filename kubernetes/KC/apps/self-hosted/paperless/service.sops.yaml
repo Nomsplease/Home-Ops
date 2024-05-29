@@ -8,8 +8,8 @@ spec:
     selector:
         app: paperless
     ports:
-        - name: ENC[AES256_GCM,data:BTnTIA==,iv:2L+4patjxr7AAlr53XmswhYucoRWEFlHWzYG/BMz9cU=,tag:QfWM2m3eWDyAIWULl31nRg==,type:str]
-          port: ENC[AES256_GCM,data:SREFNA==,iv:08ME2O3GYBzLKltkcW+5WJqScrjS+3yfVbAetquOdZ4=,tag:arldS8ClrSpXA9bqlkA78w==,type:int]
+        - name: ENC[AES256_GCM,data:rTkX2g==,iv:z6rti6D+gpUxwZrWYjbolKGuv8EC2K43YfHr73XxU8Y=,tag:F4WyR+IRcIsrub1z4Tw+mw==,type:str]
+          port: ENC[AES256_GCM,data:xKU98A==,iv:eKoXUN99i6SMV+8rC8+GKTvogzgd6FCadMxtPtyXuAk=,tag:JEEHAPo7JXuQQ3/X0b8HVg==,type:int]
 ## Gotenberg
 sops:
     kms: []
@@ -20,14 +20,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVOVBRRzlVMm1tSUxhSnox
-            eFNTUGFmb3lKREh1dWF4Wk5RYm43MmNPUUZzClVGUHAzZjBIUnYvRGZIVGJPRklr
-            K1FzbnFkRjlPWDByOWRTdUVPa3RZMVUKLS0tIEtVTWxkdW1xb0djQUJzMkV4Mlk2
-            MzVlRFNGcU12SHorMTkrcDY1bE1XWkUK2Uy8IStxbvg53kLl3l8feNwvvYVhe6VZ
-            R5ZgOAH7Ftt/IL8B1tt+jm90STN/BgiCv2Rl594mwOI179Ygg1QIww==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMQWlTcE1kOGQ3ZkZBVDRj
+            VzZDMWhoZFI5cjE1OFZ2R2lKcmZkaXZVSVVNCm1veTd6eW80QXZZZHp3UHVDRDZE
+            SXRiOWtQK2ZZem1leGdZWU14RFI2RmMKLS0tIHhMKzdUWllHMDBmUEJsWmpzcm91
+            N2pkaHZ4WnZxbDREeWpwNlFZVjdlRVUKzNrs2I6hHU6fQckW8rJAKXSwYKUcmDPD
+            ui2TvVYUYy8cCi3utCByheZ+D5Ylq5SoqvhLlpuX+B2b5XGa20pktQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-29T13:46:43Z"
-    mac: ENC[AES256_GCM,data:QcunamzAAbZeVEk/r1DwWEGZGGc37c+qKc1UqCW2QA6Vlx/QB8C1tL3Q8QFmtPQjMlfSjbF2m+42AyL1CWXDC9vOPWQ6BjF5BztR61cEMyOl0HaW3yQZ4OQRr3lCeJE71QFCxNkYFT2OLyRqfoefJvF3ttmpKy2XYfyIiwv/fnQ=,iv:0cLrc3Wn6+XfEWBijmbYfmsjvzAhSWGJn+eqBB4dBOg=,tag:UJz2jAhlptViA7WgHiLb9w==,type:str]
+    lastmodified: "2024-05-29T14:10:18Z"
+    mac: ENC[AES256_GCM,data:UPdJ+9hib/kTvzocJod0ndU5e2hsZtYfXWvU2ogHaW+jMjnSV57XiNSWCAMx2Os+hsvD5jk/6KASwROINonD9aV9AIqNpCyKoEAmkQ5PlWujENfBA4ksEMc3FHYsuCbGI5CF2xh0aU1VNSl5TrQoYSR3+2aUlN2V6VcBHFSytwk=,iv:JTnRo4SBFahXAsFNaB4hmdlPo1XCMgTvxQfkhOGgMII=,tag:CRyOJEObiNg0cQqHq5Ws9w==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1
@@ -41,8 +41,8 @@ spec:
     selector:
         app: paperless-gotenberg
     ports:
-        - name: ENC[AES256_GCM,data:bUJEwQ==,iv:OOnWqOKnE5aCiksa8J05KRtgbAu0t45Y+h5UbuIHzsg=,tag:tb/FsZ5I2uPp+d5A+HpeQg==,type:str]
-          port: ENC[AES256_GCM,data:fS2++g==,iv:f4ql1NYVx2AgG7loPOIq2gslGfNE5Vfpnmtl/WSEv+4=,tag:yqGY7okd5MLmuJfw013wmQ==,type:int]
+        - name: ENC[AES256_GCM,data:v9e0gw==,iv:RqN3GSTxfsMqiBTI5DrM4v79rNRLMZ/e74xEuakX5QU=,tag:s3brKi9XRSILa+2vV5bNfg==,type:str]
+          port: ENC[AES256_GCM,data:8fZT6g==,iv:5T9tcKjggUZrFBp1SEaxpTJuYK05di4XiuogayvhfIQ=,tag:bgMqFyZoUhOSmUNP7mPL0w==,type:int]
 ## Tika
 sops:
     kms: []
@@ -53,14 +53,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVOVBRRzlVMm1tSUxhSnox
-            eFNTUGFmb3lKREh1dWF4Wk5RYm43MmNPUUZzClVGUHAzZjBIUnYvRGZIVGJPRklr
-            K1FzbnFkRjlPWDByOWRTdUVPa3RZMVUKLS0tIEtVTWxkdW1xb0djQUJzMkV4Mlk2
-            MzVlRFNGcU12SHorMTkrcDY1bE1XWkUK2Uy8IStxbvg53kLl3l8feNwvvYVhe6VZ
-            R5ZgOAH7Ftt/IL8B1tt+jm90STN/BgiCv2Rl594mwOI179Ygg1QIww==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMQWlTcE1kOGQ3ZkZBVDRj
+            VzZDMWhoZFI5cjE1OFZ2R2lKcmZkaXZVSVVNCm1veTd6eW80QXZZZHp3UHVDRDZE
+            SXRiOWtQK2ZZem1leGdZWU14RFI2RmMKLS0tIHhMKzdUWllHMDBmUEJsWmpzcm91
+            N2pkaHZ4WnZxbDREeWpwNlFZVjdlRVUKzNrs2I6hHU6fQckW8rJAKXSwYKUcmDPD
+            ui2TvVYUYy8cCi3utCByheZ+D5Ylq5SoqvhLlpuX+B2b5XGa20pktQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-29T13:46:43Z"
-    mac: ENC[AES256_GCM,data:QcunamzAAbZeVEk/r1DwWEGZGGc37c+qKc1UqCW2QA6Vlx/QB8C1tL3Q8QFmtPQjMlfSjbF2m+42AyL1CWXDC9vOPWQ6BjF5BztR61cEMyOl0HaW3yQZ4OQRr3lCeJE71QFCxNkYFT2OLyRqfoefJvF3ttmpKy2XYfyIiwv/fnQ=,iv:0cLrc3Wn6+XfEWBijmbYfmsjvzAhSWGJn+eqBB4dBOg=,tag:UJz2jAhlptViA7WgHiLb9w==,type:str]
+    lastmodified: "2024-05-29T14:10:18Z"
+    mac: ENC[AES256_GCM,data:UPdJ+9hib/kTvzocJod0ndU5e2hsZtYfXWvU2ogHaW+jMjnSV57XiNSWCAMx2Os+hsvD5jk/6KASwROINonD9aV9AIqNpCyKoEAmkQ5PlWujENfBA4ksEMc3FHYsuCbGI5CF2xh0aU1VNSl5TrQoYSR3+2aUlN2V6VcBHFSytwk=,iv:JTnRo4SBFahXAsFNaB4hmdlPo1XCMgTvxQfkhOGgMII=,tag:CRyOJEObiNg0cQqHq5Ws9w==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1
@@ -74,8 +74,8 @@ spec:
     selector:
         app: paperless-tika
     ports:
-        - name: ENC[AES256_GCM,data:A7hlcQ==,iv:delfAw3urdjdJrNS7lxoLz03bPh6GKb/1wNrLbAbf4k=,tag:ScDn/PHL7h119gf0Os2mPw==,type:str]
-          port: ENC[AES256_GCM,data:hoRiIw==,iv:ikr1SURDSR9NFymENHr4z3YQS1MguwMNGrqDxU6g4Kk=,tag:COQWBMPoxLeYxm/r/KHrcQ==,type:int]
+        - name: ENC[AES256_GCM,data:TS76aA==,iv:uGFzbQyLb26xfCJKdmzDZPrda6fm6k0kQ7E7ESQq640=,tag:XlHjDwGqaHsAvHmGUg+sng==,type:str]
+          port: ENC[AES256_GCM,data:Rn2OiQ==,iv:RWd6IPPwcb3tISK3AmMnMF1Re1bNomuBZwyOiV+Tyeg=,tag:vpViKfVjP+ROlN6hR6LOpA==,type:int]
 ## Redis
 sops:
     kms: []
@@ -86,14 +86,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVOVBRRzlVMm1tSUxhSnox
-            eFNTUGFmb3lKREh1dWF4Wk5RYm43MmNPUUZzClVGUHAzZjBIUnYvRGZIVGJPRklr
-            K1FzbnFkRjlPWDByOWRTdUVPa3RZMVUKLS0tIEtVTWxkdW1xb0djQUJzMkV4Mlk2
-            MzVlRFNGcU12SHorMTkrcDY1bE1XWkUK2Uy8IStxbvg53kLl3l8feNwvvYVhe6VZ
-            R5ZgOAH7Ftt/IL8B1tt+jm90STN/BgiCv2Rl594mwOI179Ygg1QIww==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMQWlTcE1kOGQ3ZkZBVDRj
+            VzZDMWhoZFI5cjE1OFZ2R2lKcmZkaXZVSVVNCm1veTd6eW80QXZZZHp3UHVDRDZE
+            SXRiOWtQK2ZZem1leGdZWU14RFI2RmMKLS0tIHhMKzdUWllHMDBmUEJsWmpzcm91
+            N2pkaHZ4WnZxbDREeWpwNlFZVjdlRVUKzNrs2I6hHU6fQckW8rJAKXSwYKUcmDPD
+            ui2TvVYUYy8cCi3utCByheZ+D5Ylq5SoqvhLlpuX+B2b5XGa20pktQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-29T13:46:43Z"
-    mac: ENC[AES256_GCM,data:QcunamzAAbZeVEk/r1DwWEGZGGc37c+qKc1UqCW2QA6Vlx/QB8C1tL3Q8QFmtPQjMlfSjbF2m+42AyL1CWXDC9vOPWQ6BjF5BztR61cEMyOl0HaW3yQZ4OQRr3lCeJE71QFCxNkYFT2OLyRqfoefJvF3ttmpKy2XYfyIiwv/fnQ=,iv:0cLrc3Wn6+XfEWBijmbYfmsjvzAhSWGJn+eqBB4dBOg=,tag:UJz2jAhlptViA7WgHiLb9w==,type:str]
+    lastmodified: "2024-05-29T14:10:18Z"
+    mac: ENC[AES256_GCM,data:UPdJ+9hib/kTvzocJod0ndU5e2hsZtYfXWvU2ogHaW+jMjnSV57XiNSWCAMx2Os+hsvD5jk/6KASwROINonD9aV9AIqNpCyKoEAmkQ5PlWujENfBA4ksEMc3FHYsuCbGI5CF2xh0aU1VNSl5TrQoYSR3+2aUlN2V6VcBHFSytwk=,iv:JTnRo4SBFahXAsFNaB4hmdlPo1XCMgTvxQfkhOGgMII=,tag:CRyOJEObiNg0cQqHq5Ws9w==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1
@@ -107,8 +107,8 @@ spec:
     selector:
         app: paperless-redis
     ports:
-        - name: ENC[AES256_GCM,data:tg7+TA==,iv:l3CWCicZwqpX2kSXvK1uuXqriiIuFKiXs5/ew016MSI=,tag:+OUCToBhsJ3iBvVltUc5ZQ==,type:str]
-          port: ENC[AES256_GCM,data:4gD3fg==,iv:OjArUt2OexCMdd/QbXlpoB4q59YSE+N8UebYk9NqhfY=,tag:cJ5tTpKuerVMw6JCDOSWFQ==,type:int]
+        - name: ENC[AES256_GCM,data:D3qsYN4=,iv:qyhbundDfnYR3gDLSAgQwzR4XCbLjKvkhn9W4TXxjp0=,tag:kGeUQBVX2GDkgQeLBvYn/Q==,type:str]
+          port: ENC[AES256_GCM,data:VaRnOQ==,iv:TlDYRI7R1JJ9bnDnp613/DBdvzACURKjzx6o/Pa66a8=,tag:+DHj3SxrlWSfBsx1nRPrxw==,type:int]
 ## Samba
 sops:
     kms: []
@@ -119,14 +119,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVOVBRRzlVMm1tSUxhSnox
-            eFNTUGFmb3lKREh1dWF4Wk5RYm43MmNPUUZzClVGUHAzZjBIUnYvRGZIVGJPRklr
-            K1FzbnFkRjlPWDByOWRTdUVPa3RZMVUKLS0tIEtVTWxkdW1xb0djQUJzMkV4Mlk2
-            MzVlRFNGcU12SHorMTkrcDY1bE1XWkUK2Uy8IStxbvg53kLl3l8feNwvvYVhe6VZ
-            R5ZgOAH7Ftt/IL8B1tt+jm90STN/BgiCv2Rl594mwOI179Ygg1QIww==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMQWlTcE1kOGQ3ZkZBVDRj
+            VzZDMWhoZFI5cjE1OFZ2R2lKcmZkaXZVSVVNCm1veTd6eW80QXZZZHp3UHVDRDZE
+            SXRiOWtQK2ZZem1leGdZWU14RFI2RmMKLS0tIHhMKzdUWllHMDBmUEJsWmpzcm91
+            N2pkaHZ4WnZxbDREeWpwNlFZVjdlRVUKzNrs2I6hHU6fQckW8rJAKXSwYKUcmDPD
+            ui2TvVYUYy8cCi3utCByheZ+D5Ylq5SoqvhLlpuX+B2b5XGa20pktQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-29T13:46:43Z"
-    mac: ENC[AES256_GCM,data:QcunamzAAbZeVEk/r1DwWEGZGGc37c+qKc1UqCW2QA6Vlx/QB8C1tL3Q8QFmtPQjMlfSjbF2m+42AyL1CWXDC9vOPWQ6BjF5BztR61cEMyOl0HaW3yQZ4OQRr3lCeJE71QFCxNkYFT2OLyRqfoefJvF3ttmpKy2XYfyIiwv/fnQ=,iv:0cLrc3Wn6+XfEWBijmbYfmsjvzAhSWGJn+eqBB4dBOg=,tag:UJz2jAhlptViA7WgHiLb9w==,type:str]
+    lastmodified: "2024-05-29T14:10:18Z"
+    mac: ENC[AES256_GCM,data:UPdJ+9hib/kTvzocJod0ndU5e2hsZtYfXWvU2ogHaW+jMjnSV57XiNSWCAMx2Os+hsvD5jk/6KASwROINonD9aV9AIqNpCyKoEAmkQ5PlWujENfBA4ksEMc3FHYsuCbGI5CF2xh0aU1VNSl5TrQoYSR3+2aUlN2V6VcBHFSytwk=,iv:JTnRo4SBFahXAsFNaB4hmdlPo1XCMgTvxQfkhOGgMII=,tag:CRyOJEObiNg0cQqHq5Ws9w==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1
@@ -140,10 +140,10 @@ spec:
     selector:
         app: paperless-samba
     type: LoadBalancer
-    loadBalancerIP: ENC[AES256_GCM,data:WW9f3WlObwppyWw=,iv:UiVVAKAgIUkdJ5ROjXd3eSvd8eKtn7UQ+9Y4kCZ7ie8=,tag:A6S+Oi4PpvaabpOCFT4ldw==,type:str]
+    loadBalancerIP: ENC[AES256_GCM,data:7mSGQ2mRPeaKpVY=,iv:yvlOd08UiZR7NwqOeagZYAFjBp51yoDiXesRYSHadSI=,tag:JU1O0eVlWCHA7yvagPajQA==,type:str]
     ports:
-        - name: ENC[AES256_GCM,data:D1CQ,iv:nPUOd3O3zahvlJuG6CUhQNaAhf6PR7PL7RMlqGOqD0g=,tag:hzD7g4uyC2xufndWzDQYHA==,type:str]
-          port: ENC[AES256_GCM,data:2hsk,iv:DaPk1tInLx1v/ATiJSXRo35vKnDspxF8QC6oB9VXG18=,tag:5RfIJ5V5SKtbxtDRmZqQ7A==,type:int]
+        - name: ENC[AES256_GCM,data:S5Ht,iv:yhgatkDj0GIZI3FT26aejFn86g21MRzN7IcQa4sjaWE=,tag:rjkzaIg8ww7H1xP/r5QwQw==,type:str]
+          port: ENC[AES256_GCM,data:P9s2,iv:WuQ6N5NhAVCRCEfjw+C2O/jq+k/ZbqnYGPpGZnDazYA=,tag:iNZpbN2Y+w2rtPlVm6i+Tw==,type:int]
 sops:
     kms: []
     gcp_kms: []
@@ -153,14 +153,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVOVBRRzlVMm1tSUxhSnox
-            eFNTUGFmb3lKREh1dWF4Wk5RYm43MmNPUUZzClVGUHAzZjBIUnYvRGZIVGJPRklr
-            K1FzbnFkRjlPWDByOWRTdUVPa3RZMVUKLS0tIEtVTWxkdW1xb0djQUJzMkV4Mlk2
-            MzVlRFNGcU12SHorMTkrcDY1bE1XWkUK2Uy8IStxbvg53kLl3l8feNwvvYVhe6VZ
-            R5ZgOAH7Ftt/IL8B1tt+jm90STN/BgiCv2Rl594mwOI179Ygg1QIww==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMQWlTcE1kOGQ3ZkZBVDRj
+            VzZDMWhoZFI5cjE1OFZ2R2lKcmZkaXZVSVVNCm1veTd6eW80QXZZZHp3UHVDRDZE
+            SXRiOWtQK2ZZem1leGdZWU14RFI2RmMKLS0tIHhMKzdUWllHMDBmUEJsWmpzcm91
+            N2pkaHZ4WnZxbDREeWpwNlFZVjdlRVUKzNrs2I6hHU6fQckW8rJAKXSwYKUcmDPD
+            ui2TvVYUYy8cCi3utCByheZ+D5Ylq5SoqvhLlpuX+B2b5XGa20pktQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-29T13:46:43Z"
-    mac: ENC[AES256_GCM,data:QcunamzAAbZeVEk/r1DwWEGZGGc37c+qKc1UqCW2QA6Vlx/QB8C1tL3Q8QFmtPQjMlfSjbF2m+42AyL1CWXDC9vOPWQ6BjF5BztR61cEMyOl0HaW3yQZ4OQRr3lCeJE71QFCxNkYFT2OLyRqfoefJvF3ttmpKy2XYfyIiwv/fnQ=,iv:0cLrc3Wn6+XfEWBijmbYfmsjvzAhSWGJn+eqBB4dBOg=,tag:UJz2jAhlptViA7WgHiLb9w==,type:str]
+    lastmodified: "2024-05-29T14:10:18Z"
+    mac: ENC[AES256_GCM,data:UPdJ+9hib/kTvzocJod0ndU5e2hsZtYfXWvU2ogHaW+jMjnSV57XiNSWCAMx2Os+hsvD5jk/6KASwROINonD9aV9AIqNpCyKoEAmkQ5PlWujENfBA4ksEMc3FHYsuCbGI5CF2xh0aU1VNSl5TrQoYSR3+2aUlN2V6VcBHFSytwk=,iv:JTnRo4SBFahXAsFNaB4hmdlPo1XCMgTvxQfkhOGgMII=,tag:CRyOJEObiNg0cQqHq5Ws9w==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1

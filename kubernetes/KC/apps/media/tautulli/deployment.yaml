@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tautulli
+  namespace: media
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: tautulli
+  template:
+    metadata:
+      labels:
+        app: tautulli
+    spec:
+      containers:
+        - name: tautulli
+          image: tautulli/tautulli:v2.13.2
+          envFrom:
+            - secretRef:
+                name: env-tautulli
+          volumeMounts:
+            - name: pvc
+              mountPath: /config
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: tautulli

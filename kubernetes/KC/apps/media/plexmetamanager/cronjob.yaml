@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: CronJob
+metadata:
+  name: plex-meta-manager
+  namespace: media
+  annotations:
+    configmap.reloader.stakater.com/reload: "conf-plex-meta-manager"
+spec:
+  schedule: "0 */2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: plex-meta-manager
+              image: meisnate12/plex-meta-manager:v1.21.0
+              imagePullPolicy: IfNotPresent
+              args: [ "--run" ]
+              volumeMounts:
+                - name: pvc
+                  mountPath: /config
+                - name: config
+                  mountPath: /config/
+          volumes:
+            - name: pvc
+              persistentVolumeClaim:
+                claimName: plex-meta-manager
+            - name: config
+              configMap:
+                name: conf-plex-meta-manager
+                items:
+                    - key: config.yml
+                      path: config.yml
+          restartPolicy: OnFailure

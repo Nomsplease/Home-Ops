@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: redis
-        image: redis:7.2.4
+        image: redis:7.2.5
         imagePullPolicy: Always
         volumeMounts:
           - name: pvc

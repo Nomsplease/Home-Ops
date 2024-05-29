@@ -6,4 +6,4 @@ resources:
   - ./overseerr
   - ./sonarr
   - ./radarr
-  - ./kometa
+  #- ./kometa

@@ -7,7 +7,6 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: longhorn
   persistentVolumeReclaimPolicy: Retain
   resources:
     requests:

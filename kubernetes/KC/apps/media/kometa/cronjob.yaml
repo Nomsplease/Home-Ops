@@ -6,7 +6,7 @@ metadata:
   annotations:
     configmap.reloader.stakater.com/reload: "conf-kometa"
 spec:
-  schedule: "0 */2 * * *"
+  schedule: "*/30 * * * *"
   jobTemplate:
     spec:
       template:

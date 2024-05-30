@@ -25,7 +25,7 @@ spec:
                 name: env-zwave-js-ui
           volumeMounts:
             - name: pvc
-              mountPath: /app/data
+              mountPath: /usr/src/app/store
       volumes:
         - name: pvc
           persistentVolumeClaim:

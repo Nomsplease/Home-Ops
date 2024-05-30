@@ -8,7 +8,6 @@ spec:
   accessModes:
     - ReadWriteMany
   storageClassName: longhorn
-  persistentVolumeReclaimPolicy: Retain
   resources:
     requests:
       storage: 5Gi

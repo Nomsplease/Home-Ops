@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: zwave-js-ui
+    namespace: home-automation
+spec:
+    selector:
+        app: zwave-js-ui
+    ports:
+        - port: ENC[AES256_GCM,data:zBtc4g==,iv:gyOMkHIgSY2dhNrUdWleP+adp5c8NJtHSAjpOHCdxj4=,tag:1f/8Q8c14src0j0qy08DTQ==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBIUUQrTE0xQkQ4b0pkVHRk
+            bGNEeHFLdmtnU3ZrZnVXREs2dmZLYkVBNDAwCjVWVHd2K2wrKzl2RzFpLzlsK0th
+            ajkybUw1cDd4MmlNcUNQb3BENXlRYWMKLS0tIHBNMDFiUFovRHJSWFBaKzRVZk1V
+            endTZnEvS2dGQ2xGRGZRZE9HVW9qRG8K/DYBCQNxEedLgdvZqJVfBEGf+Y0A5vU3
+            yBH1/Mf+keuPRYBKvMLXvmsHw5rZYhHfmuxV1Cg/DoDEkEwm/pZ7ug==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-30T15:08:46Z"
+    mac: ENC[AES256_GCM,data:PZWcrmCvKVOn4yDcBVfXUkbILmERPHGjoEWP6c9RLvOiJeXojtZwJwL1JlorEtNos+qFU3qO+6iqYuixWKvO0z4yPrenj5hFcgyJ/wsjkLcAZopLp/ZqjBxbnqC3mgrRmymWs0ZnyRrxwSGxpBq9sIcYuR935+ehDOWWecOEXo4=,iv:tZs+y/CV4C4CXVqNvfkfAz+uGVoBmCYkKiBLhqCsR8Q=,tag:SXmf/DQM+pE6tObwoTjRAA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

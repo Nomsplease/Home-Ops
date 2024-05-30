@@ -7,3 +7,4 @@ resources:
   - ./homeassistant
   - ./tasmoadmin
   - ./zigbee2mqtt
+  - ./zwave-js-ui

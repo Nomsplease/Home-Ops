@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: zwave-js-ui
-          image: zwavejs/zwave-js-ui:9.10.3
+          image: zwavejs/zwave-js-ui:9.13.1
           envFrom:
             - secretRef:
                 name: env-zwave-js-ui

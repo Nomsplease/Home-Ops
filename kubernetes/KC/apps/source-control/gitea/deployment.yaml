@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea
+  namespace: source-control
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: gitea
+  template:
+    metadata:
+      labels:
+        app: gitea
+    spec:
+      containers:
+        - name: gitea
+          image: gitea/gitea:1.21.9-rootless
+          volumeMounts:
+            - name: pvc
+              mountPath: /var/lib/gitea
+              subPath: data
+            - name: pvc
+              mountPath: /etc/gitea
+              subPath: conf
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: gitea

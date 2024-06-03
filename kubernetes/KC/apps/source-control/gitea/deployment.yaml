@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: gitea
-          image: gitea/gitea:1.21.9-rootless
+          image: gitea/gitea:1.22.0-rootless
           volumeMounts:
             - name: pvc
               mountPath: /var/lib/gitea

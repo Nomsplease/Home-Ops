@@ -15,7 +15,7 @@ spec:
         spec:
           containers:
             - name: kometa
-              image: kometateam/kometa:v2.0.1
+              image: kometateam/kometa:v2.0.2
               args: [ "--run", "--read-only-config" ]
               volumeMounts:
                 - name: pvc

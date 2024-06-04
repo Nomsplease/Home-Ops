@@ -65,7 +65,7 @@ spec:
     spec:
       containers:
         - name: paperless-gotenberg
-          image: gotenberg/gotenberg:8.5.1
+          image: gotenberg/gotenberg:8.6.0
           args:
             - gotenberg
             - --chromium-disable-javascript=true

@@ -4,6 +4,3 @@ kind: Kustomization
 resources:
   # Node Feature Discovery
   - https://github.com/kubernetes-sigs/node-feature-discovery/deployment/overlays/default?ref=v0.15.4
-
-  # NFD rules for Intel HW
-  - https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/nfd/overlays/node-feature-rules?ref=v0.30.0

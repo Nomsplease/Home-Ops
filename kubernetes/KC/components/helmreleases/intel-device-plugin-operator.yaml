@@ -8,7 +8,7 @@ spec:
   targetNamespace: kube-system
   chart:
     spec:
-      chart: intel/intel-device-plugins-operator
+      chart: intel-device-plugins-operator
       version: '>=0.30.0'
       sourceRef:
         kind: HelmRepository

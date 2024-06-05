@@ -1,16 +1,19 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: plex
+  name: plex-test
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: plex
+      app: plex-test
   template:
+    metadata:
+      labels:
+        app: plex-test
     spec:
       containers:
-        - name: plex
+        - name: plex-test
           image: docker.io/plexinc/pms-docker:1.40.2.8395-c67dce28e
           resources:
             limits:

@@ -1,0 +1,17 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: plex-minimal
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: plex
+  template:
+    spec:
+      containers:
+        - name: plex
+          image: docker.io/plexinc/pms-docker:1.40.2.8395-c67dce28e
+          resources:
+            limits:
+              gpu.intel.com/i915: 1000m

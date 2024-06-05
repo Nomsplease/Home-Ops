@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
 - rke2-helm-charts.yaml
 - traefik-helm-charts.yaml
+- intel-helm-charts.yaml

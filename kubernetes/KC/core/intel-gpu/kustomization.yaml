@@ -6,5 +6,9 @@ resources:
   # NFD rules for Intel HW
   - https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/nfd/overlays/node-feature-rules?ref=v0.30.0
 
-  # Intel GPU Plugin
-  - https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/gpu_plugin/overlays/nfd_labeled_nodes?ref=v0.30.0
+  # Intel GPU Plugin Deployment
+  - intel-gpu-plugin.yaml
+
+patches:
+  - path: add-args.yaml
+  - path: add-nodeselector-intel-gpu.yaml

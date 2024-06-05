@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: plex-minimal
+  name: plex
   namespace: default
 spec:
   selector:

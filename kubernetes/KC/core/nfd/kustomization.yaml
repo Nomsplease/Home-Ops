@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   # Node Feature Discovery
-  - https://github.com/kubernetes-sigs/node-feature-discovery/deployment/overlays/default?ref=v0.15.4
+  - https://github.com/kubernetes-sigs/node-feature-discovery/deployment/overlays/default?ref=v0.16.0

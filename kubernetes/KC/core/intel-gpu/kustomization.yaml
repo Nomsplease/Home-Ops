@@ -10,7 +10,7 @@ resources:
   - intel-gpu-plugin.yaml
 
   # Plex Test Docker
-  - plex-test.yaml
+  #- plex-test.yaml
 
 patches:
   - path: add-args.yaml

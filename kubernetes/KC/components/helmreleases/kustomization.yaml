@@ -3,4 +3,3 @@ kind: Kustomization
 
 resources:
 - multus.yaml
-- intel-device-plugin-operator.yaml

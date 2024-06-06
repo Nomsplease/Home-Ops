@@ -4,4 +4,5 @@ metadata:
   namespace: kube-system
 resources:
   - rbac.yaml
-  - kube-vip.yaml
+  - deployment.yaml
+  - secrets.sops.yaml

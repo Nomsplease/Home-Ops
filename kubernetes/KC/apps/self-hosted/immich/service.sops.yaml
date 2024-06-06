@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: immich-server
+    namespace: self-hosted
+spec:
+    selector:
+        app: immich-server
+    ports:
+        - name: ENC[AES256_GCM,data:CLvEZg==,iv:W0GP/lWXH7Di/8W1ytd/eh/Dv9H46vxKRJNzg64A71w=,tag:LgJm+ZDhCjhks1q9SmAsjw==,type:str]
+          port: ENC[AES256_GCM,data:Ge2c6w==,iv:NF1pmez0qDc5vfKZJO49VmLbpY0CYxjY99VxfHIS/Bw=,tag:v71Wccqx2bnNnrIWDWCR0A==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBLU2lmNFhLdlFpWmR5aEli
+            SkJsRSs5MW05Y3k0QnZrK1hybVNxTnM4SlhFCno4NnppSFRNQVZhTHVxREJxWWJm
+            bytJWmplcHJoMElRS2lLOWoyRk55dTgKLS0tIC9EbEVrSnNJOEN4STZDTUdKS2hG
+            VmdHYWtDN2tXa3V0N0E5aW9INjBxV3MKSyuyTH327kJCe7zELBO/BmiPx3Dtuckj
+            kkE1VUQN0v3bl6TPXYoSxngqA0fq1Ms8RoMXcXPbcWLiUECsLmTl9A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-06T13:46:15Z"
+    mac: ENC[AES256_GCM,data:Afo18uShz2hx3Xqr5Wm130AAw9T6seoCUtAalo+wXEjzvhkeg7NTs9SamI47YK4NrhtTyf4YzJabvDWL5v0TW8n4OhaqqZn11LoCMO/R++hPR7mLGzH1w650+oW8rM2BCCr2igNq8lTtEpOfPItrTn3AM58IsbRr3MH8xlH4gAs=,iv:FPHgkqUOLk+Aub36B4qnnZgX6koCwaFFaR7PTmDecUc=,tag:urfIxvGh37iFbURIeYxz5w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

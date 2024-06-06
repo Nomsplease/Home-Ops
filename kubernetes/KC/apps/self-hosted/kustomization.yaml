@@ -6,3 +6,4 @@ resources:
   - ./passbolt
   - ./fastapi-dls
   - ./paperless
+  - ./immich

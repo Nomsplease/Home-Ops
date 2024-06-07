@@ -18,4 +18,3 @@ spec:
   valuesFrom:
     - kind: Secret
       name: values-nfs-subdir-external-provisioner
-      namespace: flux-system

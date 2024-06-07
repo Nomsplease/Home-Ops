@@ -6,4 +6,4 @@ resources:
 secretGenerator:
   - name: values-nfs-subdir-external-provisioner
     files:
-      - values.yaml=my-values.sops.yaml
+      - values.yaml=values.sops.yaml

@@ -1,0 +1,165 @@
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  cephVersion:
+    image: quay.io/ceph/ceph:v18.2.2
+    allowUnsupported: false
+  dataDirHostPath: /var/lib/rook
+  skipUpgradeChecks: false
+  continueUpgradeAfterChecksEvenIfNotHealthy: false
+  waitTimeoutForHealthyOSDInMinutes: 10
+  upgradeOSDRequiresHealthyPGs: false
+
+  mon:
+    count: 3
+    allowMultiplePerNode: false
+
+  mgr:
+    count: 2
+    allowMultiplePerNode: false
+    modules:
+      - name: rook
+        enabled: true
+
+  dashboard:
+    enabled: true
+    # serve the dashboard under a subpath (useful when you are accessing the dashboard via a reverse proxy)
+    # urlPrefix: /ceph-dashboard
+    # serve the dashboard at the given port.
+    # port: 8443
+    # serve the dashboard using SSL
+    ssl: true
+    # The url of the Prometheus instance
+    # prometheusEndpoint: <protocol>://<prometheus-host>:<port>
+    # Whether SSL should be verified if the Prometheus server is using https
+    # prometheusEndpointSSLVerify: false
+
+  monitoring:
+    enabled: false
+    metricsDisabled: false
+
+  network:
+    connections:
+      encryption:
+        enabled: false
+      compression:
+        enabled: false
+      requireMsgr2: false
+
+  crashCollector:
+    disable: false
+    daysToRetain: 30
+
+  logCollector:
+    enabled: true
+    periodicity: daily
+    maxLogSize: 500M
+
+  cleanupPolicy:
+    confirmation: ""
+    sanitizeDisks:
+      method: quick
+      dataSource: zero
+      iteration: 1
+    allowUninstallWithVolumes: false
+
+  removeOSDsIfOutAndSafeToRemove: false
+
+  priorityClassNames:
+    #all: rook-ceph-default-priority-class
+    mon: system-node-critical
+    osd: system-node-critical
+    mgr: system-cluster-critical
+    #crashcollector: rook-ceph-crashcollector-priority-class
+
+  storage: # cluster level storage configuration and selection
+    useAllNodes: true
+    useAllDevices: true
+    #deviceFilter:
+    config:
+      # crushRoot: "custom-root" # specify a non-default root label for the CRUSH map
+      # metadataDevice: "md0" # specify a non-rotational storage so ceph-volume will use it as block db device of bluestore.
+      # databaseSizeMB: "1024" # uncomment if the disks are smaller than 100 GB
+      # osdsPerDevice: "1" # this value can be overridden at the node or device level
+      # encryptedDevice: "true" # the default value for this option is "false"
+    # Individual nodes and their config can be specified as well, but 'useAllNodes' above must be set to false. Then, only the named
+    # nodes below will be used as storage resources.  Each node's 'name' field should match their 'kubernetes.io/hostname' label.
+    # nodes:
+    #   - name: "172.17.4.201"
+    #     devices: # specific devices to use for storage can be specified for each node
+    #       - name: "sdb"
+    #       - name: "nvme01" # multiple osds can be created on high performance devices
+    #         config:
+    #           osdsPerDevice: "5"
+    #       - name: "/dev/disk/by-id/ata-ST4000DM004-XXXX" # devices can be specified using full udev paths
+    #     config: # configuration can be specified at the node level which overrides the cluster level config
+    #   - name: "172.17.4.301"
+    #     deviceFilter: "^sd."
+    # when onlyApplyOSDPlacement is false, will merge both placement.All() and placement.osd
+    onlyApplyOSDPlacement: false
+    # Time for which an OSD pod will sleep before restarting, if it stopped due to flapping
+    # flappingRestartIntervalHours: 24
+    # The ratio at which Ceph should block IO if the OSDs are too full. The default is 0.95.
+    # fullRatio: 0.95
+    # The ratio at which Ceph should stop backfilling data if the OSDs are too full. The default is 0.90.
+    # backfillFullRatio: 0.90
+    # The ratio at which Ceph should raise a health warning if the OSDs are almost full. The default is 0.85.
+    # nearFullRatio: 0.85
+  # The section for configuring management of daemon disruptions during upgrade or fencing.
+  disruptionManagement:
+    # If true, the operator will create and manage PodDisruptionBudgets for OSD, Mon, RGW, and MDS daemons. OSD PDBs are managed dynamically
+    # via the strategy outlined in the [design](https://github.com/rook/rook/blob/master/design/ceph/ceph-managed-disruptionbudgets.md). The operator will
+    # block eviction of OSDs by default and unblock them safely when drains are detected.
+    managePodBudgets: true
+    # A duration in minutes that determines how long an entire failureDomain like `region/zone/host` will be held in `noout` (in addition to the
+    # default DOWN/OUT interval) when it is draining. This is only relevant when  `managePodBudgets` is `true`. The default value is `30` minutes.
+    osdMaintenanceTimeout: 30
+    # A duration in minutes that the operator will wait for the placement groups to become healthy (active+clean) after a drain was completed and OSDs came back up.
+    # Operator will continue with the next drain if the timeout exceeds. It only works if `managePodBudgets` is `true`.
+    # No values or 0 means that the operator will wait until the placement groups are healthy before unblocking the next drain.
+    pgHealthCheckTimeout: 0
+
+  # csi defines CSI Driver settings applied per cluster.
+  csi:
+    readAffinity:
+      # Enable read affinity to enable clients to optimize reads from an OSD in the same topology.
+      # Enabling the read affinity may cause the OSDs to consume some extra memory.
+      # For more details see this doc:
+      # https://rook.io/docs/rook/latest/Storage-Configuration/Ceph-CSI/ceph-csi-drivers/#enable-read-affinity-for-rbd-volumes
+      enabled: false
+
+    # cephfs driver specific settings.
+    cephfs:
+      # Set CephFS Kernel mount options to use https://docs.ceph.com/en/latest/man/8/mount.ceph/#options.
+      # kernelMountOptions: ""
+      # Set CephFS Fuse mount options to use https://docs.ceph.com/en/quincy/man/8/ceph-fuse/#options.
+      # fuseMountOptions: ""
+
+  healthCheck:
+    daemonHealth:
+      mon:
+        disabled: false
+        interval: 45s
+      osd:
+        disabled: false
+        interval: 60s
+      status:
+        disabled: false
+        interval: 60s
+    livenessProbe:
+      mon:
+        disabled: false
+      mgr:
+        disabled: false
+      osd:
+        disabled: false
+    startupProbe:
+      mon:
+        disabled: false
+      mgr:
+        disabled: false
+      osd:
+        disabled: false

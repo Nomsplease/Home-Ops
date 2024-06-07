@@ -1,5 +1,9 @@
 ---
 creation_rules:
+  ## Encrypt Helm Values
+  - path_regex: values.sops.yaml
+    age: >-
+      age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
 
   ##
   # Standardized Encryption Rules

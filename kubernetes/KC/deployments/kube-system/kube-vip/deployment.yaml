@@ -28,7 +28,7 @@ spec:
         envFrom:
           - secretRef:
               name: env-kube-vip
-        image: ghcr.io/kube-vip/kube-vip:v0.6.4
+        image: ghcr.io/kube-vip/kube-vip:v0.8.0
         imagePullPolicy: Always
         name: kube-vip
         resources: {}

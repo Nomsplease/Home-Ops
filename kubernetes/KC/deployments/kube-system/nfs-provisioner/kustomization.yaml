@@ -5,6 +5,6 @@ resources:
 - helm-release.yaml
 secretGenerator:
   - name: values-nfs-subdir-external-provisioner
-    namespace: kube-system
+    namespace: flux-system
     files:
       - values.yaml=values.sops.yaml

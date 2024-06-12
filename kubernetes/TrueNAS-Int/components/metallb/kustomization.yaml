@@ -4,5 +4,3 @@ metadata:
   namespace: metallb-system
 resources:
 - namespace.yaml
-- helm-repo.yaml
-- helm-release.yaml

@@ -12,7 +12,9 @@ spec:
     name: gitrepo-home-ops
     namespace: flux-system
   dependsOn:
-    - name: controller
+    - name: ipaddresspools.metallb.io
+      namespace: metallb-system
+    - name: l2advertisements.metallb.io
       namespace: metallb-system
   healthChecks:
     - apiVersion: apps/v1

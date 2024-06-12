@@ -1,0 +1,8 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: helm-repo-rke2
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://rke2-charts.rancher.io

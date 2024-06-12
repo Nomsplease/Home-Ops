@@ -6,6 +6,26 @@ creation_rules:
       age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
 
   ##
+  # Custom Encryption Rules
+  ##
+
+  ## Metal LB IP Pools
+  - path_regex: .*ip-pools.sops.ya?ml
+    encrypted_regex: "^(data|addresses)$"
+    age: >-
+      age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+
+  - path_regex: .*gitea-values.yaml
+    encrypted_regex: "^(loadBalancerIP|config)$"
+    age: >-
+      age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+
+  - path_regex: .*nad-*.sops.ya?ml
+    encrypted_regex: "^(data|config)$"
+    age: >-
+      age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+
+  ##
   # Standardized Encryption Rules
   ##
   - path_regex: .*\.sops\.ya?ml
@@ -15,25 +35,5 @@ creation_rules:
 
   - path_regex: .*deployment.ya?ml
     encrypted_regex: "^(data|env)$"
-    age: >-
-      age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
-
-  - path_regex: .*network-attachment-definition.ya?ml
-    encrypted_regex: "^(data|config)$"
-    age: >-
-      age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
-
-  ##
-  # Custom Encryption Rules
-  ##
-
-  ## Metal LB IP Pools
-  - path_regex: .*ip-pools.ya?ml
-    encrypted_regex: "^(data|addresses)$"
-    age: >-
-      age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
-
-  - path_regex: .*gitea-values.yaml
-    encrypted_regex: "^(loadBalancerIP|config)$"
     age: >-
       age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs

@@ -4,3 +4,5 @@ metadata:
   namespace: metallb-system
 resources:
 - github.com/metallb/metallb/config/native?ref=v0.14.5
+- ip-pools.sops.yaml
+- l2advertisement.yaml

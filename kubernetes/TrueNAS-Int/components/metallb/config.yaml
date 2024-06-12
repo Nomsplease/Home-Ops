@@ -4,7 +4,12 @@ metadata:
   name: metallb-config
   namespace: metallb-system
 spec:
+  interval: 1m
+  prune: true
   dependsOn:
     - name: controller
       namespace: metallb-system
-  path: "./config/"
+  path: ./kubernetes/TrueNAS-Int/components/metallb/config/
+  sourceRef:
+    kind: GitRepository
+    name: gitrepo-home-ops

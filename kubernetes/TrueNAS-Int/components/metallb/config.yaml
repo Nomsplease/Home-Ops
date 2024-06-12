@@ -7,6 +7,4 @@ spec:
   dependsOn:
     - name: controller
       namespace: metallb-system
-resources:
-- ip-pools.yaml
-- l2advertisement.yaml
+  path: "./config/"

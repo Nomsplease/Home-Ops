@@ -6,11 +6,16 @@ metadata:
 spec:
   interval: 1m
   prune: true
-  path: ./kubernetes/TrueNAS-Int/components/metallb-config/
+  path: "./kubernetes/TrueNAS-Int/components/metallb-config/"
   sourceRef:
     kind: GitRepository
     name: gitrepo-home-ops
     namespace: flux-system
   dependsOn:
     - name: metallb-controller
+      namespace: metallb-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: metallb-controller
       namespace: metallb-system

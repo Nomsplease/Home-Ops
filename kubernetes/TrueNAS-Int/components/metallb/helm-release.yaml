@@ -9,7 +9,7 @@ spec:
   targetNamespace: metallb-system
   chart:
     spec:
-      chart: metallb/metallb
+      chart: metallb
       version: 0.4.15
       sourceRef:
         kind: HelmRepository

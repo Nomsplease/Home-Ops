@@ -13,3 +13,4 @@ spec:
   sourceRef:
     kind: GitRepository
     name: gitrepo-home-ops
+    namespace: flux-system

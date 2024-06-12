@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: lancache
+    namespace: networking
+spec:
+    selector:
+        app: lancache
+    type: LoadBalancer
+    loadBalancerIP: ENC[AES256_GCM,data:HtyZEuy++nLA6Q==,iv:1yogPZangemaN0kKaWVRQhRNQcP4pAKtWPvafH/Eb7w=,tag:DwCK4wDC4lZdVBx5dqyAjw==,type:str]
+    ports:
+        - name: ENC[AES256_GCM,data:CJPJxQ==,iv:zRJ6APGhXaIAfxx1ypXGRCFcvgcqcXIQGu6QLHj9/RM=,tag:5R/m+LFf0G+KgwyP9WdpnQ==,type:str]
+          port: ENC[AES256_GCM,data:hzY=,iv:Tr5q5E2ww7cLTMatMMZgkEoGDogpEbltTwU3KFty27I=,tag:RGQ7im/GerBvCJWu3hmTjw==,type:int]
+          targetPort: ENC[AES256_GCM,data:EQU=,iv:M/Ps4K5kdOyB5inlW2eF355G7gP3wXzfZqfg5+5wIEM=,tag:KhjYKrJ288pqhiI/ee1Z2Q==,type:int]
+        - name: ENC[AES256_GCM,data:rciMbrQ=,iv:45D5rC/3lsCUelo8rYx/AesV4j3AxJV/hTg4hjGZVT0=,tag:4xEyt9TDojSvP4UoHf6SMw==,type:str]
+          port: ENC[AES256_GCM,data:TbGq,iv:GV7+pAK4G7/zPv5lCjX8DUr9YtTt3+y54qswFb2JjAg=,tag:UlAgbXDc27chKpBJY3wRKQ==,type:int]
+          targetPort: ENC[AES256_GCM,data:AoEM,iv:CaXanW/H1e54HErtMOriXb6l282Th5caChty/Xwnk7M=,tag:uRVl7oFGJc0wxtqEH3Y8bg==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA5VUNmckVzWWNjeDBMRjNn
+            TE9FajNLZ1lrZ0d2N0tXK1MxNWJYWEYvUWhNCjF1Nzd1N29HeTFmbFVUb3pMOUV6
+            Q3Z4N3Jha2wyVWxlcm9DWkpmbGdWODgKLS0tIDdETDBUaFNHYjd0WjI2OUJiOEk0
+            MlpUQWF5bW8rWkJLV3NFdTY5RlJPL28KgdtPKnqN8MLm3G4hvGwBhMytxkr/h7zX
+            gcJmuXVFgD0l1ulhLdpY+blNWBIU2HDYb6cDaj3R0HShwhzbjho9/Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-12T23:24:06Z"
+    mac: ENC[AES256_GCM,data:vsR3kNaoEh6KyUqEK0kYAPr6XDHlsaTTbSnaM9aR8bL96qNgy0YGj0tP2QUzr6BYe7KNYrUNsiBuzQg/9y1yseOPChJqoMM60ZgLWxiKB4ZIwUTq79ZmMYv+OvOE/jIWx1epp9DckGSG2pPeoeUTif6LUVt6X3qsbVDofViyQeA=,iv:Ly1GABGYEPzsrxodnUmvuzVIhegZAfuOyKbX4iySKG0=,tag:QiEnpjmCmKy12UfUSuGvsQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

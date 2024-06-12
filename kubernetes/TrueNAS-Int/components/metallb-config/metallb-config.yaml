@@ -12,10 +12,10 @@ spec:
     name: gitrepo-home-ops
     namespace: flux-system
   dependsOn:
-    - name: metallb-controller
+    - name: controller
       namespace: metallb-system
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment
-      name: metallb-controller
+      name: controller
       namespace: metallb-system

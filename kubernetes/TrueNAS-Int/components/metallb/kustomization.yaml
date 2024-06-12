@@ -6,4 +6,4 @@ resources:
 - namespace.yaml
 - helm-repo.yaml
 - helm-release.yaml
-- ../metallb-config/ks.yaml
+#- ../metallb-config/ks.yaml

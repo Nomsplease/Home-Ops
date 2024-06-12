@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 1m
   prune: true
-  path: "./kubernetes/TrueNAS-Int/components/metallb-config/"
+  path: ./kubernetes/TrueNAS-Int/components/metallb-config/
   sourceRef:
     kind: GitRepository
     name: gitrepo-home-ops

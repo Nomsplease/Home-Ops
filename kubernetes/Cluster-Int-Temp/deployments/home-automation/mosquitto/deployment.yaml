@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mosquitto
+    namespace: home-automation
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: mosquitto
+    template:
+        metadata:
+            labels:
+                app: mosquitto
+        spec:
+            containers:
+                - name: mosquitto
+                  image: eclipse-mosquitto:2.0.18
+            volumeMounts:
+              - name: pvc
+                mountPath: /mosquitto/config
+                subPath: config
+              - name: pvc
+                mountPath: /mosquitto/data
+                subPath: data
+              - name: pvc
+                mountPath: /mosquitto/log
+                subPath: log
+            volumes:
+                - name: pvc
+                  persistentVolumeClaim:
+                    claimName: mosquitto

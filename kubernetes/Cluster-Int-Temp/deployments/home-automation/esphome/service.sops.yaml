@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: esphome
+    namespace: home-automation
+spec:
+    selector:
+        app: esphome
+    ports:
+        - port: ENC[AES256_GCM,data:d8updQ==,iv:bh4KFCCT4dBPjfRf5NWIVxAqRNKD2iyvUBpfK4a2P5w=,tag:whJqZaYysELHuaAve0ArOA==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBUNWtlWHF3S2kweEFMcm5r
+            R0g3NWtXMVlwUlZBd09DdDFmNzhjSVhmeWs0CmNCOWF2N1FJbU5mS1ZSUkN1YmdQ
+            TlJZVE9MOWtLMi9oVVVuRGVRQWtITzQKLS0tIGVuUzJyNVk5aGJmclBCRXF4MTVk
+            TkNzeTI2VEQ5NStsZFZHMmoxWklMN0kKBdBXj+dg4Zxv/no7KN5J+sOZ34WQmra3
+            I/rue7nh8iWWhvCL8zmedvslGKy0ukvliCcBOfOKDvzwlEWIhtMkdQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-08T18:38:03Z"
+    mac: ENC[AES256_GCM,data:jHhEG2TCPHKfd75kPtqlwteCWym4MmynXpugSx3wrvWotkH/sKGufm8j10W6RumQoo55ZHpYydLiM5GfDzvmgJWWPIaf173+/S3So2ZXJ07yvs+s+Xb+5AmX6klHs46X9NGw5KMPDMn5c6eo6eo6HuUQoh45NY4w4vsR3NrGE0g=,iv:ezR5j120C5GSjOwmNTdu2hkTW1WtRedsjDJg7bvwWYs=,tag:JkR6GkwS35HDkcjoaFIt5w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

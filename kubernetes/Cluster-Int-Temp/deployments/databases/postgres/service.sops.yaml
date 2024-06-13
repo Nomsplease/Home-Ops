@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: postgres
+    namespace: databases
+spec:
+    selector:
+        app: postgres
+    type: LoadBalancer
+    loadBalancerIP: ENC[AES256_GCM,data:jiMo11YRk4Ev3uY=,iv:k68hmWUugSQBliZ/p32r8wDi8GPL1SZHC1H8rvXcB3w=,tag:mcTiOdJuyZS0jd6UsjbNww==,type:str]
+    ports:
+        - name: ENC[AES256_GCM,data:EhCo48MJL5k=,iv:eyGjKALG9itUxGAOkFh1+AHm8Hflt5YXIY3/x+TJZ14=,tag:JQg15TOb8/I7CyLK8ym1Yg==,type:str]
+          port: ENC[AES256_GCM,data:+gbdZw==,iv:zSlOx4IwrCTm7Qt5NaYPYNprDElkgbXlkTk3+aQ2sww=,tag:5otobPL7R+sC5Dirh0+6YA==,type:int]
+          targetPort: ENC[AES256_GCM,data:mKlXbg==,iv:tC/IyHaUDXTe/OLoeXgStoyhaSUEZSaJ6YmcTwkG1ZU=,tag:2l0j7e5cjOlrnm9kvgnt7g==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB2RTkwWU5LTmcxKytsYk9j
+            MGhjV0c2dE44RFN2RUN2N3ZZVzhzZ3FaM2tRCklhZzdXdWR0eWlVMWxsTnFseGdh
+            Um91MVg1SnJQNE9oMnZoTW50cS8wdkEKLS0tIGtRQUt4b2FpZzhSS01EdFJhQlRo
+            bWZrZWxCYmsxakg4OFAxRnlmbUF4S28KJs1BJVjL1sLkXtRioY2E4fa1jR55ecR/
+            iDfF9GPZv9DNsQyu6XknRKKK09FO2fqSOU5Qu/0QYpEVKhbS1FyYXg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-08T21:14:04Z"
+    mac: ENC[AES256_GCM,data:ieaw3KdEbMWEmepmzyZ/Bb1ycz+wUmH2tCd48yNo3b0hAkPzeh4M7lp4vusP8yTc+e8+D4cfUXUQ9P6B/LE9MF/b75LU37rgOILzlRtmmQSx1wp5O+5+P6DoZxFjxbcUBVlUi8q4VxyZKiTzB7ur84VjcPk8DBPuGjHEslThUNk=,iv:Z5Be5r2+YE6u3u3yff18OEaVW1/caTBM8nA1BTKV0KA=,tag:mweMbAaYYWG9/0/Xi7A2Fw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

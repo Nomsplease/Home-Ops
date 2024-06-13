@@ -1,4 +1,4 @@
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
     name: minio
@@ -9,18 +9,18 @@ spec:
     entryPoints:
         - websecure
     routes:
-        - match: ENC[AES256_GCM,data:NsSC9bStbpD41+ukqBsmsZoAmkXk98nwIw==,iv:ANG/2+LKqqpq4ZlpIAx6ujmnIjK7FiV1CtXXtD+Bh1E=,tag:D3UoGjqEpLNrfiY6xt4BWA==,type:str]
+        - match: ENC[AES256_GCM,data:pd2QOWJbayU1/wgehm9k4VAcN5PTReLRNA==,iv:UmtNqg8fBQgavRo65XOTS+1R/vOZ/Ygd6DAm600C5xE=,tag:2Go9h5bJ6QA2EiLNFsDe1g==,type:str]
           kind: Rule
           services:
-            - name: ENC[AES256_GCM,data:7GhX,iv:L0we7qDnDtz7StugW8mSbLa2U6See4LjfAIfEVovxl0=,tag:MbQGWrwvq2Ncwti1Gl/cWQ==,type:str]
-              port: ENC[AES256_GCM,data:FIp1Xg==,iv:DPhFVc8NL5sXGG8dMcJ5TCW3Zqtq8mYNrzcSS5SSaoE=,tag:Hz5x3IFr5v7DkXRU7flCWw==,type:int]
-        - match: ENC[AES256_GCM,data:uQYY+VW/jFepEojNVOsP2WJ7jB7KWcCGVpKFrCWmeRgz,iv:68lG9QnVF3plTCBgbaFWHa0yZ22xaSXWImVvsUNYxQY=,tag:9az1w+JMsF2hkHJ2xpAT3g==,type:str]
+            - name: ENC[AES256_GCM,data:NV7D,iv:UCkkYT8OXWskj9BZ8pOazns3G/vM6B7ps0drVkaeZhk=,tag:4rgSZOAFp73+r2Cy6RkGpA==,type:str]
+              port: ENC[AES256_GCM,data:+avZgg==,iv:F0ZzfWL0ZPl44L4QPxXMJcgqaEvNsaqhQ/hjaNrKEqM=,tag:oO2Th2Gspo1B3adyn8F8zA==,type:int]
+        - match: ENC[AES256_GCM,data:WfHLCmSAKuVyy8Y7PZDOHgCerEXTR1zUNZEYihd+u1pF,iv:bvtNz4iDAiXO9HY05n0eJQHPy06rjONpHavo7s5EmRU=,tag:buLUTlW7RBL9rlR8NJYoaw==,type:str]
           kind: Rule
           services:
-            - name: ENC[AES256_GCM,data:Ejo=,iv:CTDvywHqiv+BgSkxWuZf/EYmrM4b9Qd/9mVxFtmHb7M=,tag:dX28raczj5BwMoXtPo3OPg==,type:str]
-              port: ENC[AES256_GCM,data:HNGyyQ==,iv:WTGGSaJ3YK+Q4NoMdu0mmpvv9IyqFAefcBzvkxpjaDY=,tag:5EmT7xBdQxV8J37287y8ZA==,type:int]
+            - name: ENC[AES256_GCM,data:hCI=,iv:7t0vnCUIeyJ0/XieCqV6f0Rnhmof3TZslAn4yl1dEAE=,tag:QZF2VmZ9kBhuWLTzB7SwuA==,type:str]
+              port: ENC[AES256_GCM,data:kl1OXg==,iv:9pZ4JZG250XNXXi/U8fWqF9g0eOL8CCtjy4En1CZjZk=,tag:GRYq1vNQCbziNJ4EbDOTig==,type:int]
     tls:
-        secretName: ENC[AES256_GCM,data:xHwuLuK9xAxT4A==,iv:klkgq+/028VRAfnchip/n96VE0j6G3lg2RUv2QfxIEY=,tag:LOpIhojzsG4mH89C+elDiA==,type:str]
+        secretName: ENC[AES256_GCM,data:5S/TUzTIuxI9iw==,iv:+bJ59E4ndQ0FMhxWhclBd7EbhtddyAzldY8VcdWuoXM=,tag:rqVctK2gJhq8FHZ5uUL5Gg==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -30,14 +30,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNUm5DQUZTdFNJTEV4NWNX
-            VGM1Y0Z4ZytmRnN5UEZwejVXbEJZYkZ3bkhJClVoOXJ0VXZiRFlLN0ZmN2hlcjUz
-            YThjaHpLa3BlK1BIdllGRHJybGYrbU0KLS0tIEFzT3pkT1VvV01pWG1qcWc5bzIw
-            L0lNQ3dPb2FSOExtc0Ric0srZjdMUTAK0doUUxVO7ne4bQ3KzFlurzvos3Fj5EPr
-            8pzNBIhxoiGgC5OTMVoRWe5wuTQ2IzaA2dFvOr1rQm9+SULDJC6KXA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBEOHRhanZKVFNydFVIRUJO
+            YVdJRWxjWXI0M0EvQVY1eUk1ZndwcitEMFRzClg5TENpOW8yejkzV2lXUXowRmE3
+            eGpYbmh1ZkE0TmVreGt2Q0x5RmppazAKLS0tIGFNdXBYRGkwVEV1cWxBczkybFVY
+            Z1RtR2NPUytyTzlYN1l4N1NGNWtJVHcKF1Hmsc6gc3tfYwbnUylgFxywFYz+5jvj
+            HKhkHOvok/dvN70EFMjJC0kbIKkg/yTrpDy9bM0ktZ0TAZ5Y2GUSPA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-13T16:45:38Z"
-    mac: ENC[AES256_GCM,data:i9FXUkD6GtvvWHw3OG/MHvY1tF7a7A4fmLDqeZ7vKaJYEQfJy1glYTPCOJtDyPcNaIPSqEzQ7surga4j6Oi1QaSqeHs63/oXWyoIoBK9HFiaaXXjJUGpuqhNAStjy+L4YCSr4rwJw3BFMmdHjN+IRf6oFCsjOqd8rwQvyCgszMA=,iv:U0x+BS5iGkop+cCfUrHSSbf0UCCxeXuktH9cPrd29xU=,tag:Vcj3y0RDeXqLIO7yRN9qOg==,type:str]
+    lastmodified: "2024-06-13T16:54:34Z"
+    mac: ENC[AES256_GCM,data:NLyjDRdorlOoL3tF4H3r7WU87MZgXcTI04wu5tjkvNtLDX9wN9IIdRDlrF3gEMHVud+UiMF+RWrC3mDMbO2fT7AxqEZrst6mr5OvgnWDcoCoxKaBHb21dpA5BaUtPuNtOqXnrJ97oZpi6E9ejMxKlsnmH3bW5XytIRcTgdE5A2A=,iv:FYzYvcEm2jZONhgaDAMQBiC2bSIpkrYTLEq7SZPpymE=,tag:3QRgrsrHJLTTjzwfC9YwBQ==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames)$
     version: 3.8.1

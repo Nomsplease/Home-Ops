@@ -19,3 +19,7 @@ spec:
       kind: Deployment
       name: helm-release-cert-manager-cert-manager
       namespace: cert-manager
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age

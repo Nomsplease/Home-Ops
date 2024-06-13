@@ -1,0 +1,42 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: staging-tls
+    namespace: default
+spec:
+    secretName: ENC[AES256_GCM,data:BiaLtB4gUsiAbNI=,iv:rLKdn6Hk5KbreGAJp4fOyZkxR+yIOdaAjlGcXKvSm8Q=,tag:T3Y/Zfid58J0gNT7z3eh1g==,type:str]
+    issuerRef:
+        name: staging
+        kind: ClusterIssuer
+    commonName: ENC[AES256_GCM,data:cnJgzArrjuXq,iv:K9S3uAgU94lGjrcJsG4l2rZJpu5PwGe420YYgBBAzYc=,tag:9icY7ee7d7BoxMAIoZF4zQ==,type:str]
+    dnsNames:
+        - ENC[AES256_GCM,data:5G14bPu7pR4l,iv:WqFc/xIM0R79JK2KqMS0CrCIFoqkvuq5iN1r62jywPQ=,tag:ESZN2tx/3J+gp8qxFouriQ==,type:str]
+        - ENC[AES256_GCM,data:lvvxLWJKRKBeyysa4w==,iv:X+sOYpAI8DOgUCWeBoLsKNeMXnh1HQRzY1j8OEBVY+0=,tag:1eKPZKaOkM88XjmAohXKOA==,type:str]
+        - ENC[AES256_GCM,data:BNF6aYEQFZUdJdg4PQ==,iv:ZTH/mxTV00vN3Zm303NY2sMyTmymY2reAEZEfBCHV20=,tag:AUGvRjhFjzn/AKZO2jhCRQ==,type:str]
+        - ENC[AES256_GCM,data:JBitPaYW1lGhHfeZmw==,iv:Fj9KaOMq0HE29OU0o1b/xlOOWDwcexlA/+HO7isaIkk=,tag:Q/xIpqrY/vjy3Yq6jKEB0w==,type:str]
+        - ENC[AES256_GCM,data:/6bLuNYpnFrLYDEKMA==,iv:sihW08hLzM5hcrnp71hB5U+sKgCrRR8rcYxT7qtITxg=,tag:jINsxF78EgY07slYE1Gq9A==,type:str]
+    secretTemplate:
+        annotations:
+            reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+            reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+            reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: ""
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAwem0rNHZ5MFNqN3RHSEIy
+            M0gwSlQ4U1o2Ym91ODRkSjZISVo0Znl3UERJClpGUktDZ3BXSENRd1A0ZDFiRkhy
+            NUlNRHpqNVpML1NudVdvbG5zdFYyVEEKLS0tIHgxcnZiY3dTZ3I5YVpmMFN4M2tD
+            Y09ZL3AyRzc4VHlpZTlzRnMyT2tkekkKkR8e8j670LLfXSCpGhIbpzSYZBlqylFn
+            dLydY/7gHeAT3LTLdP99LNEr9NiCF5aNqDBJ3ASKZy8g6rUJa31OKA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-13T16:16:01Z"
+    mac: ENC[AES256_GCM,data:HNSZlSikDr4UvPK7zTs7i0YhCcI6hhgNklrwVhHLoCkvSiM+qdJ01sWdHv/8Sv5s/XQEqFFcGGM/FAYdTMVqVDxPk68QgGIb8eyTWpoLAqi0MpvxzoX9G8B1qN7sZCeYhd17NQ+YKGXEzPtIeLc8JwLzytfpg9diwVX7lliMgEk=,iv:Fy5JgGZ7dGY3n2x4DmGPoiqf8/kf3P2ZsHz+El9ADeM=,tag:uXM7RgnIoN7QTsZBqMXS7A==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames)$
+    version: 3.8.1

@@ -9,18 +9,18 @@ spec:
     entryPoints:
         - websecure
     routes:
-        - match: ENC[AES256_GCM,data:eYuI+NpJYQNpmfAuRJPM0csM5urJGcBFlKuNmA==,iv:sN6kttopRXp1x2gqLwTtOoSr7azE9P3432IT0lmfAG4=,tag:XGHW2qTECNwpB8ovhueJNQ==,type:str]
+        - match: ENC[AES256_GCM,data:ku8uzn9Tzj0TfXPjGMt7AJO0nMZPOteO/enEfw==,iv:hT54AQuJ0SDoqUYSZ8ToZLLpDHFsy2O79NeoaXss1Ts=,tag:ucY+HeyxQmchUnfWSg7gnw==,type:str]
           kind: Rule
           services:
-            - name: ENC[AES256_GCM,data:OyZ/EE+UuOw=,iv:MVYBe6LFQhg2l0S13Ep7adseWhn5Hff8hD4qwQqUZpE=,tag:/dWG+DQNjK718/KeLjnVBA==,type:str]
-              port: ENC[AES256_GCM,data:3S99oA==,iv:+gAklKT4K7cCJtn1MSYZ9RzgutlwCaAHyG5ivn3gjkg=,tag:HQIrN6Z1d01J27G85fcPvA==,type:int]
-        - match: ENC[AES256_GCM,data:3aHtRlFIl2f/G+8yD4Ywg2jYDSIaLVgoZA==,iv:ZKsiqCJbER0D1WXT7LWsglun6vHji/8nAKxYLxwzVbA=,tag:bN0Oi40e0tMWdTSmptOrcw==,type:str]
+            - name: ENC[AES256_GCM,data:kf+uqdNRVWo=,iv:mwcnancC/MNyD2VqohPo9pzQC+0g5KViWpruneXq/ao=,tag:Sin30DfGDNRNn4zLADXarw==,type:str]
+              port: ENC[AES256_GCM,data:HK89bQ==,iv:a5D6jRxZMNkV0XcLjzTvJ1A0k4rRqbxlC9MTF6IZ3Ls=,tag:W2Uyr3x4tnnkFn/5LAHHlg==,type:int]
+        - match: ENC[AES256_GCM,data:4fCuKL5VrJPdBepv0zlsh1g+M8x4j3K4hA==,iv:g1up303Rej6MIgJWsybAdFGLGAoCUQTXf8oG1uiBk/k=,tag:nOJYq4Gzos4acoWm8dZsvA==,type:str]
           kind: Rule
           services:
-            - name: ENC[AES256_GCM,data:pfTqrBvUm5Q=,iv:TXLLw9DYkSjeZT3LqZ3ud+J7Hu4mGvnLBMBaG1CnVGw=,tag:Nuoc01E5Ydz2SQx3E2ciXQ==,type:str]
-              port: ENC[AES256_GCM,data:2+X6uw==,iv:NEn9gMW0YqG727XtZBKkEO11rXyA2m9StkPM+gJdBPg=,tag:UIHKe5EAX7gkK6OJY4osew==,type:int]
+            - name: ENC[AES256_GCM,data:+Cjz1uhXO3c=,iv:xWcLlBdhsVP3ifpYEABi5qpX4PWgcmOXU3ruavBW5w4=,tag:9OTUJI70tOmbqRwwr7893Q==,type:str]
+              port: ENC[AES256_GCM,data:IwR4Sg==,iv:T+L2WAmmF7o8jP9BdeC4l6/WPqJ41wfrpcD49mSREuk=,tag:fFXWeEJdxmThAcLmeXJGvA==,type:int]
     tls:
-        secretName: ENC[AES256_GCM,data:l05/ZF9e+tKgEfs=,iv:577GFGry4PkTRgSJ+X0Q+j/hh77Oda63mGlPLZceJSU=,tag:R/Kn5p2+SwaHM0YQPjJwlw==,type:str]
+        secretName: ENC[AES256_GCM,data:PVRD0R9uCNq1rerVO70=,iv:k3lY3H2RmkHVjOHeqE8yvaY10m8zTS7o6y4Aki3nfjo=,tag:EUJaLCQDq0GdQzGdsiEToA==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -30,14 +30,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBCWXE2Tk1HLzhjSWR6RHkv
-            Z3hKV1ZxbFVUK1V5QkFPNzZxVXY4eFk3bVRNCmRwdzdIRGZtU2hISUpzeG0vN1E0
-            YXZaRCs5eUwwdFVXbmZUZ3QxK3cyeTAKLS0tIHhUbXArQndvWkdYSXQwUUhOMCtk
-            cEFESVVqTzZjWVdCdzcxd0xNOFd3SlEKtRGo5Ci02oA3UxVRlZ3p+J6/0oVYyKSC
-            EaPUz6daUFEpD0WeK60WLyvrR4cJrk4Emt/TSJekzJxzbgvVeRGqQg==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB5aVF0UWlNU1JUb1BCVDZI
+            S1JiMkJFYzNLUWdjZmoxbVZOK2lTY2t2NkN3CmJ2VEh2aUpvOEg4MVhRRzBCZUtM
+            RkgrdEMyVU9ZWll5aVFDTU1KdWtSNTQKLS0tIGdwZ0hpWkJHTHF3ZVhjZ012dTdj
+            ZWlqUHRmbjUvaTgybUhnVDdZcXlndDQKxnzvXYB918cOKqclX33T2qybmdJdM7YK
+            1hYPwNw8WPtY3euhQ9aFyAf/iUWxHA6lNx/MqM5j1MQaUiWECweB0Q==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-13T20:23:38Z"
-    mac: ENC[AES256_GCM,data:sytFuUwIxw4+TtcsnERJbccClJzp/5P0mvuW/gpfsYZeQzeN/DHfFK31yx89Rekyozy3k41Jv5MoBU3hkEHtJg8Ta1O665NFUjHuMdxxeV4IEiPysKZ0L/arzoxWw/i9Dpra++NmbbFv/lS+l+rcVUZe3y+P5kqMgrvPx/lbiSc=,iv:Jfrp7rBt30Xg+4i8ub6ksKzI8My8/gfntTgnnZr4rsw=,tag:rmWxVjFoRjdMAfvH73kMSA==,type:str]
+    lastmodified: "2024-06-13T21:38:59Z"
+    mac: ENC[AES256_GCM,data:i3JXZsPgT81h3rNYqKxLe7aec1XOG5zei2Z1fl/29qoD1rFJ+MmYF+5HQLB8iBWiVPj4NPpfyEQsnekP97zSeliZhFnV1JfALsZ7kQklOSvtnCVLAWGO9x7feeLG3hJIaMz5tifArna26DkgTX8yuykrYaIS8RocWOoBKOWc9Yk=,iv:sjlvYEMKI9i+O58AhRE8MZWvxIMP/nkXHPuXx0enzsQ=,tag:yzUmRHo7Cr6ch38ToaOJIg==,type:str]
     pgp: []
-    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames)$
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
     version: 3.8.1

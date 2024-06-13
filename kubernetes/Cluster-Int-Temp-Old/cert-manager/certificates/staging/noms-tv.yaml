@@ -1,0 +1,23 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: noms-tv-staging
+  namespace: default
+spec:
+  secretName: noms-tv-staging-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: "*.noms.tv"
+  dnsNames:
+  - "*.noms.tv"
+  - "*.int.noms.tv"
+  - "*.iot.noms.tv"
+  - "*.svc.noms.tv"
+  - "*.sec.noms.tv"
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: ""

@@ -1,0 +1,29 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+    name: metallb-pool
+    namespace: metallb-system
+spec:
+    addresses:
+        - ENC[AES256_GCM,data:cdtB/3QKdOM0B1McCA==,iv:4ActkjgA3ixd4P+d9F57KrP5mA5bS9aFaQf5g+pA5pk=,tag:mWD4aDQ7pDx7WMu7vYfdmQ==,type:str]
+    autoAssign: false
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBZUVdwL2dGczVoT2pVWHRM
+            RG9CYWdGd2l6NWR5TW5vRy85L25KNTVZMkZRCkFpZGo3ZnVwb0lENDRXOHhTdTNE
+            WlJRSW9yeXV0WERRR01wTEtrcjFvcTAKLS0tIC9rVkRpS2NJeDBwdHRGd1dhR2V5
+            cEVWTlY3TW1FT2tlNFlkY2wwak55ekEKi0ORxRcB0UemfHVrGmqIKirBlDTl4KdT
+            PNyW9bbO9VUDLShJEiyKMfT3t7n6GdryQwi+qKUHaLqYoY03SUHIzA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-13T18:52:37Z"
+    mac: ENC[AES256_GCM,data:E53DMbIZgVwYNGE1A/bK+hbufaCE+ASPEHImihqTuELUovyp4ukS+lSjlJpZ7zo655ETkbNOE8D3QHWpKARaFcCHaOdOq+uCGTrG+6Z7R7qkXwVpfh+vF/n83j4kpSl5a4kPIeQJisffiXvsSYq3T4CC7CnfYamLxu7klFOAF6M=,iv:nZ2NqhmDYWpCtrU0IM/TW5u58whG02Mym/sqi31IkCs=,tag:+JqBi5MaZ944EYq4FvvMQw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|addresses)$
+    version: 3.8.1

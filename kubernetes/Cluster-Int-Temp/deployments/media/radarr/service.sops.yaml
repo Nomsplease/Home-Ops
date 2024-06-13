@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: radarr
+    namespace: media
+spec:
+    selector:
+        app: radarr
+    ports:
+        - port: ENC[AES256_GCM,data:lkNzlw==,iv:GSI5nucetRiLgtZl5tyU1H9DCY0tZjgYT5hSd7lBIh8=,tag:3j9jKW1o4bXNHH0R8vDNFQ==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0OEliWHFJN1VVQWJkKzNk
+            aDVjS2p1Mm1aSEZTcFRmOWlqK3gveG0zUjNvCldqTWxSQWZGNnNSTWU3bU1aSXBh
+            YlJ5L2w3emhLcmVRUmp4MlNHdGhBUncKLS0tIGdORlVoWDZ5VVRMQWU0Wm9sTlRq
+            ZjlzcDZtNk5wa2pBQXd0UVRLaUNtVUkK1iRrhiZUnh47yvMk8BTsDG++xJFiR+2r
+            ZeI8dYrfxITTJoiWWM/K2GcLU5JtinKS2gipmblhy0R4Z+LJ31DmWw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-24T21:39:44Z"
+    mac: ENC[AES256_GCM,data:qtD5/42hJZ8GrlmEkvGg7/JZa08tOcuThnpdMfkkH+IPXk6cZnF8tvr7uya1MsgAd7pEFCo40Yj/7J+QkK/EoB1HllEjjzVGhcz9p6vyIwtGMLuuXvJAsHp6Dqcz1pq14yL+erK+ajKJmQJxOgp/BBG6NzdAtcHszhwHxQzb/SQ=,iv:5P+enbpxEwPJlrR68uhJut/XrLtPZvmVKNZyMecGobE=,tag:MP7drwJ3e/B8M1agBjo2GA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

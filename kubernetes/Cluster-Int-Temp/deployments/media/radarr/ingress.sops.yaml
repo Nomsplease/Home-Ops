@@ -1,0 +1,38 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: radarr
+    namespace: media
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:FMEQxTUTWHshCtXGn5jjsbOhRENHWmcYyQM=,iv:6WoIRPDdTHiyRu6g1rq3v3eePQK7wotFOsOl8p4NEi8=,tag:sN3J+2GLD5Pn5pQo6ttbdA==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:DRtx5Ofg,iv:DW7gVKz/To29Gz58HNZOf41kM4kLtA5sPqnvuuVx3wg=,tag:2ERwEvZxr0aPY2n9cpwb7g==,type:str]
+              port: ENC[AES256_GCM,data:miIPfw==,iv:PvQDsUt8aJXPDZRc7NRSCpLym1yhIiln+zk6REN+7kY=,tag:MnxdPvV9kvJrttcCetuXPg==,type:int]
+    tls:
+        secretName: ENC[AES256_GCM,data:G9tKeSAdwrZLdu4=,iv:TZUL336OUoAab0KnluZGZmTGFcoCOf6o4geeX9ZxLPw=,tag:MHiLSDwvdFF2G/k2xnvujg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB4VWw0QzJuZDhZMlJVd214
+            cnBjaGV6a1hkd3NlVjdxejRMOW1mRWgzNFFnCjhJMnNVRzAxTzRDcVF0RjF5UzIy
+            WGZXRU9XMG4reGdreVBhclN0N241NTAKLS0tIFVwSUhWNGE5M2ZuNDN5L0JuaFNT
+            N3BJczdBNG1nL1FvWUR6djBZaWVMcGsK9h8ZRyAuCYYdMGVB+KJeF2KufKyPA5wA
+            RTyP5OjrwI6BbN2wGVJrvXNXCNh6xbrt4IEYwJ7fG9LMfc/zmrJ6Dg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-24T21:38:58Z"
+    mac: ENC[AES256_GCM,data:Jit2nTR5GWYWIMeXTWtjBallu3ps6Tkr6GF+hvaOcclObT13MYsYIB3Jf7SRBw2ggcuEQFK+repOiIc/txj+2Kd9CaOTBKhd4aAeIBRrLYKo+pWwqmzMFET4QWp1MP+aZLlPlgmNt+00WnRV/Rj0UfbPMETkWAVX4SlPWX4wYA4=,iv:wdzwG1mqRLzhWI6aJBUTNarJf3E5stbmVqfzDZVV2CA=,tag:RhnvTYfMsEebimmFNRIHFg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

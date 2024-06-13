@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+  namespace: media
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: radarr
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+      containers:
+        - name: radarr
+          image: linuxserver/radarr:5.6.0
+          envFrom:
+            - secretRef:
+                name: env-radarr
+          volumeMounts:
+            - name: pvc
+              mountPath: /config
+            - name: media
+              mountPath: /PlexMedia
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: radarr
+        - name: media
+          nfs:
+            server: 172.16.1.10
+            path: /mnt/BigPool/Media

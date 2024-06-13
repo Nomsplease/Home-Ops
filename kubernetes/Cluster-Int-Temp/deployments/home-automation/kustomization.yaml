@@ -5,6 +5,7 @@ resources:
 - namespace.yaml
 - ./esphome
 - ./homeassistant
+- ./mosquitto
 - ./tasmoadmin
 - ./zigbee2mqtt
 - ./zwave-js-ui

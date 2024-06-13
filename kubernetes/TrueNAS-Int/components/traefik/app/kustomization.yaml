@@ -7,6 +7,6 @@ resources:
 secretGenerator:
   - name: helm-values-traefik
     files:
-      - values.yaml=my-values.sops.yaml
+      - values.yaml=values.sops.yaml
 configurations:
   - kustomizeconfig.yaml

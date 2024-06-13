@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: tasmoadmin
+    namespace: home-automation
+spec:
+    selector:
+        app: tasmoadmin
+    ports:
+        - port: ENC[AES256_GCM,data:7OI=,iv:6cxk23iphzOHIGeTA/MJ2ICAj76nB0NOxARuIp2m/CE=,tag:plGiN/hY3snwKn85+BhAdA==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMWFh0b1BuZWI0SFJSekVx
+            Z29TTitydno4ZituWGdxcVlBUnJYYlZSYjNNCklyZG93bXNYVWxja1lBRkgvYUFQ
+            L0tCQVhDK2xtWjliMjU0KzVCcGQrR0EKLS0tIDlGRnJpMEx4UHNJRmswcW5QRGYr
+            ZG9QR3lXdHA0a1hxVDc1SU4vTlpScE0KQLkqlUjgKGoM22B+7bTI1fQnKdCgIJ9y
+            b3479c4wnYHI5YElvyDXqgLYR5/EWaNrkHtqPU4VAXxSgkQd+gDA6Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-08T21:54:33Z"
+    mac: ENC[AES256_GCM,data:fMnsEy42UbYlUmWcKFu+C/wAa3Sq5nhYvB+ZAXn0RHFuXfLHFvBY52/3IMQiYKJgW0N1rs/O7YjoN+Aj5tp21mClFbbLi7R5r7ZrMIElask9uu2HcQsBw9E7GjJtfz2SM7OmjEso3wj3kOCBkEi+ZTFXvKtBYnM4aBHm7oOjM6M=,iv:yQq/32c1XHo8uJFW1Y7WdTo9LapFqU4BoUHfsYk6rLY=,tag:sJGPHnyuDiQYjZTN5G45/g==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

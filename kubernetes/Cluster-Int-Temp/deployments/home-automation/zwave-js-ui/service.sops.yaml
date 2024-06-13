@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: zwave-js-ui
+    namespace: home-automation
+spec:
+    selector:
+        app: zwave-js-ui
+    ports:
+        - name: ENC[AES256_GCM,data:crxuDNo=,iv:k5+kMf2x2zlnt7cTW6ECKd4ESRJ0F1GrF6MGJTLTYZA=,tag:8Ho7Sv2YY37jPfyRalJeLA==,type:str]
+          port: ENC[AES256_GCM,data:rNsDBQ==,iv:OGIy6YKtGQiT4ApiDbxxkF1p4O8VMRbp91y+fkxg/ng=,tag:oT1mDKTHs85Xw1URD+AEcQ==,type:int]
+        - name: ENC[AES256_GCM,data:MMvXyWvma6dXUA==,iv:juKUL25Fs/sFVRGv0b9uHr3MCttim86oAcZGEmHPV2k=,tag:bSGr9p1gvP2JqtTPeWsAuQ==,type:str]
+          port: ENC[AES256_GCM,data:TmXDQg==,iv:IZ9ktooYpwAfaQJw00M238nL3rUYMaH4tDelycpfUUs=,tag:fB5uzbUTK5HU8B7BfZzuFg==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBrU0hPN044R2M1TTFpTW5T
+            Y3VoTDkraDI0ejd4MGJLVGJxbjNwUEJjTWh3CitmeFRPWHF6aTN2bEM3dndsYStD
+            bnkwam05Y2dzRGw1UmlwTHBWRk8zbHMKLS0tIDUwRFA2eWUwVUZrR0dhblBtNWVO
+            R0dMOWRPNm5jZVRoLy9STVVuRnFYNWcKZlWmg2MMfzBxxefQe/Vn3bgpTFCmF2c5
+            EKV1lWByPPlwb6dKoagqK3aENzO/aObtqZCiO2+YSXaswzOLTwm7zA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-30T15:48:04Z"
+    mac: ENC[AES256_GCM,data:92+Rg5HoxVCl84lWnSv7EL8PVUysO4AdGCxFfOjhuviW0biE2vthu/EnqnYYhIaB/Ze7Jn/3QiVwruHVApVOVdBx4yS5T9lawrS/DYpnLtguZO/uvgUrbucmlIYmBWlFSeLUO/YZf0lY7M+Qd/fFtnLxm0DfmcVnA7Pao3TOxiE=,iv:7yCChdswKc+XYWPBbC5pQGVaQbO52vniXM49xmyiZbI=,tag:KhfuAty2DASD6p9D231rag==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

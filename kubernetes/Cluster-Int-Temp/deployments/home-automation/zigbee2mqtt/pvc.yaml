@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zigbee2mqtt
+  namespace: home-automation
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: longhorn
+  persistentVolumeReclaimPolicy: Retain
+  resources:
+    requests:
+      storage: 5Gi

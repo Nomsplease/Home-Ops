@@ -6,12 +6,12 @@ metadata:
 spec:
     selector:
         app: sabnzbd
-    type: LoadBalancer
+    #type: LoadBalancer
     #loadBalancerIP: 172.16.2.19
     ports:
-        - name: ENC[AES256_GCM,data:3HpBm9c=,iv:D7PMz+jVeb93KJ8e0ANJeLqBjrcwLohgJCu9dVwQJF8=,tag:FLzfVQSoUD2dCpJizAYTAw==,type:str]
-          port: ENC[AES256_GCM,data:8XxYSw==,iv:uoRDMDdFDat+4zsHw7aTTXX8W1nK9ppd03hU+ACIioc=,tag:FpF2EJIhp3yI3EfHTgKvig==,type:int]
-          targetPort: ENC[AES256_GCM,data:IzaZBg==,iv:38QPAi4fFrxncPdos3qwYCw/5MbFvhHicBmBjgYQ5WQ=,tag:pwenS7LHJD0NQGPK5SQ9KA==,type:int]
+        - name: ENC[AES256_GCM,data:NwwsAQQ=,iv:uxu/E2m5yVTdixZWMSGHbEnrkVaaLc81xZ/Vf4iC6fk=,tag:x2LlWvFEImRiQMbsZRyJ1w==,type:str]
+          port: ENC[AES256_GCM,data:fIVc0A==,iv:I7NUdrvLVfKxiSC5iHh7QdoPYweD+dIZadbj2+BYkGc=,tag:vy74jfFUycgyoKojw7ATdw==,type:int]
+          targetPort: ENC[AES256_GCM,data:wFWrFw==,iv:j0/6pPA4jYrg+dR2Lski1BObuVdHBuBbJTxjJWH1gJ4=,tag:IoGrSWUc1N/XoSZJJDJFUQ==,type:int]
 sops:
     kms: []
     gcp_kms: []
@@ -21,14 +21,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSaDBPVm12bjhiNE5HWjFv
-            R2FRdWFFdGQxY01RdXhmVmNHaFlDVG8yYjJnClRFbFV6VkNGeVl6ajN2R0NnaXdx
-            VmZFM3oxRHF4dTVLQ2h3alRWRFNPVGsKLS0tIEdhYnhXRytZSzArajRpcWllckEx
-            cFhXbHZubDVjSzZkTkxDMHc4YUdHV1EKSbBVUT63DJHhNS0KDaENpbSrGLaYmwCm
-            wfTZ0kJqVsQfsvccNGGL4FeTg/FjoJ8ZxDlcpmG0oHqCiyCg8B0nsg==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBWY2xqTGJ2U3BEWXVURU5F
+            UVVkcFdwOWFvdFRzK0wyV0wvRDUvWkJVQjFZCmMvd1BUL1JSWVhUejlCUkYxSms4
+            VXVlangzVzNyenBHTGlYTGw4VWFPd3cKLS0tIGsxWVNPTWVsWXBSbFB4ejFLWHVh
+            K1d0aFVDUTJxTmRwd0s3UWZFSTQ3OTgKOcBtsTHb8FFo4yk6tfFviTXK8vWKbKqF
+            RwH9pNnEEHY4p0h5p3qhezCDAYjkFEK6r+lpr6NxC9KHPSxlf447Hw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-13T00:22:38Z"
-    mac: ENC[AES256_GCM,data:cwVJK4QPJSbm6oRO1LYXfkgVJZ+Mucj8TGhVZ+5RhOgf8VUDJlkqmNX1ucfZqIGWTB5LSqGXpzlEMvbNxp6dhhF6+lb2R+iaHn+Uw9S3KTon5kgUZiSvAExuahSa+JVY4D7HazqH48JLU0AC9DH1jYQ19d4vJkb6xeDKppLSocc=,iv:SP5MCf7zRjZm5dzKGWEF/TpjmIBg2W6taIknYw5YY6E=,tag:UXlGSqL6rE6UjDNeW7sM/g==,type:str]
+    lastmodified: "2024-06-13T00:24:16Z"
+    mac: ENC[AES256_GCM,data:QTp5AtxbVqtXXUD4xLGlcAju/dbIDRpKjnaXcPeArZyfW9+Jyi3CsfHkBX69b1d5+nFRFnICE7fTRX6k0JY4DUWA9xdpzWzLODz8NOVh2NFmmgLbDU61H6Mfsqgct3x/4WhJrItj3Kz0KsiG1BzvmNyLW2MVNe2yIiIluQDJhWc=,iv:mXYzFa1GUDT+H093vUhph+aqKOuSBF4udVfTIO0nfWw=,tag:sakDOCMszZdh4el+Gwo1Qg==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
     version: 3.8.1

@@ -6,18 +6,34 @@ metadata:
 spec:
     selector:
         app: syncthing
-    type: LoadBalancer
-    loadBalancerIP: 172.16.2.18
+    type: NodePort
     ports:
-        - name: http
-          port: 80
-          targetPort: 8384
-          protocol: TCP
-        - name: to-listen
-          protocol: TCP
-          port: 22000
-          targetPort: 22000
-        - name: to-discover
-          protocol: UDP
-          port: 22000
-          targetPort: 22000
+        - name: ENC[AES256_GCM,data:aqu11A==,iv:BAvzovTFDPo/N3jgx5LoEsqHSpR6tOHkpo45W+mBFbo=,tag:vRa956OqFAFoUq0PZTsIxg==,type:str]
+          port: ENC[AES256_GCM,data:hLAO7g==,iv:2Y9hOcKV8tddruEVZ++jZlziaqeaXJ9x6bnA/3HC328=,tag:OBPL2Ux4TnwOPJrbCDsZew==,type:int]
+          targetPort: ENC[AES256_GCM,data:/k4Lsw==,iv:ueZ4ebT4mBArYmXLg2/U1iBaCnE/qBfoc+u26DRz6yw=,tag:mo0ZLkVufG+7UIn/XGOL5w==,type:int]
+          protocol: ENC[AES256_GCM,data:jNSR,iv:iB+SHW8chePALo4iyXTiWHEIrmCg10ok5hkK+MnPQj0=,tag:CTBOb8mo+M2prw9uVDpNxg==,type:str]
+          nodePort: ENC[AES256_GCM,data:HTr2YA==,iv:+GHEynKkepvO2/NQiDrixDx6dcG8E8LBhpK+Go3LJxk=,tag:lKirLf3CSfUoRvooV1usMg==,type:int]
+        - name: ENC[AES256_GCM,data:SAbTfECYgr/F,iv:lUoehKiAny4B3dWdOf/ZZrG2Kvz+0HlabFltzvhTpxQ=,tag:Bzy8ZzKm5+q2DHHgIHSKXQ==,type:str]
+          port: ENC[AES256_GCM,data:U7+5iKo=,iv:6z5OCaKmeTnMkS6TbZsR9D9Mkv/OR7liyZQW8cD82gU=,tag:wwDOAYG985Z4q1ibOixFzw==,type:int]
+          targetPort: ENC[AES256_GCM,data:Y41QWwU=,iv:74hmZJ81ZNWKDOYoHjE91IXSgeG7Btd0gaCOqx8xo0I=,tag:sX47HgdMTBsMoUpzjk+LbA==,type:int]
+          nodePort: ENC[AES256_GCM,data:bKyJRnI=,iv:3WnphlO7Q8gOSLwK4OLQetM7lu/tcvHo2mrlytDtiHE=,tag:XgH8xAYmVykKIkY94tJN/g==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBJeDVKamFCcEk3Z1NNRk1a
+            ZUdHbDBQR1FKT2F4WjZnRWV3dFNiTEdvaURjCjcwMDljdjNmNkFyL1FEcE5QOXBQ
+            WHo5Ny9WYSs3ZXI4NGlnekQ4alpJUEEKLS0tIHlnaTUvWjhNM0hralBhUDhHT2VQ
+            QXJEd2VON1NUTjQxU2tFMUVGb3I5UGsKWh3F2S0QVCQe/kICjIBrrDZ94EJBmOMb
+            yEqGAYXWLIfSqfT5aFTzpkSDBt9O1cPnx5PfV6A9SXxUP1iZAs2dmQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-13T00:39:35Z"
+    mac: ENC[AES256_GCM,data:ApLatyYG62Vi5tM8cCfAesxjJZDqqF5d1biD5jKJEnGgoa3Y7JIEfegQwic7UlqsRFphoB6v9RMF5+IQi5uKI6jk6WwQaEObGtp3lOUuajl1rLKX77bPC6GcA2xjzWlZvN2hCJ/mA8WBuoXGZvdqIzCYvLNmvCvom+bavjzOyEk=,iv:TaWOtwxCSl9ZJE8tzz1MU+BBiiE1jPoaKBSJQknTxzY=,tag:zPqWRx+28zZyaVPaJ1yuyw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

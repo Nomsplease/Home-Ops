@@ -1,0 +1,40 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+    name: letsencrypt-production
+spec:
+    acme:
+        server: https://acme-v02.api.letsencrypt.org/directory
+        email: ENC[AES256_GCM,data:7tmD/4cJ4z7CpZfl5A==,iv:0qChghNBVxfQrbQXLOuzc7CbIOl3l0vCeowTWxa7jr4=,tag:ai1JL2IlAHONEn9FAAoBnQ==,type:str]
+        privateKeySecretRef:
+            name: letsencrypt-production
+        solvers:
+            - dns01:
+                cloudflare:
+                    email: ENC[AES256_GCM,data:nz2KZ12TugZ1qTb3DQ==,iv:q4hbSpcizXg774//E+vUOQJ2lADTBoK8Vi/b8hOIVlE=,tag:8IARQc4/hArjXzILAzOz4A==,type:str]
+                    apiTokenSecretRef:
+                        name: cloudflare-token-secret
+                        key: cloudflare-token
+              selector:
+                dnsZones:
+                    - ENC[AES256_GCM,data:yyIXzraxwQ==,iv:uQEmpwoEjdFk9p4fmXuXXm6YYVldDhpsTX7rczwWNYE=,tag:OPr0lOd6d/bY2KomJrmnVg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA5bm9LdEJ2L2kxb2tzMmdX
+            Wk1SZ2hmWlBtdmFtcGxLYkNUNWFFd3FRZTM4Cmc5aUFVWUFUMWQxbFNIMWw3M3Jw
+            TkpGV29SN2NvcmtoK1pMREVmNjM4RzAKLS0tIGQxVERpSUM3bzdLL3dwREVQanli
+            SGYzOWZaV3p0STJEVzM2RGpTUnhJVUkKX9SaKQ2bYM3MhPdkQr3vZmit4JwJIdhy
+            P6ZAtnxOK8tjF9F0ivS6HiobVJQ1c1aViq+ee9vQhABxSTSgLcRDlQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-13T16:00:42Z"
+    mac: ENC[AES256_GCM,data:+5VfSF2sBJ/1++rRkcFQ5RI7WpIZzHW7jmvBMp+L6lrGbI6tSs2Y94ou5CaKOGBYtC18J0mvr7a63knw1aSfdx/0Xw/OeB04Ffr7RFm4A9vgl5mJ29+60VQB4xyg7epETGT47tvRKY5M8+/Yibf0dUL92WPGOEAnRZs295Ux+lk=,iv:C5D5/dsXhNKD4JgIjQIGZIUmFRpw1GaGTnXTkHAGRzI=,tag:pVUuPRYuffwvPRuG1lBQJA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email)$
+    version: 3.8.1

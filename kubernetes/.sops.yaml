@@ -29,7 +29,7 @@ creation_rules:
   # Standardized Encryption Rules
   ##
   - path_regex: .*\.sops\.ya?ml
-    encrypted_regex: "^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$"
+    encrypted_regex: "^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email)$"
     age: >-
       age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
 

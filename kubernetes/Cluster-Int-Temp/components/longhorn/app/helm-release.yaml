@@ -1,0 +1,20 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: helm-release-longhorn
+  namespace: flux-system
+spec:
+  interval: 5m
+  targetNamespace: longhorn-system
+  chart:
+    spec:
+      chart: longhorn
+      version: 1.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: helm-repo-longhorn
+        namespace: flux-system
+      interval: 1m
+  install:
+    remediation:
+      retries: 3

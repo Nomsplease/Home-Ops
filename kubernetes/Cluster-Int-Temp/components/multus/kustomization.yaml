@@ -3,5 +3,5 @@ kind: Kustomization
 metadata:
   namespace: kube-system
 resources:
-- multus-daemonset-thick.yml
+- multus-daemonset.yml
 - nad-svc.sops.yaml

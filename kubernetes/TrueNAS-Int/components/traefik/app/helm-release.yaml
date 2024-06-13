@@ -21,3 +21,4 @@ spec:
   valuesFrom:
     - kind: Secret
       name: helm-values-traefik
+      namespace: flux-system

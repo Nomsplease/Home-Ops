@@ -6,6 +6,7 @@ resources:
 - helm-release.yaml
 secretGenerator:
   - name: helm-values-traefik
+    namespace: flux-system
     files:
       - values.yaml=values.sops.yaml
 configurations:

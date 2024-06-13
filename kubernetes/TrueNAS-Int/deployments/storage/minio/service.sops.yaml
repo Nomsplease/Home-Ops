@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: minio
+    namespace: storage
+spec:
+    selector:
+        app: minio
+    ports:
+        - name: ENC[AES256_GCM,data:6AqZ,iv:f2vz9htGHx8yoeC184BhU+8TEBtmaLdBkKQ5rOdNkcY=,tag:ISpkINwga0VmGJzMTuQWsg==,type:str]
+          port: ENC[AES256_GCM,data:0KJMuA==,iv:VnFAbAhjeGnI5Gc/dx5hElRWHVpA9DV3h3kMZrRfu9c=,tag:vcF5AKjbeuU10Fk+f5wLNA==,type:int]
+          targetPort: ENC[AES256_GCM,data:fI/XwA==,iv:1O6HYKDA8v+id8y2l1clxT9TjcHdVLgMK7F4WhHboiA=,tag:jmialsb9glEk1lkOjqHjqQ==,type:int]
+        - name: ENC[AES256_GCM,data:Ysw=,iv:iiZMd62YqsnscoxuvybnPsH2O9NO17CNMqdz0NIsDjI=,tag:ytx5NKArs5Z7doDioR0fRA==,type:str]
+          port: ENC[AES256_GCM,data:5twfFw==,iv:14W7O+4TVYbh+mNXStmX+4QO/du5mRTSS+q4a3lezPk=,tag:w5PvuERFDWU+JboU7Gs11A==,type:int]
+          targetPort: ENC[AES256_GCM,data:7WdbMw==,iv:F1QZQsSF8le0KCjnqOzZZpo4YOEEsEFtopxZu1FLwPw=,tag:sKADwwosxGnGLDXhdSBINQ==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBsSEFEMVV1aEFpWU5oUTBH
+            RWdiQlVLVkNpcSs2MW5JRTlQVFF1NDd2Q0Y4ClNYVUNOQlJwdHZQVzBGMHpRelBS
+            cXFUU1dDdndrOGpPVFpQMmpXSHlYY2sKLS0tIEpvR2VvbXZ0R2RCdFlZMzdRRkgw
+            djBCUGx0OVB2cHg1QjhvdFdDV0l1R1EKk+9z8e3SMLjEnt+ZO4KYyt+PMLzZU/HQ
+            rlPXtL6HPNmLlc/Cb45r79xqBHSiE6KLwYnpIMqMl+YDaVRH6VuhXg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-13T13:42:04Z"
+    mac: ENC[AES256_GCM,data:Dp3QCQcvVlDcOPN7hk3Z8W7e84yh25linRMSlhUCtTi6qoJ9XYdIYqyXCbCjEIzB5BEReGHZM0nDFDUqVtQp21ucohm+ZWecj7/lmd3mK0fDz9zVrEl6ulxiJeMg4KvSB3xP1RLvkncxvUOL0GdF5Uu/o8K6G9pkc5PYrRKq4iY=,iv:UHVq0GZaQ+Biqij+93J8uqip77Apcg6RXZjeSJow3D4=,tag:jlxz7CmUCZSEHE4sghRn3g==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

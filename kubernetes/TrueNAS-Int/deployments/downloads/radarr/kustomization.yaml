@@ -4,3 +4,4 @@ resources:
 - deployment.yaml
 - secrets.sops.yaml
 - service.sops.yaml
+- ingress.sops.yaml

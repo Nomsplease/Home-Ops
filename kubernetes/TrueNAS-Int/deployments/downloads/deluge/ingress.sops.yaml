@@ -1,0 +1,38 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: deluge
+    namespace: downloads
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:LifzoeS1vGJxoQBZJ61y+oxeKFa+jSQlO4o=,iv:WHYx83k17XS3KjvcpHyaAKJhV1RSUvdWGyUWknZnvxE=,tag:SArONwDYjSCHMM0zNaBSMg==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:opk5JC/7,iv:SVNdAPrdm9FU5LKmk4b9pI62tlCOuDG23T64DqOZj9A=,tag:8Gx9AWMYKNqSLcMjDtvqPg==,type:str]
+              port: ENC[AES256_GCM,data:DYoHvQ==,iv:14RgVLUZjLnGT0tDEjXOeXRVtqfnKAc+5pTU6B2PTQU=,tag:RGp9Aw2/O9/AZquey4jdMQ==,type:int]
+    tls:
+        secretName: ENC[AES256_GCM,data:lR9LaH9s/pCxCNJIt40=,iv:zsU6d0Isrk62V2MUpKQgogl6bB6TysI0ZE0lNmVNjGE=,tag:2jYC3parBbnmshd4YqUPNw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBwQ3pQKzZNYXlBUnNhcE1Z
+            alZKNlFaYlpDTEFKZmRSSWF0a2xCSGFBQlJJCnh3SEY0eWIzTDNVTXRYeGhtaTdr
+            alVKN1JSN3p5LzVSNk44WFNqOTNBb0UKLS0tIG1Zb2ZrTmF3N2tRYkx0Nm5ISjN5
+            UnhjSVVKTmpUbmdVZlB0THNjeVM4NkUKlgMgdrZAPeCy77yBaK8PlPYh4hpufEMh
+            Imz1igkSTos9Rw/ZiQ7t6QdKRebNux/b5GXhxpkHZPl/qSacG+LPFg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-13T17:29:30Z"
+    mac: ENC[AES256_GCM,data:Jjcm6qDBSqbAoIRrh3PsJumyiKJB0K+9YpzEdQKkgaRF565Z2xm7wCyI7k3yuFf4TpGnZcQFhV+ZAty/svEdV8UlFBn8RwOkNA/+Qjt6fs4hDHGyfK8fOBq+vOacCNuVg7FQN8j/wSmoS/Wi8KKiftpkCtNkNzYLa8+p78ZUzY8=,iv:oVXv+czuvhL5EAQUxLTx9wKyleJCzTe7Gt+52Ud752c=,tag:ygUg7kHrENB6jfQ4xd7ghQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames)$
+    version: 3.8.1

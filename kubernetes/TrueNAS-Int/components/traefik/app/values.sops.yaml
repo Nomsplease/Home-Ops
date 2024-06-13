@@ -1,0 +1,65 @@
+globalArguments:
+    - ENC[AES256_GCM,data:yciVpJyxeFK0mJmq9j931aHEGsIgx+J0UG/lw1wBJxMw,iv:DA/qt7FGLltbI9o05GTuYIVc4eic0bkRdWzJgspv0Lc=,tag:diqgxkfYKW0arRHQUHedeQ==,type:str]
+    - ENC[AES256_GCM,data:G+3o6UEE3UjfdjlU/ubDM4VAvM6VK4NmC0erd8lJ,iv:sm5muzq7q+e+P+KGRGpP3zMQqTw4uVWLvGKyNivLKrs=,tag:pv5tqGf3hR9X1G950akUbQ==,type:str]
+additionalArguments:
+    - ENC[AES256_GCM,data:IQuMfqH3nscHP5GSghzMJCek8fwCWbE7d6+BhequhxmKcSGgSgb1zFON,iv:l1/TcwJ8uoe1cl+uj4GYSmM7/aeR3FyHN5uofT5ERTE=,tag:3GDlsvezbuIhKxzyAoBvLw==,type:str]
+    - ENC[AES256_GCM,data:VmRL0sQLOx+x7/v+cqjDjE0=,iv:j0WmPzoEsMwZvFsBIldOgtc2Yf0/3jrv7mny2IEwIO4=,tag:CFpUcxsa1svyqKdxukUUaw==,type:str]
+    - ENC[AES256_GCM,data:4qVOnjGyTljhceOcXCEMUw==,iv:KMBhC+OgN5Zc1YiX4wluFzMgdqSNFLi/a4LhazURb9A=,tag:YzAiFOa81ZHMmTpBntKUbg==,type:str]
+deployment:
+    enabled: ENC[AES256_GCM,data:OzwKsA==,iv:niPAjM3GXWOc+qCtfhmlGMJpArmsj3kzFWKG1zM08w0=,tag:itV0iMlOtMFiakzJe6oLFg==,type:bool]
+    replicas: ENC[AES256_GCM,data:jQ==,iv:rSCILtqlXNKeZZUqcHI4+huNQ/i74M43eaKMJFWz8UE=,tag:WpEBoSMOrt8FgOEWeMwzMw==,type:int]
+    annotations: {}
+    podAnnotations: {}
+    additionalContainers: []
+    initContainers: []
+ports:
+    web:
+        redirectTo:
+            port: ENC[AES256_GCM,data:l0ewDPmIgEGe,iv:OILAxstPubNAM1fYHW+MK9hqecVhaTLnQTQpmffXqjg=,tag:pMYzpvVe8roIxacjpvvpdg==,type:str]
+    websecure:
+        tls:
+            enabled: ENC[AES256_GCM,data:OEmTEA==,iv:6ESqFuENPHhWtWpGYfDz3bm/nPcLxrxfPI3M/6a+78c=,tag:AQQJVqwr0KaWpK06mQzENg==,type:bool]
+ingressRoute:
+    dashboard:
+        enabled: ENC[AES256_GCM,data:qhm8MS8=,iv:6nW8rHTtv7E6EoU30JdJmo/d/J9dc7O8qdAuKAolk/k=,tag:4I1UhA4nb++6sB4WeCm1aQ==,type:bool]
+providers:
+    kubernetesCRD:
+        enabled: ENC[AES256_GCM,data:Z27tUA==,iv:AYLuOJkkUmG20ds9X6exABTU+vlnBBedJV4ZMSDIMY4=,tag:ph/Zr6inQX9w9y2PDOYy6g==,type:bool]
+        ingressClass: ENC[AES256_GCM,data:bq6G6b+UzV0GWeymQSsqhg==,iv:PaOJuMGmNTodRH2rMUop56tILDyeArGVcT1qGWBL1QU=,tag:HSgHE98MzBk6GcDMSPUfsQ==,type:str]
+        allowExternalNameServices: ENC[AES256_GCM,data:ag7wDA==,iv:cnuYh4iZSNDRURt37yn+uHwXy6NuM+Mve8WrUAO00m8=,tag:A9SlPB2GM3F/OTNF2H/mKQ==,type:bool]
+    kubernetesIngress:
+        enabled: ENC[AES256_GCM,data:/tPWjA==,iv:3cP2v82RS0smQkQv3Fzci+N9MOmdLZ//3jH4F9Rj608=,tag:icpQrSOde0iFfSvTvRLwlg==,type:bool]
+        allowExternalNameServices: ENC[AES256_GCM,data:+fpxQQ==,iv:MUiNz4RjiR7pI5Vn5bmknTNFJzA2nF/0ID0bSBifGIk=,tag:DrNKE+bM6+zpyRpdsSXDww==,type:bool]
+        publishedService:
+            enabled: ENC[AES256_GCM,data:g/YYZtA=,iv:HHjkRr/cEZCnPCTj5cqK6gP+Jaqi9vZ8IrhouZut9+w=,tag:PaUdiuiSrkFxIGyHie2fzA==,type:bool]
+rbac:
+    enabled: ENC[AES256_GCM,data:ibdZoA==,iv:/QiKwwuRZChzVv28Z6ESXppZtg4l07kJvaXTN0lBEKg=,tag:gqm1F139bt+adJKSaLKv6g==,type:bool]
+service:
+    enabled: ENC[AES256_GCM,data:2qZ/LA==,iv:rMcylsN6WLz+XPyvTZz+C+V2+1pZvdo1Hjis7UjDM9w=,tag:R73POZM7vu6mrF010BTjwQ==,type:bool]
+    type: ENC[AES256_GCM,data:lWkZ1jUQGTJBzjvl,iv:DdJIByu2NtJAeSpNHZQTwdX2wGDwxacjrMvOcxTLii0=,tag:HeNQfRU4rqRhyhqVSO4zhQ==,type:str]
+    annotations: {}
+    labels: {}
+    spec:
+        loadBalancerIP: ENC[AES256_GCM,data:8I1Bb2W36kaesg==,iv:jUBwtGyY48xCFcq4UuZzrKtqOopC/fqlGsv/+OzJwrI=,tag:mGIQ5Fdbs/heZVmp81HWNQ==,type:str]
+    loadBalancerSourceRanges: []
+    externalIPs: []
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMWWRHeFdDTWRJNFNuSkp2
+            b0VJdjcvMlp2YUFUeDlrcGpsZmp6ekVHSmtvCnMzWnlubDhLYU9YQzg2UlgxdDg0
+            d3YwYmFZQ016QXhyaFp2UXVmd25rU0UKLS0tIHhicG9zM1UyczJoOVNVWTgzMG5w
+            cUVlTXJzUk9VNnZ1dDhEZzRkMEJ5ZkUKmSRomoqHEQzZRptYSWxNM1uzstjsHSoa
+            cI7ZHpj/XJ1H3sZwbRbypT+UKkw0e5+DAm86ncMIiLDovU+lyM2Qtg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-13T16:32:15Z"
+    mac: ENC[AES256_GCM,data:sEzeXrrZdbklAMLhwLn3NLFxRteNkmUjZ+mqdHUvMM0p+JwGgp+FhVVB2rPcSMYA+fQPSbF5QKPqbLlGCWASP2ByzQ8SvBYleNHmwFMqz8neYWINFSo2VIax8FwWi64UabuGoCUe6Zp9lO6OmmRMLLt2G7AF2j9zVzlfZPM0qF0=,iv:Ch0cpyb8oXNY2urN7VFDU9Dmip15i7hD90mHTx+2lzA=,tag:E/tppC2smf0ee0bWO+5NoA==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.8.1

@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- namespace.yaml
+- helm-repo.yaml
+- helm-release.yaml
+secretGenerator:
+  - name: helm-values-traefik
+    files:
+      - values.yaml=my-values.sops.yaml
+configurations:
+  - kustomizeconfig.yaml

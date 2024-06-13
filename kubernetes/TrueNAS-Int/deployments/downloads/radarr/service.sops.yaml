@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: radarr
+    namespace: downloads
+spec:
+    selector:
+        app: radarr
+    type: NodePort
+    ports:
+        - name: ENC[AES256_GCM,data:a7U=,iv:zFwrhIUa+HfOapTASC/TS8A5ue6MhPnKLRZL4OxA3s0=,tag:j4ZuaDYJXfyGfvBFSJ59Rw==,type:str]
+          port: ENC[AES256_GCM,data:rwZsTg==,iv:dDY0NG0Z2za1SlBA4NZkKCjJUD4kN2gozqv1rHEZQto=,tag:GRKVVzkxTcn+yqkgbzOX+A==,type:int]
+          targetPort: ENC[AES256_GCM,data:jyt4jQ==,iv:ttBywTn3H1x4jgL6j6/aiahqDOiCfhTO8g7qMtVw08Q=,tag:TYO7y7Ev38Zswesqnv++2Q==,type:int]
+          nodePort: ENC[AES256_GCM,data:g9GbCg==,iv:zytL7EFQ+PLQXR/Kqo54Jk2X4EZM4tQJ4EwJLwEDXmU=,tag:ExTYPUt/wMIBu8VMfifBTQ==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBLZ1JxRVB0MHVWZkNVRUtK
+            bUIvZktNYVJ5N1RmZXQvNFJvN05LZ2xqRkRVCmx3UjBZUXhVTXA0T3p2MERIWnl4
+            d3B3ZmczVzdaN1dnS25xS0FDVEJkZW8KLS0tIHVkZEVGVTJiSHYvd0VoSkNwZUlO
+            bCtkVmxlZDhRckJ2Y1h0U3ZMd21QWWsKFsHBI3vs0T1MFpPkVFzMYyQ0X9IB/3Qs
+            p5DiLkrZno+jnohBOa7KICbplc6gzhZywNioKuci6kfNi7sg0S360g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-13T01:09:59Z"
+    mac: ENC[AES256_GCM,data:pZZNkXfmiXmPSidtU4lVwnRIH3578hJJcwTwgEZ2itT4hsgyaBCh5OWhb2b9YnPf7ZzD8Emke3r79o+G2C5F4wsSmq30qz7ekwzIZoFUi8bTSppQ/oD53xjsAgFwt8mOy5zjhIeI+F22vlVQNjzXtG2RlsykwY0cxaZFJ3+fV4w=,iv:k5Mb9o0Wn9cZVPPka6JgXdZP0KCD3bP2tRY5on+HeR8=,tag:vD9QrAx3U7tbVbkt1DG5Sg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

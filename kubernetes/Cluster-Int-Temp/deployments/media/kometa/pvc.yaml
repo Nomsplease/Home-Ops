@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kometa
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: longhorn-static
+  persistentVolumeReclaimPolicy: Retain
+  resources:
+    requests:
+      storage: 10Gi

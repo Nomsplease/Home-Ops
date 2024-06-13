@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sabnzbd
+  namespace: downloads
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: sabnzbd
+  template:
+    metadata:
+      labels:
+        app: sabnzbd
+    spec:
+      containers:
+        - name: sabnzbd
+          image: 'lscr.io/linuxserver/sabnzbd:4.3.2'
+          resources:
+            limits:
+              memory: 32Gi
+              cpu: '8'
+          envFrom:
+            - secretRef:
+                name: env-sabnzbd
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: downloads
+              mountPath: /Downloads
+            - name: media
+              mountPath: /BigPoolMedia
+      volumes:
+        - name: config
+          hostPath:
+            path: /data/FastPool/AppData/Sabnzbd
+        - name: downloads
+          hostPath:
+            path: /data/FastPool/Downloads
+        - name: media
+          hostPath:
+            path: /data/BigPool/Media
+

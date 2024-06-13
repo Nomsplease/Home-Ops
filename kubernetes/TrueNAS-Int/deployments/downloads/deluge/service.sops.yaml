@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: deluge
+    namespace: downloads
+    annotations:
+        metallb.universe.tf/allow-shared-ip: deluge
+        metallb.universe.tf/loadBalancerIPs: 172.16.2.17
+spec:
+    selector:
+        app: deluge
+    type: LoadBalancer
+    ports:
+        - name: ENC[AES256_GCM,data:NLEbo4E=,iv:l+dhno5ZMBsaFZQ0JByW0KQT8KSIeQSPvyOZPcZjKbU=,tag:1MVWBf+Y7V0O40DxueOGGQ==,type:str]
+          port: ENC[AES256_GCM,data:x20=,iv:CF8dJA0W9U5qOCjLYGZI5sa+oBNDnfskQTvzYahtBOw=,tag:hHpbBmbMQYtf2++lxnB8yw==,type:int]
+          targetPort: ENC[AES256_GCM,data:zCKoPw==,iv:YoDLOBxuTr6GC+9wrc6I4gpTosy+1eTMQGuEwIpbv2o=,tag:SsT6UDE7+rlkc/aUNMRZBw==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBvU1gxUkNZR2kvTFU4REs1
+            YXhkd2k5MnVaRXRDTEh5QXVXS0ladG1WbWhZCmhZRmJXYy9GQWxVSFU1YmJPb1dy
+            ZHYzNmJDcWJiaGdJZzh5S3ZrTW05eUEKLS0tIERqQWhXQ2J1cnVLQmVUSHc1bWQz
+            bWRsdmVsZG1oQXYzeGU0ZERIZlRzUmsKp074apFuePbJ4QA2/Az/XjGcOCsV66g0
+            nruV3YOinVoRDNvl4vzrAnN591K5yy0ph4etge1KyvqWd97+v2Yg7Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-12T23:56:25Z"
+    mac: ENC[AES256_GCM,data:696VpDmteEsnm57YaOUVLkQva7Sitf/6Q4/FaVcW51sJJBU+SS1msjOLB0lAGJtBS0L10PEunRdP8eYE0CvW8GHjIygTiaIcohiaWNf11oue3QugSSC+u7NaVHajgtr7vhN3lgn6LnuSiID7uedqBj5H3GiU4qWh9yXPJ9HBl3w=,iv:GJsXtkGax0OyeoEyaHit3qfi0YAEM1R7E/uJBF8kwUw=,tag:DmOl9oHkrBuoco92YIwG5w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks)$
+    version: 3.8.1

@@ -4,7 +4,7 @@ resources:
 - namespace.yaml
 - helm-repo.yaml
 - helm-release.yaml
-#- default-headers.yaml
+- default-headers.yaml
 secretGenerator:
   - name: helm-values-traefik
     namespace: flux-system

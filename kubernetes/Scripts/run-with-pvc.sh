@@ -38,7 +38,7 @@ done
 kubectl run -it --rm --restart=Never --image=${IMAGE} pvc-mounter-${SUFFIX} --overrides "
 {
   \"spec\": {
-    \"hostNetwork\": true,
+    \"hostNetwork\": false,
     \"containers\":[
       {
         \"args\": [\"${COMMAND}\"],

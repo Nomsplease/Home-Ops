@@ -6,8 +6,8 @@ metadata:
   namespace: home-automation
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: longhorn
+    - ReadWriteOnce
+  storageClassName: ceph-block
   resources:
     requests:
       storage: 5Gi

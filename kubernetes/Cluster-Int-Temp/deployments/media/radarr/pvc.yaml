@@ -6,9 +6,8 @@ metadata:
   namespace: media
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: longhorn
-  persistentVolumeReclaimPolicy: Retain
+    - ReadWriteOnce
+  storageClassName: ceph-block
   resources:
     requests:
       storage: 5Gi

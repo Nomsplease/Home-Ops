@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonarr
-  namespace: media
+  name: mosquitto
+  namespace: home-automation
 spec:
   accessModes:
     - ReadWriteOnce

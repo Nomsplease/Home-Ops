@@ -102,6 +102,3 @@ spec:
           requests:
             cpu: "500m"
             memory: "100Mi"
-    cephBlockPoolsVolumeSnapshotClass:
-      enabled: true
-      name: csi-rbdplugin-snapclass

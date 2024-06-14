@@ -105,5 +105,3 @@ spec:
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       name: csi-rbdplugin-snapclass
-      annotations:
-        velero.io/csi-volumesnapshot-class: "true"

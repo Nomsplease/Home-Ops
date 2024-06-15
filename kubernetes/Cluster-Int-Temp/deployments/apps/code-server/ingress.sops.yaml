@@ -1,0 +1,38 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: code-server
+    namespace: apps
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:yb3BDYuK/rMd9cwkIRF0+etrA7T03QruZa1yCwaB7w==,iv:3DzXcTWxxTvQK8QA2ZGxGn6qIMvSfAXq3PfWbds+5Yo=,tag:wo0f5moGX3Go6TJOMY9DwA==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:X6PEtLH7SnBDn7w=,iv:smPyMdUGwwUchhkjD414NI2JN8okU49L/o5DtTuoqOw=,tag:wy/LWEbT78mrzl7XLWiHFA==,type:str]
+              port: ENC[AES256_GCM,data:1ChIJg==,iv:JsWpqfMgFGpMiWwrP1HrbxdldmCsdSsm/7wvhSvBvyA=,tag:zL3xxPQcnCa8Ia2iZFYrkQ==,type:int]
+    tls:
+        secretName: ENC[AES256_GCM,data:zuEE6cZ1td10aEuMFvA=,iv:NP0eisyoadgXcYrE5h0Aj+Ulu6KiUxp8/b/juXHsh8M=,tag:6uni0CQK6nROBvMVquBO1w==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBkbi9ZS1hSUENCekE3My9P
+            SlBiNzc3OHQ0bW9tOW54QzVtZnloZ2dOSVNBCkRDT09YRmsxUG9WN3hvRWdqYkZO
+            K0JNaU9xNGFVdzBUKy83TWJlcXU0QlUKLS0tIE82dHc0R1FmSEtjemxJY09Mc0t4
+            MmlwNEx0QmIrbDc3Y2VyQjVZVGwxUXcKZL0PYvSf8+pENSQSGJ0vE/mwrZzPj1MT
+            gpdY/pJIw1EO9aSuru48h2/XzfeabU+MnHNYRZd5nIIOkJw4H39bLg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T14:44:01Z"
+    mac: ENC[AES256_GCM,data:9AhB6USIc33SgIfVD3lOI7qmFxielnFLDrB61rZl6Bq9eQ+wQ+S2jFCsx/SbjP0dhp4nQlc3ZXprddWA1FToRYXEejgLfltO1kt7yTgKeSKxLHKuSPSBhKXfAq4DFSfdZhhDajDsjn2itP6yxNCooYOzDM2iWPl03R+pZdDZ95k=,iv:EMc0SkydtDRgwMXSs4gdghzvCAj2882UMlpGMckiGsE=,tag:+BfFPelhVl0FP1XpiMcdnQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

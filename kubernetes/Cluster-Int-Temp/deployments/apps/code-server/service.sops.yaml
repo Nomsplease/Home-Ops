@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: code-server
+    namespace: apps
+spec:
+    selector:
+        app: code-server
+    ports:
+        - name: ENC[AES256_GCM,data:zy8=,iv:qwem4b9Bhh281mqLvcgHaSxhhF8d9QKEH7TmMTFPB6M=,tag:AvOJVA7oRGfFT3xD4Pa96Q==,type:str]
+          port: ENC[AES256_GCM,data:Z1bcgw==,iv:u0uE8WCK0Cw/oSImJFRq/IeolUNrzbaSZOqeXk7nrm0=,tag:gMuCqjpv4+VEQPy1CmRRVA==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBFUk5KcFRrZkdhc044Rm5F
+            VVpueFVkQ0ZMcjJqcmxhaDZuakU5blNOUUNZClJzbXpFck5Td2xTVzB3Q2RNL0w2
+            UmhwYkdVZVJVVHNta29CNWFLblBrOUUKLS0tIE4yMnViUWYzN0kvOFdCdzE5bFJq
+            NDk4a2I1TWJ5dFl5dDNvMlVXVzcyd0kK9bZyKMLMFAkSVS4u6+F6w6Um31hD6IM+
+            VQHVYt7+C8XhLc6UkMuz54nQvsWws+dJRCfo5pUCLwR7ifCP/pgseA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T14:44:24Z"
+    mac: ENC[AES256_GCM,data:QZ8+xxK935vacqyH+XlgYDILh9BVA1L7/TlkpJmnPY1jqlFWGIay/3N/DNxSA+/lB1WMGM+9u6DSPLKz3xsFMBdg/dVWNjzPnnZOfVEiIbdhstISc2Zx7xE9VDGJlRgOMKKpfju+We6AquLU1iSuMxaV4IZ8JoXVFqdwR6w28I4=,iv:cux32kdeE6JZ/eUeH/7PiqkLqMd1wG3UGAknjA3TtQw=,tag:0fsHvI6IbUsJKCiA8fKAtA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

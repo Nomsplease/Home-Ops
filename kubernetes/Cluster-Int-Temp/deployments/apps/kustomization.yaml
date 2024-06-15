@@ -6,3 +6,5 @@ resources:
   - ./spoolman
   - ./wikijs
   - ./actual-budget
+  - ./homepage
+  - ./code-server

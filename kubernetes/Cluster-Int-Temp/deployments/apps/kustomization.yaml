@@ -8,3 +8,4 @@ resources:
   - ./actual-budget
   - ./homepage
   - ./code-server
+  - ./fastapi-dls

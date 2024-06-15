@@ -11,3 +11,4 @@ resources:
   - ./fastapi-dls
   - ./passbolt
   - ./paperless
+  - ./immich

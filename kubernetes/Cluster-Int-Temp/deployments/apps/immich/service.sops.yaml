@@ -1,0 +1,131 @@
+## Immich Server
+apiVersion: v1
+kind: Service
+metadata:
+    name: immich-server
+    namespace: apps
+spec:
+    selector:
+        app: immich-server
+    ports:
+        - name: ENC[AES256_GCM,data:iJZzlw==,iv:i2zs2d57Bv0GYZ7cs4eP3YdZsEthzUDx/ftkCZn/+10=,tag:yyHxrCvohy6i5bBSBJ7sIg==,type:str]
+          port: ENC[AES256_GCM,data:3AXOJw==,iv:Tto26FUTBuIhPj0z1Yib7cdJmSMyNyaMRJ0Rbv3HDrg=,tag:CUC6VhfsymusCeAphHJizQ==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQTTRVdzJmalgyNmttSnNM
+            YlRxY1loMEVNa3RTTVpkcGdtUC9QcnFYSWpZClJQN3FCb09EMUVDM2hTS0k0N284
+            cEFPZXZib0djL09HU2xrWFJWU1IxQ00KLS0tIERZcTJhV3J1UE1FMzhBN1lDdlE3
+            WklXM2w2bTRxRGxnTlBrWkhVQkFtb0EKa6fQMYIQ6N0PlZG5QUZ4OpEdYon9rdw5
+            niLGpcknVLa6NlGu34aJIc8OXPTZU+Us/D15Qt91vc/gzfOErMdVnw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T15:05:48Z"
+    mac: ENC[AES256_GCM,data:wHO8q+dA/Yijij88VqiH9KPOrAfL0b13pcUwo5Jpu+kax0Q85f2r1WHR63VvAx6SWGTn5AceOURzYANvqE+RRHNAZmtRSCsl63ZQ1GlfIJ6koMtfkMooNhFEI3/Ot6EfcBssj7fszU76XFNraYcGAo5CUQPGm/xGdd4rXgBtORE=,iv:saYFtKPEnyXraEfPWcqdA365kjEevJ3Se5oJMJFQJXc=,tag:9LTfhw/CFbRKOFjdrQQ5RQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1
+---
+## Immich Microservices
+apiVersion: v1
+kind: Service
+metadata:
+    name: immich-microservices
+    namespace: apps
+spec:
+    selector:
+        app: immich-microservices
+    ports:
+        - name: ENC[AES256_GCM,data:nkf9fg==,iv:crFfghAA5nrY+ZBblij3xyTmvqqzsWd2ZH4hAdsPc6w=,tag:j5zhr46Of1JOWzqlQsYpyw==,type:str]
+          port: ENC[AES256_GCM,data:o6qzbQ==,iv:NyFl05RQTZa8ciXCycW+pCLdg/HEa/QhwILOtlH7kyU=,tag:CiJt2/Vjm5LWvFCwZvgcFQ==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQTTRVdzJmalgyNmttSnNM
+            YlRxY1loMEVNa3RTTVpkcGdtUC9QcnFYSWpZClJQN3FCb09EMUVDM2hTS0k0N284
+            cEFPZXZib0djL09HU2xrWFJWU1IxQ00KLS0tIERZcTJhV3J1UE1FMzhBN1lDdlE3
+            WklXM2w2bTRxRGxnTlBrWkhVQkFtb0EKa6fQMYIQ6N0PlZG5QUZ4OpEdYon9rdw5
+            niLGpcknVLa6NlGu34aJIc8OXPTZU+Us/D15Qt91vc/gzfOErMdVnw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T15:05:48Z"
+    mac: ENC[AES256_GCM,data:wHO8q+dA/Yijij88VqiH9KPOrAfL0b13pcUwo5Jpu+kax0Q85f2r1WHR63VvAx6SWGTn5AceOURzYANvqE+RRHNAZmtRSCsl63ZQ1GlfIJ6koMtfkMooNhFEI3/Ot6EfcBssj7fszU76XFNraYcGAo5CUQPGm/xGdd4rXgBtORE=,iv:saYFtKPEnyXraEfPWcqdA365kjEevJ3Se5oJMJFQJXc=,tag:9LTfhw/CFbRKOFjdrQQ5RQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1
+---
+## Immich Machine Learning
+apiVersion: v1
+kind: Service
+metadata:
+    name: immich-machine-learning
+    namespace: apps
+spec:
+    selector:
+        app: immich-machine-learning
+    ports:
+        - name: ENC[AES256_GCM,data:FWucAQ==,iv:rtTaCURqVUBEesSZn06SpYmybFWufHHDp7C+8ic0BXE=,tag:GBXCcPbRv5Eq/76eVLzQRg==,type:str]
+          port: ENC[AES256_GCM,data:Z5fC4Q==,iv:7Ud6Ix6fQpJORlkP2eWI8YsjYKsyY+g+c6SF/9WrUN4=,tag:B04vUVleHJ4/HfWxO8vHeA==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQTTRVdzJmalgyNmttSnNM
+            YlRxY1loMEVNa3RTTVpkcGdtUC9QcnFYSWpZClJQN3FCb09EMUVDM2hTS0k0N284
+            cEFPZXZib0djL09HU2xrWFJWU1IxQ00KLS0tIERZcTJhV3J1UE1FMzhBN1lDdlE3
+            WklXM2w2bTRxRGxnTlBrWkhVQkFtb0EKa6fQMYIQ6N0PlZG5QUZ4OpEdYon9rdw5
+            niLGpcknVLa6NlGu34aJIc8OXPTZU+Us/D15Qt91vc/gzfOErMdVnw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T15:05:48Z"
+    mac: ENC[AES256_GCM,data:wHO8q+dA/Yijij88VqiH9KPOrAfL0b13pcUwo5Jpu+kax0Q85f2r1WHR63VvAx6SWGTn5AceOURzYANvqE+RRHNAZmtRSCsl63ZQ1GlfIJ6koMtfkMooNhFEI3/Ot6EfcBssj7fszU76XFNraYcGAo5CUQPGm/xGdd4rXgBtORE=,iv:saYFtKPEnyXraEfPWcqdA365kjEevJ3Se5oJMJFQJXc=,tag:9LTfhw/CFbRKOFjdrQQ5RQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1
+---
+## Redis
+apiVersion: v1
+kind: Service
+metadata:
+    name: immich-redis
+    namespace: apps
+spec:
+    selector:
+        app: immich-redis
+    ports:
+        - name: ENC[AES256_GCM,data:vwlN6xw=,iv:uL5F1hriH5+RBrPr7o758YAvbjuTeQvnBkoWAyGnXHM=,tag:kGgW3AW2q3KpeZkzeslAVQ==,type:str]
+          port: ENC[AES256_GCM,data:uCAEIw==,iv:lRuxw04/6Y5qIwJpaVEShv+pyKzBmHmlSXGlUt5Azd8=,tag:Uau5QSF4akwreWyJmLuaZA==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQTTRVdzJmalgyNmttSnNM
+            YlRxY1loMEVNa3RTTVpkcGdtUC9QcnFYSWpZClJQN3FCb09EMUVDM2hTS0k0N284
+            cEFPZXZib0djL09HU2xrWFJWU1IxQ00KLS0tIERZcTJhV3J1UE1FMzhBN1lDdlE3
+            WklXM2w2bTRxRGxnTlBrWkhVQkFtb0EKa6fQMYIQ6N0PlZG5QUZ4OpEdYon9rdw5
+            niLGpcknVLa6NlGu34aJIc8OXPTZU+Us/D15Qt91vc/gzfOErMdVnw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T15:05:48Z"
+    mac: ENC[AES256_GCM,data:wHO8q+dA/Yijij88VqiH9KPOrAfL0b13pcUwo5Jpu+kax0Q85f2r1WHR63VvAx6SWGTn5AceOURzYANvqE+RRHNAZmtRSCsl63ZQ1GlfIJ6koMtfkMooNhFEI3/Ot6EfcBssj7fszU76XFNraYcGAo5CUQPGm/xGdd4rXgBtORE=,iv:saYFtKPEnyXraEfPWcqdA365kjEevJ3Se5oJMJFQJXc=,tag:9LTfhw/CFbRKOFjdrQQ5RQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

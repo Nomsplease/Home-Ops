@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: immich-server
-  namespace: self-hosted
+  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -39,7 +39,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: immich-microservices
-  namespace: self-hosted
+  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -79,7 +79,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: immich-machine-learning
-  namespace: self-hosted
+  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -114,7 +114,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: immich-redis
-  namespace: self-hosted
+  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600

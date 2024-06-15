@@ -1,0 +1,38 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: fastapi-dls
+    namespace: apps
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:YZt6eZ+wYh57O1+zH7m2q1Za770t4HyCXJRlu+jA5Q==,iv:RoglEkEc4MFCKZBIgO+FvfgUJdig5s0VR0G3eew+tDY=,tag:u2WWGPd6zaD7mBoPldHsXg==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:kozqnNuoBx5HwDI=,iv:U+m/wMDA/dMnIQuAeKEjQdexTa8N1po5FMINJjcGXAA=,tag:Al+inoDrbZ6NK55KjAuOtQ==,type:str]
+              port: ENC[AES256_GCM,data:5f1u,iv:h5X4F/DD+iVnEdH6qa8qEbLoYudqExqtJNgT0v1X3CU=,tag:wX3n0tLUY4GaVEcUqHy0fw==,type:int]
+    tls:
+        secretName: ENC[AES256_GCM,data:v94wS9VF07Ayah6O43s=,iv:7uzW6V9Z4qYO5u0HdMktAkgDnBuZ80r8sj3FEB9xykg=,tag:E78Z74L562sIThOnmQC6pA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVWWVjSmZpR0VMb2tBWWFJ
+            SzN2UUFMMWwzSFF3Y1Vxc2MvcEhyN0RLbUFNCmhnNEhqTHVHQjVJZU5nUk9PQk9G
+            R0ZPSW5Ca0NwVWtPNEdOMk56K05tTzgKLS0tIFVTdnBGNytsMXBNc0gwcTNnaTVN
+            Znh6Snp3MDRrcCsxVTV5eTBDZXFMaHcKe1W1elv9+u6pJcze6VjxraqO/XYxmrNo
+            XeMFVqdwQ/dBeuegAshb2MlPkTy4c7NqsFmuH8hW3gAV8Fg/1P+Ocg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T14:53:21Z"
+    mac: ENC[AES256_GCM,data:gp0mkpjOxBiTQMV04JWbmwJ5gkkDIerUQhhG1xxmsxFaHaUcjv+NjJ3mk1DEN8ulolDTyzwzfXPpDfSyHzvMsUjzVWRWLcW81wGl37Xl/vcStJ9P9YftRiuMyG9d9Yq50PWRiwFSdx3Fkx2VGYSaJcleP3p+BYWPGTjC5cz83R4=,iv:WD3Hh7RgvUbXBucFadb0JPv0cr83VKETFrQC2ef3IYg=,tag:uc8CenQb2jnOlcHPGvwHNg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

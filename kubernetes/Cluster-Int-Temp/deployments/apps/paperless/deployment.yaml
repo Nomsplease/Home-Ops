@@ -150,13 +150,13 @@ spec:
       containers:
         - name: paperless-samba
           image: ghcr.io/dockur/samba:4.19.6
-          resources:
-            requests:
-                cpu: 512m
-                memory: 512Mi
-            limits:
-                cpu: 1024m
-                memory: 1Gi
+          # resources:
+          #   requests:
+          #       cpu: 512m
+          #       memory: 512Mi
+          #   limits:
+          #       cpu: 1024m
+          #       memory: 1Gi
           envFrom:
             - secretRef:
                 name: env-paperless-samba

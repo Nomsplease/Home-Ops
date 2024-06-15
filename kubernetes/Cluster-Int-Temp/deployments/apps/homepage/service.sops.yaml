@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: homepage
+    namespace: apps
+spec:
+    selector:
+        app: homepage
+    ports:
+        - name: ENC[AES256_GCM,data:I1U=,iv:a2AHiwWvPqAuFsdv3EStFKGr2flF/2l7VnsV9/iXRSs=,tag:lJGomDBmEFZxvFyQcpC52A==,type:str]
+          port: ENC[AES256_GCM,data:Ysy/OQ==,iv:E9SUOMrxdsVer8o6WJNB4MI+7DANGSxWRDhViaOfsf0=,tag:AYP4J90SJRhKjYgKuP3mww==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAyMktYbkdWZCtPanBzaG9G
+            RDREZVlBZ2gxVk0rbVhsUEh3ampPQitpZEhVCi9ZUWFQT0xwRmxOekl1SHFkbkdu
+            enJsN2dWZ0RWSUlkL1F5Ykl5My9oR28KLS0tIHc5R2ZsMnpaMVNvOVBUZlB0NUU5
+            cnNyUzBuSHRRWlZRbVkwZkYrVDVkblEK83rCtnliYJLw+iTnoKq2077Cuus+fV0R
+            CFIQAVNZKRlZi/0pGufGPNRcsT+eAqyK+dNwpWRNBilPs6+gUiULCQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T14:37:09Z"
+    mac: ENC[AES256_GCM,data:P2xznYEYJFbKGYoPmMxwQ27736+a+RTdUVKYa0mmc/r5d1yIs/0VlWSyy8aU2Mwx/JIsG8rtL8gJDf5cB+6rcdOYLj66BnLcKHesBrop/UP3CDp9VxFos9NO6Q/pTYB+MmHJM6Xv0f1HsuJgNMS0V4/UGrcHX+HOfUBX9INAjoU=,iv:dl5KnevIfTyPZa3S2Z9miGA680fb8eT1Yzof2GZubac=,tag:cGmDNvxTPV7BXCiVRa2kZQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

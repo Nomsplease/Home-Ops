@@ -9,35 +9,15 @@ spec:
     entryPoints:
         - websecure
     routes:
-        - match: ENC[AES256_GCM,data:iTx6AA8ulyNlxBOlrKRdY+2DT8V9qVv+,iv:Eyc1ayUBJcA+Vfpr0QBqVI3lCXbTBHm/GKXDnRbbGFw=,tag:f+vrNvE3dCYv+/CTjZLeOw==,type:str]
+        - match: Host(`home.svc.noms.tv`)
           kind: Rule
           services:
-            - name: ENC[AES256_GCM,data:pIH4tpmgNNg=,iv:IC7B091nDa2XfTh0doQFUwK8CFgy44rUl0NGg5nmh+4=,tag:kzA0Ct6YWnR7R5GzyW5PGw==,type:str]
-              port: ENC[AES256_GCM,data:/YSlTg==,iv:uBh5TPI/UKG/qfCV/PjPbd6dfE/vhjnLlESib+euJc0=,tag:QY3lIAkLSAabw8CYyhSP8Q==,type:int]
-        - match: ENC[AES256_GCM,data:HjH/tBK9iAvBqeowCAV4K6osW/o=,iv:W+2i22Lnj4FlWZkRYxHYeBOq2bn7wPOGDarEL8be8i0=,tag:Cdv2JSHv865g9uXW1g/19g==,type:str]
+            - name: homepage
+              port: 3000
+        - match: Host(`home.noms.tv`)
           kind: Rule
           services:
-            - name: ENC[AES256_GCM,data:M9SwskorUVU=,iv:TctG3ZrFB4gpf7gJNfGoSqFvqU/Fxz98obq20UlU0dk=,tag:VIrlSFBDmaBmN8LShxh3Fw==,type:str]
-              port: ENC[AES256_GCM,data:+RuNFQ==,iv:JtnKxHOfXyPRY855rzagf58kzcRTMpMQIu+afA1dxj4=,tag:Vq/I/KDFOB7osk1CZDAjLw==,type:int]
+            - name: homepage
+              port: 3000
     tls:
-        secretName: ENC[AES256_GCM,data:oXfLehhBsgHHyCM=,iv:jfARB6O6eo88fBnEMQoWbslMgvaaeDALSf/MItt+hxo=,tag:50YMta7R/FJSQdOd0w0rug==,type:str]
-sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age:
-        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
-          enc: |
-            -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBTNXltZkswYVh1anc4N3hz
-            UHZ4REcrSDBLSEwxbXdpbkZjU25oMFBZRTJnClV0Sk0wcnB2a0ZEaFVYUm9QY09i
-            YTU3NDZoZ0Flc3dUQlA4V21PajZNZEEKLS0tIHlHZEVCOUViSmhsTU4rdjNhRm83
-            UGJ6d1o5UnN4WnF2UkZ4bVFFWWFnZ2MK63GoumGQOplseHQNpGJTOT93rhmzo2wM
-            LpV8Lwavz7iOuIK42EmnTNK387CdU1q9rBCdd/zMhuWplnawL8Yf4w==
-            -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-09T14:41:05Z"
-    mac: ENC[AES256_GCM,data:h91WVpUT69a+SV29xjvToyGsKttka52KWkpDOZaQOr3OA2rQYWb0QFouAhaSIuZIxfpI8Je71/PrWUcJMSJ+crFq1QW0FGwMBfq18kTvnR8u1VAfkCFy1FItfMhSVXCoaqQTJEzUX6gcDzx1GXyyVdM1H5eej8JugJVGogkGrDo=,iv:p7r1MA16NC08On1rpejA1ZEthlTpS525Vlf6MnE4Sfg=,tag:dgAWcwPye59XFtoLhc3FcA==,type:str]
-    pgp: []
-    encrypted_regex: ^(data|match|secretName|services)$
-    version: 3.8.1
+        secretName: noms-tv-tls

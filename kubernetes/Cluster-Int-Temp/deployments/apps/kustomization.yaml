@@ -12,3 +12,4 @@ resources:
   - ./passbolt
   - ./paperless
   - ./immich
+  - ./planka

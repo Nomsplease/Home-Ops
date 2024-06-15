@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: paperless
-  namespace: self-hosted
+  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -48,7 +48,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: paperless-gotenberg
-  namespace: self-hosted
+  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -76,7 +76,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: paperless-tika
-  namespace: self-hosted
+  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -100,7 +100,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: paperless-redis
-  namespace: self-hosted
+  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -132,7 +132,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: paperless-samba
-  namespace: self-hosted
+  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600

@@ -5,4 +5,4 @@ resources:
   - namespace.yaml
   - ./grafana
   - ./prometheus
-  #- ./prometheus-exporters
+  - ./prometheus-exporters

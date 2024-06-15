@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: prometheus-exporter-sonarr
+    namespace: monitoring
+spec:
+    selector:
+        app: prometheus-exporter-sonarr
+    ports:
+        - port: ENC[AES256_GCM,data:Hor8Qw==,iv:pds0EVDjhNLNg6D6JFEXnUTDAN1LpMuHN/HEPRzFZGA=,tag:Etk+1OLZoqYnV8/F5U/A2A==,type:int]
+          protocol: ENC[AES256_GCM,data:iLJf,iv:t1aqk1Yq50gKqlmAbI2Q0NCNKFOr6K/31+vrkYB6h38=,tag:8HmySn3n32WNqyRnnbuTEA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBRb2EyLzBGMHE1eU5rRitn
+            a0tlc2dBZHBaa1N4RTBxYVkwVDRjMWYzZ1IwCkh3Qkp5Q0xqbUJiSUFpdERiQ21j
+            dzFCMzhwZHE1MXc1OXBoL3d0Z1FveUkKLS0tIFhBV09sVTVPdGFWcGFnQWVWR0FC
+            ZGhNVFh0NVFsclEvd1VSNHRRcG13UTAKCVxD6bWHo6yuKm/9MaopmqXf868vA8Xk
+            dGD+YUOkdzQWvo42lEx9OP7KzMck9u4Jonkfv32M2Tfg892SGl/iQw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T13:58:09Z"
+    mac: ENC[AES256_GCM,data:gzygm1O8PBmsLVst/YwkvK33WnjEPq6fVBWTLF4lb0OiUknsSrBlDiXT911tN2p2nh7XFhvxq8hRhsPA8UFwG48UY3pVgJ5BwuSNVlmSKJqfOo8w5KZ6RHWsHSTIDaq56nyYI9qRfHSOtxJWCn719Yfs0/E3gSzzOhPFsIZxYgE=,iv:zkCgJBEzgljVrWg2bbAf1yFF3gHa63W0vs1kzXZ6kpk=,tag:R/WIoaZwg4ZdfPSnU96VJA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

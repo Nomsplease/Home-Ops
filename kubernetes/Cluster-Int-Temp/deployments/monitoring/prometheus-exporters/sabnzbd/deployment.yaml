@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-exporter-sabnzbd
+  namespace: monitoring
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: prometheus-exporter-sabnzbd
+  template:
+    metadata:
+      labels:
+        app: prometheus-exporter-sabnzbd
+    spec:
+      containers:
+        - name: prometheus-exporter-sabnzbd
+          image: ghcr.io/onedr0p/exportarr:v1.6.1
+          envFrom:
+            - secretRef:
+                name: env-sabnzbd
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /healthz
+              port: 9707
+            periodSeconds: 10
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /healthz
+              port: 9707
+            periodSeconds: 10

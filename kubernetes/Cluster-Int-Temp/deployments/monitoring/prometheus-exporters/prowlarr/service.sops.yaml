@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: prometheus-exporter-prowlarr
+    namespace: monitoring
+spec:
+    selector:
+        app: prometheus-exporter-prowlarr
+    ports:
+        - port: ENC[AES256_GCM,data:zgON4g==,iv:FtTeGfH1tv8ek5wAA0PpUlAf0x2Urkln5uvl2F6M+o4=,tag:/RXEtmyaHV87m7M6j22mPg==,type:int]
+          protocol: ENC[AES256_GCM,data:Vpv3,iv:TCqLr26tM+3S5zft9w7149swEJBhpm7g2Ckmr0zK9RY=,tag:HEtcgqgmr9J6XqnsvNBO3Q==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAwRDdOWXZLZUVncHU5SUxv
+            QllwRVREQ2VHc3kwZytEcVhqc2RjV2cvTFNBClQzaHExZURzaC9sUTRLcVZSNFlK
+            WFRqTzBhamx6STV0VWJ5V2ROY0pKbnMKLS0tIEpVR29kTUc3Kys4UUJ0K3RHdWZp
+            enZzRUhlQTYyUFdjZDZZWHBMUG5pbG8KD3YUbkhFEhaRvBeyW6IcQQB1NzGQQqco
+            99zUYrQpx4xB8/EMIMWcBG56yHyrQ5hPYHxdXJuPYhziTSwPmBANjQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T13:55:41Z"
+    mac: ENC[AES256_GCM,data:Yk5Ugd37XUfPLMvO4iK1MP4BSnshxfYgg2DQ8sHv+OFBEBTbtQXoIbXjdfgTgizCF4YNtMGwuRDTlmj4bVNPhwr8JHqbeBJwZN2jej93e9mPozv2Ob7vk0GfAij+N5Tq6hMTPNmJ6yxoAFlP12CLDWXXf+z0tR1fkhweoGJrueI=,iv:cZTuuGWjFNred7LYNLC0LLlF01K3ebSeMSjJQNCkOQw=,tag:nbx019onKMAdMue4owrteg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

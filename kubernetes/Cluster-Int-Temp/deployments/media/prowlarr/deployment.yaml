@@ -24,7 +24,7 @@ spec:
             - secretRef:
                 name: env-prowlarr
           volumeMounts:
-            - name: config
+            - name: pvc
               mountPath: /config
       volumes:
         - name: pvc

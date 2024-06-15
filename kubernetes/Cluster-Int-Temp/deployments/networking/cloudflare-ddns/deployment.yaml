@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: cloudflare-ddns
+    namespace: networking
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: cloudflare-ddns
+    template:
+        metadata:
+            labels:
+                app: cloudflare-ddns
+        spec:
+            containers:
+                - name: cloudflare-ddns
+                  image: oznu/cloudflare-ddns@sha256:19bd73d8aea9641dc329ec18ae693b2b9c33ff7cdc007f368266ce584446f995
+                  envFrom:
+                    - secretRef:
+                        name: env-cloudflare-ddns

@@ -1,0 +1,43 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: passbolt
+    namespace: apps
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:6WlsbdRkHN212BojpeIhORmVeQeJKu0mxgBCqg==,iv:OC8Aa8ugsiI/CIyFXJtpyFITcSo0YggVN7NsqsOyf7Y=,tag:6mCjirdd1pdLMEMcsKvYNQ==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:f6tWFsx4bsc=,iv:+H1w2hsCCjtZNzCqrZWvJTRRSX031c+6tXbHsVI3Jdo=,tag:nUBPYj6z+A5vRcJpQzBl7w==,type:str]
+              port: ENC[AES256_GCM,data:wBxzlQ==,iv:Il9y7Ncu7LMQ0lc0wC1luMLMfgk3xNfPQpIoHvH/vXI=,tag:YUNQ916RlvobuoXEgPJO+A==,type:int]
+        - match: ENC[AES256_GCM,data:sAQ9mTq3KoqaLhf4WM6wbB5nDpyrvMBM,iv:afGZIA50kz2oeTl1u81lNyW0QXPMZWbAdnfKa+S4PRQ=,tag:rYbPIZg34BcK2vSWuCkhLQ==,type:str]
+          kind: Rule
+          services:
+            - name: ENC[AES256_GCM,data:R0lAGcjPxho=,iv:na2ou0lil7JuWCs1OIOnwcVv5/0CQwGGgZe5mpX4t4E=,tag:669Sx0Z4tmNnbmRM31KoiA==,type:str]
+              port: ENC[AES256_GCM,data:xg1wRg==,iv:Oiit34+VkZtZ4okPPtJyine0JtClW3zsN5IWPgvsb64=,tag:i35HX64eBy1NzsrT8GUkrg==,type:int]
+    tls:
+        secretName: ENC[AES256_GCM,data:GrnIQwJ9ai4pLp9aG4U=,iv:KUMHC9qj1c+DHtELRqKTtzLu0oikcYhXv7Zn6LkR/iM=,tag:OKbukMYqvrTtI5XF77Seaw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBJTlM5N0ZHazlYa20rVU1h
+            RTFVRDg0aHVqcVRRR0pjQjZNbnU1dUN4NkZBCmpRckFzTXBzeXFTQzByWUpiczRN
+            dGdrWlpVa0djVEQ1ZnVxYlRXOXlmdEEKLS0tIDZxcXp6cDhZcG9GM2szT1RHQ2hm
+            Um1RTCs1TXVJSGhqNDhlRk5EN2xaYlUKh3WV0X8n8bZwlnvZk/5PbGw+usCa6Pm1
+            /BsinZA5rJZ5O3ezBsAZ6+p/u2Vpevt6Nys37ME4c5VBGKh3bnFnhQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T14:55:30Z"
+    mac: ENC[AES256_GCM,data:JbSHvl6eGkPlQcTeazUQVoxiBMXKxL54/uEczRs6KPW14ipkRsEafsn5NpGoT8f52hmuGT0uaBthIsgZ6+HqBWc7ZbRkVUmZVfek3E0kNPYFa1npmFovIN+/E/ekP1nGzLaHb7kzz+S4rMWWptUQCUOBCmFMsG9skk/ugRjxF/Q=,iv:W+xEylvJk6rpwc9pzHtPJJqLMysB07yYJOJCwQOcJkA=,tag:oliSgyTB1yBlSqHii4+S3w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

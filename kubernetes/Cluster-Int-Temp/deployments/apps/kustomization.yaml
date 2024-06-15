@@ -9,3 +9,4 @@ resources:
   - ./homepage
   - ./code-server
   - ./fastapi-dls
+  - ./passbolt

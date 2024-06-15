@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: passbolt
-  namespace: self-hosted
+  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600

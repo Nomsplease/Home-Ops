@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: passbolt
+    namespace: apps
+spec:
+    selector:
+        app: passbolt
+    ports:
+        - name: ENC[AES256_GCM,data:mxU1xg==,iv:PmDOHgqMympY/cHmlDKAQJ6ffH1p3ep6l5/2xfENia8=,tag:keLQVIrd1BB6/8D99XeboA==,type:str]
+          port: ENC[AES256_GCM,data:lCaZpg==,iv:iH96uGUAlqRmzJMsQrg9+2gdQJ4iguSfDnOtwHdnHfc=,tag:AF8CfjZU454LZRDrPuwawg==,type:int]
+        - name: ENC[AES256_GCM,data:AjcC3FI=,iv:BBX9E6fZ6DsorDkW9vozeKLCI6jBA9M41Ns+i8lwEqM=,tag:iqPqIHG3h0Udd5WFerxiaw==,type:str]
+          port: ENC[AES256_GCM,data:sF7C8w==,iv:DKaFsQjOMzCW0QUO+efxRj+4L2rGvodPjZkL6t678W8=,tag:6Bgu2PX76fS9p0/8b1NxbA==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB4OW0yTHQrTHRGajk5UjNw
+            Zm0vREo4SkFWY1hQRzBCeDlCaXQ0M25IS1FRCkZTcmlHT3dvWWErcTNGU2lUbmNK
+            andKNDYwZk5Hbi9QLzJFZEQ0NU1zOFEKLS0tIEFDaFFvMnhmSnc3V1hRTThLaytt
+            Vm04anc4U2ZMa3U1RVFmZkZUTG4xenMKkN9fR8Kdvb0inqiNaelk3cvzY+Je4MlH
+            EH/O2cwYntOEELIvBSPrpx5iy/sWD2jnOM+IcDVUDxsOKP/WnR6NYQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T14:55:57Z"
+    mac: ENC[AES256_GCM,data:1m6ZXlyXXRymHZaBDYaq2K/2BIoLldWbRftHlaiS+bfuGpV+3q495fmoDTBTfEngIR5I4WEVP2sKQjDuvt7+5SKXmR1ljjLlxaZxybfbN0zTw/tYgMyshOoghn77kFl2gyKj+a25L9xT1+QLwOO2ind8giCiSnclEKIsd2eGCT8=,iv:m3OLS3JppQLJvhfbaaaXfL2zFBARJ4UlIPC3kqbsat0=,tag:SYYDP6enmOepFbXLbek77Q==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: immich
+    namespace: proxy
+spec:
+    type: ExternalName
+    selector:
+        app: traefik
+    ports:
+        - name: ENC[AES256_GCM,data:IVFG4vfU,iv:+oVOOziCvW3CkTc+aicFoqr0bELSPcr9iyBNMbsAwGU=,tag:L/Ou9yxegz9zG0knERPpTg==,type:str]
+          port: ENC[AES256_GCM,data:pwdbdFc=,iv:ibQYLenai596uUZucpoGlDuF5xb0o0c3GS0Z2oKOmFY=,tag:c2E3q5pj0IQuLDtvCUhslA==,type:int]
+          targetPort: ENC[AES256_GCM,data:4kqC1QM=,iv:iNT9BDVDyM6aAe3qHEvHxA7GmBG9fqhPImD2PYh2ATc=,tag:HmLHabZ5lIkfdOVabVsMWQ==,type:int]
+    externalName: ENC[AES256_GCM,data:qejlDoZ7Msd0mWM=,iv:X1rUdTrwXP6XXebtbXvFi/eENq1GuEAuJ4gjt4s4+B4=,tag:4uYTfkuh2v/2SAdQ9oUbxA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBYK3QzbHlDRE5IclhiTlRo
+            SFpXQ0dWbmRiSkM2MVp1UzBLRzczblQxMzFvCk1ibXBmSTNpazdxL2srZzJRN09k
+            cU54Q3kxRmxodDJXWjRRV1VKblFmeFUKLS0tIDJ0YlVMcTUwQlkrTHNhN2dZQUpN
+            L0tXcTlhU210QmJObUFWMlh6a2dreW8Kw1AluGhvSuivPYp2B6sNbq+i8PeWDfqY
+            KpOmkp5UMhjMbCrgkEPZIlEfqkg3DvAkGOYkAUiy/GyFLCcYnNDx8A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T12:40:39Z"
+    mac: ENC[AES256_GCM,data:pf0oCSwvt5gLf1viSbNtSupkEo4k9z6h0uw7fdD+xF7iYxDpUdaFF+rzKi2rxLpb2mwfuRO7TZ5QpCyD2fwOvWh3Q3PrQBLG1zL0nBhrGGX9oR+EIP1q6lXSCPyWXq2EeOlbqEkKfyDPJh6nInHwjLhimnF9yJVhaBy8+ZtbQVU=,iv:J44UtNhhIMaoQqLDi4u44+OwT6zclVgGHSbAwExNqXw=,tag:ceWtjzOZpZwUODivuvak2g==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: immich
+    namespace: proxy
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - kind: Rule
+          match: ENC[AES256_GCM,data:cJtJq2iRRxYp67qpv5kh5cxcJZmmDxHXsY4=,iv:y2ZqWJSbndGjBtMNWRfYbV34FWhY0K+50yYYcfzFby4=,tag:Q3r2OfCVsCov1Nh3BDbQPg==,type:str]
+          services:
+            - name: ENC[AES256_GCM,data:aaCiONm2,iv:7Nxprq18hf1KWKfB6RqWNh7eJjQ5Oxg/KPlMWetHFJY=,tag:26oBGyzGezxlgI1wof+8Dg==,type:str]
+              port: ENC[AES256_GCM,data:4E3LtNc=,iv:OOdjqV97niyKAgKCruCGtQbj4WXGyD7OoXAhnmjxaMs=,tag:PWwUTDy9yuFsiLBpGF35SA==,type:int]
+        - kind: Rule
+          match: ENC[AES256_GCM,data:cMBFIcKO8scpnB7ZHXJWWKbzHE4GtA==,iv:3WEzCFfNIdnQxuurKamS96GNC9ghenumJdssI3GHznY=,tag:wgp4u/iMq2IufHM/wLVCCQ==,type:str]
+          services:
+            - name: ENC[AES256_GCM,data:hj7OfxlN,iv:J71rcMeQX7z9IVLTMTpTEMwfwgxWFO/KpZGTievjW54=,tag:+4zCPtKFaq12LiXI6wHeKw==,type:str]
+              port: ENC[AES256_GCM,data:V6YQGoA=,iv:S6XnqKTnNNHrRA3LAINRSuL2vK3QCJIa4zsjaiWERg4=,tag:tIKnZRu6PAsiWn8i01ocHg==,type:int]
+    tls:
+        secretName: ENC[AES256_GCM,data:EJpYV7B2bZhWhpe4iSs=,iv:awBicF6AaVPLF66fMJ3HA9of4sjSjJXC54jfQB79vWc=,tag:m25zSggkkSsOQ4KSvK1TTg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBYK3QzbHlDRE5IclhiTlRo
+            SFpXQ0dWbmRiSkM2MVp1UzBLRzczblQxMzFvCk1ibXBmSTNpazdxL2srZzJRN09k
+            cU54Q3kxRmxodDJXWjRRV1VKblFmeFUKLS0tIDJ0YlVMcTUwQlkrTHNhN2dZQUpN
+            L0tXcTlhU210QmJObUFWMlh6a2dreW8Kw1AluGhvSuivPYp2B6sNbq+i8PeWDfqY
+            KpOmkp5UMhjMbCrgkEPZIlEfqkg3DvAkGOYkAUiy/GyFLCcYnNDx8A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T12:40:39Z"
+    mac: ENC[AES256_GCM,data:pf0oCSwvt5gLf1viSbNtSupkEo4k9z6h0uw7fdD+xF7iYxDpUdaFF+rzKi2rxLpb2mwfuRO7TZ5QpCyD2fwOvWh3Q3PrQBLG1zL0nBhrGGX9oR+EIP1q6lXSCPyWXq2EeOlbqEkKfyDPJh6nInHwjLhimnF9yJVhaBy8+ZtbQVU=,iv:J44UtNhhIMaoQqLDi4u44+OwT6zclVgGHSbAwExNqXw=,tag:ceWtjzOZpZwUODivuvak2g==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

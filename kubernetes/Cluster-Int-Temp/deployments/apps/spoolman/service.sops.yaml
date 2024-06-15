@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: spoolman
+    namespace: apps
+spec:
+    selector:
+        app: spoolman
+    ports:
+        - name: ENC[AES256_GCM,data:/llRFQ==,iv:ofQEl+ckiETs9XRBMxEMOPylBrKW+QEP2beAhGMjXec=,tag:nPSFFwgH4Jsse3iPY7Oyrw==,type:str]
+          port: ENC[AES256_GCM,data:VdntFA==,iv:wEhdD+0EuZpnUGipVC5YF08FjEcxV9MdtT2EWP37uhM=,tag:4gPGrEbm2+KDX40/U9FAKA==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBhODVsWnY4cUVCV1ZGQmRV
+            dHVNVmxRckRDUWwzOGxLL04vY29jWGdyakZnCnM5ZEU3anZyRDl0TnhHck1TbmF0
+            djQvS3BqMGRCdk5YVTVzb3RSSmFrQWcKLS0tIFhIZ05DS1dxaHRnTDM5cHlkL3Z3
+            dGRsRmJIRXFGZm9QUnRQdU9PcHhDT0EKDblP3U9uE/cA1jcTTlbWcpXGR4ncDJnZ
+            Z2G7ffDKNyOumxgLZ93HykqgKnQK2a1zDoWnbxxJJ6tRW/WND2rAlA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T00:40:54Z"
+    mac: ENC[AES256_GCM,data:5FYO5OZ5bcudfUP3cOuoJ5GCracDyoTJv3QXK37ABDPbp7R/dxO/O8fzcFehbq8t6oTaEEFwLenG6v2W9zEbP7lCvg9C6YmDBVrgteMIzYTAIlUG2Ws9BPNp1sFjEls7g5Y0ZAJSlaK3pMSamcj2/+qbbfsSqhPlLmY0YQU+ZDI=,iv:lxlWdGBjx/o69NMfn721qYepvzH87jdLJRkLoKABNJk=,tag:rbR7VUpjHPMYUVaGhyAAFQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

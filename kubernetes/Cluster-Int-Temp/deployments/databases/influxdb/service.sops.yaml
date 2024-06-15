@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: influxdb
+    namespace: databases
+spec:
+    selector:
+        app: influxdb
+    type: LoadBalancer
+    loadBalancerIP: ENC[AES256_GCM,data:BgeAbK/LmPAOKLE=,iv:7O37/2dbou5bRAbGa73lvsB7vNZXlwU/Sv48wJjsqPA=,tag:iaYaiscHNk0fs3kEmCqDnQ==,type:str]
+    ports:
+        - name: ENC[AES256_GCM,data:GyyVTkwEfRs=,iv:FEso7bzigkP38xwIV7qdJRF4sk9VnLTarcuHrPRnJck=,tag:Erlgz6L1khk4+/rO6E6vYw==,type:str]
+          port: ENC[AES256_GCM,data:RbLg+g==,iv:Gk8CdRu2K0bogxfoItjEd/PI5NHJooVOHOMI0O+fcF0=,tag:0FxR1vbD5KrATHwIOWWJ0g==,type:int]
+          targetPort: ENC[AES256_GCM,data:TBVBEA==,iv:T97MFTv8BH1Whhe9awqMiEjrnDLorcecTYNsF1rmgRM=,tag:B0U8AYyNC8W3JkIFRVcwrg==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBPcFBpT245UERNaFgwcW1s
+            djhCbUk3N0xoZk44bER6NU1mQXlzK1lndERZCnBCZEo1Mk4vd216NWtJc01ZUzh3
+            cFB4VnFuWVV2ZmwvbFdaQU8vK0ZXTWsKLS0tIEw2VzgxR1UwMmh6NXRuempiM2xl
+            bzl4MmpEbjRTR2s5RW9tNndhS2tCWVUKOgf6fA4nG5GSsIy75NdMRIG5CCAFBnY8
+            D8qtHUx4u4DuoTKigNgrXn2gfy8mNh9RQLfRA6LIj39E67yvzoaL2g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T12:53:15Z"
+    mac: ENC[AES256_GCM,data:j1XbtxZObRiQguovgaJoFI5Ef1L21mNtRL5KYlhRv26YUvj9k2AYsH4eLOa+/1l8h6c1A7DcmRlWDwG4u2HXd7lBjXFVS6c7feu09vy3xuf24RZNC8Gg6JeOaoeW5VAWaNCjPFNuiR6mqqW+rK6kV/+xqoM8+73+dJj7iajYcdk=,iv:XtRExBqXTh8pdu6g8eUkuDrBa+HMzobIPGUJvLgkplI=,tag:3FQM2R1q6P2/SBRmi6hnRw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: chronograf
+    namespace: databases
+spec:
+    selector:
+        app: chronograf
+    ports:
+        - name: ENC[AES256_GCM,data:vU2eUYk+QKrZgg==,iv:3MYjc2KA4a91CMHmk7h4rE9QVCx+9ufFu+vlUcsKJa8=,tag:mqgEmQPJxC4YhZwoX105mQ==,type:str]
+          port: ENC[AES256_GCM,data:mwrtZQ==,iv:OuWMvo0wwXDMAG6CE+r/FDdrFau5y3hL4d4wqXRcEos=,tag:3wOMM+b+1IfMwRliZ9Rinw==,type:int]
+          targetPort: ENC[AES256_GCM,data:L7b4vg==,iv:7KxOhJlNCd/ouM6G84V2ntpYYxVNCMig+StbIyhB3Es=,tag:UZnMZsyViOPyieU8byK3ag==,type:int]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBPcFBpT245UERNaFgwcW1s
+            djhCbUk3N0xoZk44bER6NU1mQXlzK1lndERZCnBCZEo1Mk4vd216NWtJc01ZUzh3
+            cFB4VnFuWVV2ZmwvbFdaQU8vK0ZXTWsKLS0tIEw2VzgxR1UwMmh6NXRuempiM2xl
+            bzl4MmpEbjRTR2s5RW9tNndhS2tCWVUKOgf6fA4nG5GSsIy75NdMRIG5CCAFBnY8
+            D8qtHUx4u4DuoTKigNgrXn2gfy8mNh9RQLfRA6LIj39E67yvzoaL2g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-15T12:53:15Z"
+    mac: ENC[AES256_GCM,data:j1XbtxZObRiQguovgaJoFI5Ef1L21mNtRL5KYlhRv26YUvj9k2AYsH4eLOa+/1l8h6c1A7DcmRlWDwG4u2HXd7lBjXFVS6c7feu09vy3xuf24RZNC8Gg6JeOaoeW5VAWaNCjPFNuiR6mqqW+rK6kV/+xqoM8+73+dJj7iajYcdk=,iv:XtRExBqXTh8pdu6g8eUkuDrBa+HMzobIPGUJvLgkplI=,tag:3FQM2R1q6P2/SBRmi6hnRw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

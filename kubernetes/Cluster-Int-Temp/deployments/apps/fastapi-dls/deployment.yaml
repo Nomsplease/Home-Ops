@@ -39,7 +39,7 @@ spec:
             claimName: fastapi-dls
         - name: cert-webserver
           secret:
-            secretName: noms-tv-tls
+            secretName: production-tls
             items:
             - key: tls.crt
               path: webserver.crt

@@ -6,3 +6,5 @@ resources:
 - service.sops.yaml
 - secrets.sops.yaml
 - ingress.sops.yaml
+- restic.sops.yaml
+- pvc-backup.yaml

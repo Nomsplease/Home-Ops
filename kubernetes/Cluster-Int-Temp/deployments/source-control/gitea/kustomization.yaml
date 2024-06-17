@@ -6,3 +6,5 @@ resources:
 - pvc.yaml
 - service.sops.yaml
 #- secrets.sops.yaml
+- restic.sops.yaml
+- pvc-backup.yaml

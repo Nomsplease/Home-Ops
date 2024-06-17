@@ -7,3 +7,4 @@ resources:
 - stakater.yaml
 - jetstack.yaml
 - emberstack.yaml
+- rook-ceph.yaml

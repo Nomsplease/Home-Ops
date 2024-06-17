@@ -6,3 +6,4 @@ resources:
 - node-feature-discovery.yaml
 - stakater.yaml
 - jetstack.yaml
+- emberstack.yaml

@@ -1,13 +1,14 @@
 apiVersion: v1
 kind: Secret
 metadata:
-    name: restic-config
+    name: restic-config-sonarr
+    namespace: media
 type: Opaque
 stringData:
-    RESTIC_REPOSITORY: ENC[AES256_GCM,data:A99nHJRj1qjQBQblW5zkRIMtg4sKzZwB0+G/nmYLFn0GYjD3y9CpPLBaJDztrYilrm8=,iv:FAyGoV3MQnHjU05iCGASBsLj7t3L4CLEp81CVRrHS2w=,tag:qOph4MFB4sUJPJ2aREsj9Q==,type:str]
-    RESTIC_PASSWORD: ENC[AES256_GCM,data:+ZlYBJbj0JsJ8fz90MFjnxdzKrwRqo5QmdAGnA==,iv:ZQZ+gd53Q8QwcCxNB0qHMH+mgV5fyIAFHrtBdg6qA9U=,tag:NEl7SyYujg096hPTV3twwg==,type:str]
-    AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:8woMXQc7WbemY1h5H4COjc1x834=,iv:9+5Q0kqg+ATlh3k6dWPImiaw6LY7P2rqyImQaL/oaeE=,tag:tn6zeDpSFOcNDp2BNp3PSA==,type:str]
-    AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:v5EqkfDV/vbbdrW0IE8I71WGsL8umb07OhD5c3505A2VfyUM+D+tNQ==,iv:39/BRgs46aCMfHexm/P4Slvoo78vP/tZrl+LYSma95k=,tag:uKuEvdtWMOOI65JLnp2kTA==,type:str]
+    RESTIC_REPOSITORY: ENC[AES256_GCM,data:AhhvvD4QFXtaEh5d+W8fZ7PV39/MNhG3h0e/usbOMKjVI+wNBKdedrmyL+XKdtfjU3A=,iv:c59P3SQ2bYHtn6ocQHkoYFgLfGQgHs14PmT0deQlcj8=,tag:Tt9GX/HFxLZccmzX9cEBqg==,type:str]
+    RESTIC_PASSWORD: ENC[AES256_GCM,data:sfKHmqKheJ815XMpQnhEONQ9T30PYLDNK+K3jA==,iv:AnacwUMrbJPpB/WqaQwgIwjBBOBFXXWMVBMVXkVsFQc=,tag:xz4dM+Oqes3cGKt07ZtDLw==,type:str]
+    AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:xd1QSh6RwuwuVL5eUsQtOAfbaDM=,iv:oxeoMwk56FgDSmKMdt+paw8TJvpYS/uKBnVfJ9Ky17U=,tag:KP+Qz1h4bpAtEJkTOBFJ+A==,type:str]
+    AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:s5iGQ14hQLwOeTwqNb2EwKTf/MVd7FNIX2cZz8A0jPVwXmMOSZv5xA==,iv:qxfAjzt+U+Ga/NgreyeuwKtRgfBiBfMGq9N+Q53Tq6c=,tag:Ww0psp1wCiCn3WJptACy9A==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -17,14 +18,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA2SHdhMzVlTnNXcmE0dGVq
-            Nm40SDRycU1DZFlDaXJHVGhIVG5TbitSYlhNCjM0ZVZPZlFKUldRQ3p4b25EUmZw
-            WGlmQXdiN21CaWhsVEVGZVZ5NHdyYjQKLS0tIFVuRWVuSDY1K1J5cHdqQ2d3Tmw0
-            a2xybmpsbzRPTkVkYVlYZDUzZDFZMmcKEjfwZ4VAtkhUvkY+0VZbE9pmBEpJlQKm
-            LkAcVWmc7UN+NgGfx18RS+okCKyG00RmqsWt9pOCXjyHg4TWUU/5uQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBvcVY5SjJmeEpKeEhoWW9m
+            QlRTQy9tTEhGYU5YZUpuMmR6M2dDU0NpcVg4Ckc5N29rb281cDd0aDArLys4bUxt
+            VWRLa2JtMzJDVC8vdUZHeVdoTW1FTlUKLS0tIGphNkJyZEdFUzA0U3pWUUJEUXRI
+            M1g2b2M0a1Rmd1M1cW5TVkorTkFTdlEKDkRI/CE3EKtSwKi5vdwBguNLdvFO2Ycx
+            iNiksSULipk2SU0GEnl1ZVOHLbX7PmL+YIdYG4Vw1WPA1stzqSzdlA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-17T20:26:48Z"
-    mac: ENC[AES256_GCM,data:6y1elMJe/enIQdq+PI+bFqUUnI5dCKiRxFz0Y8HWT5V0S2TWrY2w0i5cetOD4KXGhfGSpRd0W/CJQ70f5bRrsi0yWNEgnreHt5VgnfTUGiidpMucOeRAusWw+8U1M45bMfWBDMdWrSvrxmNWOQbdvABKammP6mzdgeQM0A1jZgQ=,iv:IG7k2AR3sEljIQXEHjhkvKABSJ8Hv/um5p0ll48bDRY=,tag:NDkUt8tmFOLbZtNDdVNTdg==,type:str]
+    lastmodified: "2024-06-17T20:54:55Z"
+    mac: ENC[AES256_GCM,data:mBIcCbpksTdNi0idBuse/PmhVuIATtP5TpIoOmq4nHbvck/Flk3itvelBxQWvdZut00ZxjykTCTBXyez5EUIf2OhT5RvzlNpVfA53Xh2ZiPD2s6B+8cPsW8DZo/CH0/d9OFNa+rxS9OWFEjgH0DxsrZ9ubjXi8zOYoPvvp/UrIc=,iv:lZsp7A/Jwygt7WEIBbPmiDAOvW0Z2Ja/Ns+FGfUnPTs=,tag:zRKvcuVrLiUIwrCS0UuiAA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
     version: 3.8.1

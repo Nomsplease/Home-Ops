@@ -8,3 +8,4 @@ resources:
 - jetstack.yaml
 - emberstack.yaml
 - rook-ceph.yaml
+- intel.yaml

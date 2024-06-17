@@ -25,6 +25,13 @@ spec:
           envFrom:
             - secretRef:
                 name: env-sonarr
+          resources:
+            limits:
+              memory: 250Mi
+              cpu: 250Mi
+            requests:
+              memory: 100Mi
+              cpu: 100m
           readinessProbe:
             failureThreshold: 5
             httpGet:

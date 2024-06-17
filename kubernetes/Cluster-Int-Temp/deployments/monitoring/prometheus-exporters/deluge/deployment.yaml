@@ -4,7 +4,7 @@ metadata:
   name: prometheus-exporter-deluge
   namespace: monitoring
 spec:
-  replicas: 1
+  replicas: 0
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:
@@ -23,3 +23,10 @@ spec:
           envFrom:
             - secretRef:
                 name: env-deluge
+          resources:
+            limits:
+              memory: 250Mi
+              cpu: 250Mi
+            requests:
+              memory: 100Mi
+              cpu: 100m

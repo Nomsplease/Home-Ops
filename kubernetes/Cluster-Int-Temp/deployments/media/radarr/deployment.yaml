@@ -23,6 +23,13 @@ spec:
           envFrom:
             - secretRef:
                 name: env-radarr
+          resources:
+            limits:
+              memory: 4Gi
+              cpu: 2000m
+            requests:
+              memory: 100Mi
+              cpu: 100m
           volumeMounts:
             - name: pvc
               mountPath: /config

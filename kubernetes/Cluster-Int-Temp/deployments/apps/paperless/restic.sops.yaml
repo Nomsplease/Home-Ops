@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: restic-config-paperless
+    namespace: apps
+type: Opaque
+stringData:
+    RESTIC_REPOSITORY: ENC[AES256_GCM,data:bBq3gA7rJWql24drTq0OweTJ9pxt8t9toUksIZKBw/m7wGJXfCely/3QZKm10Osst50RArA=,iv:h/yvBlOcnOK0DCU2fRe2+Ss3Rl6S5rqUWvwxdLprPDU=,tag:nN3XuTuN0T8vBhdBeZIGdA==,type:str]
+    RESTIC_PASSWORD: ENC[AES256_GCM,data:w4PhB8wRWZWvSW4Xww90cF27dXWARzbgEH1GOb6PjQ==,iv:hA9jI5jeBNTQgXhm2/NxxjbXWwcKFve9wIO8tYQ8Juc=,tag:JTqzianuTTllpo4DQJFalQ==,type:str]
+    AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:+RxkEoI6Lz5gWhtPoA/UZvHL5wM=,iv:jIjEUohSGp5AR0Zkz2JFwoh4h2Kfh6PG9BV8Kxu74Vc=,tag:TtuEDPSnnddzb6L9RqbSWQ==,type:str]
+    AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:LtO3kQCQLAaKE2DrFiAO0H1UBT8cZHh2zUbykNEMu+TrRXVIBthIBg==,iv:c3YqeCIsI6qhCbS2egTWA3HgsVuxztGksn39xjxU4GQ=,tag:DAsrxL2PD5cBXj2JKxkjTA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxaW5NcDJDcXBtVmZLL2o4
+            RmlEUm5BRnZTTGVtVVRMUFkvOUl1Y2FpaUhzClBYSWZPeWkrTzNHYndHR3c2amQ2
+            VmZidGYrSzR3UlVwWkxQMGdqU0RQWmsKLS0tIG85OWJiczc4Rm5ERVNHbEo2dlpH
+            aFNocWxOck51VFpna3dBTGRIOHQ4QlkKhub5rCNHbm7s7bKF6+spa1ZWpCV30vnx
+            NXkY8mWV4eM27Aa+vm1eoKNu+dY82b3Hvjv7SmKaSWoP6ki8F8GsFw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-17T23:30:25Z"
+    mac: ENC[AES256_GCM,data:0f1wXZCvEsQzrrLdBCa4TL6xQCNrTlxPE7NwkFmVVlyLxq/jP2r2d5cenS2ifb2jk3UL9gDuYjPJGMh2macyyJIrIGMpn8ZfoePy/upMIqWbECuRoSVlMRMV+/1ddUseuXKLTD6fV1uPBzifYWltSMHxdeSEEhf4rNbmmZnlWzc=,iv:T7g/zYq4MwzkEsUgIqpTVstfdpoP/cHEiYa1Rr0kX5s=,tag:n19xd7rarodTezkOPzB14A==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

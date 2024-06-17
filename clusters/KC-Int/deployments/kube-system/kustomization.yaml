@@ -7,3 +7,4 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./metrics-server/ks.yaml
+  - ./node-feature-discovery/ks.yaml

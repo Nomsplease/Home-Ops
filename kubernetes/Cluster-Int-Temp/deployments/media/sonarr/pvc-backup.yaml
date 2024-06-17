@@ -2,14 +2,15 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: sonarr-backup
+  name: backup-sonarr
+  namespace: media
 spec:
   sourcePVC: sonarr
   trigger:
     schedule: "0 */1 * * *"
   restic:
     pruneIntervalDays: 14
-    repository: restic-config
+    repository: restic-config-sonarr
     retain:
       hourly: 24
       daily: 7

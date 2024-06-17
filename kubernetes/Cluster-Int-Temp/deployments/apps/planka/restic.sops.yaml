@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: restic-config-planka
+    namespace: apps
+type: Opaque
+stringData:
+    RESTIC_REPOSITORY: ENC[AES256_GCM,data:mVIp6/nrFKQkgE7nC+xOwTweKDO5HlwaBgXLe7qpMUuYbXMCdNAVrsxJUnk94XfhbUk=,iv:A64oH9FTvaGRRg+mF7FcgsMjgo1s2HKX7WOTfdICygo=,tag:9/9KJsbc4OnalCz+khS/mg==,type:str]
+    RESTIC_PASSWORD: ENC[AES256_GCM,data:l81Pyu2ne/Cz4FjPdiENe53mURZS1Tggk74AHg==,iv:RWztBb2MU2TdctH8qv8kAbqj7jUOSiYDp82MgwZ/jq4=,tag:udNQ7uwDApFX2PQ0TcowhQ==,type:str]
+    AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:/PKEJvnVwvOJw6+zuWbmCaMklFI=,iv:AFh50wH7k2WAZ6qsGeP8RsswSkRCxfBJ9XUblA94Utc=,tag:b2L+lEi/ebTMyfYUiAcjaA==,type:str]
+    AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:OywApCUB4DiV7T4HiGhLQQIc0XyCuqeoLe0uxMDdD5DtFa69+ZTy5w==,iv:FG0hUvmUO8SUexdSQjWE7jUAw9xg2Xx1HmTqYVUWkGc=,tag:/Pq7nWKBCiKojrnunfJsDw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAvdkplY3FocjQ3VG4ybWxM
+            aHhveW5oOFYvaFlOUDdPY3FhbGdXbTd5bjFjCmkzTVpSanVFWE1OeEpNZWp1UElY
+            RWM1TGlGNDlaWll5dTFPenZ2Ukw2OUkKLS0tIHFIUmZxbGdaTFNuMnMyUFNwK1Fy
+            SXY1QnRPSjVsSUJ4ZmpaNWduYmU5Q1kK1zze6i2/WdIstKxrvRU9hbioDufSqE2p
+            GEa9Bav/msMMCShNCqMxdDCIItIPX+eeaT0bSEJcpW7Zreselu6zCA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-17T23:30:56Z"
+    mac: ENC[AES256_GCM,data:PDQ2OXMVQjrZVz/Wd5eY8vuktVuFPyFVP3ka2J3PXnDejLbPDLEXsl47/VQB2Ak83MwFjcN5JPsXZD8oH6cSM9NMmGcJiqY1OXSuL6Q6EDds008i3Fz3UraFMDHzl9FNMwEI3FqfYJrJ+Fhx2DffnrDUy7ml+9Pnk0dulVdjnbU=,iv:rxoTzburryqsgc8T2cFEDRKWG+jnMF5WHdOtjeq1OZ0=,tag:kfkmiQ8nOx5Mgr9KG1dHVQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

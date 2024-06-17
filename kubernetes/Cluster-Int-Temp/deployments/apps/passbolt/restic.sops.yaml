@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: restic-config-passbolt
+    namespace: apps
+type: Opaque
+stringData:
+    RESTIC_REPOSITORY: ENC[AES256_GCM,data:7xKZ45lR8E5tC3fc3umMmcnDdn0oGXtSYSboHLNSOZ9JsA1+TJcF1iH1iHWsG5QsWt3qTw==,iv:1eFeiSAVzoCwqjLHJ2GpmQGz2Wh6JKCWlMb3fNt4DQo=,tag:dLhZPkv0EbR1bb3jRO/B4A==,type:str]
+    RESTIC_PASSWORD: ENC[AES256_GCM,data:GHT9+CurzrsYp4/dOsrBPclriPKQYNn3VfVV23/+,iv:1gnvOZ7f5x6WmMRXJJVSgxT6NJ0PxIFaNWN/KE4p/kY=,tag:O7HXrmfQIkq9TPboGl3qvQ==,type:str]
+    AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:EPgKbD+/5ZX+8iEc4SL+Chhn3hQ=,iv:CTpPHlhVf/7Z1AZhtak5AiRorUIbODIU3AL9SUfueDk=,tag:qMrUDBv9VmgJy368tANvHA==,type:str]
+    AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:8G4Z99ZviSuvWedkNYKq9e2VZtLS2ONljHRDCu4DKwcmTTCHpPpWyA==,iv:xYP2x+fc/UA6WiJHeCo77t27qtYBeNthqKVFJns6R2Q=,tag:qzCY98svPO1uWFEjyISBHA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBqeFVwYjZWN2tjc1JpQlVy
+            bTAwaXFjSzg1WFM2dG4zWThuZ241d1dLcXdrCkpzTVViaC9ibGNyQnJDdE9uNjNu
+            RWJBVXZmcVNGcndGNERNVTdSUys2dmsKLS0tIDhvSkJCNGFSNWdmNFJVaXhPY2VG
+            UmVWT0cwOXR2UWRFSHRRQzNzMlRHcmMKyU66E5IKA9G5L9SScRIneMe9FTNYgCvU
+            DovJBNapGegXH7MayvgFUFQDQ6qR5vYKHHlR/9FiHs8w0qfLC/IJGA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-17T23:30:42Z"
+    mac: ENC[AES256_GCM,data:ATQ8PLx5wNg9bTB6ICX52J1g+VSAYL/NJ641FGeJSTlUfG30Xbeebja4Pm7pKP5imSP582BJqn7+Bkc9YWXYL7CYsamMw9FEBh6S2iQxIRu5tHFOgdOomTF5U5xlq2nxMZZO0R7/Sh3SGHHnGZ0TXlBsjPhon8IRdYccWwXc4gs=,iv:K53HkrQXMnidD8ghCjHDjmaywXh3HBY1vYD1/DdqcPk=,tag:UmATrEqECTIx+oMvrn0Tmg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

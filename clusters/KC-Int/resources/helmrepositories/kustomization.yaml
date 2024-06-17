@@ -9,3 +9,5 @@ resources:
 - emberstack.yaml
 - rook-ceph.yaml
 - intel.yaml
+- backube.yaml
+- piraeus.yaml

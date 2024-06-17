@@ -1,0 +1,20 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: backup-overseerr
+  namespace: media
+spec:
+  sourcePVC: overseerr
+  trigger:
+    schedule: "0 */1 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: restic-config-overseerr
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 4
+      monthly: 2
+      yearly: 1
+    copyMethod: Clone

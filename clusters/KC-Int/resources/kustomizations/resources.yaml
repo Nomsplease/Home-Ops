@@ -9,7 +9,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: gitrepo-home-ops
+    name: home-ops
   decryption:
     provider: sops
     secretRef:

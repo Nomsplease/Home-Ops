@@ -25,6 +25,6 @@ spec:
   values:
     connect:
       api:
-        httpPort: 80
+        httpPort: 8080
       credentialsName: onepassword-secrets
       credentialsKey: 1password-credentials.json

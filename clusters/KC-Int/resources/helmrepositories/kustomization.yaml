@@ -11,3 +11,5 @@ resources:
 - intel.yaml
 - backube.yaml
 - piraeus.yaml
+- bjw-s.yaml
+- external-secrets.yaml

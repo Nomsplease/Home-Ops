@@ -18,4 +18,4 @@ spec:
       monthly: 2
       yearly: 1
     copyMethod: Clone
-    storageClassName: ceph-filesystem
+    storageClassName: ceph-block

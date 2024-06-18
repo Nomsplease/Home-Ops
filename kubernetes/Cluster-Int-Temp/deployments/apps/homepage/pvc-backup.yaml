@@ -17,6 +17,5 @@ spec:
       weekly: 4
       monthly: 2
       yearly: 1
-    copyMethod: Snapshot
-    volumeSnapshotClassName: csi-ceph-filesystem
+    copyMethod: clone
     storageClassName: ceph-filesystem

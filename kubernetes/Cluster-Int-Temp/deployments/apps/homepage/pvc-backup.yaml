@@ -17,5 +17,5 @@ spec:
       weekly: 4
       monthly: 2
       yearly: 1
-    copyMethod: clone
+    copyMethod: Clone
     storageClassName: ceph-filesystem

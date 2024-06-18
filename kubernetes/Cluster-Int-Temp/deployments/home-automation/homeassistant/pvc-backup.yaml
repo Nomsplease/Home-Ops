@@ -19,3 +19,4 @@ spec:
       yearly: 1
     copyMethod: Snapshot
     volumeSnapshotClassName: csi-ceph-filesystem
+    storageClassName: ceph-filesystem

@@ -13,3 +13,4 @@ resources:
 - piraeus.yaml
 - bjw-s.yaml
 - external-secrets.yaml
+- 1password.yaml

@@ -25,6 +25,8 @@ spec:
     - name: rook-ceph-operator
       namespace: rook-ceph
   values:
+    toolbox:
+      enabled: true
     configOverride: |
       [global]
       bdev_enable_discard = true

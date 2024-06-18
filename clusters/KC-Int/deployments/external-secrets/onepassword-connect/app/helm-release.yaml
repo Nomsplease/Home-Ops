@@ -24,7 +24,5 @@ spec:
       retries: 3
   values:
     connect:
-      api:
-        httpPort: 8080
       credentialsName: onepassword-secrets
       credentialsKey: 1password-credentials.json

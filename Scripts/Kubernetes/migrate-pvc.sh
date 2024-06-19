@@ -1,2 +1,2 @@
 #!/bin/bash
-pv-migrate --source-kubeconfig ~/.kube/config --source-context KC --source-namespace $1 --source $2 --dest-kubeconfig ~/.kube/config --dest-context admin@Cluster-Int-Rook --dest-namespace $1 --dest-delete-extraneous-files --dest $2
+pv-migrate --source-kubeconfig ~/.kube/config --source-context admin@Cluster-Int-Rook --source-namespace $1 --source $2 --dest-kubeconfig ~/.kube/config --dest-context KC --dest-namespace $1 --dest-delete-extraneous-files --dest $2

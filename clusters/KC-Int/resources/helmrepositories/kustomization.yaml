@@ -15,3 +15,4 @@ resources:
 - external-secrets.yaml
 - 1password.yaml
 - traefik.yaml
+- metallb.yaml

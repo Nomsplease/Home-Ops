@@ -11,3 +11,4 @@ resources:
   - ./radarr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./tautulli/ks.yaml
+  - ./kometa/ks.yaml

@@ -6,6 +6,3 @@ resources:
   - ./deluge/
   - ./syncthing/
   - ./sabnzbd/
-  - ./radarr
-  - ./sonarr
-  - ./prowlarr

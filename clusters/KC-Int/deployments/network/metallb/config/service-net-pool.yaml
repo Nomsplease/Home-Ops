@@ -5,5 +5,5 @@ metadata:
     namespace: network
 spec:
     addresses:
-        - 172.16.2.150-172.16.2.200
+        - 172.16.2.25-172.16.2.50
     autoAssign: true

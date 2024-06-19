@@ -1,0 +1,38 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: radarr
+    namespace: media
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:aiqKxXWRCkT4gJ+a5Zqoy10LVkq3i7wUGpc=,iv:ejIWHT7jmYK7haoL7gbnwHUV2OqGnvndEy4Exlys8gs=,tag:fCg1vcEWb0EvSTEKM15RwQ==,type:str]
+          kind: Rule
+          services:
+            - name: radarr
+              port: 7878
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBtbmVsYUc2Nll0aGtPTm9V
+            WWo2ci9DVTBMdGxIMlZBQkx6S1B4M3RjbGxVCjE3ZG5sTng4MTYrczB4aStxZXcy
+            MDhCZkRxTVVMbWhDOVBsclRkTlpUYmMKLS0tIHVqcFBZVlJYVWtjQTNtVmp3OEhP
+            clRMbVNZNFQveVFZL3FXSHV1YzZERWsKW4SUd2xUfpZCQIAJd5ZkGXoZCSvV42ns
+            tZ6t9FNgMQbADPbL+Rqhc87r0NqyaiaJOa+6unWBFMMhyU3WTaz0WA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-19T20:02:35Z"
+    mac: ENC[AES256_GCM,data:1xbx6sJQUx2+MuOs81jVWlJJ4FgKpnLxBYbNnTCAMw7kJSg/5Nq8Gg0gR+HJMM6+cp5t5Y9tgqvT00IN5AognmGNJ1nT+GkkYJEfesJy8aNYm4zrslrf2JEe4eDWeLZf2hJkH5LfrH+DYtAlhMlAZKHdUG6Bbwj8wtHoKmWbaCk=,iv:sORagM+4w3ytpmyL8fRJ9lsC5sF/44HtdyMT7e1L5as=,tag:YJ7RtYFfu+9pwOhq+3dPGw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

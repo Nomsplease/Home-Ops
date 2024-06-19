@@ -20,10 +20,6 @@ spec:
       containers:
         - name: sabnzbd
           image: 'lscr.io/linuxserver/sabnzbd:4.3.2'
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
           resources:
             limits:
               memory: 32Gi

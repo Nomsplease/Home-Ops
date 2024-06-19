@@ -8,4 +8,5 @@ resources:
   # Flux-Kustomizations
   - ./cloudflare-ddns/ks.yaml
   - ./cloudflared/ks.yaml
+  - ./metallb/ks.yaml
   #- ./traefik/ks.yaml

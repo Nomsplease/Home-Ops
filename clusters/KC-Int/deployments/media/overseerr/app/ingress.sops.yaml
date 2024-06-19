@@ -1,0 +1,36 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: overseerr
+    namespace: media
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:l/Rcgfx1D9qVdQCs+YgbSjJxvSWU0gk=,iv:6JKbmBX9qeKt2OZIdW/Ij5cFWgKrokqK9IgzsiBZ2kA=,tag:anW5MuqXAN12QFSUQZvJ1w==,type:str]
+          kind: Rule
+          services:
+            - name: overseerr
+              port: 5055
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBZMU5sVG1Kb1ZXWDByMUZC
+            Sks4SFNRaHp5MVk5YjhXWi9lV0kxdHZRQ2xnCm5pMGxlK1ZqRGc3K3h2WGFVMVNv
+            Rkw0TDkwRUtSVXJiV3BqRXRRNnRRMWMKLS0tIFBuUmozSFBPMlZnTkJuWERkcC9n
+            NHZXaG5ZRGJ0NGE2T2dxT285V2EwR2MKNkig6QHC4YEGoXfJFPgxzczAwfpbQr4D
+            PILFosMYWYI1AD7aKYAy+CoxbVI4vPtwnV5YLP+/WKyk6cjrVdBt3g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-19T16:41:48Z"
+    mac: ENC[AES256_GCM,data:On/7xucB9f2NKcoYr3d3WCbNxDUmK3YhTEnEj6KqbZN96PTO/QdeyDm5ZT1e52xGUj+7W8ikMwIg3JpsOWPx+tdeSVkNl5ZG+VwMzaLTcs1KbINlDxggVP2A4ZRblfk6sqzDs8uPNkewxV7yCX10w0389krPT/z6SdzR23Np43U=,iv:WqB1bG5mZUCaQO5W1JgVI7+Opjz65k+Y2ccI8Ss1xlw=,tag:bULB2+q45u4/izqR62Tymg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

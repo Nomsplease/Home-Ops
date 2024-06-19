@@ -22,4 +22,4 @@ spec:
                   image: oznu/cloudflare-ddns@sha256:19bd73d8aea9641dc329ec18ae693b2b9c33ff7cdc007f368266ce584446f995
                   envFrom:
                     - secretRef:
-                        name: env-cloudflare-ddns
+                        name: secret-cloudflare-ddns-env

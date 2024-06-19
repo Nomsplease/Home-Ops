@@ -4,10 +4,6 @@ metadata:
   name: sabnzbd
   namespace: downloads
 spec:
-  securityContext:
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
   replicas: 1
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
@@ -24,6 +20,10 @@ spec:
       containers:
         - name: sabnzbd
           image: 'lscr.io/linuxserver/sabnzbd:4.3.2'
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
           resources:
             limits:
               memory: 32Gi

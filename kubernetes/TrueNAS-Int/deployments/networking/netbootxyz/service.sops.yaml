@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: netbootxyz-web
+    namespace: networking
+spec:
+    selector:
+        app: netbootxyz
+    ports:
+        - port: ENC[AES256_GCM,data:BWA=,iv:x3WDi4nCaa7xXN3GlXHlHX+VU8TIMAQZQ2XC97m8Dw0=,tag:syvJM/O7vKi0rHxspZ+NAg==,type:int]
+          name: ENC[AES256_GCM,data:GKcQNjgn,iv:deSaQ2K57XIkqLKehQBnkDw3XD3g9I+sjSd56eEVcgA=,tag:XDL4nzoiHMfMNzXWcdEljw==,type:str]
+        - port: ENC[AES256_GCM,data:7/dScw==,iv:wJjRmFv6YEEQCGTslGrJOy4yt0snbLHNa4/Ev1qJswQ=,tag:jyrSHMk0GaYXoHI61M1AAw==,type:int]
+          name: ENC[AES256_GCM,data:uvS6q4o=,iv:TpsN3muF4tEIGD+KhzahNMefifRgboqRtQlXHIKTVXA=,tag:Vm1dthukI6i+WcBUzunmPw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSArS1FjVVU3ekdCYnVhWWhl
+            VW1USkJJWTFwNmdySyt1TlJwOWhveDgvYjNRCktRTndkUnlEZ3pERDFyYk1EeEZM
+            WnJpY2lvSG5DcUx6ejdzdXBHR1l6TlEKLS0tIGF6cExMOGhuT24zS29zbWRLVVpV
+            b3lPcVdQYkdwRTNxMTJCSFNtaVBJWFUKW919dv0RA5uR9TKWtOF2rq5v9QzcYemS
+            AN1lwjugsGpQJmkUk6UlnXOtpAtco1vlDM2c4XyMDQJUzI8nV/mwPA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-19T22:18:59Z"
+    mac: ENC[AES256_GCM,data:GdQW6AiFjL+5+WxHpvIi8rctysZlA4IUrIyqESgn0n/Ufy6DVpNi6g3uvuTvN9DpB3V61MFDqvfAvhKwVQbiDRRCDjLqU+FWpP0AKkzljhDkUts2BazkhLUDnql2taV9F6F6Sh9oOK2nffn/qkjbozml1dioJqO8N9dVwHxVF2E=,iv:C96HIFr6eHf8WUHklPid7dor/BySfzUEoc91awY7BLw=,tag:W6FQCX27uYvXN/PQyg2dLg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: netbootxyz-tftp
+    namespace: networking
+spec:
+    selector:
+        app: netbootxyz
+    ports:
+        - name: ENC[AES256_GCM,data:zricPQ==,iv:QnGCcsg6SPuPALd0iXHOsTnR3lTYYmzhSlu69kgBbBE=,tag:xD74BUGvyus91oHyyNQTOg==,type:str]
+          protocol: ENC[AES256_GCM,data:E48m,iv:4u/3YMBi73kHS0Yk2yvFQXuUy32WSitQwag/GXbUlvw=,tag:pvyMc41njF7g6EOHIwwZEA==,type:str]
+          port: ENC[AES256_GCM,data:A8M=,iv:R0mhW3O2YloXZISpyIXz/jCDyyG6sDk/SKtqaaQkz14=,tag:7nbvhgWnko97n7+LZ07hHA==,type:int]
+          targetPort: ENC[AES256_GCM,data:A58=,iv:afpM9MalOfOK4/obs2/CZTKMui9n7AGuSsTax/vVHoE=,tag:rXPlS+nSw67S1DygIEw7VQ==,type:int]
+    type: LoadBalancer
+    loadBalancerIP: ENC[AES256_GCM,data:c+erfIdGzoOZIA==,iv:Wj6cnc0avkwEjAASdbui3bkAynZFJJj/kcW3F1ydufM=,tag:LjtwDcuGFxQqkJf+VTs2Pg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSArS1FjVVU3ekdCYnVhWWhl
+            VW1USkJJWTFwNmdySyt1TlJwOWhveDgvYjNRCktRTndkUnlEZ3pERDFyYk1EeEZM
+            WnJpY2lvSG5DcUx6ejdzdXBHR1l6TlEKLS0tIGF6cExMOGhuT24zS29zbWRLVVpV
+            b3lPcVdQYkdwRTNxMTJCSFNtaVBJWFUKW919dv0RA5uR9TKWtOF2rq5v9QzcYemS
+            AN1lwjugsGpQJmkUk6UlnXOtpAtco1vlDM2c4XyMDQJUzI8nV/mwPA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-19T22:18:59Z"
+    mac: ENC[AES256_GCM,data:GdQW6AiFjL+5+WxHpvIi8rctysZlA4IUrIyqESgn0n/Ufy6DVpNi6g3uvuTvN9DpB3V61MFDqvfAvhKwVQbiDRRCDjLqU+FWpP0AKkzljhDkUts2BazkhLUDnql2taV9F6F6Sh9oOK2nffn/qkjbozml1dioJqO8N9dVwHxVF2E=,iv:C96HIFr6eHf8WUHklPid7dor/BySfzUEoc91awY7BLw=,tag:W6FQCX27uYvXN/PQyg2dLg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

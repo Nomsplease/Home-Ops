@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netbootxyz
+  namespace: networking
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: netbootxyz
+  template:
+    metadata:
+      labels:
+        app: netbootxyz
+    spec:
+      containers:
+      - name: netbootxyz
+        image: ghcr.io/netbootxyz/netbootxyz:latest
+        env:
+          - name: PUID
+            value: '568'
+          - name: PGID
+            value: '568'
+          - name: TZ
+            value: America/New_York
+        volumeMounts:
+          - name: config
+            mountPath: /config
+          - name: assets
+            mountPath: /assets
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: /mnt/FastPool/AppData/Netbootxyz/Config
+        - name: assets
+          persistentVolumeClaim:
+            claimName: /mnt/FastPool/AppData/Netbootxyz/Assets

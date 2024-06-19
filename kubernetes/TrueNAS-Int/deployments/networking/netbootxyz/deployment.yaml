@@ -35,7 +35,7 @@ spec:
       volumes:
         - name: config
           persistentVolumeClaim:
-            claimName: /mnt/FastPool/AppData/Netbootxyz/Config
+            claimName: /data/FastPool/AppData/Netbootxyz/Config
         - name: assets
           persistentVolumeClaim:
-            claimName: /mnt/FastPool/AppData/Netbootxyz/Assets
+            claimName: /data/FastPool/AppData/Netbootxyz/Assets

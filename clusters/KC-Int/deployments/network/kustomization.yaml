@@ -7,4 +7,5 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./cloudflare-ddns/ks.yaml
+  - ./cloudflared/ks.yaml
   - ./traefik/ks.yaml

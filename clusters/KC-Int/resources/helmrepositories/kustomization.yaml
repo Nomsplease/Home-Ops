@@ -14,3 +14,4 @@ resources:
 - bjw-s.yaml
 - external-secrets.yaml
 - 1password.yaml
+- traefik.yaml

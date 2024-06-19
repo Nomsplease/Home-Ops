@@ -34,8 +34,8 @@ spec:
             mountPath: /assets
       volumes:
         - name: config
-          persistentVolumeClaim:
-            claimName: /data/FastPool/AppData/Netbootxyz/Config
+          hostPath:
+            path: /data/FastPool/AppData/Netbootxyz/Config
         - name: assets
-          persistentVolumeClaim:
-            claimName: /data/FastPool/AppData/Netbootxyz/Assets
+          hostPath:
+            path: /data/FastPool/AppData/Netbootxyz/Assets

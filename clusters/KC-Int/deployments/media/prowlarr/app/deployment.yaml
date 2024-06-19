@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+  namespace: media
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: prowlarr
+  template:
+    metadata:
+      labels:
+        app: prowlarr
+    spec:
+      containers:
+        - name: prowlarr
+          image: lscr.io/linuxserver/prowlarr:1.12.2
+          env:
+            - name: TZ
+              value: America/New_York
+          volumeMounts:
+            - name: pvc
+              mountPath: /config
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: prowlarr

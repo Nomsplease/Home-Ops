@@ -1,0 +1,38 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: prowlarr
+    namespace: media
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:ImCoOpEpcl9oiYAnkwv7JchDcTZGTp80gnjdJg==,iv:E4tHgSn2zWkL7EPIxqeLO/aH3Ds2q/ZCjRbex7PM/kw=,tag:QLzgsZRJn1CHmpHhCykrFg==,type:str]
+          kind: Rule
+          services:
+            - name: prowlarr
+              port: 9696
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiVklHQW5PdG5BLzFKT0o3
+            L3luMnY1YlRIaUNHNjBmZnRtSmQ3M0MyUUM0CnBWRmdRNURWOU4rMXB0RTZmK084
+            cVcvZ1ZwT3ZBZDFsMmdpcW1TbmxQRkkKLS0tIHFXejhrTEZadUQ1UWRIaG9KdU9Z
+            UHFkbElxRG9Xa0U0QXJieTVJWC81U0kKl+wQH3jXklWWvNGyd2AqZO0XKQfiCKvl
+            9ySp9CKRlfc9qXThePbdJy+oXRarbzHuWVjbmMjXIa0e+QJwbUGQeA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-19T20:07:11Z"
+    mac: ENC[AES256_GCM,data:HyyD6bmoM7aME50LhnnbTAzKmOrw4byu7IQtMdUZ+ouqXLWixBHyeMYzq+GxWllucPD9nR0LdYjmfbDS0T1himXAB9hMM0QoKK6hhGc0VjnN0L5nL0zJ+55d60DVQsnb6u3fVH2i6m3Cya9xyKhKjSNvnwPWczApz7SijbCzGmI=,iv:Mt6HTgBfCrBkEJbl/J7udhAT/QKV3DmYlYP87pn0FEc=,tag:zTPSCSyHK11Y1FswPzcYeg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

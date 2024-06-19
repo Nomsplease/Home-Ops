@@ -12,7 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
-  path: ./clusters/KC-Int/deployments/network/cloudflared/app
+  path: ./clusters/KC-Int/deployments/network/cloudflare-ddns/app
   prune: false
   sourceRef:
     kind: GitRepository

@@ -1,0 +1,9 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+    name: internal-net
+    namespace: network
+spec:
+    addresses:
+        - 172.16.1.0/24
+    autoAssign: false

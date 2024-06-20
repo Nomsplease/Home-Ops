@@ -1,0 +1,37 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: syncthing
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:MwXq3RyC9DTD8Mg2szTHp8uscUDUVhvKZGZ8Z20=,iv:o4M716DOqPKttjO5D1f1QewswTIlKF4FiDsTE6kvT40=,tag:7Sntu2BHbWsIm/loYcpQ3Q==,type:str]
+          kind: Rule
+          services:
+            - name: syncthing
+              port: 8384
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNVlBMYUVZaHhkZnUwT2R4
+            U295bWp5NW11N25GNk84ekR3c2Z2aWRBMDBFClhZRy9BZlA3VjBtQlE3NWxoUm50
+            UXdUcEZCVEd0aFV6UnlhTWdSdnhCOXcKLS0tIEh0WEtsNk42YUpEU2JwNEoyZjRB
+            bHB5RVBRcnFIdE1uSEhWUWxha2Z0SmMK3s4m2IUrPFMyfQ9KJCnxxKaCB+7ue/4c
+            Zucz1OGpiTPzBFsOOdnIw519i9ZHhPp4eNyYlNNvcsakGHZVPi6uJw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-20T18:26:05Z"
+    mac: ENC[AES256_GCM,data:c9t++gsG1uXz7t5veXT/YvL1918opnOPDwN0M2Ps8sfRbdau8vAsJLTLMRAAR7wrxAFiMuI6QHsfaANT/HWdleeR7nlv5pxizJt7ETdjTRgWZ3uh5EkBQhgZpYSHp8tyb+Id+uRfUCwiXw2GhrCHs90TvwNr7DSaow8uDw0ExTs=,iv:0YxwUBOpfjkfuLKnz69hrJEvmYhnELc7MsRVpsOC86Y=,tag:TwqjeuWU4G3IHjR/D/Ob5Q==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

@@ -33,13 +33,13 @@ spec:
           volumeMounts:
             - name: appdata
               mountPath: /var/syncthing
-              subPath: /SyncThing/Config
+              subPath: SyncThing/Config
             - name: bigpool-appdata
               mountPath: /Data-BigPool
-              subPath: /SyncThing/Data
+              subPath: SyncThing/Data
             - name: bigpool-appdata
               mountPath: /Data-FastPool
-              subPath: /SyncThing/Data
+              subPath: SyncThing/Data
       volumes:
         - name: fastpool-appdata
           nfs:

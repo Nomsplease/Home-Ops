@@ -8,4 +8,4 @@ resources:
   # Flux-Kustomizations
   - ./cilium/ks.yaml
   #- ./metallb/ks.yaml
-  #- ./traefik/ks.yaml
+  - ./traefik/ks.yaml

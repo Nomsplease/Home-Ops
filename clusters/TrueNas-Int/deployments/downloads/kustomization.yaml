@@ -6,6 +6,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./deluge/ks.yaml
-  - ./sabnzbd/ks.yaml
-  - ./syncthing/ks.yaml
+  #- ./deluge/ks.yaml
+  #- ./sabnzbd/ks.yaml
+  #- ./syncthing/ks.yaml

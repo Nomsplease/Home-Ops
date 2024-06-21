@@ -6,6 +6,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  #- ./metallb/ks.yaml
-  - ./cilium/ks.yaml
-  #- ./traefik/ks.yaml
+  #- ./cilium/ks.yaml
+  - ./metallb/ks.yaml
+  - ./traefik/ks.yaml

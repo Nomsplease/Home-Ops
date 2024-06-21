@@ -24,6 +24,8 @@ spec:
       retries: 3
   values:
     kubeProxyReplacement: "true"
+    l2announcements:
+      enabled: true
     securityContext:
       capabilities:
         ciliumAgent:

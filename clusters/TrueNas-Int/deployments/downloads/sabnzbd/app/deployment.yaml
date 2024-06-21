@@ -33,7 +33,7 @@ spec:
           volumeMounts:
             - name: appdata
               mountPath: /config
-              subPath: /Sabnzbd
+              subPath: Sabnzbd
             - name: downloads
               mountPath: /Downloads
             - name: media

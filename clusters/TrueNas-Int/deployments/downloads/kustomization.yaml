@@ -8,4 +8,4 @@ resources:
   # Flux-Kustomizations
   - ./deluge/ks.yaml
   - ./sabnzbd/ks.yaml
-  - ./syncthing/ks.yaml
+  #- ./syncthing/ks.yaml

@@ -7,4 +7,5 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./metallb/ks.yaml
+  - ./multus/ks.yaml
   - ./traefik/ks.yaml

@@ -31,19 +31,25 @@ spec:
             - name: TZ
               value: America/New_York
           volumeMounts:
-            - name: config
+            - name: appdata
               mountPath: /var/syncthing
-            - name: data-bigpool
+              subPath: /SyncThing/Config
+            - name: bigpool-appdata
               mountPath: /Data-BigPool
-            - name: data-fastpool
+              subPath: /SyncThing/Data
+            - name: bigpool-appdata
               mountPath: /Data-FastPool
+              subPath: /SyncThing/Data
       volumes:
-        - name: config
-          hostPath:
-            path: /data/FastPool/AppData/SyncThing/Config
-        - name: data-bigpool
-          hostPath:
-            path: /data/BigPool/AppData/SyncThing/Data
-        - name: data-fastpool
-          hostPath:
-            path: /data/FastPool/AppData/SyncThing/Data
+        - name: fastpool-appdata
+          nfs:
+            server: 172.16.1.10
+            path: /mnt/FastPool/AppData
+        - name: bigpool-appdata
+          nfs:
+            server: 172.16.1.10
+            path: /mnt/BigPool/AppData
+        - name: media
+          nfs:
+            server: 172.16.1.10
+            path: /mnt/BigPool/Media

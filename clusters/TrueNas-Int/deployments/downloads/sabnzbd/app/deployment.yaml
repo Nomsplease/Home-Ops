@@ -21,7 +21,7 @@ spec:
           image: 'lscr.io/linuxserver/sabnzbd:4.3.2'
           resources:
             limits:
-              memory: 32Gi
+              memory: 16Gi
               cpu: '8'
           env:
             - name: PUID
@@ -31,19 +31,23 @@ spec:
             - name: TZ
               value: America/New_York
           volumeMounts:
-            - name: config
+            - name: appdata
               mountPath: /config
+              subPath: /Sabnzbd
             - name: downloads
               mountPath: /Downloads
             - name: media
               mountPath: /BigPoolMedia
       volumes:
-        - name: config
-          hostPath:
-            path: /data/FastPool/AppData/Sabnzbd
+        - name: appdata
+          nfs:
+            server: 172.16.1.10
+            path: /mnt/FastPool/AppData
         - name: downloads
-          hostPath:
-            path: /data/FastPool/Downloads
+          nfs:
+            server: 172.16.1.10
+            path: /mnt/FastPool/Downloads
         - name: media
-          hostPath:
-            path: /data/BigPool/Media
+          nfs:
+            server: 172.16.1.10
+            path: /mnt/BigPool/Media

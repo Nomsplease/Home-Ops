@@ -37,10 +37,6 @@ spec:
               subPath: Deluge/gluetun
         - name: deluge
           image: 'lscr.io/linuxserver/deluge:2.1.1-r9-ls266'
-          resources:
-            limits:
-              memory: 16Gi
-              cpu: '8'
           envFrom:
             - secretRef:
                 name: deluge-env

@@ -43,7 +43,8 @@ spec:
           - SYS_ADMIN
           - SYS_RESOURCE
     cgroup:
-      autoMount: false
+      autoMount: 
+        enabled: false
       hostRoot: /sys/fs/cgroup
     k8sServiceHost: localhost
     k8sServicePort: 7445

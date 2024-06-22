@@ -1,0 +1,20 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: backup-spoolman
+  namespace: apps
+spec:
+  sourcePVC: spoolman
+  trigger:
+    schedule: "0 */1 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: restic-config-spoolman
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 4
+      monthly: 2
+      yearly: 1
+    copyMethod: Clone

@@ -16,3 +16,4 @@ resources:
 - 1password.yaml
 - traefik.yaml
 - metallb.yaml
+- planka.yaml

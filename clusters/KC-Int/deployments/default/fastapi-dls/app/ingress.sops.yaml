@@ -1,0 +1,37 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: fastapi-dls
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:Ipujhy5jyN9SByqeUMG+QNanF88mNsFq13TNBH8Akw==,iv:2xxF4pN/x9lfhYA9KL3jUIlZIL5QabB/9YeYOazfgkU=,tag:ddee/hBjHoUJyn1BDQA1Pw==,type:str]
+          kind: Rule
+          services:
+            - name: fastapi-dls
+              port: 443
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMek9JSTZ6TDVkVzNmMER1
+            Vk9tbVdJb2lNa0wyOWpTVmZVNFNQUXRyMUJ3CnY4OWt6YTExczZrOGVjUm5WeWxz
+            cjNFTW9DdWdWcUQ0SFJ4eWR6bEdvUHcKLS0tIEJWVVgzVW1jdnNicXlxQ3piS3dv
+            Rm52dVZobWZ4Y1dIOUNjYnErNVF2UUkKGoB+0hpSABnRg+YZlo/RnxfsP54HHuEq
+            xoITc+/4rSn5fCOLTUP4r/1D4RSQMU7ePk1uxxCde8evJ1lYD5Z0zw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-22T18:05:24Z"
+    mac: ENC[AES256_GCM,data:psZD+Rq68qoxh368YfiypFHymzbIvdU+ozWfVCEzsyzBqHRjZwp5PvjMxqFhNknVFAZ/U0UVM30Op6W23TfbEqIiMiF5ZJUqC4NyUkw6baW4xQzrSAYZ8elG1uFFM9RJMlu9lXd8XfDgc8NgmlZ2BsWLX5Ym3CldTQ9Q2LCRgEQ=,iv:JUg8an2qJf0KHTeJSISkIFVY2VBH/GskDmUkXGs5tiQ=,tag:UPE1kHYuHVmi9neW72uDdw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

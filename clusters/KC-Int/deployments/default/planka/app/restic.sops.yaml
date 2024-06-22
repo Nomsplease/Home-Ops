@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: restic-config-planka
+    namespace: apps
+type: Opaque
+stringData:
+    RESTIC_REPOSITORY: ENC[AES256_GCM,data:DZlKq34J5dkSuTR6pn8ThSa0f6I12A/1fmuSmh8z3nu1k3S+oIesdfai8BUbIAL7m4s=,iv:gXqEL2rc/mPzlxjBA2OaElH3LjLtq9Cy/2X0TN9Igo4=,tag:SfCQ+BREjyZyDWP7iaL7zg==,type:str]
+    RESTIC_PASSWORD: ENC[AES256_GCM,data:v1dMmvKH8DRaub+th8VLFKWEVvVeTjbtsR3F/w==,iv:OtcJurijXGz3rWfK4fcKM4k/DJtpXwwz2DHpZJe8EDo=,tag:89JIzZAQnEj80ccGvMOhGQ==,type:str]
+    AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:J21vxHNu9h7Zfu9I/tdxGi6m5p8=,iv:5SugLkYawAak5wbRIQzBqOfXlaDyQXkE1T57gItSlXQ=,tag:xnc2OWBiV01bWpbKFscsVg==,type:str]
+    AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:oowMIXz3vXJNOVcFnJVFBB9ufnsZHZBgAgu9C5cR7uDNhukAKT0r2A==,iv:2SejFV7X55nieLxJs5dwLNT4PwXAw3O2RQ+ZwgApYF4=,tag:XVhisLGsnWVQAXHAlvfN9A==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBGV0xtbkQ5QzNrSEV1RDhK
+            Wk9lN25nRkpqbCtNTE54ODlnVngvN3c4YVh3CkpFZnZIcTVzU09waTFmVHFLNmZ4
+            bmF5N1pxMERFWE4yaTBsblVGV3lHTU0KLS0tIHlSRERxNTkyeXRicnl1c3hlNTVM
+            L3lXNFcrM0JicEwyRXpjYmtOR0VDU1UKVz/2OJQgclIM3AI5uisXmbJiuqkSv6eM
+            4+HBOAmy0kHQRxa+ujNGkUmj2US7GzQfHPZb0k1xstkJJJLhNAgD6g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-22T18:05:24Z"
+    mac: ENC[AES256_GCM,data:7OgGOil/16p7NcMYy419Gant2ITZxqdYoWdPpOxpXqwrpNlI5CNaafRGSahZ5QeuuiX1dPlnTY6yL8rMqljuNfCG3gQFjrjBoSinV1jPrAueR+3t6kstWcirTm2WD/G4vptkljap6/S8AQ0X/T5qq1Y54ScXwuBrYtj64BdvpQA=,iv:FF9Ic5bTUD9As4FIG9HoHFuUMwFGIbs0WFfEQ9VkiPA=,tag:M0O+M+a+ybXxpp1j8oJ4Fw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

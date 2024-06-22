@@ -1,0 +1,51 @@
+## Immich Server
+apiVersion: v1
+kind: Service
+metadata:
+    name: immich-server
+    namespace: apps
+spec:
+    selector:
+        app: immich-server
+    ports:
+        - name: http
+          port: 3001
+---
+## Immich Microservices
+apiVersion: v1
+kind: Service
+metadata:
+    name: immich-microservices
+    namespace: apps
+spec:
+    selector:
+        app: immich-microservices
+    ports:
+        - name: http
+          port: 3002
+---
+## Immich Machine Learning
+apiVersion: v1
+kind: Service
+metadata:
+    name: immich-machine-learning
+    namespace: apps
+spec:
+    selector:
+        app: immich-machine-learning
+    ports:
+        - name: http
+          port: 3003
+---
+## Redis
+apiVersion: v1
+kind: Service
+metadata:
+    name: immich-redis
+    namespace: apps
+spec:
+    selector:
+        app: immich-redis
+    ports:
+        - name: redis
+          port: 6379

@@ -6,12 +6,23 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
+  - ./actual-budget/ks.yaml
+  - ./code-server/ks.yaml
   - ./esphome/ks.yaml
-  - ./homeassistant/ks.yaml
-  - ./mosquitto/ks.yaml
-  - ./samba/ks.yaml
-  - ./tasmoadmin/ks.yaml
-  - ./zigbee2mqtt/ks.yaml
-  - ./zwave-js-ui/ks.yaml
+  - ./fastapi-dls/ks.yaml
   - ./gitea/ks.yaml
   - ./grafana/ks.yaml
+  - ./homeassistant/ks.yaml
+  - ./homepage/ks.yaml
+  #- ./immich/ks.yaml
+  - ./mosquitto/ks.yaml
+  - ./paperless/ks.yaml
+  - ./planka/ks.yaml
+  - ./samba/ks.yaml
+  - ./spoolman/ks.yaml
+  - ./tasmoadmin/ks.yaml
+  - ./wikijs/ks.yaml
+  - ./zigbee2mqtt/ks.yaml
+  - ./zwave-js-ui/ks.yaml
+  
+  

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: postgres
+spec:
+    selector:
+        app: postgres
+    type: LoadBalancer
+    loadBalancerIP: 172.16.2.28
+    ports:
+        - name: postgres
+          port: 5432
+          targetPort: 5432

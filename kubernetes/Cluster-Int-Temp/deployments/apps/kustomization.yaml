@@ -9,7 +9,6 @@ resources:
   - ./homepage
   - ./code-server
   - ./fastapi-dls
-  - ./passbolt
   - ./paperless
   - ./immich
   - ./planka

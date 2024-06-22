@@ -6,3 +6,10 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
+  - ./esphome/ks.yaml
+  - ./homeassistant/ks.yaml
+  - ./mosquitto/ks.yaml
+  - ./samba/ks.yaml
+  - ./tasmoadmin/ks.yaml
+  - ./zigbee2mqtt/ks.yaml
+  - ./zwave-js-ui/ks.yaml

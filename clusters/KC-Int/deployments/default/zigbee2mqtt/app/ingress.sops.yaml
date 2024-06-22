@@ -1,0 +1,37 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: zigbee2mqtt
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:kanVzmwAEd+njgB6zOexy1FvmXvd++iYfgw=,iv:ZiKLCCUrcEjl3/qfTs6aPJriGwx13TJkSpfLpN/aZzI=,tag:NBS1bmPFJVHNCy1LLCq1cA==,type:str]
+          kind: Rule
+          services:
+            - name: zigbee2mqtt
+              port: 8080
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHMmxDSnljVjBDSUJKQ044
+            bW5pdUlORTRKbnc4dWhybVpNNm9Xdm92clFFCk8wSUZCTXdqc3pFWTA5RnoyZFY2
+            dFVaMDR6RnJkZGU3N3M2RGpGdTJsajQKLS0tIHREdjFmM1BaMkJkMTA3RThYYlNF
+            bTU1K3RtOTVwUTY5cnNha3lhV1NLbm8KnlcaAJWOdvHIxZLOCyT1exzpePQjcwQt
+            wfPF3yMApjFjUTI2t7Ttl4XNNcpvcslzHmUFL6K+dfUOQEF+3uYVFg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-22T15:43:13Z"
+    mac: ENC[AES256_GCM,data:rEv2OG9KtU24S2icJiH+SxzpW5m0MpKwJd1UNOmYYAYg2u0dGIOkVPpDgyTFuMe1kMzq9VmchCYH/RUKmqgkBPTrmiKVfyp+FDShXu5l6ax+W86ywx4ceXJI3vCCB+tXlttqNn3do52We/gFB4NuyWPi84gYZsF4J+TD41wYxNQ=,iv:te0ulOV6fJKhrcxSm+7iyTPoR+Qmf0NW+w/fsAHJNqI=,tag:lHaEv3uX5czDyb0xLZKKKw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

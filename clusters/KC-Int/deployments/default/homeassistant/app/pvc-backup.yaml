@@ -1,0 +1,22 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: backup-homeassistant
+  namespace: home-automation
+spec:
+  sourcePVC: homeassistant
+  trigger:
+    schedule: "0 */1 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: restic-config-homeassistant
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 4
+      monthly: 2
+      yearly: 1
+    copyMethod: Clone
+    storageClassName: ceph-filesystem
+    cacheStorageClassName: ceph-filesystem

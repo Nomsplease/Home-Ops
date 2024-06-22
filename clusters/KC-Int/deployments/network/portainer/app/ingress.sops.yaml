@@ -1,0 +1,42 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: portainer
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:Chuwe5xuEhUf2SMFbPmBOkdu+LGYl+3fXA==,iv:A/Xa0F7+iqy5Ro23tRpR5lX/eNAhD83baTB42NUpls0=,tag:yHlTsdVsD1BqgH+zUeNkhQ==,type:str]
+          kind: Rule
+          services:
+            - name: portainer
+              port: 9000
+        - match: ENC[AES256_GCM,data:c7nndujIisSLkQRZR+JVbJbXjPcOuo2DB2h37yA=,iv:1uRxNvB4wzj8IPQL9aYht7z65Awz+fyIht6hDyGipjc=,tag:0p4t+lTCFH9oz18xsWQMcw==,type:str]
+          kind: Rule
+          services:
+            - name: portainer
+              port: 9000
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAyT3hJOXArUHAxWDQyN0RO
+            NzI5dGJPVlBFMjl5ZVUyQmtIVzBib2poNUFZCnltUUdoVWRlb29aNnFzRzZHQ0VE
+            MGhrYTQ0NnFXdHplVGJnMnlXKys3a3MKLS0tIElOUzdoWjJqd25lUWlKVWFrQzdt
+            K2FuSFlRNzRsdThOQ1JabmtNaldLVHcK9+BE4+D+MFNb9bXdOCDd1rvLsbNYrJW0
+            tgUb97Furi7iyoaJvmxAqYMH6c5vJ7cSZdYw3s4kd/JfqdhR90ramA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-22T16:32:26Z"
+    mac: ENC[AES256_GCM,data:TwRZ4d7SsTm61cVWhcWj3JGooyxLJK1nMznDQ2JE/6KxaGmwAmoJ2iYLhyNSSFADvhuhGzx/tRwvGxcSyxwoD6Ta+8f/TxYO0LfzFLk8pKRchUWkkTSY6daJmt62A+7ptzs7SRh0b9xHYpVxC6uZoYKGtb5ZVJgJS8lkYddRTAU=,iv:omVxFwW/E/smf/IKjYrSW7qAQ4GGUQvRN39oyeA0aUE=,tag:se+dOm2lD9iLbRXu1k1pPw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

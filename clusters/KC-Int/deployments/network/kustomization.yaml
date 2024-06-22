@@ -11,3 +11,4 @@ resources:
   - ./metallb/ks.yaml
   - ./traefik/ks.yaml
   - ./external-proxy/ks.yaml
+  - ./portainer/ks.yaml

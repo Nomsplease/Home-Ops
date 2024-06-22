@@ -4,6 +4,5 @@ resources:
 - externalSecret.yaml
 - deployment.yaml
 - service.yaml
-- secrets.yaml
 #- restic.sops.yaml
 #- pvc-backup.yaml

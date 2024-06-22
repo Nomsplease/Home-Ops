@@ -32,18 +32,14 @@ spec:
             - secretRef:
                 name: deluge-env
           volumeMounts:
-            - name: appdata
+            - name: gluetun-config
               mountPath: /gluetun
-              subPath: Deluge/gluetun
         - name: deluge
           image: 'lscr.io/linuxserver/deluge:2.1.1-r9-ls266'
           resources:
             limits:
-              memory: 8Gi
-              cpu: '4'
-            requests:
-              memory: 4Gi
-              cpu: '2'
+              memory: 16Gi
+              cpu: '8'
           envFrom:
             - secretRef:
                 name: deluge-env
@@ -81,23 +77,22 @@ spec:
             successThreshold: 1
             timeoutSeconds: 3
           volumeMounts:
-            - name: appdata
+            - name: config
               mountPath: /config
-              subPath: Deluge/config
             - name: downloads
               mountPath: /Downloads
             - name: media
               mountPath: /BigPoolMedia
       volumes:
-        - name: appdata
-          nfs:
-            server: 172.16.1.10
-            path: /mnt/FastPool/AppData
+        - name: gluetun-config
+          hostPath:
+            path: /data/FastPool/AppData/Deluge/gluetun
+        - name: config
+          hostPath:
+            path: /data/FastPool/AppData/Deluge/config
         - name: downloads
-          nfs:
-            server: 172.16.1.10
-            path: /mnt/FastPool/Downloads
+          hostPath:
+            path: /data/FastPool/Downloads
         - name: media
-          nfs:
-            server: 172.16.1.10
-            path: /mnt/BigPool/Media
+          hostPath:
+            path: /data/BigPool/Media

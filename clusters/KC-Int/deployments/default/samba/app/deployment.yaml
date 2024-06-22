@@ -35,7 +35,7 @@ spec:
             - name: config
               mountPath: /etc/samba/
               readOnly: true
-            - name: pvc
+            - name: homeassistant
               mountPath: /homeassistant
               subPath: config
       volumes:

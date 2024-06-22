@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zwave-js-ui
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: zwave-js-ui
+  template:
+    metadata:
+      labels:
+        app: zwave-js-ui
+    spec:
+      containers:
+        - name: zwave-js-ui
+          image: zwavejs/zwave-js-ui:9.13.4
+          env:
+            - name: TZ
+              value: America/New_York
+          volumeMounts:
+            - name: pvc
+              mountPath: /usr/src/app/store
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: zwave-js-ui

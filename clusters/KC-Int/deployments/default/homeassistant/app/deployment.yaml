@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homeassistant
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: homeassistant
+  template:
+    metadata:
+      labels:
+        app: homeassistant
+      #annotations:
+      #  k8s.v1.cni.cncf.io/networks: |
+      #    [{
+      #      "name": "multus-iot",
+      #      "namespace": "default",
+      #      "mac": "2f:9f:5b:91:1c:ff",
+      #      "ips": ["172.16.3.3/24"]
+      #    }]
+    spec:
+      containers:
+        - name: homeassistant
+          image: ghcr.io/home-assistant/home-assistant:2024.5.5
+          env:
+            - name: TZ
+              value: America/New_York
+          volumeMounts:
+            - name: pvc
+              mountPath: /config
+              subPath: config
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: homeassistant

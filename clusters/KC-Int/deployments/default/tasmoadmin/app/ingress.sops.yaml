@@ -1,0 +1,37 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: tasmoadmin
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:bqjBC7YpDekuhs5E/7wsPxHQ8TNsoXSK+RRwBn32,iv:FOLeaVXr/hwG/LQ5lVcT9Dp5cHzrU7gtLI0pcKLknGE=,tag:as/C2UnVCK/AGPitmxD1BA==,type:str]
+          kind: Rule
+          services:
+            - name: tasmoadmin
+              port: 80
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3RFhiNVp4VkgvQVYvWm5v
+            UWlNQXpxS2NVQzIrQWdMdGJ5dVNoNmZZYVNJCmx4WjNaY0tRa1VML1FRMGt3WUFp
+            UzZPYzNqVTNvZDlWWTV4RG8rSHFPSWcKLS0tIE5ZYTJmMVVuSmtVV1hhTmFXTDdN
+            aXhDeWFKYXVjZFlOUlZ2VU1ac0Yyb1EK1h4SZ9xzDIaIfAtU9i3lq9Ry5Q/vVlnd
+            d1TT3P6rUG83yxF0GwraPR7yIyL+SU3DXZgA5+IhVmvzpm5SNHKFlQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-22T15:41:11Z"
+    mac: ENC[AES256_GCM,data:CjGfNZye4TNTF38s1Bw7ixUlbL0MGLN4L43zY5UsVzOYwQeXlF/QPHZ9FAlqZBpcwpxiN6ORow/HyR6OseqFOqhsj6aCvT0btl3er/j2l6ptBxTzc3q18atgqxfTDhRA7RgpmFf87LJYevL9lka7wwV32sv4Tlz4TiEqh9o+2qM=,iv:6s7lanH07gx7UF5CuNXtmS1373imQIRElSr1ceAg0wU=,tag:U5Bv673fJdfikXMI1zrE9w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

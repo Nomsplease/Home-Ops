@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-exporter-deluge
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: prometheus-exporter-deluge
+  template:
+    metadata:
+      labels:
+        app: prometheus-exporter-deluge
+    spec:
+      containers:
+        - name: prometheus-exporter-deluge
+          image: ngosang/deluge-exporter:1.0.2
+          envFrom:
+            - secretRef:
+                name: exporter-deluge-env
+          resources:
+            limits:
+              memory: 250Mi
+              cpu: 250m
+            requests:
+              memory: 100Mi
+              cpu: 100m

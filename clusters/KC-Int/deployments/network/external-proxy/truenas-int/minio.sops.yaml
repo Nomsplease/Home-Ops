@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: minio
+spec:
+    type: ExternalName
+    selector:
+        app: traefik
+    ports:
+        - name: minio
+          port: 9002
+          targetPort: 9002
+        - name: minio-s3
+          port: 9000
+          targetPort: 9000
+    externalName: ENC[AES256_GCM,data:Sj2YKbSEgnRQOoo=,iv:q81hdDvAHz5cBirq2rh5wxfkLCYQr25kV4g/Vp4RW30=,tag:dbXSmksa8h3M8WsWK4QvAw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB5UDBDeS9ySExZMlBxMGpK
+            ZWRpZUVwNWViWkU5ZEpWUGJ5YmJneVFWdlhzClM4RFRiaE9xa2I5QWVUcnRlYXFN
+            VWxHMHB0QitRRjc0UjdrK1hwOHV4THcKLS0tIGlNbG1FMTlsTHV2RGkxOHhzVmp1
+            ZnZ2R2ZBSGNnd0xzZ3g0Z1hkTU5xVTgKESbAFba5bsr6mV+wiCyNBtDCZ9PKnYLo
+            2w3DUWv5erQbkJ2ZyFGywMsncUuBbxsJQP2dzYxKZoPJVsPiouAR9A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-22T13:35:46Z"
+    mac: ENC[AES256_GCM,data:mgEC1xso1QPorJWAnRtKoEiXnuVhmJhRwUdRrjfwP2DAB346KZf9JoQNIlIKPool37knumY7dlHczjp+cyPayQerwyC/lSgDRWNr8SvZQJC+uLNXbUu6MLLYNbmccaveTCgi2I3/2wSbKgZyJgwAl3+UFEinyo0UeUJd/0s1G5s=,iv:30S5mUz8rtpb4f+u5eTgBHc+mg9e9qhB3iZe57WGka0=,tag:aelgXaGSsIOj1ENErdFvuA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: minio
+    annotations:
+        kubernetes.io/ingress.class: traefik-external
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:ko1PzHLoW7l+bHAFd7GjYL8PPMfO,iv:Y79Uxqds1ZqD082wbgVaJ0i613V+tZoHwj8rkERDluo=,tag:7Wjab3Rr957td2qn4HXqAQ==,type:str]
+          kind: Rule
+          services:
+            - name: minio
+              port: 9002
+        - match: ENC[AES256_GCM,data:8y99fg3ekqhNJ6DNvufhaJKK,iv:Um7Nks+LQ0VO3QKEp1niuKT8+oxUOq3s3gajGIdevvw=,tag:67gz6H8/XsWgJVUyIwVGPw==,type:str]
+          kind: Rule
+          services:
+            - name: minio-s3
+              port: 9000
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB5UDBDeS9ySExZMlBxMGpK
+            ZWRpZUVwNWViWkU5ZEpWUGJ5YmJneVFWdlhzClM4RFRiaE9xa2I5QWVUcnRlYXFN
+            VWxHMHB0QitRRjc0UjdrK1hwOHV4THcKLS0tIGlNbG1FMTlsTHV2RGkxOHhzVmp1
+            ZnZ2R2ZBSGNnd0xzZ3g0Z1hkTU5xVTgKESbAFba5bsr6mV+wiCyNBtDCZ9PKnYLo
+            2w3DUWv5erQbkJ2ZyFGywMsncUuBbxsJQP2dzYxKZoPJVsPiouAR9A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-22T13:35:46Z"
+    mac: ENC[AES256_GCM,data:mgEC1xso1QPorJWAnRtKoEiXnuVhmJhRwUdRrjfwP2DAB346KZf9JoQNIlIKPool37knumY7dlHczjp+cyPayQerwyC/lSgDRWNr8SvZQJC+uLNXbUu6MLLYNbmccaveTCgi2I3/2wSbKgZyJgwAl3+UFEinyo0UeUJd/0s1G5s=,iv:30S5mUz8rtpb4f+u5eTgBHc+mg9e9qhB3iZe57WGka0=,tag:aelgXaGSsIOj1ENErdFvuA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

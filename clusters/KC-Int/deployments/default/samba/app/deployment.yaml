@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: samba
-          image: ghcr.io/dockur/samba:4.19.6
+          image: ghcr.io/dockur/samba:4.20.1
           imagePullPolicy: Always
           resources:
             requests:

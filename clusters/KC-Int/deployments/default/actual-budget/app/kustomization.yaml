@@ -4,6 +4,6 @@ resources:
 - deployment.yaml
 - ingress.sops.yaml
 - pvc.yaml
-- service.sops.yaml
+- service.yaml
 #- restic.sops.yaml
 #- pvc-backup.yaml

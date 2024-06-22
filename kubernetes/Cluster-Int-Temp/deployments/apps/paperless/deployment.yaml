@@ -6,7 +6,7 @@ metadata:
   name: paperless
   namespace: apps
 spec:
-  replicas: 1
+  replicas: 0
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:
@@ -50,7 +50,7 @@ metadata:
   name: paperless-gotenberg
   namespace: apps
 spec:
-  replicas: 1
+  replicas: 0
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:
@@ -78,7 +78,7 @@ metadata:
   name: paperless-tika
   namespace: apps
 spec:
-  replicas: 1
+  replicas: 0
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:
@@ -102,7 +102,7 @@ metadata:
   name: paperless-redis
   namespace: apps
 spec:
-  replicas: 1
+  replicas: 0
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:
@@ -134,7 +134,7 @@ metadata:
   name: paperless-samba
   namespace: apps
 spec:
-  replicas: 1
+  replicas: 0
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:

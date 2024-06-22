@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: prometheus-exporter-prowlarr
-          image: ghcr.io/onedr0p/exportarr:v1.6.1
+          image: ghcr.io/onedr0p/exportarr:v1.6.2
           args:
             - prowlarr
           envFrom:

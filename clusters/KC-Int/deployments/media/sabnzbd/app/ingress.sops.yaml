@@ -1,0 +1,37 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: sabnzbd
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:KhPjSvxl09VHP3nJCntFzI7OppKhB13ytXn+,iv:TqP+LY4/BbcHFahc6wbZSh85eILIHTOwlEm8Lf8xvIo=,tag:1UMDn7jZstCwm9OXPHS1sg==,type:str]
+          kind: Rule
+          services:
+            - name: sabnzbd
+              port: 8080
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBRN3hOdjJGMUh1YmIyRDE5
+            VkFHRjFVNzNvV0E1cXQrL0QvNmhKTEZRNGwwCkRZTkxYb0IzTEZ1WXBWOUs1NEIx
+            MlovVjRacDNBR0krKzZWY0IyaHBQOVUKLS0tIE56MUNGNlRjczl0NzdiNWlQdnpY
+            WUVzckR5VmcwV1BCaTlZTDVQclNQNTAK8Ns7w7ROECYJQynJtOs8ByatwiQnp//R
+            TdCr8ZhCrlcKdN5E671PykpQxfmv6ceahI+Gom3BIVqrLpKwmVPUjA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-23T14:22:17Z"
+    mac: ENC[AES256_GCM,data:w/Mwg+3yTvAmKTnaxWa7Dt6/o/SGCY+oCefwmH7tO5jsjPANKpjMTkW1LrANe6gaPpDejyxast1M8W2OW+BpaFoqaojgzw3KHYF5g9EoSoQbc3+KSmyZk8NENFYlPrssPEWtGXBoXXoBsxKV36Fa1s3WS1D2PxBZAy93jXYeifs=,iv:iphWhQ4j9gSyDIvCi2D6m3oSfbmY+2ICKbSO1sdcfT0=,tag:BLFBiu75IMmQAH8eoOXjbw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

@@ -3,6 +3,10 @@ kind: Deployment
 metadata:
   name: plex
 spec:
+  securityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
   replicas: 1
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2

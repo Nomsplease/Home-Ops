@@ -16,6 +16,7 @@ spec:
       labels:
         app: deluge
     spec:
+      nodeName: kc-w-04
       containers:
         - name: deluge-vpn
           image: >-

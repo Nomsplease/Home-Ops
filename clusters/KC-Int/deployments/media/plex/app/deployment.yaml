@@ -35,11 +35,11 @@ spec:
               cpu: '2'
               gpu.intel.com/i915: 1000m
           volumeMounts:
-            - name: pvc
+            - name: config
               mountPath: /config
             - name: media
               mountPath: /data
-            - name: transcode
+            - name: pvc
               mountPath: /transcode
               subPath: transcode
       volumes:
@@ -47,7 +47,7 @@ spec:
           nfs:
             server: 172.16.1.10
             path: /mnt/FastPool/AppData/Plex
-        - name: transcode
+        - name: pvc
           persistentVolumeClaim:
             claimName: plex
         - name: media

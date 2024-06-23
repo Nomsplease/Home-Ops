@@ -38,17 +38,17 @@ spec:
             - name: config
               mountPath: /config
               subPath: config
-            - name: downloads
-              mountPath: /Downloads
-            - name: media
-              mountPath: /BigPoolMedia
+            # - name: downloads
+            #   mountPath: /Downloads
+            # - name: media
+            #   mountPath: /BigPoolMedia
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: sabnzbd
-        - name: downloads
-          hostPath:
-            path: /data/FastPool/Downloads
-        - name: media
-          hostPath:
-            path: /data/BigPool/Media
+        # - name: downloads
+        #   hostPath:
+        #     path: /data/FastPool/Downloads
+        # - name: media
+        #   hostPath:
+        #     path: /data/BigPool/Media

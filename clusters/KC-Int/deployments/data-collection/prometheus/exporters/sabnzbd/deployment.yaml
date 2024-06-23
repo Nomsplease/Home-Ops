@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: prometheus-exporter-sabnzbd
-          image: ghcr.io/onedr0p/exportarr:v1.6.2
+          image: ghcr.io/onedr0p/exportarr:v2.0.1
           args:
             - sabnzbd
           envFrom:

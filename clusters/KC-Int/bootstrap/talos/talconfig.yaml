@@ -1,0 +1,243 @@
+---
+clusterName: KC
+talosVersion: v1.7.4
+kubernetesVersion: v1.30.1
+endpoint: https://172.16.2.5:6443
+domain: cluster.local
+allowSchedulingOnMasters: true
+additionalMachineCertSans:
+  - 172.16.2.5
+clusterPodNets:
+  - 10.244.0.0/16
+clusterSvcNets:
+  - 10.96.0.0/12
+patches:
+  - |-
+    - op: add
+      path: /machine/kubelet/extraArgs
+      value:
+        rotate-server-certificates: "true"
+nodes:
+  - hostname: KC-C-01
+    ipAddress: 172.16.2.6
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          extraKernelArgs:
+              - net.ifnames=0
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/intel-ice-firmware
+                  - siderolabs/intel-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDisk: /dev/nvme1n1
+    nodeLabels:
+      intel.gpuType: igpu
+    nameservers:
+      - 172.16.2.1
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 172.16.2.6/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.2.1
+  - hostname: KC-W-01
+    ipAddress: 172.16.2.7
+    controlPlane: false
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          extraKernelArgs:
+              - net.ifnames=0
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/intel-ice-firmware
+                  - siderolabs/intel-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDisk: /dev/nvme1n1
+    nodeLabels:
+      intel.gpuType: igpu
+    nameservers:
+      - 172.16.2.1
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 172.16.2.7/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.2.1
+  - hostname: KC-C-02
+    ipAddress: 172.16.2.8
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          extraKernelArgs:
+              - net.ifnames=0
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/intel-ice-firmware
+                  - siderolabs/intel-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDisk: /dev/nvme1n1
+    nodeLabels:
+      intel.gpuType: igpu
+    nameservers:
+      - 172.16.2.1
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 172.16.2.8/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.2.1
+  - hostname: KC-W-02
+    ipAddress: 172.16.2.9
+    controlPlane: false
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          extraKernelArgs:
+              - net.ifnames=0
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/intel-ice-firmware
+                  - siderolabs/intel-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDisk: /dev/nvme1n1
+    nodeLabels:
+      intel.gpuType: igpu
+    nameservers:
+      - 172.16.2.1
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 172.16.2.9/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.2.1
+  - hostname: KC-C-03
+    ipAddress: 172.16.2.10
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          extraKernelArgs:
+              - net.ifnames=0
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/intel-ice-firmware
+                  - siderolabs/intel-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDisk: /dev/nvme1n1
+    nodeLabels:
+      intel.gpuType: igpu
+    nameservers:
+      - 172.16.2.1
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 172.16.2.10/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.2.1
+  - hostname: KC-W-03
+    ipAddress: 172.16.2.11
+    controlPlane: false
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          extraKernelArgs:
+              - net.ifnames=0
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/intel-ice-firmware
+                  - siderolabs/intel-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDisk: /dev/nvme1n1
+    nodeLabels:
+      intel.gpuType: igpu
+    nameservers:
+      - 172.16.2.1
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 172.16.2.11/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.2.1
+  - hostname: KC-W-04
+    ipAddress: 172.16.2.12
+    controlPlane: false
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          extraKernelArgs:
+              - net.ifnames=0
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/qemu-guest-agent
+                  - siderolabs/util-linux-tools
+    installDisk: /dev/sda
+    nodeLabels:
+      intel.gpuType: dedicated
+    nameservers:
+      - 172.16.2.1
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 172.16.1.9/24
+        mtu: 1500
+        routes:
+          - network: 172.16.1.0/24
+            gateway: 172.16.1.1
+      - interface: eth1
+        addresses:
+          - 172.16.2.12/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.2.1

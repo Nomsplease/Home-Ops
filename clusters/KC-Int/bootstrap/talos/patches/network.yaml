@@ -1,6 +1,0 @@
----
-machine:
-  network:
-    interfaces:
-      - interface: eth1
-        dhcp: true

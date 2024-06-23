@@ -16,7 +16,7 @@ spec:
       labels:
         app: sabnzbd
     spec:
-      nodeName: kc-w-04
+      #nodeName: kc-w-04
       containers:
         - name: sabnzbd
           image: 'lscr.io/linuxserver/sabnzbd:4.3.2'

@@ -8,21 +8,24 @@ spec:
     type: LoadBalancer
     LoadBalancerIP: 172.16.2.31
     ports:
-        - port: 32400
+        - name: plexmediaserver
+          port: 32400
           protocol: "TCP"
-        - port: 3005
+        - name: dlna-1
+          port: 32469
           protocol: "TCP"
-        - port: 8324
-          protocol: "TCP"
-        - port: 32469
-          protocol: "TCP"
-        - port: 1900
+        - name: dlna-2
+          port: 1900
           protocol: "UDP"
-        - port: 32410
+        - name: plex-gdm-1
+          port: 32410
           protocol: "UDP"
-        - port: 32412
+        - name: plex-gdm-2
+          port: 32412
           protocol: "UDP"
-        - port: 32413
+        - name: plex-gdm-3
+          port: 32413
           protocol: "UDP"
-        - port: 32414
+        - name: plex-gdm-4
+          port: 32414
           protocol: "UDP"

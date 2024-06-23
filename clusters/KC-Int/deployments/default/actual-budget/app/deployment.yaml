@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: actual-budget
-          image: ghcr.io/actualbudget/actual-server:24.1.0
+          image: ghcr.io/actualbudget/actual-server:24.6.0
           volumeMounts:
             - name: pvc
               mountPath: /data

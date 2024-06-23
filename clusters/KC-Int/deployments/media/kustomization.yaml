@@ -14,3 +14,4 @@ resources:
   - ./kometa/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./deluge/ks.yaml
+  - ./plex/ks.yaml

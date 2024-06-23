@@ -6,7 +6,7 @@ metadata:
   name: &app prometheus
   namespace: flux-system
 spec:
-  targetNamespace: default
+  targetNamespace: data-collection
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -31,7 +31,7 @@ metadata:
   name: &app prometheus-exporters
   namespace: flux-system
 spec:
-  targetNamespace: default
+  targetNamespace: data-collection
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

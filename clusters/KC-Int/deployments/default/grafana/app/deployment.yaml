@@ -22,7 +22,7 @@ spec:
           - 0
       containers:
         - name: grafana
-          image: grafana/grafana:10.3.1
+          image: grafana/grafana:10.4.4
           env:
             - name: GF_PANELS_DISABLE_SANITIZE_HTML
               value: "false"

@@ -3,10 +3,6 @@ kind: Deployment
 metadata:
   name: plex
 spec:
-  securityContext:
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
   replicas: 1
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
@@ -30,6 +26,10 @@ spec:
               value: America/New_York
             - name: ALLOWED_NETWORKS
               value: 172.16.1.0/24, 172.16.2.0/24
+            - name: PLEX_UID
+              value: "568"
+            - name: PLEX_GID
+              value: "568"
           resources:
             limits:
               memory: 32Gi

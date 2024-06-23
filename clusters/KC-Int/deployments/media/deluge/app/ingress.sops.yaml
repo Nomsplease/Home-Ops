@@ -1,0 +1,37 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: deluge
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:po8iBXsjadEnC/Zjimga2aEUa3s/y2SBJcc=,iv:Ca30RrVJovO5xYNjRIiCKMntRNmmxRHZ9oiCEQE3L/8=,tag:ZPe7F/wyeGFGPnlfE0+GOg==,type:str]
+          kind: Rule
+          services:
+            - name: deluge
+              port: 8112
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBKVEJDS200UUErMWpad0NS
+            bk9JU0MxdGp1UWRtTEZsQmdiMW1HZ1FyczNBCnN3aEtwb3NPR0ZVOVVCdVBoZjRS
+            bFNrSUlUaUpWUmdDcnloMUYva1Z2Z0EKLS0tIHNEYlhmU1NaenQ2M3dzb0xkUW41
+            RFRlZ0J2SDRxd2xWVmZEVEdGY2pwVUkKIN75oNZ60U1zDYjxhm0lFnPloEn0r4wh
+            Yidf+kPQOvdg/HXhPuabh+c6IGyQQyUVynvtGs58B74DsM7C4UwEZA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-20T18:31:32Z"
+    mac: ENC[AES256_GCM,data:Dl/nqQTu/6O3aaGDp8x4bh98Uj5ryKbGE4lDt1+WeUiv2lNq3/ultdiLWUlOG65ystIYsQsjGipsCge0a1e9oswT6m0im9cI/PU8wel5oXPG0ECv0ysBo/nImlXn2zzDaQVUfbd8RuXq3V25yIVxHDwBD20mPsE2HTn5dv0n+7I=,iv:aB9QrnkYQ8sqyxP87FokVSgvaPyqXcHJgTm1JeVQJ/E=,tag:wetErt51HK6f+PowjShvkQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

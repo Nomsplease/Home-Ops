@@ -2,14 +2,13 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
     name: prowlarr
-    namespace: media
     annotations:
         kubernetes.io/ingress.class: traefik
 spec:
     entryPoints:
         - websecure
     routes:
-        - match: ENC[AES256_GCM,data:ImCoOpEpcl9oiYAnkwv7JchDcTZGTp80gnjdJg==,iv:E4tHgSn2zWkL7EPIxqeLO/aH3Ds2q/ZCjRbex7PM/kw=,tag:QLzgsZRJn1CHmpHhCykrFg==,type:str]
+        - match: ENC[AES256_GCM,data:f/UYy2tJOIIzT2GUOvTUXaoELvMpD7BFVlt11g==,iv:w/yoxMcOWb0WTpnbZXYTHWV0HTXcnhyNoAy+m7KoJrY=,tag:mjI6QJsmpTqsAHMjaGz63A==,type:str]
           kind: Rule
           services:
             - name: prowlarr
@@ -25,14 +24,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiVklHQW5PdG5BLzFKT0o3
-            L3luMnY1YlRIaUNHNjBmZnRtSmQ3M0MyUUM0CnBWRmdRNURWOU4rMXB0RTZmK084
-            cVcvZ1ZwT3ZBZDFsMmdpcW1TbmxQRkkKLS0tIHFXejhrTEZadUQ1UWRIaG9KdU9Z
-            UHFkbElxRG9Xa0U0QXJieTVJWC81U0kKl+wQH3jXklWWvNGyd2AqZO0XKQfiCKvl
-            9ySp9CKRlfc9qXThePbdJy+oXRarbzHuWVjbmMjXIa0e+QJwbUGQeA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBuZ25tZjFCMUhRdE1qemlB
+            YkpCeWcxR1Z4K0xhQlhraFpTNGx3cWd0ZFY0CnEvNkhoOGsrTTArb3RIQTRaOXN1
+            bW02OUFwd21OWjA4aS9UQ1V5T3ZZNlkKLS0tIFl2b2RPMmxKR0NWbTBpYzFzejNR
+            ODlzMWZqb0xKVGpJUUVTVUducUNEZUEKkj+BFFkUjhM197tTQ6ath4BbiIwQYXOy
+            Bz8jAhSeyWGUivKJvzB0dkdWJx6+jDllV2F/8P0QUXXD5beryAu6vA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-19T20:07:11Z"
-    mac: ENC[AES256_GCM,data:HyyD6bmoM7aME50LhnnbTAzKmOrw4byu7IQtMdUZ+ouqXLWixBHyeMYzq+GxWllucPD9nR0LdYjmfbDS0T1himXAB9hMM0QoKK6hhGc0VjnN0L5nL0zJ+55d60DVQsnb6u3fVH2i6m3Cya9xyKhKjSNvnwPWczApz7SijbCzGmI=,iv:Mt6HTgBfCrBkEJbl/J7udhAT/QKV3DmYlYP87pn0FEc=,tag:zTPSCSyHK11Y1FswPzcYeg==,type:str]
+    lastmodified: "2024-06-23T14:57:48Z"
+    mac: ENC[AES256_GCM,data:qF8eaI+D9IMgEow7t5VYM/m2l+WkPYaWuBBgqrCKsGaPWylMsgzKTv/ywiCWTjG/mTis20DlHqseQkHJ4iifscR7ccbpLEQcdsUcJfnGCnQk47o5lWhNE/r62H8UPCiD5syX6GI8Y/fITVCuVoUx9YR6lzrNUgAzNMzBvGwH3UU=,iv:pxdP9xEawLaAdKgyyIyI7RnbH1gV9kAPEgcCIX4TFUY=,tag:uxMREnpoDGgIfumXnX1ulg==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1

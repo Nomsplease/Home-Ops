@@ -1,6 +1,0 @@
----
-machine:        
-  install:
-    disk: /dev/nvme1n1
-    image: factory.talos.dev/installer/39164a1b701d87a0fc271fd6ce0a6a3f29d934866586f2ba5c36ff50ae7bc18d:v1.7.4
-    wipe: true

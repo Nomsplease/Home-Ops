@@ -1,7 +1,0 @@
----
-machine:
-  network:
-    interfaces:
-      - interface: eth1
-        vip:
-          ip: 172.16.2.5

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: plex
 spec:
-  replicas: 0
+  replicas: 1
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:
@@ -40,18 +40,15 @@ spec:
               cpu: '2'
               gpu.intel.com/i915: 1000m
           volumeMounts:
-            - name: config
+            - name: pvc
               mountPath: /config
-            - name: media
-              mountPath: /data
+              subPath: config
             - name: pvc
               mountPath: /transcode
               subPath: transcode
+            - name: media
+              mountPath: /data
       volumes:
-        - name: config
-          nfs:
-            server: 172.16.1.10
-            path: /mnt/FastPool/AppData/Plex
         - name: pvc
           persistentVolumeClaim:
             claimName: plex

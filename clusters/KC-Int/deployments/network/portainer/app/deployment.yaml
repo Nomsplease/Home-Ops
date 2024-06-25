@@ -30,16 +30,6 @@ spec:
             volumeMounts:
               - name: data
                 mountPath: /data
-            ports:
-              - name: http
-                containerPort: 9000
-                protocol: TCP
-              - name: https
-                containerPort: 9443
-                protocol: TCP
-              - name: tcp-edge
-                containerPort: 8000
-                protocol: TCP
             livenessProbe:
               httpGet:
                   path: /

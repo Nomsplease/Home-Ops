@@ -6,7 +6,7 @@ metadata:
   name: &app external-proxy-truenas-int
   namespace: flux-system
 spec:
-  targetNamespace: external-secrets
+  targetNamespace: network
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

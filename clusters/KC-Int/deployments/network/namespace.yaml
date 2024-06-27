@@ -4,7 +4,6 @@ kind: Namespace
 metadata:
   name: network
   annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
     volsync.backube/privileged-movers: "true"
   labels:
     pod-security.kubernetes.io/enforce: privileged

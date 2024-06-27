@@ -13,7 +13,7 @@ spec:
         - name: minio-s3
           port: 9000
           targetPort: 9000
-    externalName: ENC[AES256_GCM,data:Sj2YKbSEgnRQOoo=,iv:q81hdDvAHz5cBirq2rh5wxfkLCYQr25kV4g/Vp4RW30=,tag:dbXSmksa8h3M8WsWK4QvAw==,type:str]
+    externalName: ENC[AES256_GCM,data:upnHH098PyBkk44=,iv:5ZTpZgiGxd6XRY20GZNnPidFQHyyuQlbN1Rk6wzJZPY=,tag:zfB0/DjjzMYu5Gmnrm2StQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -23,14 +23,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB5UDBDeS9ySExZMlBxMGpK
-            ZWRpZUVwNWViWkU5ZEpWUGJ5YmJneVFWdlhzClM4RFRiaE9xa2I5QWVUcnRlYXFN
-            VWxHMHB0QitRRjc0UjdrK1hwOHV4THcKLS0tIGlNbG1FMTlsTHV2RGkxOHhzVmp1
-            ZnZ2R2ZBSGNnd0xzZ3g0Z1hkTU5xVTgKESbAFba5bsr6mV+wiCyNBtDCZ9PKnYLo
-            2w3DUWv5erQbkJ2ZyFGywMsncUuBbxsJQP2dzYxKZoPJVsPiouAR9A==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3TVJ2NW5sbXY3eE1Ja1VS
+            WEdZbktIM0lsN0xaOWc3VGFFSHdwMElRT2tJCjh6aHpVdnZMQTNZRnR6ZGxXYUlK
+            ci9FcE4raFFyZDhDNEpXMTJHV1JFdVEKLS0tIDFaVWw0UjMzS1JvQjFWQTVLaU0x
+            cm1uYUh5SDlaLzdHNFdqVEhnN3FYSzgKygOi6hFc1rnhgmNR4WZ/TFgPkVhYowEU
+            zhxOBq3647Cb954HirzaDYVmN5mso+FZgS5kDc0vPAw8XUeMOZHwAg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-22T13:35:46Z"
-    mac: ENC[AES256_GCM,data:mgEC1xso1QPorJWAnRtKoEiXnuVhmJhRwUdRrjfwP2DAB346KZf9JoQNIlIKPool37knumY7dlHczjp+cyPayQerwyC/lSgDRWNr8SvZQJC+uLNXbUu6MLLYNbmccaveTCgi2I3/2wSbKgZyJgwAl3+UFEinyo0UeUJd/0s1G5s=,iv:30S5mUz8rtpb4f+u5eTgBHc+mg9e9qhB3iZe57WGka0=,tag:aelgXaGSsIOj1ENErdFvuA==,type:str]
+    lastmodified: "2024-06-27T13:20:32Z"
+    mac: ENC[AES256_GCM,data:3QzLcPwuIBYQ3fLwTq7inoq6Rj6nJTQ/vNAkdtaPB1vG4iDKZlI4jhoGBsmjz+C/pSfS+QsfedAkkPImLYbW62unU7OBsR0yTSa++U5X7KJz/HSMFZ+SL6IXil4+1fhYCqTb9SpmoKlPpRN3H63R+pEtxVjISxgf6VjE/LAfjeY=,iv:XwxJzePAho3wN2I9U9sItqniGCGmZmhL7cA3jise7oA=,tag:UHYitlFg+Oczp7GrMRqaMA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1
@@ -40,17 +40,17 @@ kind: IngressRoute
 metadata:
     name: minio
     annotations:
-        kubernetes.io/ingress.class: traefik-external
+        kubernetes.io/ingress.class: traefik
 spec:
     entryPoints:
         - websecure
     routes:
-        - match: ENC[AES256_GCM,data:ko1PzHLoW7l+bHAFd7GjYL8PPMfO,iv:Y79Uxqds1ZqD082wbgVaJ0i613V+tZoHwj8rkERDluo=,tag:7Wjab3Rr957td2qn4HXqAQ==,type:str]
+        - match: ENC[AES256_GCM,data:qEsxqp0WmQcl4x3aT/gFT13KtuzE,iv:9ASmcPfT5TsUyr6JCVtq2FymioY16+vmiKIzNbJBR/w=,tag:p0N0b40eTykTEJl/1bfO7g==,type:str]
           kind: Rule
           services:
             - name: minio
               port: 9002
-        - match: ENC[AES256_GCM,data:8y99fg3ekqhNJ6DNvufhaJKK,iv:Um7Nks+LQ0VO3QKEp1niuKT8+oxUOq3s3gajGIdevvw=,tag:67gz6H8/XsWgJVUyIwVGPw==,type:str]
+        - match: ENC[AES256_GCM,data:WMjkuYrd6/ie2J4WVYzMlDz2,iv:ZyWzfCn3iYaBS5qRAM0ZFtkuwuuS7gSq2JYiewUdlGk=,tag:UAwtujvTk9O2ecvvOaTMrg==,type:str]
           kind: Rule
           services:
             - name: minio-s3
@@ -66,14 +66,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB5UDBDeS9ySExZMlBxMGpK
-            ZWRpZUVwNWViWkU5ZEpWUGJ5YmJneVFWdlhzClM4RFRiaE9xa2I5QWVUcnRlYXFN
-            VWxHMHB0QitRRjc0UjdrK1hwOHV4THcKLS0tIGlNbG1FMTlsTHV2RGkxOHhzVmp1
-            ZnZ2R2ZBSGNnd0xzZ3g0Z1hkTU5xVTgKESbAFba5bsr6mV+wiCyNBtDCZ9PKnYLo
-            2w3DUWv5erQbkJ2ZyFGywMsncUuBbxsJQP2dzYxKZoPJVsPiouAR9A==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3TVJ2NW5sbXY3eE1Ja1VS
+            WEdZbktIM0lsN0xaOWc3VGFFSHdwMElRT2tJCjh6aHpVdnZMQTNZRnR6ZGxXYUlK
+            ci9FcE4raFFyZDhDNEpXMTJHV1JFdVEKLS0tIDFaVWw0UjMzS1JvQjFWQTVLaU0x
+            cm1uYUh5SDlaLzdHNFdqVEhnN3FYSzgKygOi6hFc1rnhgmNR4WZ/TFgPkVhYowEU
+            zhxOBq3647Cb954HirzaDYVmN5mso+FZgS5kDc0vPAw8XUeMOZHwAg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-22T13:35:46Z"
-    mac: ENC[AES256_GCM,data:mgEC1xso1QPorJWAnRtKoEiXnuVhmJhRwUdRrjfwP2DAB346KZf9JoQNIlIKPool37knumY7dlHczjp+cyPayQerwyC/lSgDRWNr8SvZQJC+uLNXbUu6MLLYNbmccaveTCgi2I3/2wSbKgZyJgwAl3+UFEinyo0UeUJd/0s1G5s=,iv:30S5mUz8rtpb4f+u5eTgBHc+mg9e9qhB3iZe57WGka0=,tag:aelgXaGSsIOj1ENErdFvuA==,type:str]
+    lastmodified: "2024-06-27T13:20:32Z"
+    mac: ENC[AES256_GCM,data:3QzLcPwuIBYQ3fLwTq7inoq6Rj6nJTQ/vNAkdtaPB1vG4iDKZlI4jhoGBsmjz+C/pSfS+QsfedAkkPImLYbW62unU7OBsR0yTSa++U5X7KJz/HSMFZ+SL6IXil4+1fhYCqTb9SpmoKlPpRN3H63R+pEtxVjISxgf6VjE/LAfjeY=,iv:XwxJzePAho3wN2I9U9sItqniGCGmZmhL7cA3jise7oA=,tag:UHYitlFg+Oczp7GrMRqaMA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1

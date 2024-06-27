@@ -10,7 +10,7 @@ spec:
         - name: deluge
           port: 8112
           targetPort: 8112
-    externalName: ENC[AES256_GCM,data:rgumx6X20AYm0BE=,iv:5iQE4Yoi5tM+bg3Pi7q3XfTxutxlXxMKl3LzHVy6DWM=,tag:dCbYVug3b7NdHjAwykIi0g==,type:str]
+    externalName: ENC[AES256_GCM,data:T5L5MP0jul9uYD0=,iv:gh8D3yAuI3ldf+h5i9cj57/d0dyWTXz+AewoD2cd03s=,tag:phIfP1wHl9+EnC+zj+c20A==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -20,14 +20,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxK0RqNnhpTGJUZW9XOVdB
-            UTVPMnp0d1d2K21vU0craERGeWhmT0NvWDNBCjl4VHpvN3ZSMVg5S3hWbytRTlVi
-            dHQwaHdKQkpBaDFab2tKMzlVNXZ3U0UKLS0tIEIyQURDc1RIKzExMzVhVXJma1Z3
-            ckZTMng3RCt4emV0MG9aY3VjSG92YUEKpipJz/8ncrwBHuILqQXNLS8a/l4D/s0f
-            xNYyC5Ujf2CeGbVdkOA/W85Pb8WTw/ycwKPUysOj2h8H6MsC6Wl1kA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHbG5FeW8yeHBmMTIzaGVI
+            b0FEdjJFR2NVNEJKdTVOU2EvVVFTM3ZydmpRCjVDUi9OTWFZTTNIdENvR0JObzRl
+            TVVzRDlQMC9HVmNwUGcrU3B1RVFOeG8KLS0tIHFrMG53WlpXRUZodlhhdUN0R3pP
+            TUFDU0d1aVVMbGNKbjR3ZzIxWkcwNUkKeRQCHaNprpYNWn+5Kzb8GD4qcMXzP5vg
+            jkKT/UtXu1fOAWBdzQiIVSCOmFRn/peFoL4Hotkf6ixCIrOnpq3S1w==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-27T13:17:01Z"
-    mac: ENC[AES256_GCM,data:KBZaCQHS0ZT2Liv1ejopvtgIH0+x7GhJUWBUodIbtLHw1tbqV3wbCKF0CzDSwA7s2AqukbSMDbOd7lEbUZswK0lVqbi8eJSXxS5cdNUKSpmiN4xG9R8/kLkZdredGHGXqYMop+qqzWCTa+sGYf5pfwK8S/r/Y/VL+ocjatAi1b0=,iv:JJRmuXnea0Fn4RACS3lNpcjE9Weil2lMWTuDpBHXJ3c=,tag:8j1ihr9oUPFzyHobC7GQAA==,type:str]
+    lastmodified: "2024-06-27T13:21:00Z"
+    mac: ENC[AES256_GCM,data:oXfPdQQWnxI485C9rgdZ9vLKGRonTUxwdq6AtylWV/YEKCvZdaiVpWQnivtN4r6qhXgSPasO/2CWygnZDeI0o8bGv3f5HO3GbQ86amFTxk3RY96X65dRZlUlt5HrHhnogUjGLP4DlFXgIBPRd3rD6zY3xcvwReWywAxKTi1S3dQ=,iv:cXJ1NSQbaamNTcCbTOvs36CQ5DFsydX7EKXQPnlgEgQ=,tag:xqjEahDlYymw3rXOIyeJRQ==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1
@@ -37,12 +37,12 @@ kind: IngressRoute
 metadata:
     name: deluge
     annotations:
-        kubernetes.io/ingress.class: traefik-external
+        kubernetes.io/ingress.class: traefik
 spec:
     entryPoints:
         - websecure
     routes:
-        - match: ENC[AES256_GCM,data:AJ2b7XMzX0Uy9FdqxgKnmXzGkXWH5Ru/Fvo=,iv:5brzL87hlHZFr9EDB8+bLXu8cYBlyUUSxulYgui+JNk=,tag:1Rkf1Nqr9cYGTIqqxi99DA==,type:str]
+        - match: ENC[AES256_GCM,data:6tQ18gOtUFZESP+VKBspCNKTckTotcMLbq4=,iv:UohDdWpLf+IHQSEvPC4abBg463jLx0JKLP/qJZ0ylFo=,tag:Ji/tdsAimJy+wzd8QNOoLg==,type:str]
           kind: Rule
           services:
             - name: deluge
@@ -58,14 +58,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxK0RqNnhpTGJUZW9XOVdB
-            UTVPMnp0d1d2K21vU0craERGeWhmT0NvWDNBCjl4VHpvN3ZSMVg5S3hWbytRTlVi
-            dHQwaHdKQkpBaDFab2tKMzlVNXZ3U0UKLS0tIEIyQURDc1RIKzExMzVhVXJma1Z3
-            ckZTMng3RCt4emV0MG9aY3VjSG92YUEKpipJz/8ncrwBHuILqQXNLS8a/l4D/s0f
-            xNYyC5Ujf2CeGbVdkOA/W85Pb8WTw/ycwKPUysOj2h8H6MsC6Wl1kA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHbG5FeW8yeHBmMTIzaGVI
+            b0FEdjJFR2NVNEJKdTVOU2EvVVFTM3ZydmpRCjVDUi9OTWFZTTNIdENvR0JObzRl
+            TVVzRDlQMC9HVmNwUGcrU3B1RVFOeG8KLS0tIHFrMG53WlpXRUZodlhhdUN0R3pP
+            TUFDU0d1aVVMbGNKbjR3ZzIxWkcwNUkKeRQCHaNprpYNWn+5Kzb8GD4qcMXzP5vg
+            jkKT/UtXu1fOAWBdzQiIVSCOmFRn/peFoL4Hotkf6ixCIrOnpq3S1w==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-27T13:17:01Z"
-    mac: ENC[AES256_GCM,data:KBZaCQHS0ZT2Liv1ejopvtgIH0+x7GhJUWBUodIbtLHw1tbqV3wbCKF0CzDSwA7s2AqukbSMDbOd7lEbUZswK0lVqbi8eJSXxS5cdNUKSpmiN4xG9R8/kLkZdredGHGXqYMop+qqzWCTa+sGYf5pfwK8S/r/Y/VL+ocjatAi1b0=,iv:JJRmuXnea0Fn4RACS3lNpcjE9Weil2lMWTuDpBHXJ3c=,tag:8j1ihr9oUPFzyHobC7GQAA==,type:str]
+    lastmodified: "2024-06-27T13:21:00Z"
+    mac: ENC[AES256_GCM,data:oXfPdQQWnxI485C9rgdZ9vLKGRonTUxwdq6AtylWV/YEKCvZdaiVpWQnivtN4r6qhXgSPasO/2CWygnZDeI0o8bGv3f5HO3GbQ86amFTxk3RY96X65dRZlUlt5HrHhnogUjGLP4DlFXgIBPRd3rD6zY3xcvwReWywAxKTi1S3dQ=,iv:cXJ1NSQbaamNTcCbTOvs36CQ5DFsydX7EKXQPnlgEgQ=,tag:xqjEahDlYymw3rXOIyeJRQ==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1

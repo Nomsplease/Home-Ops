@@ -10,7 +10,7 @@ spec:
         - name: immich
           port: 30041
           targetPort: 30041
-    externalName: ENC[AES256_GCM,data:Rd3DGidkhozJI4U=,iv:ONIMamj1LIcytragzCJs3f5Karh0XkluA3nJ+s1sExI=,tag:eCeNVbe9p6DK5BmWGUURKw==,type:str]
+    externalName: ENC[AES256_GCM,data:1BL4i4muAw4hKIE=,iv://BXfoXAdydgyj+f/lRYR/IU6uHwyGJxM0H1Qwo4RbM=,tag:WGv8Yjf4w3+6nPTS0ncB2Q==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -20,14 +20,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVTHlKcXNzWlRKU1IzbTMw
-            alUvOWRIOGFvRXJNVDNhbmZXS21lbVNYT0h3CnM1aVlpeSszV0E4bmFGc1lqejFP
-            elZuVjVLeGZiSHVENWFiN2hlSXhkQTAKLS0tIENjQ3ZWNldtWk1NN0pMNTVMZGNr
-            QkFIcGJDa2Z1NlJqSGd4a3dpQWJMZ1UKs8USbvqAPzmpQmq2Derm7jbE4iSRNX3M
-            /K6UKNYDGQLL1dLCszUg4UTKQvMNWPlVvNE9kB2j+OFbUc/nTnNyCQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBOWGVlRXdObkpkTGVMQWNr
+            NmNiVVdmQ29CNStmQVpFdGlBSklHNHJxTzB3CnVKdGd0dkx1V1VBTmh3U3BXcUQ1
+            WjQzYjJLMXpoUTFwcGJQYzBrbnQ1RUkKLS0tIFRsVE5XckVPVk5ZazFiSmE3eGtS
+            VWpRbU9aMjJKaWFFa1doYVVzQVd5Zm8KRdOCXqf1iplUXLVniS/qEppZ/Og9o3/6
+            Wdh4Gm/CpoGZ+KL0SgdgNBfGbsozy++b1G0FrQnRHdU0B3/Zdlx9tg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-22T13:35:10Z"
-    mac: ENC[AES256_GCM,data:i3cvGDO9bmXQujMenmztDLHbj9pXykoAGykwJT0EfFcOWlAsBjCJjNA9ETxIyDNsvdXUc61uG8WhWlf2nJ05u2ClOdW/PvS00uvMOeNBOmysE4CXURqe5mJwmwR3jg9gdkxgPExvKcYfK0uhzmgEkxxa9efFafwRmJMAtaUw7vo=,iv:tV7s/vHKInHnjOhkCBvS3nM6ogM+tQZcfrKQJltrsBE=,tag:USARqsWoamLluUZ3NNMVYA==,type:str]
+    lastmodified: "2024-06-27T13:21:05Z"
+    mac: ENC[AES256_GCM,data:L0vmLKrrsr/EDtWuOD8Vu6HzAUqif10xobvtm3zio+nSEZAU7NFqtmawRip9j0ocUzQ2KAv8DGvtHjzD8uI4I8bxvJCqeBbcd8WNxvkX1QyajdLS9J3GeS98RzIOMW2n0qYQkfvce2R1r63ZjHfsnWOdFwMdCjmrNFoBINGt63U=,iv:2hU/UAX0ZrNUOezRBGF0uVxsiOFmr0GoZq3rOYAG4TI=,tag:jPQAiwiQiTNxRpFjoAkVOw==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1
@@ -37,18 +37,18 @@ kind: IngressRoute
 metadata:
     name: immich
     annotations:
-        kubernetes.io/ingress.class: traefik-external
+        kubernetes.io/ingress.class: traefik
 spec:
     entryPoints:
         - websecure
     routes:
         - kind: Rule
-          match: ENC[AES256_GCM,data:/MxFJxbBJspTOH1p8ex6S0FV7LxGe6AapXI=,iv:Wu40BwmOCAAlKicvf9l/kP8+1t7zaQo5ul7Eu5r6fqA=,tag:1PBDaydwZ+UU3Y0WqUK+oQ==,type:str]
+          match: ENC[AES256_GCM,data:7sFsTZH/WbBzAWw387VzeuZnRyiHcxtarxU=,iv:IxojdI33S5F4JXkmL4cMdg6JPyisp3lPFgMmD4DuMQM=,tag:wBJLqUHTUFiqNLU2/IsiXA==,type:str]
           services:
             - name: immich
               port: 30041
         - kind: Rule
-          match: ENC[AES256_GCM,data:79CrhPMVwN2X4uMYcTBg8Cc2zpRrJg==,iv:4eD7l8bcobkshPaVBVbH6xOFCM1yPJ59AjqWMAnaZgk=,tag:RwwJ900UqSEXPP8pln8vDA==,type:str]
+          match: ENC[AES256_GCM,data:+UGmeZXmaO27l09pz73wWSzOC1P1EA==,iv:ZCg5rZq3Nkhwee/17rMWMsAXPBZxA4TpfoY02BU8eZg=,tag:XXxxgZQ1X6flm7Axjp/WNA==,type:str]
           services:
             - name: immich
               port: 30041
@@ -63,14 +63,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVTHlKcXNzWlRKU1IzbTMw
-            alUvOWRIOGFvRXJNVDNhbmZXS21lbVNYT0h3CnM1aVlpeSszV0E4bmFGc1lqejFP
-            elZuVjVLeGZiSHVENWFiN2hlSXhkQTAKLS0tIENjQ3ZWNldtWk1NN0pMNTVMZGNr
-            QkFIcGJDa2Z1NlJqSGd4a3dpQWJMZ1UKs8USbvqAPzmpQmq2Derm7jbE4iSRNX3M
-            /K6UKNYDGQLL1dLCszUg4UTKQvMNWPlVvNE9kB2j+OFbUc/nTnNyCQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBOWGVlRXdObkpkTGVMQWNr
+            NmNiVVdmQ29CNStmQVpFdGlBSklHNHJxTzB3CnVKdGd0dkx1V1VBTmh3U3BXcUQ1
+            WjQzYjJLMXpoUTFwcGJQYzBrbnQ1RUkKLS0tIFRsVE5XckVPVk5ZazFiSmE3eGtS
+            VWpRbU9aMjJKaWFFa1doYVVzQVd5Zm8KRdOCXqf1iplUXLVniS/qEppZ/Og9o3/6
+            Wdh4Gm/CpoGZ+KL0SgdgNBfGbsozy++b1G0FrQnRHdU0B3/Zdlx9tg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-22T13:35:10Z"
-    mac: ENC[AES256_GCM,data:i3cvGDO9bmXQujMenmztDLHbj9pXykoAGykwJT0EfFcOWlAsBjCJjNA9ETxIyDNsvdXUc61uG8WhWlf2nJ05u2ClOdW/PvS00uvMOeNBOmysE4CXURqe5mJwmwR3jg9gdkxgPExvKcYfK0uhzmgEkxxa9efFafwRmJMAtaUw7vo=,iv:tV7s/vHKInHnjOhkCBvS3nM6ogM+tQZcfrKQJltrsBE=,tag:USARqsWoamLluUZ3NNMVYA==,type:str]
+    lastmodified: "2024-06-27T13:21:05Z"
+    mac: ENC[AES256_GCM,data:L0vmLKrrsr/EDtWuOD8Vu6HzAUqif10xobvtm3zio+nSEZAU7NFqtmawRip9j0ocUzQ2KAv8DGvtHjzD8uI4I8bxvJCqeBbcd8WNxvkX1QyajdLS9J3GeS98RzIOMW2n0qYQkfvce2R1r63ZjHfsnWOdFwMdCjmrNFoBINGt63U=,iv:2hU/UAX0ZrNUOezRBGF0uVxsiOFmr0GoZq3rOYAG4TI=,tag:jPQAiwiQiTNxRpFjoAkVOw==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1

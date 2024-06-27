@@ -10,7 +10,7 @@ spec:
         - name: deluge
           port: 8112
           targetPort: 8112
-    externalName: ENC[AES256_GCM,data:5S+vy4+xtE1NWg==,iv:OBmEknUTYoZJl9FVMl8pvINMCbiT9BkbiySETD+XtNs=,tag:1K2JOHeWKXAiIp1v2a089g==,type:str]
+    externalName: ENC[AES256_GCM,data:rgumx6X20AYm0BE=,iv:5iQE4Yoi5tM+bg3Pi7q3XfTxutxlXxMKl3LzHVy6DWM=,tag:dCbYVug3b7NdHjAwykIi0g==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -20,14 +20,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVNmpjMEdvRmtFK1FIOHlI
-            SktkaDFCL0czOEZLbHU4N0lLYW9MM1VuL1FvCmdKYVhtdlRwMlZDTGVlb212NENH
-            VC91OVdyV2c2YU0veHI5V2JQYUtmVTQKLS0tIFI5MlRtK01FK1VibVNXYjZYazVW
-            WWJDT21hdk12WXFvWXlCL20vRTIxcEkKdRQJHinZ82tkKToyd/pExe0jO0SNkkZf
-            WPqTKMIZM5rNl2kY1v8hvGwAePsP/BaTRXTr6gHzSoamMzVJdbgDVA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxK0RqNnhpTGJUZW9XOVdB
+            UTVPMnp0d1d2K21vU0craERGeWhmT0NvWDNBCjl4VHpvN3ZSMVg5S3hWbytRTlVi
+            dHQwaHdKQkpBaDFab2tKMzlVNXZ3U0UKLS0tIEIyQURDc1RIKzExMzVhVXJma1Z3
+            ckZTMng3RCt4emV0MG9aY3VjSG92YUEKpipJz/8ncrwBHuILqQXNLS8a/l4D/s0f
+            xNYyC5Ujf2CeGbVdkOA/W85Pb8WTw/ycwKPUysOj2h8H6MsC6Wl1kA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-22T13:35:25Z"
-    mac: ENC[AES256_GCM,data:XYgQuisS1FNGthR4Kq+3OHdZmbY6Rk0owsbgSedCuN2Xp1fY79THg+/C2Ew6sf8xYmyp3rJH50rqD6tsrb7jUH/b+12X+MJXRzQLxX2i4XzYtXTMxa+5j9a03mKnC+AbvzRgERIa05N/bje2ksnYb99ZEGLlDsbVEJGcm74YEyw=,iv:zQ7WviGzLiwB19lMaBwJM1cfFZL8Q+jbNTQRb3Nwshc=,tag:TeZVkL7YvwYvDdIrFHW1cA==,type:str]
+    lastmodified: "2024-06-27T13:17:01Z"
+    mac: ENC[AES256_GCM,data:KBZaCQHS0ZT2Liv1ejopvtgIH0+x7GhJUWBUodIbtLHw1tbqV3wbCKF0CzDSwA7s2AqukbSMDbOd7lEbUZswK0lVqbi8eJSXxS5cdNUKSpmiN4xG9R8/kLkZdredGHGXqYMop+qqzWCTa+sGYf5pfwK8S/r/Y/VL+ocjatAi1b0=,iv:JJRmuXnea0Fn4RACS3lNpcjE9Weil2lMWTuDpBHXJ3c=,tag:8j1ihr9oUPFzyHobC7GQAA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1
@@ -42,7 +42,7 @@ spec:
     entryPoints:
         - websecure
     routes:
-        - match: ENC[AES256_GCM,data:+UoHaRSs4MGsQzsgRqqG3ZvlX7GSnDIg7F0=,iv:zfwXYu1cCua/rhA+XIw9TXj0oNdwWSvH06qiie0Is6o=,tag:CE2BonCxzHJWccVn4FaWyQ==,type:str]
+        - match: ENC[AES256_GCM,data:AJ2b7XMzX0Uy9FdqxgKnmXzGkXWH5Ru/Fvo=,iv:5brzL87hlHZFr9EDB8+bLXu8cYBlyUUSxulYgui+JNk=,tag:1Rkf1Nqr9cYGTIqqxi99DA==,type:str]
           kind: Rule
           services:
             - name: deluge
@@ -58,14 +58,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVNmpjMEdvRmtFK1FIOHlI
-            SktkaDFCL0czOEZLbHU4N0lLYW9MM1VuL1FvCmdKYVhtdlRwMlZDTGVlb212NENH
-            VC91OVdyV2c2YU0veHI5V2JQYUtmVTQKLS0tIFI5MlRtK01FK1VibVNXYjZYazVW
-            WWJDT21hdk12WXFvWXlCL20vRTIxcEkKdRQJHinZ82tkKToyd/pExe0jO0SNkkZf
-            WPqTKMIZM5rNl2kY1v8hvGwAePsP/BaTRXTr6gHzSoamMzVJdbgDVA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxK0RqNnhpTGJUZW9XOVdB
+            UTVPMnp0d1d2K21vU0craERGeWhmT0NvWDNBCjl4VHpvN3ZSMVg5S3hWbytRTlVi
+            dHQwaHdKQkpBaDFab2tKMzlVNXZ3U0UKLS0tIEIyQURDc1RIKzExMzVhVXJma1Z3
+            ckZTMng3RCt4emV0MG9aY3VjSG92YUEKpipJz/8ncrwBHuILqQXNLS8a/l4D/s0f
+            xNYyC5Ujf2CeGbVdkOA/W85Pb8WTw/ycwKPUysOj2h8H6MsC6Wl1kA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-22T13:35:25Z"
-    mac: ENC[AES256_GCM,data:XYgQuisS1FNGthR4Kq+3OHdZmbY6Rk0owsbgSedCuN2Xp1fY79THg+/C2Ew6sf8xYmyp3rJH50rqD6tsrb7jUH/b+12X+MJXRzQLxX2i4XzYtXTMxa+5j9a03mKnC+AbvzRgERIa05N/bje2ksnYb99ZEGLlDsbVEJGcm74YEyw=,iv:zQ7WviGzLiwB19lMaBwJM1cfFZL8Q+jbNTQRb3Nwshc=,tag:TeZVkL7YvwYvDdIrFHW1cA==,type:str]
+    lastmodified: "2024-06-27T13:17:01Z"
+    mac: ENC[AES256_GCM,data:KBZaCQHS0ZT2Liv1ejopvtgIH0+x7GhJUWBUodIbtLHw1tbqV3wbCKF0CzDSwA7s2AqukbSMDbOd7lEbUZswK0lVqbi8eJSXxS5cdNUKSpmiN4xG9R8/kLkZdredGHGXqYMop+qqzWCTa+sGYf5pfwK8S/r/Y/VL+ocjatAi1b0=,iv:JJRmuXnea0Fn4RACS3lNpcjE9Weil2lMWTuDpBHXJ3c=,tag:8j1ihr9oUPFzyHobC7GQAA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1

@@ -33,9 +33,9 @@ spec:
               value: 1.1.1.1 1.0.0.1
         livenessProbe:
           httpGet:
-            path: /
+            path: /lancache-heartbeat
             port: 80
-          failureThreshold: 1
+          failureThreshold: 3
           initialDelaySeconds: 10
           periodSeconds: 10
         volumeMounts:

@@ -12,3 +12,4 @@ resources:
   - ./traefik/ks.yaml
   - ./external-proxy/ks.yaml
   - ./portainer/ks.yaml
+  - ./lancache/ks.yaml

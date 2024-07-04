@@ -1,10 +1,8 @@
 ---
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
   name: lancache
-  annotations:
-    reloader.stakater.com/auto: "true"
 spec:
   selector:
     matchLabels:

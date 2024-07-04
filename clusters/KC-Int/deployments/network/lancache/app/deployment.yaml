@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: lancache
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  selector:
+    matchLabels:
+      app: lancache
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: lancache
+    spec:
+      containers:
+      - name: lancache
+        image: lancachenet/monolithic@sha256:beb28cbf8171bfe57be7a7608b9b48771e01f024ee312a413f27acca8ed92239
+        env:
+            - name: CACHE_DISK_SIZE
+              value: 1000g
+            - name: CACHE_DOMAINS_BRANCH
+              value: master
+            - name: CACHE_DOMAINS_REPO
+              value: https://github.com/uklans/cache-domains.git
+            - name: CACHE_INDEX_SIZE
+              value: 500m
+            - name: CACHE_MAX_AGE
+              value: 90d
+            - name: NOFETCH
+              value: "false"
+            - name: UPSTREAM_DNS
+              value: 1.1.1.1 1.0.0.1
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          failureThreshold: 1
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        volumeMounts:
+        - name: pvc
+          mountPath: /data
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: lancache

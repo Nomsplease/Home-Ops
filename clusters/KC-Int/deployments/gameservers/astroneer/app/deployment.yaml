@@ -18,7 +18,7 @@ spec:
         spec:
             containers:
                 - name: astroneer
-                  image: ghcr.io/nomsplease/ngsc-astroneer@sha256:4eea111f2023803a360df9927cdb47600c700d3dc4b307a5d7f900710b19ec9d
+                  image: ghcr.io/nomsplease/ngsc-astroneer@sha256:136ee58cb599b2e6bcb7d9f67517f5612069e6ba4480c291574058e156d4f8a5
                   volumeMounts:
                     - name: pvc
                       mountPath: /server

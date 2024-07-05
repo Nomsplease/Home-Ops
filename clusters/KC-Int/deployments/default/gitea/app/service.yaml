@@ -6,10 +6,11 @@ spec:
     selector:
         app: gitea
     type: LoadBalancer
-    loadBalancerIP: 172.16.2.15
+    loadBalancerIP: 172.16.2.32
     ports:
-        - name: ssh
+        - name: gitea
           port: 22
+          targetPort: 2222
 ---
 apiVersion: v1
 kind: Service
@@ -19,5 +20,5 @@ spec:
     selector:
         app: gitea
     ports:
-        - name: http
+        - name: gitea
           port: 3000

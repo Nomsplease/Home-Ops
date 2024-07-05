@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: astroneer
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: astroneer
+    template:
+        metadata:
+            labels:
+                app: astroneer
+        spec:
+            containers:
+                - name: astroneer
+                  image: ghcr.io/nomsplease/ngsc-astroneer@sha256:4eea111f2023803a360df9927cdb47600c700d3dc4b307a5d7f900710b19ec9d
+                  volumeMounts:
+                    - name: pvc
+                      mountPath: /server
+            volumes:
+                - name: pvc
+                  persistentVolumeClaim:
+                    claimName: astroneer

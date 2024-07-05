@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
     name: astroneer
 spec:
-    replicas: 0
+    replicas: 1
     progressDeadlineSeconds: 600
     revisionHistoryLimit: 2
     strategy:
@@ -18,7 +18,7 @@ spec:
         spec:
             containers:
                 - name: astroneer
-                  image: ghcr.io/nomsplease/ngsc-astroneer@sha256:136ee58cb599b2e6bcb7d9f67517f5612069e6ba4480c291574058e156d4f8a5
+                  image: ghcr.io/nomsplease/ngsc-astroneer:v0.0.1
                   volumeMounts:
                     - name: pvc
                       mountPath: /server

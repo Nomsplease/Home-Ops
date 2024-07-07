@@ -1,7 +1,7 @@
 ---
 clusterName: KC
-talosVersion: v1.7.4
-kubernetesVersion: v1.30.1
+talosVersion: v1.7.5
+kubernetesVersion: v1.30.2
 endpoint: https://172.16.2.5:6443
 domain: cluster.local
 allowSchedulingOnMasters: true
@@ -27,8 +27,6 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          extraKernelArgs:
-              - net.ifnames=0
           systemExtensions:
               officialExtensions:
                   - siderolabs/i915-ucode
@@ -42,13 +40,15 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: eth0
+      - interface: enp1s0
         addresses:
           - 172.16.2.6/24
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
+        vip:
+          ip: 172.16.2.5
   - hostname: KC-W-01
     ipAddress: 172.16.2.7
     controlPlane: false
@@ -58,8 +58,6 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          extraKernelArgs:
-              - net.ifnames=0
           systemExtensions:
               officialExtensions:
                   - siderolabs/i915-ucode
@@ -73,7 +71,7 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: eth0
+      - interface: enp1s0
         addresses:
           - 172.16.2.7/24
         mtu: 1500
@@ -89,8 +87,6 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          extraKernelArgs:
-              - net.ifnames=0
           systemExtensions:
               officialExtensions:
                   - siderolabs/i915-ucode
@@ -104,13 +100,15 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: eth0
+      - interface: enp1s0
         addresses:
           - 172.16.2.8/24
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
+        vip:
+          ip: 172.16.2.5
   - hostname: KC-W-02
     ipAddress: 172.16.2.9
     controlPlane: false
@@ -120,8 +118,6 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          extraKernelArgs:
-              - net.ifnames=0
           systemExtensions:
               officialExtensions:
                   - siderolabs/i915-ucode
@@ -135,7 +131,7 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: eth0
+      - interface: enp1s0
         addresses:
           - 172.16.2.9/24
         mtu: 1500
@@ -151,8 +147,6 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          extraKernelArgs:
-              - net.ifnames=0
           systemExtensions:
               officialExtensions:
                   - siderolabs/i915-ucode
@@ -166,13 +160,15 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: eth0
+      - interface: enp1s0
         addresses:
           - 172.16.2.10/24
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
+        vip:
+          ip: 172.16.2.5
   - hostname: KC-W-03
     ipAddress: 172.16.2.11
     controlPlane: false
@@ -182,8 +178,6 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          extraKernelArgs:
-              - net.ifnames=0
           systemExtensions:
               officialExtensions:
                   - siderolabs/i915-ucode
@@ -197,46 +191,9 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: eth0
+      - interface: enp1s0
         addresses:
           - 172.16.2.11/24
-        mtu: 1500
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 172.16.2.1
-  - hostname: KC-W-04
-    ipAddress: 172.16.2.12
-    controlPlane: false
-    machineSpec:
-      mode: metal
-      arch: amd64
-      secureboot: false
-    schematic:
-      customization:
-          extraKernelArgs:
-              - net.ifnames=0
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915-ucode
-                  - siderolabs/iscsi-tools
-                  - siderolabs/qemu-guest-agent
-                  - siderolabs/util-linux-tools
-    installDisk: /dev/sda
-    nodeLabels:
-      intel.gpuType: dedicated
-    nameservers:
-      - 172.16.2.1
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 172.16.1.9/24
-        mtu: 1500
-        routes:
-          - network: 172.16.1.0/24
-            gateway: 172.16.1.1
-      - interface: eth1
-        addresses:
-          - 172.16.2.12/24
         mtu: 1500
         routes:
           - network: 0.0.0.0/0

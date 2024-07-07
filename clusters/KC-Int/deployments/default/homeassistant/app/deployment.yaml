@@ -1,41 +1,60 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: homeassistant
+    name: homeassistant
 spec:
-  replicas: 0
-  progressDeadlineSeconds: 600
-  revisionHistoryLimit: 2
-  strategy:
-    type: Recreate
-  selector:
-    matchLabels:
-      app: homeassistant
-  template:
-    metadata:
-      labels:
-        app: homeassistant
-      #annotations:
-      #  k8s.v1.cni.cncf.io/networks: |
-      #    [{
-      #      "name": "multus-iot",
-      #      "namespace": "default",
-      #      "mac": "2f:9f:5b:91:1c:ff",
-      #      "ips": ["172.16.3.3/24"]
-      #    }]
-    spec:
-      containers:
-        - name: homeassistant
-          image: ghcr.io/home-assistant/home-assistant:2024.6.4
-          env:
-            - name: TZ
-              value: America/New_York
-          volumeMounts:
-            - name: pvc
-              mountPath: /config
-              subPath: config
-      volumes:
-        - name: pvc
-          persistentVolumeClaim:
-            claimName: homeassistant
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: homeassistant
+    template:
+        metadata:
+            labels:
+                app: homeassistant
+                #annotations:
+                #  k8s.v1.cni.cncf.io/networks: |
+                #    [{
+                #      "name": "multus-iot",
+                #      "namespace": "default",
+                #      "mac": "2f:9f:5b:91:1c:ff",
+                #      "ips": ["172.16.3.3/24"]
+                #    }]
+        spec:
+            containers:
+                - name: homeassistant
+                  image: ghcr.io/home-assistant/home-assistant:2024.6.4
+                  env:
+                    - name: ENC[AES256_GCM,data:m/A=,iv:FljFQ33WPSHVeVPXG44tV+3g6V/OEFgKX2xIvXg+7mU=,tag:jZCahB/gwBmAykdUW+/p/g==,type:str]
+                      value: ENC[AES256_GCM,data:uCDE7j4v5H//oWnp3WgZEQ==,iv:ocxxbl2ryV1YbbDicna9T+AsEv3BFREbFyNbQf7yRak=,tag:4rUbf88kuIjvxpo44MdMdQ==,type:str]
+                  volumeMounts:
+                    - name: pvc
+                      mountPath: /config
+                      subPath: config
+            volumes:
+                - name: pvc
+                  persistentVolumeClaim:
+                    claimName: homeassistant
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBhMEJadGhNMHlWRFNVY1hC
+            eS9uYXBQNkJzUEtOaVdaZXJ3NTEvQ2NPVFZ3Ck1JTWphTG1YbCs4ME1KVnBGekVk
+            Z3VHSlFCV0Q4Z1lnZm5qM1BhdWs3dHcKLS0tIEhTdHl1bnY2dWxWdzFXV1BNa1pr
+            YkhhODRtamhWaktSTk85VFdady80VjgKWxmtfTkDNsjoy4lpn/IBHiqaq5NcJYgT
+            XFI6TYeqbERuIt6HMYgElkYcWoXpe7ds08tZOM3W9oGEf+kVWueevw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-07-07T17:08:28Z"
+    mac: ENC[AES256_GCM,data:fuoO8dAe8Ewu8w6eCVHiDCbSfYgoULt2dzFew4HGjEHC5loo5NtMjpVBmglRcFbYWlgeIibH/c8Gt8dYsytj/irN9J07kVYMEARiDaS7Du+PEeYrw0ANNx4mOvlrwYzOauqEUhkpNYjITNhGVloPSKGD9dy88yyM5bzoh+r1JU4=,iv:TManeJ19PLK/FsiHBq9LZ4xDYlxNrRBMWVtlkg3c1A8=,tag:pJakRGFD6wzvFvLCPbHinQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|env)$
+    version: 3.8.1

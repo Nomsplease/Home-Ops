@@ -1,45 +1,65 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sonarr
-  namespace: media
+    name: sonarr
+    namespace: media
 spec:
-  replicas: 0
-  progressDeadlineSeconds: 600
-  revisionHistoryLimit: 2
-  strategy:
-    type: Recreate
-  selector:
-    matchLabels:
-      app: sonarr
-  template:
-    metadata:
-      labels:
-        app: sonarr
-    spec:
-      containers:
-        - name: sonarr
-          image: linuxserver/sonarr:4.0.5
-          env:
-            - name: TZ
-              value: America/New_York
-          resources:
-            limits:
-              memory: 4Gi
-              cpu: 2000m
-            requests:
-              memory: 100Mi
-              cpu: 100m
-          volumeMounts:
-            - name: pvc
-              mountPath: /config
-            - name: media
-              mountPath: /PlexMedia
-      volumes:
-        - name: pvc
-          persistentVolumeClaim:
-            claimName: sonarr
-        - name: media
-          nfs:
-            server: 172.16.1.10
-            path: /mnt/BigPool/Media
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: sonarr
+    template:
+        metadata:
+            labels:
+                app: sonarr
+        spec:
+            containers:
+                - name: sonarr
+                  image: linuxserver/sonarr:4.0.5
+                  env:
+                    - name: ENC[AES256_GCM,data:v/g=,iv:a1giX6OAJJYZrVt3JNgVQhuCaVVwzXUw4t+rgelXLhk=,tag:RIVCOsx3OoEL6vuf696K4w==,type:str]
+                      value: ENC[AES256_GCM,data:bFPt82pdsTVOND9m9QzUGg==,iv:h53mhqyc0U+Vf6CZ/zUVZHYN/PMJSQ5lsJiIh2nJH0Q=,tag:Sfzn/1g9KJb64rwatIOHSg==,type:str]
+                  resources:
+                    limits:
+                        memory: 4Gi
+                        cpu: 2000m
+                    requests:
+                        memory: 100Mi
+                        cpu: 100m
+                  volumeMounts:
+                    - name: pvc
+                      mountPath: /config
+                    - name: media
+                      mountPath: /PlexMedia
+            volumes:
+                - name: pvc
+                  persistentVolumeClaim:
+                    claimName: sonarr
+                - name: media
+                  nfs:
+                    server: 172.16.1.10
+                    path: /mnt/BigPool/Media
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBpTFdUaDhub3h4Ri9ja3Rn
+            clVJR0pyOHFFSlpXbVNZU3lTREJYMzNvMVdzCkFVaWVzQ3dyNVJ5SktRd2xsWlB6
+            MmNweFpONmFKU0c2VnJnM2JLcDZ5SjgKLS0tIFVGczJiYU1vbTZYNEdJdGs3YjRo
+            WXUyU0NNQmUwZXlqeU1VQXh2NS9IOUEK+391aSBSQoxf27INY1fJu2iVssZ+k6oG
+            wraE9PKSDHLbmmR2FPnmtgR+ikLaNLLCCNw4goeNZSMGduwdRONDAA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-07-07T17:35:31Z"
+    mac: ENC[AES256_GCM,data:xO417UZm7VV24bmdYYBLmhoqGqDAoFHekJiTd7zrEAWLEwFV8gcJKxIbxkx7FtbV8C5dAB/lSNAbQf2C+5jmeYWOYVP8R6qYc+SHhA9mU6nghO+0DUfgkqCfCrZmXQuM2bpXk4Q8QPBdkrct3paEND8gay4ZY4Crd2PQcvkCDww=,iv:ELDwqnfQrYwUJ99veb0G0XPTnLAw3qFVKhahWvfj/60=,tag:XW9lBYEJfA6/EuEXNttCKw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|env)$
+    version: 3.8.1

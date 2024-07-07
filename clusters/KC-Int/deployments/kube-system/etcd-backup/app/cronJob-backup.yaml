@@ -20,7 +20,7 @@ spec:
               - /data/etcd.snapshot
             env:
               - name: CP_NODE_IP
-                value: "172.16.2.10"  # Change me to a Talos control plane node IP
+                value: "172.16.2.5"  # Change me to a Talos control plane node IP
             volumeMounts:
               - name: talos-secrets
                 mountPath: /var/run/secrets/talos.dev

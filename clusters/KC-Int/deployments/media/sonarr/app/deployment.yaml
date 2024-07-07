@@ -19,7 +19,7 @@ spec:
         spec:
             containers:
                 - name: sonarr
-                  image: linuxserver/sonarr:4.0.5
+                  image: linuxserver/sonarr:4.0.6
                   env:
                     - name: ENC[AES256_GCM,data:v/g=,iv:a1giX6OAJJYZrVt3JNgVQhuCaVVwzXUw4t+rgelXLhk=,tag:RIVCOsx3OoEL6vuf696K4w==,type:str]
                       value: ENC[AES256_GCM,data:bFPt82pdsTVOND9m9QzUGg==,iv:h53mhqyc0U+Vf6CZ/zUVZHYN/PMJSQ5lsJiIh2nJH0Q=,tag:Sfzn/1g9KJb64rwatIOHSg==,type:str]

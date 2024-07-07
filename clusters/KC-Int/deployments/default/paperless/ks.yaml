@@ -15,6 +15,7 @@ spec:
     - name: paperless-gotenberg
     - name: paperless-redis
     - name: paperless-tika
+    - name: rook-ceph-cluster
   path: ./clusters/KC-Int/deployments/default/paperless/app
   prune: false
   sourceRef:

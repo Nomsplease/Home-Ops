@@ -12,6 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+    - name: rook-ceph-cluster
   path: ./clusters/KC-Int/deployments/default/fastapi-dls/app
   prune: false
   sourceRef:

@@ -4,37 +4,21 @@ metadata:
   name: etcd-backup-prune
 spec:
   concurrencyPolicy: Forbid
-  schedule: "0 */1 * * *"  # Change me if needed (Every Hour)
+  schedule: "32 5 */1 * *"  # change me - 1st of month at 05:32
   jobTemplate:
     spec:
       template:
         spec:
-          initContainers:
-          - name: talosctl
-            image: ghcr.io/siderolabs/talosctl:v1.7.5
-            args:
-              - -n
-              - "$(CP_NODE_IP)"
-              - etcd
-              - snapshot
-              - /data/etcd.snapshot
-            env:
-              - name: CP_NODE_IP
-                value: "172.16.2.10"  # Change me to a Talos control plane node IP
-            volumeMounts:
-              - name: talos-secrets
-                mountPath: /var/run/secrets/talos.dev
-              - name: backupdata
-                mountPath: /data
           containers:
           - name: restic
             image: restic/restic:latest
-            workingDir: /data
             args:
-              - backup
-              - --host
-              - KC-Int      # set a consistent hostname to avoid restic rescans
-              - .           # use workingDir to get relative paths in backup
+              - forget              # see: https://restic.readthedocs.io/en/latest/060_forget.html
+              - --keep-hourly=72    # Keep most recent hourly backup
+              - --keep-daily=7      # Keep most recent daily backup for 7 days
+              - --keep-weekly=4
+              - --keep-monthly=4
+              - --prune
             env:
               - name: RESTIC_REPOSITORY
                 valueFrom:
@@ -60,14 +44,4 @@ spec:
                     name: etcd-backup
                     key: secretAccessKey
                     optional: false
-            volumeMounts:
-              - name: backupdata
-                mountPath: /data
-                readOnly: true
-          volumes:
-            - name: backupdata
-              emptydir: {}
-            - name: talos-secrets
-              secret:
-                secretName: etcd-backup
           restartPolicy: OnFailure

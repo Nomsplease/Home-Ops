@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: prometheus-exporter-deluge
 spec:
-  replicas: 0
+  replicas: 1
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:

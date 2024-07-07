@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: zigbee2mqtt
 spec:
-  replicas: 1
+  replicas: 0
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:

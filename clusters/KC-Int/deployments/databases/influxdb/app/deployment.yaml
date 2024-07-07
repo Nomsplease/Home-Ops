@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: influxdb
 spec:
-  replicas: 1
+  replicas: 0
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:
@@ -37,7 +37,7 @@ kind: Deployment
 metadata:
   name: chronograf
 spec:
-  replicas: 1
+  replicas: 0
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:

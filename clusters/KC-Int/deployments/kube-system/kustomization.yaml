@@ -10,3 +10,4 @@ resources:
   - ./node-feature-discovery/ks.yaml
   - ./reloader/ks.yaml
   - ./intel-device-plugin/ks.yaml
+  - ./etcd-backup/ks.yaml

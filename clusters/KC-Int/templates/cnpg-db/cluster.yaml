@@ -16,9 +16,9 @@ spec:
   enableSuperuserAccess: true
 
   postgresql: ${CNPG_DB_EXTRA_ARGS}
-    # parameters:
-    #   max_connections: "400"
-    #   shared_buffers: 256MB
+    parameters:
+      max_connections: "400"
+      shared_buffers: 256MB
     # shared_preload_libraries:
     #   - "vectors.so"
 

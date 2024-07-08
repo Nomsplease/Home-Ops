@@ -18,3 +18,4 @@ resources:
 - metallb.yaml
 - planka.yaml
 - portainer.yaml
+- cloudnative-pg.yaml

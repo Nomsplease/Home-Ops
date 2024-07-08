@@ -11,7 +11,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: rook-ceph-cluster      
+    - name: rook-ceph-cluster
+    - name: external-secrets-stores
   path: ./clusters/KC-Int/deployments/volsync-system/volsync/app
   prune: true
   sourceRef:

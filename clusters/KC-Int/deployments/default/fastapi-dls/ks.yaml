@@ -11,8 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
-    - name: rook-ceph-cluster
+    - name: volsync
   path: ./clusters/KC-Int/deployments/default/fastapi-dls/app
   prune: false
   sourceRef:
@@ -26,3 +25,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 1Gi

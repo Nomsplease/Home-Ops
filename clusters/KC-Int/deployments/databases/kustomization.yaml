@@ -9,3 +9,4 @@ resources:
   - ./postgres/ks.yaml
   - ./mariadb/ks.yaml
   - ./influxdb/ks.yaml
+  - ./cloudnative-pg/ks.yaml

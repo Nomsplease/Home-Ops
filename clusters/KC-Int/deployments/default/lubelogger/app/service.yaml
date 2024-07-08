@@ -6,5 +6,5 @@ spec:
     selector:
         app: lubelogger
     ports:
-        - name: lubelogger-http
+        - name: http
           port: 8080

@@ -26,9 +26,9 @@ spec:
             - name: cert-webserver
               mountPath: /app/cert
               readOnly: true
-            - name: cert-instance
+            - name: pvc
               mountPath: /app/cert/instance
-              readOnly: true
+              subPath: instanceCerts
             - name: pvc
               mountPath: /app/database
               subPath: database
@@ -44,11 +44,3 @@ spec:
               path: webserver.crt
             - key: tls.key
               path: webserver.key
-        - name: cert-instance
-          secret: 
-            secretName: fastapi-dls-env
-            items:
-            - key: instance.private.pem
-              path: instance.private.pem
-            - key: instance.public.pem
-              path: instance.public.pem

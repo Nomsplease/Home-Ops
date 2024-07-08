@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fastapi-dls
-  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600

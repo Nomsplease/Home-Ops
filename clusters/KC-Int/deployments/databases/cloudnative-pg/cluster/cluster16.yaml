@@ -42,7 +42,7 @@ spec:
       endpointURL: https://s3.int.noms.tv
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster
-      serverName: &currentCluster postgres16-v6
+      serverName: &currentCluster postgres16-v1
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -53,8 +53,8 @@ spec:
   # Note: previousCluster needs to be set to the name of the previous
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
-    recovery:
-      source: &previousCluster postgres16-v5
+    # recovery:
+    #   source: &previousCluster postgres16-v5
     initdb:
       postInitSQL:
         - ALTER SYSTEM SET search_path TO "$user", public, vectors;

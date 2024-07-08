@@ -5,5 +5,5 @@ resources:
 - deployment.yaml
 - ingress.sops.yaml
 - service.yaml
-## Include Voslync Bakup
+## Include Voslync Backup
 - ../../../../templates/volsync

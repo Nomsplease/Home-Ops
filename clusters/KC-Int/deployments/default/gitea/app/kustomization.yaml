@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
 - deployment.yaml
 - ingress.sops.yaml
-- pvc.yaml
 - service.yaml
 - externalSecret.yaml
+## Include Voslync Backup
+- ../../../../templates/volsync

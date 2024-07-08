@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lubelogger
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: lubelogger
+  template:
+    metadata:
+      labels:
+        app: lubelogger
+    spec:
+      containers:
+        - name: lubelogger
+          image: ghcr.io/hargata/lubelogger:v1.3.4
+          envFrom:
+            - secretRef:
+                name: fastapi-dls-env
+          volumeMounts:
+            - name: pvc
+              mountPath: /App/config
+              subPath: config
+            - name: pvc
+              mountPath: /App/data
+              subPath: data
+            - name: pvc
+              mountPath: /App/wwwroot/translations
+              subPath: translations
+            - name: pvc
+              mountPath: /App/wwwroot/documents
+              subPath: documents
+            - name: pvc
+              mountPath: /App/wwwroot/images
+              subPath: images
+            - name: pvc
+              mountPath: /App/wwwroot/temp
+              subPath: temp
+            - name: pvc
+              mountPath: /App/log
+              subPath: log
+            - name: pvc
+              mountPath: /root/.aspnet/DataProtection-Keys
+              subPath: DataProtectionKeys
+              
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: lubelogger

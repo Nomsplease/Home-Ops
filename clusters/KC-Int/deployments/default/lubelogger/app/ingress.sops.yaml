@@ -1,0 +1,37 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: lubelogger
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:FA8cH+SxZb+EqclBMZRHZliajqmEIJ7U9w8LMs1K,iv:asTtsDPzSLgCkmu8g4A9cjETKd7XLSyJ1u/KDSx+syc=,tag:TPJ7UEMLx1GHwM3CUmOYPA==,type:str]
+          kind: Rule
+          services:
+            - name: lubelogger-http
+              port: 8080
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBoc2xWSFVBMkgvSWxRVFpp
+            MjdZditGbEw4Si80endiRklHWXFhcXFlN2p3CjgrRGY4K1pyQ29MbllIWXpUV244
+            SzVHcitIZkNidlpTenduWnNZWWJFVGcKLS0tIHRSSUZ4eUNyVTI3QTAra1d5Q0g1
+            SEV4ZEM0RW1RN3pjN1RhWDFzcUQ0LzAKqBhpJLKI4AWoumdUCtuNkOQ5iGl/rIuw
+            AZtF5xEGFFTfVHAYxrtJG9sZAOiyI69s6qS+gOzgGt/k5V0vqy9XuA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-07-08T14:51:45Z"
+    mac: ENC[AES256_GCM,data:lA7gXBm81UzXiu4XIqXgPyEwbywGWPImDnJLafANleayHWhTmsVr8hymYebWvBNZr8Q+IVGUq9DrNoZ95lqOWGSkjulb0iO2fHen5AwGCWaaYwPf4oUq0YP4sy/uCW0vfmk6D5T9WzpsOyTCci7wn6AZPDVOhnIRzEDHag7c9/c=,iv:ewqCEoAXMOuchTY/loIJdgrh4JjZKimoGcM2D5BSkXY=,tag:2N6GHTSSWQyhOTw05Mv9QQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: gitea
 spec:
-  replicas: 0
+  replicas: 1
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:
@@ -20,13 +20,19 @@ spec:
         - name: gitea
           image: gitea/gitea:1.22.0-rootless
           volumeMounts:
+            - name: config
+              mountPath: /etc/gitea
+              readOnly: true
             - name: pvc
               mountPath: /var/lib/gitea
               subPath: data
-            - name: pvc
-              mountPath: /etc/gitea
-              subPath: conf
       volumes:
+        - name: config
+          secret:
+            secretName: gitea-env
+            items:
+              - key: app.ini
+                path: app.ini
         - name: pvc
           persistentVolumeClaim:
             claimName: gitea

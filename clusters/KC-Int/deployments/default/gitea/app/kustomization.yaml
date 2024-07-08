@@ -7,3 +7,4 @@ resources:
 - externalSecret.yaml
 ## Include Voslync Backup
 - ../../../../templates/volsync
+- ../../../../templates/cnpg-db

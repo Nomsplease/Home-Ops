@@ -5,7 +5,7 @@ kind: Cluster
 metadata:
   name: "${APP}-cnpg-db"
 spec:
-  instances: 1609
+  instances: "${CNPG_DB_INSTANCES:-1}"
   imageName: "${CNPG_DB_IMAGE:-ghcr.io/cloudnative-pg/postgresql:16.3-7}"
   primaryUpdateStrategy: unsupervised
   storage:

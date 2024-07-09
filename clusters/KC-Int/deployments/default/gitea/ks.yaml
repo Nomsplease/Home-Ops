@@ -29,7 +29,6 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 50Gi
-      CNPG_DB_VERSION: v1
       # CNPG_DB_EXTRA_ARGS: |-
       #   parameters:
       #     search_path: '"$user", public, vectors'

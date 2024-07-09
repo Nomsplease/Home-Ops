@@ -22,6 +22,7 @@ spec:
                   mountPath: /config
                 - name: kometa-secrets
                   mountPath: /config/
+                  subPath: config.yml
           volumes:
             - name: pvc
               persistentVolumeClaim:
@@ -29,7 +30,4 @@ spec:
             - name: kometa-secrets
               secret:
                 secretName: kometa-secrets
-                items:
-                - key: config.yml
-                  path: config.yml
           restartPolicy: OnFailure

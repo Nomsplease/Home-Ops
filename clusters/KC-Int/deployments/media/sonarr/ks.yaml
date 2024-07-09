@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: rook-ceph-cluster      
+    - name: volsync    
   path: ./clusters/KC-Int/deployments/media/sonarr/app
   prune: false
   sourceRef:

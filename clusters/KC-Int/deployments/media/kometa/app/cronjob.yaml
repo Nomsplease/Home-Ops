@@ -19,9 +19,10 @@ spec:
               args: [ "--run", "--read-only-config" ]
               volumeMounts:
                 - name: pvc
-                  mountPath: /data
-                - name: kometa-secrets
                   mountPath: /config
+                - name: kometa-secrets
+                  mountPath: /config/config.yml
+                  subPath: config.yml
                   readOnly: true
           volumes:
             - name: pvc

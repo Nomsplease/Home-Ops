@@ -11,4 +11,3 @@ resources:
   - ./influxdb/ks.yaml
   - ./cloudnative-pg/ks.yaml
   - ./pgadmin/ks.yaml
-  - ./adminer/ks.yaml

@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: zwave-js-ui
-          image: zwavejs/zwave-js-ui:9.14.2
+          image: zwavejs/zwave-js-ui:9.14.5
           env:
             - name: TZ
               value: America/New_York

@@ -25,12 +25,7 @@ spec:
           volumeMounts:
             - name: homepage
               mountPath: /pvcs/homepage
-            - name: homeassistant
-              mountPath: /pvcs/homeassistant
       volumes:
         - name: homepage
           persistentVolumeClaim:
             claimName: homepage
-        - name: homeassistant
-          persistentVolumeClaim:
-            claimName: homeassistant

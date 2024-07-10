@@ -11,11 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
-    - name: paperless-gotenberg
-    - name: paperless-redis
-    - name: paperless-tika
-    - name: rook-ceph-cluster
+    - name: volsync
   path: ./clusters/KC-Int/deployments/default/paperless/app
   prune: false
   sourceRef:

@@ -5,3 +5,7 @@ resources:
 - deployment.yaml
 - ingress.sops.yaml
 - service.yaml
+## Include Voslync Backup
+#- ../../../../templates/volsync
+## Include CNPG Database
+- ../../../../templates/cnpg-db

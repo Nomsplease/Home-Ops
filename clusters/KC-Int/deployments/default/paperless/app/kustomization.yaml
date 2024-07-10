@@ -6,5 +6,7 @@ resources:
 - ingress.sops.yaml
 - pvc.yaml
 - service.yaml
-#- restic.sops.yaml
-#- pvc-backup.yaml
+## Include Voslync Backup
+#- ../../../../templates/volsync
+## Include CNPG Database
+- ../../../../templates/cnpg-db

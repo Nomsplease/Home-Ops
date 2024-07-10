@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: code-server
 spec:
-  replicas: 0
+  replicas: 1
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:
@@ -25,7 +25,12 @@ spec:
           volumeMounts:
             - name: homepage
               mountPath: /pvcs/homepage
+            - name: homeassistant
+              mountPath: /pvcs/homeassistant
       volumes:
         - name: homepage
           persistentVolumeClaim:
             claimName: homepage
+        - name: homeassistant
+          persistentVolumeClaim:
+            claimName: homeassistant

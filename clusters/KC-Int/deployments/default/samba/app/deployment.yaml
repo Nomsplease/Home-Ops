@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: samba
 spec:
-  replicas: 0
+  replicas: 1
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
   strategy:
@@ -44,6 +44,8 @@ spec:
             - name: paperless
               mountPath: /paperless-consume
               subPath: consume
+            - name: homepage
+              mountPath: /pvcs/homepage
       volumes:
         - name: config
           secret:
@@ -57,3 +59,6 @@ spec:
         - name: paperless
           persistentVolumeClaim:
             claimName: paperless
+        - name: homepage
+          persistentVolumeClaim:
+            claimName: homepage

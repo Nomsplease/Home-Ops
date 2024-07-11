@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: lubelogger
-          image: ghcr.io/hargata/lubelogger:v1.3.4
+          image: ghcr.io/hargata/lubelogger:v1.3.5
           envFrom:
             - secretRef:
                 name: fastapi-dls-env

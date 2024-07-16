@@ -41,6 +41,8 @@ spec:
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-4Gi}"
     storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
+    ## Unlock requires string value
+    unlock: "07/16/2024"
     retain:
       hourly: 24
       daily: 7

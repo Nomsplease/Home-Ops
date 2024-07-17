@@ -61,6 +61,9 @@ spec:
         - name: kc-c-01
           devices:
           - name: "/dev/disk/by-id/nvme-CT2000P3PSSD8_2423E8B70EA3"
+        - name: kc-c-02
+          devices:
+          - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC09703D"
         - name: kc-c-03
           devices:
           - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC08560R"

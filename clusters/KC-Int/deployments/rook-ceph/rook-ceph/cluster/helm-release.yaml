@@ -73,6 +73,9 @@ spec:
         - name: kc-w-02
           devices:
           - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708742X"
+        - name: kc-w-03
+          devices:
+          - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W320254A"
       placement:
         mgr: &placement
           nodeAffinity:

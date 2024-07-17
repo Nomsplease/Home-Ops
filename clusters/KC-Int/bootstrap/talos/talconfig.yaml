@@ -34,7 +34,8 @@ nodes:
                   - siderolabs/intel-ucode
                   - siderolabs/iscsi-tools
                   - siderolabs/util-linux-tools
-    installDisk: /dev/nvme1n1
+    installDiskSelector:
+      model: Micron*
     nodeLabels:
       intel.gpuType: igpu
     nameservers:
@@ -65,7 +66,8 @@ nodes:
                   - siderolabs/intel-ucode
                   - siderolabs/iscsi-tools
                   - siderolabs/util-linux-tools
-    installDisk: /dev/nvme1n1
+    installDiskSelector:
+      model: PM991*
     nodeLabels:
       intel.gpuType: igpu
     nameservers:
@@ -126,7 +128,8 @@ nodes:
                   - siderolabs/intel-ucode
                   - siderolabs/iscsi-tools
                   - siderolabs/util-linux-tools
-    installDisk: /dev/nvme1n1
+    installDiskSelector:
+      model: PM991*
     nodeLabels:
       intel.gpuType: igpu
     nameservers:
@@ -155,7 +158,8 @@ nodes:
                   - siderolabs/intel-ucode
                   - siderolabs/iscsi-tools
                   - siderolabs/util-linux-tools
-    installDisk: /dev/nvme1n1
+    installDiskSelector:
+      model: PM991*
     nodeLabels:
       intel.gpuType: igpu
     nameservers:
@@ -186,7 +190,8 @@ nodes:
                   - siderolabs/intel-ucode
                   - siderolabs/iscsi-tools
                   - siderolabs/util-linux-tools
-    installDisk: /dev/nvme1n1
+    installDiskSelector:
+      model: PM991*
     nodeLabels:
       intel.gpuType: igpu
     nameservers:

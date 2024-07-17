@@ -52,11 +52,24 @@ spec:
         connections:
           requireMsgr2: true
       storage:
-        useAllNodes: true
-        useAllDevices: true
-        deviceFilter: nvme0n1
+        useAllNodes: false
+        useAllDevices: false
+        deviceFilter:
         config:
           osdsPerDevice: "1"
+        nodes:
+        - name: kc-c-01
+          devices:
+          - name: "/dev/disk/by-id/nvme-CT2000P3PSSD8_2423E8B70EA3"
+        - name: kc-c-03
+          devices:
+          - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC08560R"
+        - name: kc-w-01
+          devices:
+          - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0W101854X"
+        - name: kc-w-02
+          devices:
+          - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708742X"
       placement:
         mgr: &placement
           nodeAffinity:

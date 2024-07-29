@@ -21,7 +21,7 @@ spec:
           image: ghcr.io/hargata/lubelogger:v1.3.4
           envFrom:
             - secretRef:
-                name: fastapi-dls-env
+                name: lubelogger-env
           volumeMounts:
             - name: pvc
               mountPath: /App/config

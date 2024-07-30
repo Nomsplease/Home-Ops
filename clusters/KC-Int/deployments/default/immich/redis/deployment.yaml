@@ -1,7 +1,9 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: immich-server
+  name: immich-redis
+  namespace: apps
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -10,25 +12,19 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: immich-server
+      app: immich-redis
   template:
     metadata:
       labels:
-        app: immich-server
+        app: immich-redis
     spec:
       containers:
-        - name: immich-server
-          image: ghcr.io/immich-app/immich-server:v1.100.0
-          args:
-          - start.sh
-          - immich
-          envFrom:
-            - secretRef:
-                name: immich-env
+        - name: immich-redis
+          image: redis:7.2.5
           volumeMounts:
             - name: pvc
-              mountPath: /usr/src/app/upload
-              subPath: uploads
+              mountPath: /data
+              subPath: redis
       volumes:
         - name: pvc
           persistentVolumeClaim:

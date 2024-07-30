@@ -18,7 +18,7 @@ spec:
         spec:
             containers:
                 - name: esphome
-                  image: ghcr.io/esphome/esphome:2024.6.6
+                  image: ghcr.io/esphome/esphome:2024.7.2
                   volumeMounts:
                     - name: pvc
                       mountPath: /config

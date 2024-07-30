@@ -10,6 +10,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: external-secrets-store
   path: ./clusters/KC-Int/deployments/authentication/authentik/app
   prune: false # never should be deleted
   sourceRef:
@@ -22,3 +24,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      CNPG_DB_SIZE: 10Gi

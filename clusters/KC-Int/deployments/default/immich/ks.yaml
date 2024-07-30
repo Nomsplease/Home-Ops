@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app mosquitto
+  name: &app immich
   namespace: flux-system
 spec:
   targetNamespace: default
@@ -12,7 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: rook-ceph-cluster
-  path: ./clusters/KC-Int/deployments/default/mosquitto/app
+  path: ./clusters/KC-Int/deployments/default/immich/app
   prune: false
   sourceRef:
     kind: GitRepository
@@ -25,3 +25,11 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 500Gi
+      VOLSYNC_ACCESSMODES: ReadWriteMany
+      VOLSYNC_STORAGECLASS: ceph-filesystem
+      VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
+      CNPG_DB_SIZE: 10Gi

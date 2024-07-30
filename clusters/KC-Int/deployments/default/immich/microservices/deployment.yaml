@@ -28,7 +28,7 @@ spec:
               gpu.intel.com/i915: 1000m
           envFrom:
             - secretRef:
-                name: env-immich
+                name: immich-env
           volumeMounts:
             - name: pvc
               mountPath: /usr/src/app/upload

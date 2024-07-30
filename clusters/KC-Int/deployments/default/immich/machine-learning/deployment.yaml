@@ -22,7 +22,7 @@ spec:
           image: ghcr.io/immich-app/immich-machine-learning:v1.100.0
           envFrom:
             - secretRef:
-                name: env-immich
+                name: immich-env
           volumeMounts:
             - name: pvc
               mountPath: /cache

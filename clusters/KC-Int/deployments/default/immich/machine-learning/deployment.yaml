@@ -1,7 +1,8 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: immich-server
+  name: immich-machine-learning
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -10,25 +11,22 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: immich-server
+      app: immich-machine-learning
   template:
     metadata:
       labels:
-        app: immich-server
+        app: immich-machine-learning
     spec:
       containers:
-        - name: immich-server
-          image: ghcr.io/immich-app/immich-server:v1.100.0
-          args:
-          - start.sh
-          - immich
+        - name: immich-machine-learning
+          image: ghcr.io/immich-app/immich-machine-learning:v1.100.0
           envFrom:
             - secretRef:
-                name: immich-env
+                name: env-immich
           volumeMounts:
             - name: pvc
-              mountPath: /usr/src/app/upload
-              subPath: uploads
+              mountPath: /cache
+              subPath: cache
       volumes:
         - name: pvc
           persistentVolumeClaim:

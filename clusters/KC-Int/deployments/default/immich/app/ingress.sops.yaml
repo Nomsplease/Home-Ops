@@ -2,19 +2,18 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
     name: immich-server
-    namespace: apps
     annotations:
-        kubernetes.io/ingress.class: traefik-external
+        kubernetes.io/ingress.class: traefik
 spec:
     entryPoints:
         - websecure
     routes:
-        - match: ENC[AES256_GCM,data:937PuJfdGZ6rP9V5/vKVtosCkMajVDkAklM=,iv:3EUaE/H8MBZ2BjbvxNwMtfZyFYbN58mv99LVcOj+Klc=,tag:+nMQpy0SB49Hdg8oN2K+aw==,type:str]
+        - match: ENC[AES256_GCM,data:9yZ9pC/OhxrMwkVEJiLQw85uRUoE1C6DKbk=,iv:DjD6E0xlDPppvmUpgPf66a/FjRKT0AL6FLQ2Dlc3AnU=,tag:DNNWOot5xUMr8bwwIgK1lw==,type:str]
           kind: Rule
           services:
             - name: immich-server
               port: 3001
-        - match: ENC[AES256_GCM,data:RudpVeoUJaPisDamzVe/g4x9C9efxA==,iv:/DpQIs+liFY0kZayszkmOcbCZiRLeARp6pXCDWQTW7c=,tag:+hjTnHOBzJwd6W0UT+Qkkw==,type:str]
+        - match: ENC[AES256_GCM,data:teEFrXMxXagJM1DW/ibwE6MJN4O5Fw==,iv:Dz3zPFOL7DCQokOgnYsYjhRz4CWxMUIH9a2O8f7JW/o=,tag:44SvSZB3/8Y6F0/lLG84+Q==,type:str]
           kind: Rule
           services:
             - name: immich-server
@@ -30,14 +29,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBwWFNSOVZ1SFBMS3I0N1Vo
-            Ui9laEtBZFQ4TzlmWExVOEZRNTBRMUcrbEZrCkNYSDI4OVVzaTNUVkplbC9jdDZM
-            VVRDZGVsaERkNkl0dGE0OWI1T3kzZWsKLS0tIEFaZXVjVG14b0V0NEg1WU84QnJ1
-            QXNZTng3TXUzTUNQakhnbVJwaUx3aHMK/mAgdcd8ohCoLHGDsdGrmdb+PIvOYrYS
-            cIkjkJ0NVPv8M8AKAmSXbsdF4wWR8TqFx+OrUdrT+VUWjWRdzMzuRg==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBWSUJ1RFpIZGZ6ZVk5by9p
+            bm5jdktkOE9valBTKzJsa3VqOTdwbFRGazFJCnNlMjF6UUpqcFp1cHgyejNsZlA0
+            MEpEV052S054NzFHU1l2RDB2RXEvV2sKLS0tIHJET1VNN2k5QTdUZ21DS20wdFZM
+            SmRJcnF1N05oSC8wL0JpNUJLcTg0cGcKYsPSpe/WukOOqJB1GgnJXjtCHOfpgrYT
+            n+BguB7iWQlSfSNMGVsOOYXuKA4tzR+m2tX5MWMN+bpjc9BnZ4bPog==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-22T18:05:24Z"
-    mac: ENC[AES256_GCM,data:dIZ2dm1O5jdpy0NiL4Zj0Bn7ky4wvVEPnDvxHt8DcwXGonLL7AaAe5t+RhmI6ycvCZoLEWLZ0jBabzNdq3j1TK4vLbdby6SEm+E4/jjGAAyU9MFJ9ilewV/aECv/Pd7ze1bEK9tPYxmvLSaKOX5KScdrCnPf1+Prll4X0qKevkw=,iv:NEwoDfvJQQJ26nvD5x29cLX4M17+aek+Px9DMH9/j70=,tag:cZDXchHBo2093zLkFaJzTA==,type:str]
+    lastmodified: "2024-07-30T18:30:50Z"
+    mac: ENC[AES256_GCM,data:Z5hO1vO8XQ3P8bKk1Cv15hUJDjt3JnUxoZ+NS6CwCRHPCwV2lz4BnegufWYMesjMsOvvTR0HLDb7sjhg9PPSG7vXxgcbxjvc/JYT8el4393rRGuS8GSa8K+7mBw+0tLYrdjN7tNISbXTJvUbHZuZIi+e78/dww1VYZ7W+Ty8+ug=,iv:2RiJzReP+Soby19EM+auo53L1Qaf9jHyDw/vJ9mZXKg=,tag:gn194rxgYkGI7u0jkeq1Yw==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1

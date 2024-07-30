@@ -1,7 +1,8 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: immich-server
+  name: immich-microservices
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -10,21 +11,24 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: immich-server
+      app: immich-microservices
   template:
     metadata:
       labels:
-        app: immich-server
+        app: immich-microservices
     spec:
       containers:
-        - name: immich-server
+        - name: immich-microservices
           image: ghcr.io/immich-app/immich-server:v1.100.0
           args:
           - start.sh
-          - immich
+          - microservices
+          resources:
+            limits:
+              gpu.intel.com/i915: 1000m
           envFrom:
             - secretRef:
-                name: immich-env
+                name: env-immich
           volumeMounts:
             - name: pvc
               mountPath: /usr/src/app/upload

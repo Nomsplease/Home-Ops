@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: immich-microservices
-          image: ghcr.io/immich-app/immich-server:v1.110.0
+          image: ghcr.io/immich-app/immich-server:v1.111.0
           args:
           - start.sh
           - microservices

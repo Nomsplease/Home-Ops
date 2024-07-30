@@ -6,7 +6,7 @@ metadata:
   name: "${APP}-cnpg-db"
 spec:
   instances: "${CNPG_DB_INSTANCES:-1}"
-  imageName: "${CNPG_DB_IMAGE:-ghcr.io/cloudnative-pg/postgresql:16.3-7}"
+  imageName: "${CNPG_DB_IMAGE:-ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3}"
   primaryUpdateStrategy: unsupervised
   storage:
     size: "${CNPG_DB_SIZE:-10Gi}"
@@ -15,11 +15,14 @@ spec:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
 
-  postgresql:
+  postgresql: #${CNPG_DB_EXTRA_ARGS}
     parameters:
       max_connections: "400"
       shared_buffers: 256MB
       max_slot_wal_keep_size: "1GB"
+      search_path: '"$user", public, vectors'
+    shared_preload_libraries:
+      - "vectors.so"
 
   resources:
     requests:
@@ -50,9 +53,16 @@ spec:
 
   # Note: previousCluster needs to be set to the name of the previous
   # cluster when recovering from an existing cnpg cluster
-  bootstrap: #${CNPG_DB_BOOTSTRAP}
+  bootstrap:
     # recovery:
     #   source: &previousCluster postgres16-v5
+    initdb:
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS "cube";
+        - CREATE EXTENSION IF NOT EXISTS vectors;
+        - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
+        - GRANT ALL ON SCHEMA vectors TO app;
+        - GRANT SELECT ON TABLE pg_vector_index_stat to app;
 
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   # externalClusters:

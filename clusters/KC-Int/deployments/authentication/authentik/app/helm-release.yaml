@@ -9,7 +9,7 @@ spec:
   timeout: 15m
   chart:
     spec:
-      chart: authentik/authentik
+      chart: authentik
       version: 2024.6.1
       sourceRef:
         kind: HelmRepository

@@ -6,7 +6,7 @@ metadata:
   name: "${APP}-cnpg-db"
 spec:
   instances: "${CNPG_DB_INSTANCES:-1}"
-  imageName: "${CNPG_DB_IMAGE:-ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3}"
+  imageName: "${CNPG_DB_IMAGE:-ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1}"
   primaryUpdateStrategy: unsupervised
   storage:
     size: "${CNPG_DB_SIZE:-10Gi}"

@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: pgadmin
-        image: dpage/pgadmin4:8.9
+        image: dpage/pgadmin4:8.10
         envFrom:
           - secretRef:
               name: pgadmin-env

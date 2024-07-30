@@ -14,7 +14,7 @@ resources:
   - ./grafana/ks.yaml
   - ./homeassistant/ks.yaml
   - ./homepage/ks.yaml
-  #- ./immich/ks.yaml
+  - ./immich/ks.yaml
   - ./mosquitto/ks.yaml
   - ./paperless/ks.yaml
   - ./planka/ks.yaml

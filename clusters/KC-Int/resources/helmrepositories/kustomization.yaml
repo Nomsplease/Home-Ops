@@ -19,3 +19,4 @@ resources:
 - planka.yaml
 - portainer.yaml
 - cloudnative-pg.yaml
+- authentik.yaml

@@ -9,8 +9,8 @@ spec:
   timeout: 15m
   chart:
     spec:
-      chart: rook-ceph
-      version: v1.14.6
+      chart: authentik/authentik
+      version: 2024.6.1
       sourceRef:
         kind: HelmRepository
         name: authentik
@@ -25,4 +25,4 @@ spec:
       retries: 3
   valuesFrom:
     - kind: Secret
-      name: traefik-values
+      name: authentik-values

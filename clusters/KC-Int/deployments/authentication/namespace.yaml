@@ -5,5 +5,3 @@ metadata:
   name: authentication
   labels:
     component: cnpg
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled

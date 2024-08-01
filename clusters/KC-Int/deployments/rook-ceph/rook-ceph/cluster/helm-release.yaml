@@ -33,12 +33,13 @@ spec:
       enabled: false
     toolbox:
       enabled: true
-      containerSecurityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-        runAsGroup: 0
-        capabilities:
-           drop: ["NONE"]
+      ## Enable to run toolbox as root
+      # containerSecurityContext:
+      #   runAsNonRoot: false
+      #   runAsUser: 0
+      #   runAsGroup: 0
+      #   capabilities:
+      #      drop: ["NONE"]
     configOverride: |
       [global]
       bdev_enable_discard = true
@@ -126,7 +127,7 @@ spec:
           enabled: true
           name: ceph-block
           isDefault: true
-          reclaimPolicy: Retain
+          reclaimPolicy: Delete
           allowVolumeExpansion: true
           volumeBindingMode: Immediate
           parameters:
@@ -179,7 +180,7 @@ spec:
           isDefault: false
           name: ceph-filesystem
           pool: data0
-          reclaimPolicy: Retain
+          reclaimPolicy: Delete
           allowVolumeExpansion: true
           volumeBindingMode: Immediate
           parameters:
@@ -225,7 +226,7 @@ spec:
         storageClass:
           enabled: true
           name: ceph-bucket
-          reclaimPolicy: Retain
+          reclaimPolicy: Delete
           volumeBindingMode: Immediate
           parameters:
             region: us-east-1

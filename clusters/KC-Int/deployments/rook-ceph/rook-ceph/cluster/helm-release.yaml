@@ -35,6 +35,10 @@ spec:
       enabled: true
       containerSecurityContext:
         runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        capabilities:
+           drop: ["NONE"]
     configOverride: |
       [global]
       bdev_enable_discard = true

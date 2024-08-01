@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sevendaystodie
+spec:
+  replicas: 0
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: sevendaystodie
+  template:
+    metadata:
+      labels:
+        app: sevendaystodie
+    spec:
+      containers:
+        - name: sevendaystodie
+          image: 'vinanrra/7dtd-server:v0.7.7'
+          imagePullPolicy: Always
+          env:
+            - name: START_MODE
+              value: "3"
+            - name: VERSION
+              value: "stable"
+            - name: TimeZone
+              value: "America/New_York"
+            - name: BACKUP
+              value: "no"
+            - name: MONITOR
+              value: "yes"
+          volumeMounts:
+            - name: pvc
+              mountPath: /home/sdtdserver/.local/share/7DaysToDie/
+              subPath: maps
+            - name: pvc
+              mountPath: /home/sdtdserver/serverfiles/
+              subPath: config
+            - name: pvc
+              mountPath: /home/sdtdserver/log/
+              subPath: logs
+            - name: pvc
+              mountPath: /home/sdtdserver/lgsm/backup/
+              subPath: backups
+            - name: pvc
+              mountPath: /home/sdtdserver/lgsm/config-lgsm/sdtdserver/
+              subPath: lgsm-config
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: sevendaystodie

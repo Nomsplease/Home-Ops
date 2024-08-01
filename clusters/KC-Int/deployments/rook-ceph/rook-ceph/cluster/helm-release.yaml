@@ -33,6 +33,8 @@ spec:
       enabled: false
     toolbox:
       enabled: true
+      containerSecurityContext:
+        runAsNonRoot: false
     configOverride: |
       [global]
       bdev_enable_discard = true

@@ -19,7 +19,6 @@ spec:
     parameters:
       max_connections: "400"
       shared_buffers: 256MB
-      max_slot_wal_keep_size: "1GB"
       search_path: '"$user", public, vectors'
     shared_preload_libraries:
       - "vectors.so"

@@ -19,7 +19,6 @@ spec:
     parameters:
       max_connections: "400"
       shared_buffers: 256MB
-      max_slot_wal_keep_size: "1GB"
 
   resources:
     requests:
@@ -50,7 +49,7 @@ spec:
 
   # Note: previousCluster needs to be set to the name of the previous
   # cluster when recovering from an existing cnpg cluster
-  bootstrap: #${CNPG_DB_BOOTSTRAP}
+  bootstrap:
     # recovery:
     #   source: &previousCluster postgres16-v5
 

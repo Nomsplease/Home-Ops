@@ -50,8 +50,8 @@ spec:
   # Note: previousCluster needs to be set to the name of the previous
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
-    # recovery:
-    #   source: &previousCluster postgres16-v5
+    recovery:
+      source: &previousCluster "${APP}-cnpg-db-${CNPG_DB_VERSION:-v1}"
 
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   # externalClusters:

@@ -10,8 +10,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: volsync
+  # dependsOn:
+  #   - name: volsync
   path: ./clusters/KC-Int/deployments/default/paperless/app
   prune: false
   sourceRef:
@@ -32,31 +32,6 @@ spec:
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_STORAGECLASS: ceph-filesystem
       VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
-  patches:
-    - patch: |
-        - op: add
-          path: /spec/backup
-          value:
-            serverName: &currentCluster "${APP}-cnpg-db-v2"
-        - op: add
-          path: /spec/bootstrap
-          value:
-            recovery:
-              source: &previousCluster "${APP}-cnpg-db-v1"
-              database: app
-              owner: app
-              secret:
-                name: "${APP}-db-secrets"
-        - op: add
-          path: /spec/externalClusters
-          value:
-            - name: *previousCluster
-              barmanObjectStore:
-                <<: *barmanObjectStore
-                serverName: *previousCluster
-      target:
-        kind: Cluster
-        name: ${APP}-cnpg-db
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1

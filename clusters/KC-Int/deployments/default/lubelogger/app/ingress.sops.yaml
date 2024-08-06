@@ -8,7 +8,12 @@ spec:
     entryPoints:
         - websecure
     routes:
-        - match: ENC[AES256_GCM,data:6AMJNmeE0SIqjlAyE8H18faz7raL5HJSmRlzF3JV,iv:2QigFDK3XTWKKnmLUXz+pZTQ6enNfPuc6tZYwjYLQ9I=,tag:D8l6mxFZrQ3ZxF44H4qmxQ==,type:str]
+        - match: ENC[AES256_GCM,data:QhyhMYx+hiO/LpBwQTEkVKO+OisKPTurozoAKNAV,iv:RRQnWfr/AdJFYj8U0WmFv+k74UfWC3PscWVLibxv9k8=,tag:DQHryBxH6k4weArB0hj0wA==,type:str]
+          kind: Rule
+          services:
+            - name: lubelogger
+              port: 8080
+        - match: ENC[AES256_GCM,data:4KSyxoMXtLp9iPvChbpv7Tq/EdY=,iv:vfbjwdYwceLEAKiIXQaBRyXtrHrOFhF8Q3mMR8+jCMM=,tag:+uKakmxhnMLK0UmW1goMOQ==,type:str]
           kind: Rule
           services:
             - name: lubelogger
@@ -24,14 +29,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBFckhLUzFMQStyb1AvQ1FT
-            dW8zait1dXpKUGVsUnFzQy9hRXFEZ1BjSjBVCkVTamFrSjMrblVHVGpRVUVXbVYz
-            SldiQ1Z2L0NGcGRpem14b1g3MjJKdkUKLS0tIHNKcUVFMWd4Z3AwTDFDV0UyOHZi
-            MExYa3czaEoxZ1RPREFNaWNRaGZTUUEK7I5xcXqU9awLxdjDy7c/zle3cmaLPArZ
-            rx/pNBaHNrol4PCJryy3RPq52A1YhiGRk4cEOH4hVHs3dzoy3hCbgQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBmQ0NWUUVlWThBd2dhOWZz
+            R25NR2Q2WnorNG56WkpmUmcxMGJpcE9VczNrCmI2MXYyS0FjL0oyTVdNOHZpMHVy
+            Mkhjc21ONGxPNTRGWEg0UEFoZXpTSlEKLS0tIGg5emNQb0U0OHoxM0RUcUhlTUZ4
+            clJNUjgra3U0STdNU3F5MXJKUlJ2dmcK2O2JogtHCDTFcFFkd4mLeLjlsvgu5BZ5
+            cZOF8su2pCi/ecFvWya/a2dQZIN/6uHmlXG+lYv5pIr9UMW0EIErRQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-29T12:43:13Z"
-    mac: ENC[AES256_GCM,data:VEIZCY8NRLaMBXKat/EK1IPRDsfkx3QvqGDFh/q35kkB5yuLA6+ijAXIah2FCeWTFz5Hgo4DdRBrJTTt3ghfDh96++uSYU+8PcwcvpxbKhiYorSuYFQVB2oM0pfYJ2CHt7npQqPwH+/LImF8hlY6iFQy5UpMEYLnjrjIGb2txpw=,iv:X9JfIAwauLg8PtJl0Siuro8VtUQtFicYm5Zo+L01hwM=,tag:eA/5MRJjYlPcAYECTDxRPw==,type:str]
+    lastmodified: "2024-08-06T00:02:15Z"
+    mac: ENC[AES256_GCM,data:nb8KPUJ6LUwZWzWKf0CVowF7KHIe4vZvQBW6fdOCxkYPk30zW295c/ForLdRVd0L4rgry2Si9RCnwCXiA92rL8KHt4NCBW630KSagQrYxxmLFrtM0qoKNaCC8H4ikJ7+zG/PpI0Q4aHY81pAC7WWjSHwGQPUyHs/qnrQtW6IImY=,iv:MABFSqaZ2Nxa/ljGyff5kW60eH0aRuB4xor4KCoeiyI=,tag:3HkAodAdNAY94HqIGCDycg==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1

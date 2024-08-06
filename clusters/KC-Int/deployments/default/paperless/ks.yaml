@@ -33,32 +33,30 @@ spec:
       VOLSYNC_STORAGECLASS: ceph-filesystem
       VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
   patches:
-    - patch: |-
-        apiVersion: postgresql.cnpg.io/v1
-        kind: Cluster
-        metadata:
-          name: "${APP}-cnpg-db"
-        spec:
-          backup:
-            # Note: serverName version needs to be inclemented
-            # when recovering from an existing cnpg cluster
+    - patch: |
+        - op: add
+          path: /spec/backup
+          value:
             serverName: &currentCluster "${APP}-cnpg-db-v2"
-          bootstrap:
+        - op: add
+          path: /spec/bootstrap
+          value:
             recovery:
               source: &previousCluster "${APP}-cnpg-db-v1"
               database: app
               owner: app
               secret:
                 name: "${APP}-db-secrets"
-          # Note: externalClusters is needed when recovering from an existing cnpg cluster
-          externalClusters:
+        - op: add
+          path: /spec/externalClusters
+          value:
             - name: *previousCluster
               barmanObjectStore:
                 <<: *barmanObjectStore
                 serverName: *previousCluster
       target:
         kind: Cluster
-        labelSelector: "app.kubernetes.io/name=${APP}"
+        name: ${APP}-cnpg-db
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1

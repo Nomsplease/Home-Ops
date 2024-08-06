@@ -25,3 +25,4 @@ spec:
     substitute:
       APP: *app
       CNPG_DB_SIZE: 10Gi
+      CNPG_DB_VERSION: v2

@@ -55,8 +55,12 @@ spec:
       owner: app
       secret:
         name: "${APP}-db-secrets"
-  #   recovery:
-  #     source: &previousCluster "${APP}-cnpg-db-v1"
+    # recovery:
+    #   source: &previousCluster "${APP}-cnpg-db-v1"
+    #   database: app
+    #   owner: app
+    #   secret:
+    #   name: "${APP}-db-secrets"
 
   # # Note: externalClusters is needed when recovering from an existing cnpg cluster
   # externalClusters:

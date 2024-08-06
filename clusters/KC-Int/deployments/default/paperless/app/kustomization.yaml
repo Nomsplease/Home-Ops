@@ -11,24 +11,22 @@ resources:
   - ../../../../templates/cnpg-db
 patches:
   - patch: |
-      apiVersion: postgresql.cnpg.io/v1
-      kind: Cluster
-      metadata:
-        name: not-used
-      spec:
-        backup:
-          # Note: serverName version needs to be inclemented
-          # when recovering from an existing cnpg cluster
+      - op: add
+        path: /spec/backup
+        value:
           serverName: &currentCluster "${APP}-cnpg-db-v2"
-        bootstrap:
+      - op: add
+        path: /spec/bootstrap
+        value:
           recovery:
             source: &previousCluster "${APP}-cnpg-db-v1"
             database: app
             owner: app
             secret:
               name: "${APP}-db-secrets"
-        # Note: externalClusters is needed when recovering from an existing cnpg cluster
-        externalClusters:
+      - op: add
+        path: /spec/externalClusters
+        value:
           - name: *previousCluster
             barmanObjectStore:
               <<: *barmanObjectStore

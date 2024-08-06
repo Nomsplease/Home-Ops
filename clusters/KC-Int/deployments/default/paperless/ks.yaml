@@ -32,7 +32,6 @@ spec:
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_STORAGECLASS: ceph-filesystem
       VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
-      CNPG_DB_INSTANCES: "2"
   patches:
     - patch: |-
         apiVersion: postgresql.cnpg.io/v1
@@ -50,7 +49,7 @@ spec:
               database: app
               owner: app
               secret:
-              name: "${APP}-db-secrets"
+                name: "${APP}-db-secrets"
           # Note: externalClusters is needed when recovering from an existing cnpg cluster
           externalClusters:
             - name: *previousCluster

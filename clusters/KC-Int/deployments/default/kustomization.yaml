@@ -25,5 +25,6 @@ resources:
   - ./zigbee2mqtt/ks.yaml
   - ./zwave-js-ui/ks.yaml
   - ./lubelogger/ks.yaml
+  - ./linkwarden/ks.yaml
   
   

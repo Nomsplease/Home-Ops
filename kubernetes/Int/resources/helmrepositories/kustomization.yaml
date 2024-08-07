@@ -20,3 +20,4 @@ resources:
 - portainer.yaml
 - cloudnative-pg.yaml
 - authentik.yaml
+- descheduler.yaml

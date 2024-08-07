@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lancache
+spec:
+  selector:
+    matchLabels:
+      app: lancache
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: lancache
+    spec:
+      containers:
+      - name: lancache
+        image: lancachenet/monolithic@sha256:2866a933d0df846de0d25885b46d140722a6410171e508a8b6957d3e8a3f0c55
+        env:
+            - name: CACHE_DISK_SIZE
+              value: 1000g
+            - name: CACHE_DOMAINS_BRANCH
+              value: master
+            - name: CACHE_DOMAINS_REPO
+              value: https://github.com/uklans/cache-domains.git
+            - name: CACHE_INDEX_SIZE
+              value: 500m
+            - name: CACHE_MAX_AGE
+              value: 90d
+            - name: NOFETCH
+              value: "false"
+            - name: UPSTREAM_DNS
+              value: 1.1.1.1 1.0.0.1
+        livenessProbe:
+          httpGet:
+            path: /lancache-heartbeat
+            port: 80
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        volumeMounts:
+        - name: pvc
+          mountPath: /data
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: lancache

@@ -1,0 +1,42 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: tautulli
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:2YMo/Ad9/h1xA7NttBug6cOoveQMOhmcmSRmeA==,iv:lcq4ajOM7qQZ1egQk9AuYCRXHHF+UCCciFftGAZ53WM=,tag:JGCTwmYC2UejtXddtkzvJQ==,type:str]
+          kind: Rule
+          services:
+            - name: tautulli
+              port: 8181
+        - match: ENC[AES256_GCM,data:06x8QPGQi/sSggZ+OWA1c8P5FrlwZs1cYw==,iv:CBez1CyLXKvX3Ir3RrSVraHVjyvJbr0IyPcduGs0Tmo=,tag:4/z/CnAR7abvnLUWAW2RXQ==,type:str]
+          kind: Rule
+          services:
+            - name: tautulli
+              port: 8181
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHMmE0OFV3RFVRcEZNeE5F
+            M05JNjRZRTBFTkZZV0JBMVpUV1J4SkJ1d2dVClN4K3d1UWhxYnRNbVArN1MrQkxY
+            RFNtMFZ3djRXbnVNbnBHWlFaMDRvZDQKLS0tIDllcVlFK1RjemFMb0RkbU9QL1JW
+            UGl2OTMwM2N1SU9EeGxJNExsRjFCUVEKSW14ng5bAkZQGI1VFAXSEE9AONT5cPlt
+            9rOWjjyvNzLjCk5cs62DkaeTUyCvx9KkjJKfLT0G16OVfVIOOJK/ww==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-24T19:39:50Z"
+    mac: ENC[AES256_GCM,data:DtrgHm1NV2sFkXmycLibKFNDaQ2kI6KRmQApLkFl4ff4vf7r8aFgYkatXWWs/uZHn8AYc6Kd/gKF76lDbXKxHEwGy3dZFXFMq8CU3ObAe28RiI4R8V3Aso3Z9qHa4YE3fCVDQH49+iVnyyS/Kb+Jy2Cb1D4o/F6FYapj4N+KUxg=,iv:VJfBNmJz50XHk5uTxxF9sFN3ULu5TceYDN38ChEKrMw=,tag:O+NNqrXRKx8VsaXDOKfXhA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

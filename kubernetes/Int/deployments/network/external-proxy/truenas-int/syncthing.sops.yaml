@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: syncthing
+spec:
+    type: ExternalName
+    selector:
+        app: traefik
+    ports:
+        - name: syncthing
+          port: 8384
+          targetPort: 8384
+    externalName: ENC[AES256_GCM,data:fWun89QA16MDDg==,iv:6HFpS/TJBMZuZpunko2ck+Uzko0y/sHIo+ADBXgAqbE=,tag:DV4A81KVxBmopR3CO8Jchw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBXYnhkbWtLK0trYnh2SnJv
+            aURNTlpGME1nQzNJVWpZRlBIZk8vQktXMmtnCjcyYmFNTitUVUhQOXlhM09BWWhE
+            cSttc1pKRi9LY1ZaaDhKOVR3ditFSVEKLS0tIEo3anVTZFlsY3ZhdXlaa3FQZ1Fo
+            MElpREVGT0F1WnZIWEM2NGoyc2ZNV0UKVK3SmcpVm31QPI+BRZ1mjJ9OshzRYnGa
+            0+Oi3/Od+ohkPcBXipwpJzIRhcIIjTGsRvmm5JIDOwb+L8h5GQbe6g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-27T13:20:26Z"
+    mac: ENC[AES256_GCM,data:es/NQZ75OE5M8M6+eWDtW3LiW9DBlzy/cl0dbpSVW0pDe2K+7MCWrqVII3eOH+rO6NFtgldvs/fwGWuKd90o5f3v1r99/e5jKRgNcyUJq0SCGRDvCsJOYLUBDvKTMzRxEpR+4sV48005AJvqBbf5rwguh3gSUxpJGucKS/4Lj8I=,iv:SjK3KIFXY8VnW/sZr+Z7vkyvLyTfeeRUhs4fNz6/aDY=,tag:01J43i64ILjErcLhgVkQ9w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: syncthing
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:eBLff3Qf/f607onXBXFOPaVU01CzNz3rcSnvS5g=,iv:JPTeBLyV84BGl1AS5RV14YFUmOAXVRWOR6YZoKV5zFg=,tag:dm21gTt68dy9enCXIs+1+g==,type:str]
+          kind: Rule
+          services:
+            - name: syncthing
+              port: 8384
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBXYnhkbWtLK0trYnh2SnJv
+            aURNTlpGME1nQzNJVWpZRlBIZk8vQktXMmtnCjcyYmFNTitUVUhQOXlhM09BWWhE
+            cSttc1pKRi9LY1ZaaDhKOVR3ditFSVEKLS0tIEo3anVTZFlsY3ZhdXlaa3FQZ1Fo
+            MElpREVGT0F1WnZIWEM2NGoyc2ZNV0UKVK3SmcpVm31QPI+BRZ1mjJ9OshzRYnGa
+            0+Oi3/Od+ohkPcBXipwpJzIRhcIIjTGsRvmm5JIDOwb+L8h5GQbe6g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-27T13:20:26Z"
+    mac: ENC[AES256_GCM,data:es/NQZ75OE5M8M6+eWDtW3LiW9DBlzy/cl0dbpSVW0pDe2K+7MCWrqVII3eOH+rO6NFtgldvs/fwGWuKd90o5f3v1r99/e5jKRgNcyUJq0SCGRDvCsJOYLUBDvKTMzRxEpR+4sV48005AJvqBbf5rwguh3gSUxpJGucKS/4Lj8I=,iv:SjK3KIFXY8VnW/sZr+Z7vkyvLyTfeeRUhs4fNz6/aDY=,tag:01J43i64ILjErcLhgVkQ9w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

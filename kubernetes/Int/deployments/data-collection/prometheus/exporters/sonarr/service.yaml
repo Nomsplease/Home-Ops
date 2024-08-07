@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: prometheus-exporter-sonarr
+spec:
+    selector:
+        app: prometheus-exporter-sonarr
+    ports:
+        - port: 9707
+          protocol: TCP

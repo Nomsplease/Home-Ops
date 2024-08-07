@@ -1,0 +1,9 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+    name: service-net
+    namespace: network
+spec:
+    addresses:
+        - 172.16.2.25-172.16.2.50
+    autoAssign: true

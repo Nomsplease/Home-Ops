@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: restic-config-zigbee2mqtt
+    namespace: home-automation
+type: Opaque
+stringData:
+    RESTIC_REPOSITORY: ENC[AES256_GCM,data:c5e4lsQn4FKUaWxWH0lJq099Blrnxm6OOof4AJjNBX5qdQu0u3rRCvbdqQLlZS5zKxI/mirc4A==,iv:lIiMk9F7/rfJqLPeqeoYCfeJ+3GAeCDox07lcfEYohM=,tag:NG3qG5UAk7j+J4qYc97MZQ==,type:str]
+    RESTIC_PASSWORD: ENC[AES256_GCM,data:6GX+8TgA3RKFPL/H2JatMpNeqN60m9DdtJGcy+cVkJ40,iv:idvPIxxyfpGV14aWl9X2bBp58atsZCohxWJMsTPI7sE=,tag:rWE0qHYdKKG9f/R/ywWz0g==,type:str]
+    AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:PhtU1/0pCs/gnl6SE6+v6aQ3csM=,iv:YleFWTt9dJ7sNQbSF+3fT2JGbVwKtUhV+OLuT3FH9gw=,tag:te0ODPgxxzMQT0kU463u6Q==,type:str]
+    AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:JnI1Xrrd25o1+Fpjf4vZSwk57gZtYkJ64eHMdEwSQGvVfs3YBDBE9Q==,iv:oXRXcbtY2/YSXTEjTQWxYlnLyAi3kpuPwPF2YAFWI9o=,tag:iI96Yqld7adYIsSWA28Zxw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBBMVlPemcxK3l5WHNjN3Zq
+            NnZBbGJvZ2dnTjJjRHdiaWRaNUJJYzVTYWowCmVsVGFCVWhQZmR0VkNLNzJ3SEJa
+            YnNxWmhPcERWMzRxODBMYzR1aXZBbmsKLS0tIE5EU3M1Z2xma05pQ0xYL2NnQ2Vx
+            cmxjU0FNc0ZRekdsM0ZpTkZtdlg4Y0UKnG0pwwej0+FnNjDpJcschXYUZ21y5i/M
+            LuDkU0IcbQnFuApUEwRbIkXQ712PsoZWNJCXOVceWfrEdA8qlHvTOQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-17T23:22:12Z"
+    mac: ENC[AES256_GCM,data:23gzyODdgbbRDi5ZflD+0wmdLyAc4wIxTuJxN6QU9zVQAHE5pkbFw6y05EgqsUH+Oo3az7UlvQ5Rs+GKGkSpeia0tIni+jEALYOkmBFyligElLiohUhTICiCarsJofYECzYsJRxIYd8D1WmBFv/POSC6xqMzeZ043rNnJWm3FDc=,iv:X5tnL3ckCEp17YnUhBMbxr1GADsL1Vxv4rAxBisD0pk=,tag:7aEE+haw/lc9Bs8W0902nw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|secretName|services|ports|externalName|loadBalancerIP|bootstrap|k8s.v1.cni.cncf.io/networks|dnsZones|email|commonName|dnsNames|config)$
+    version: 3.8.1

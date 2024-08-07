@@ -1,0 +1,42 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: paperless
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:FxnsdjrDXvYyzRGs7FbOoL+PrMDuLqck0q/FgAg=,iv:Gfar9LmiwZvfpib5sINXW5AhwYxTz1UfBUYE7OF2FsM=,tag:DZRLz0LxZUcuLPVHwY4c4w==,type:str]
+          kind: Rule
+          services:
+            - name: paperless
+              port: 8000
+        - match: ENC[AES256_GCM,data:aRMMaWw+NJuW16eGKO8UxjTruqNDegY=,iv:iELQAp8YzGKIo0t/poKyPFVrWrJ2ww6PFFM7olbxwWw=,tag:+H4d3/BHlCh4AUOpymv4KA==,type:str]
+          kind: Rule
+          services:
+            - name: paperless
+              port: 8000
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB2R05kNWE5eStOVVVuMXRs
+            RXdpcUVpY3M2aG05aG5KNVZweEYvTHZvbUFNCkp1OVRkSW1TMG9nWk9vUDN5MnVP
+            UFpWd1JuTFpkMUVvNkVkeVZsbXR1c3MKLS0tIHFEMDcrU09KVm45YW5POFhUZVhO
+            ZDg4cHdxMHhoSXBBb1lWNXFDUXNydnMKZd91tVPZei5d/072cJgahTgTN5McRrRA
+            505GQz9B6d5Ba4Q2smJ5EJWXU4O97LO6IaZaWaKb2lDSvfk0XAnpcw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-22T18:05:24Z"
+    mac: ENC[AES256_GCM,data:90D0kdXoSflhnnUonmbikCO9d8I5HvTqZMor56GjstD3dgb08m/JiYpVQ1aKUvNPhlZ0+5tiKoNgd3nmkCaqF03APtZ2tjHT7z5nSyikDHJTy2AOWwOVB314azzVBjM7tIA9mlJIBnVI1XpBQ/ZL+gQ9T4E2qjZYL08zDk55EOk=,iv:xqVcig3I1OuwSJpgMdR5NC6OX0tv50rBJBvaG71GMvo=,tag:rm49HSnuNVydslBqz+AAVg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

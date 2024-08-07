@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-microservices
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: immich-microservices
+  template:
+    metadata:
+      labels:
+        app: immich-microservices
+    spec:
+      containers:
+        - name: immich-microservices
+          image: ghcr.io/immich-app/immich-server:v1.111.0
+          args:
+          - start.sh
+          - microservices
+          resources:
+            limits:
+              gpu.intel.com/i915: 1000m
+          envFrom:
+            - secretRef:
+                name: immich-env
+          volumeMounts:
+            - name: pvc
+              mountPath: /usr/src/app/upload
+              subPath: uploads
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: immich

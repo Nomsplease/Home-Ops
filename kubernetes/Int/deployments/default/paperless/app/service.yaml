@@ -1,0 +1,11 @@
+## Paperless
+apiVersion: v1
+kind: Service
+metadata:
+    name: paperless
+spec:
+    selector:
+        app: paperless
+    ports:
+        - name: http
+          port: 8000

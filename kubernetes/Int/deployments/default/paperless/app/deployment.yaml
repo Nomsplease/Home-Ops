@@ -1,0 +1,45 @@
+---
+## Paperless-NGX
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: paperless
+  template:
+    metadata:
+      labels:
+        app: paperless
+    spec:
+      containers:
+        - name: paperless
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.11.2
+          envFrom:
+            - secretRef:
+                name: paperless-env
+          volumeMounts:
+            - name: pvc
+              mountPath: /usr/src/paperless/data
+              subPath: data
+            - name: pvc
+              mountPath: /usr/src/paperless/media
+              subPath: media
+            - name: pvc
+              mountPath: /usr/src/paperless/export
+              subPath: export
+            - name: pvc
+              mountPath: /usr/src/paperless/consume
+              subPath: consume
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: paperless

@@ -1,0 +1,42 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: actual-budget
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:0VCLdTtKRwZ0mK3a3n/SQbaQzSUu6nq7WYg=,iv:d11IjnN3rCxYOkfHYlIDp0DaxEleyPdFpVMn8VGhxJI=,tag:txqkUB/ZFylGyiyyneB2lA==,type:str]
+          kind: Rule
+          services:
+            - name: actual-budget
+              port: 5006
+        - match: ENC[AES256_GCM,data:zvPpyXNelZiavkQlEP8msjExzEjKkw==,iv:unV5VylAQlcNy2mR9ykUYB/e5yOkNhuYmtSrR4Go+Tk=,tag:8V0Y3cUvPhKakO0uXlZDUQ==,type:str]
+          kind: Rule
+          services:
+            - name: actual-budget
+              port: 5006
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNb1NwdVFsdXN5WXE5UVdx
+            VFBBRXJPaXJHRWdMYUdlQmdhclc4THZDQ3prCno4cnVyL2RqMHdrQkkvOTVGT3hn
+            Z1JmaU5aMkJMckRpRXdySlk2aFZUM1EKLS0tIHVkY3U0UnVBbkNRRHNpM1dlYkRP
+            REk1NGlRd2I4WU1nZW9Bb3NMSlBQNmMKMszahYGht1OWjx2vEGcu6qCbGC+5bhKi
+            tjRqrQA2dRXudNvwY7CSD5CcidjLiBAtZGFerdEK0LStNZDYYo6FGA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-22T18:05:23Z"
+    mac: ENC[AES256_GCM,data:mmWOLXTZtTEz3pecELMgQssdPc9Z8+ewEneK7W7Y4yA8LybAlzUgNlqCuwXTwTq7lEp78DVe2WTu2PQjBb8P5/pJpANK7KH0UepZUcPQ1na1AGelk/lVn6YmmyL7UHNuf+Zo+FHMlb3c9fDo1ybk/dAMghik479o5qqFTF50QMs=,iv:kWcoCQmz5TavSQ1vudgK6ddV4gQtlpMCd90u9Ozuhw0=,tag:PjoB4GR6Qcc4bSqEy5bu1Q==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

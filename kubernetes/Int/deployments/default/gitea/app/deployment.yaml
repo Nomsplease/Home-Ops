@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: gitea
+  template:
+    metadata:
+      labels:
+        app: gitea
+    spec:
+      # initContainers:
+      #   init-db:
+      #     image:
+      #       repository: ghcr.io/onedr0p/postgres-init
+      #       tag: 16
+      #     envFrom: &envFrom
+      #       - secretRef:
+      #           name: gitea-env
+      containers:
+        - name: gitea
+          image: gitea/gitea:1.22.1-rootless
+          volumeMounts:
+            - name: config
+              mountPath: /etc/gitea
+              readOnly: true
+            - name: pvc
+              mountPath: /var/lib/gitea
+              subPath: data
+      volumes:
+        - name: config
+          secret:
+            secretName: gitea-env
+            items:
+              - key: app.ini
+                path: app.ini
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: gitea

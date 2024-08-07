@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-exporter-radarr
+  namespace: monitoring
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: prometheus-exporter-radarr
+  template:
+    metadata:
+      labels:
+        app: prometheus-exporter-radarr
+    spec:
+      containers:
+        - name: prometheus-exporter-radarr
+          image: ghcr.io/onedr0p/exportarr:v2.0.1
+          args:
+            - radarr
+          envFrom:
+            - secretRef:
+                name: exporter-radarr-env
+          resources:
+            limits:
+              memory: 250Mi
+              cpu: 250m
+            requests:
+              memory: 100Mi
+              cpu: 100m
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /healthz
+              port: 9707
+            periodSeconds: 10
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /healthz
+              port: 9707
+            periodSeconds: 10

@@ -1,0 +1,42 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: immich-server
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:9yZ9pC/OhxrMwkVEJiLQw85uRUoE1C6DKbk=,iv:DjD6E0xlDPppvmUpgPf66a/FjRKT0AL6FLQ2Dlc3AnU=,tag:DNNWOot5xUMr8bwwIgK1lw==,type:str]
+          kind: Rule
+          services:
+            - name: immich-server
+              port: 3001
+        - match: ENC[AES256_GCM,data:teEFrXMxXagJM1DW/ibwE6MJN4O5Fw==,iv:Dz3zPFOL7DCQokOgnYsYjhRz4CWxMUIH9a2O8f7JW/o=,tag:44SvSZB3/8Y6F0/lLG84+Q==,type:str]
+          kind: Rule
+          services:
+            - name: immich-server
+              port: 3001
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBWSUJ1RFpIZGZ6ZVk5by9p
+            bm5jdktkOE9valBTKzJsa3VqOTdwbFRGazFJCnNlMjF6UUpqcFp1cHgyejNsZlA0
+            MEpEV052S054NzFHU1l2RDB2RXEvV2sKLS0tIHJET1VNN2k5QTdUZ21DS20wdFZM
+            SmRJcnF1N05oSC8wL0JpNUJLcTg0cGcKYsPSpe/WukOOqJB1GgnJXjtCHOfpgrYT
+            n+BguB7iWQlSfSNMGVsOOYXuKA4tzR+m2tX5MWMN+bpjc9BnZ4bPog==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-07-30T18:30:50Z"
+    mac: ENC[AES256_GCM,data:Z5hO1vO8XQ3P8bKk1Cv15hUJDjt3JnUxoZ+NS6CwCRHPCwV2lz4BnegufWYMesjMsOvvTR0HLDb7sjhg9PPSG7vXxgcbxjvc/JYT8el4393rRGuS8GSa8K+7mBw+0tLYrdjN7tNISbXTJvUbHZuZIi+e78/dww1VYZ7W+Ty8+ug=,iv:2RiJzReP+Soby19EM+auo53L1Qaf9jHyDw/vJ9mZXKg=,tag:gn194rxgYkGI7u0jkeq1Yw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

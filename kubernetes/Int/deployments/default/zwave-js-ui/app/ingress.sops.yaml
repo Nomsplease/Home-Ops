@@ -1,0 +1,37 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: zwave-js-ui
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:hjeZPf9cXbTp8qUZlunjnM7NxmshJowaUw==,iv:IdEw5mmSZNjRH7PUVk2XvcndNCG1YLfuKiPeCEi2qrc=,tag:0NK/jVkR6ez1J9TWkAsjnw==,type:str]
+          kind: Rule
+          services:
+            - name: zwave-js-ui
+              port: 8091
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBwNkp2Wi80NjJaTlJ0bGpI
+            NjNYNXBnWnNYNnhOZlpaSGwwUHlVWUxVRmdJClNXYnpNQVpXdW9rV3N5WGpJZHpn
+            STRZUXNWYW9hMWtXSWVmcS9JSmg3QU0KLS0tIEtEYUdTOUo2K0NuVWRreFRRVkIv
+            MXROM0VqRTNYeGxvbU4wN1paTDdNSVUKrck3SvsbxWm0QgEyZtfXkQyJVK4Qyq7g
+            +wt9U0ljWSA7eLguBHlRY7eOuSHN2cDH3Qqfm+UscdCuD2jjkrSJJQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-22T15:45:52Z"
+    mac: ENC[AES256_GCM,data:8xEnaLVtTq8QgDVGfdyobLdOTOAz6bjs6nlKiWV275slbXSXWxwvAv/HnxUWtRE0hz6AI+TKZj9xkKUtLTxkdyvTDxAdoKGwlo79cqSUdpSAgfJWsORJChcjtr5Hnrmj39Ytzp+8V0UorztKQG+gLao9ZFhQN++ofD2awDP5e+o=,iv:Fb13w+eqYd9GU67OOLuy0UrNv9zchodO3+TbrHU39jY=,tag:TtyN7nNW3EuORLAKISZ/SA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

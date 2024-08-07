@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: pgadmin
+  template:
+    metadata:
+      labels:
+        app: pgadmin
+    spec:
+      containers:
+      - name: pgadmin
+        image: dpage/pgadmin4:8.10
+        envFrom:
+          - secretRef:
+              name: pgadmin-env
+        volumeMounts:
+          - name: pvc
+            mountPath: /var/lib/pgadmin
+            subPath: data
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: pgadmin

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": ["Separate PRs for KC-Int cluster"],
+      "matchFileNames": ["**/kubernetes/KC-Int/**"],
+      "additionalBranchPrefix": "kc-int-"
+    }
+  ]
+}

@@ -19,7 +19,7 @@ spec:
         spec:
             containers:
                 - name: cloudflare-ddns
-                  image: oznu/cloudflare-ddns@sha256:19bd73d8aea9641dc329ec18ae693b2b9c33ff7cdc007f368266ce584446f995
+                  image: favonia/cloudflare-ddns:1.13.2
                   envFrom:
                     - secretRef:
                         name: cloudflare-ddns-env

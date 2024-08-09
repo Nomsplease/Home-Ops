@@ -8,7 +8,7 @@
       - cron: "*/5 * * * *" # Every 5 Minutes
     push:
       branches: ["main"]
-      paths: [".github/labels.yaml"]
+      paths: [".gitea/labels.yaml"]
   
   jobs:
     labels:

@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: "${APP}-cnpg-db"
+spec:
+  instances: "${CNPG_DB_INSTANCES:-1}"
+  imageName: "${CNPG_DB_IMAGE:-ghcr.io/cloudnative-pg/postgresql:16.3-7}"
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: "${CNPG_DB_SIZE:-10Gi}"
+    storageClass: "${CNPG_DB_STORAGECLASS:-ceph-filesystem}" 
+  superuserSecret:
+    name: cloudnative-pg-secret
+  enableSuperuserAccess: true
+
+  postgresql:
+    parameters:
+      max_connections: "400"
+      shared_buffers: 256MB
+
+  resources:
+    requests:
+      cpu: 500m
+    limits:
+      memory: 4Gi
+
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore: &barmanObjectStore
+      data:
+        compression: bzip2
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: s3://cloudnative-pg/
+      endpointURL: https://s3.int.noms.tv
+      # Note: serverName version needs to be inclemented
+      # when recovering from an existing cnpg cluster
+      serverName: &currentCluster "${APP}-cnpg-db-${CNPG_DB_VERSION:-v1}"
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: aws-access-key-id
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: aws-secret-access-key
+
+  # # Note: previousCluster needs to be set to the name of the previous
+  # # cluster when recovering from an existing cnpg cluster
+  bootstrap:
+    # initdb:
+    #   database: app
+    #   owner: app
+    #   secret:
+    #     name: "${APP}-db-secrets"
+    recovery:
+      source: &previousCluster "${APP}-cnpg-db-v1"
+      database: app
+      owner: app
+      secret:
+        name: "${APP}-db-secrets"
+
+  # # Note: externalClusters is needed when recovering from an existing cnpg cluster
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        <<: *barmanObjectStore
+        serverName: *previousCluster

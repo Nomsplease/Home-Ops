@@ -21,3 +21,4 @@ resources:
 - cloudnative-pg.yaml
 - authentik.yaml
 - descheduler.yaml
+- actions-runner-controller.yaml

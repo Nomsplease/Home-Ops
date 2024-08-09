@@ -5,9 +5,9 @@ area/docs:
       - any-glob-to-any-file:
           - "docs/**/*"
           - "README.md"
-area/github:
+area/gitea:
   - changed-files:
-      - any-glob-to-any-file: ".github/**/*"
+      - any-glob-to-any-file: ".gitea/**/*"
 area/kubernetes:
   - changed-files:
       - any-glob-to-any-file: "kubernetes/**/*"

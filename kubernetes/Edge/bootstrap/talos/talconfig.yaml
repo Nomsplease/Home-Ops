@@ -75,3 +75,4 @@ controlPlane:
     - "@./patches/etcd-api-access.yaml"
     - "@./patches/kubespan.yaml"
     - "@./patches/cluster-discovery.yaml"
+    - "@./patches/cilium.yaml"

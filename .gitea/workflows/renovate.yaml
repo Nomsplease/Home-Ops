@@ -21,9 +21,9 @@
       - cron: "*/5 * * * *" # Every hour
     push:
       branches: ["main"]
-      paths:
-        - .gitea/renovate/renovate.json5
-        - .gitea/renovate/**.json5
+      # paths:
+      #   - .gitea/renovate/renovate.json5
+      #   - .gitea/renovate/**.json5
   
   concurrency:
     group: ${{ gitea.workflow }}-${{ gitea.event.number || gitea.ref }}

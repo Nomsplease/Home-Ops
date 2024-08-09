@@ -18,23 +18,23 @@
           default: latest
           required: false
     schedule:
-      - cron: "0 * * * *" # Every hour
+      - cron: "*/5 * * * *" # Every hour
     push:
       branches: ["main"]
       paths:
-        - .github/renovate/renovate.json5
-        - .github/renovate/**.json5
+        - .gitea/renovate/renovate.json5
+        - .gitea/renovate/**.json5
   
   concurrency:
-    group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+    group: ${{ gitea.workflow }}-${{ gitea.event.number || gitea.ref }}
     cancel-in-progress: true
   
   env:
     LOG_LEVEL: "${{ inputs.logLevel || 'debug' }}"
     RENOVATE_AUTODISCOVER: true
-    RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}"
+    RENOVATE_AUTODISCOVER_FILTER: "${{ gitea.repository }}"
     RENOVATE_DRY_RUN: "${{ inputs.dryRun == true }}"
-    RENOVATE_PLATFORM: github
+    RENOVATE_PLATFORM: gitea
     RENOVATE_PLATFORM_COMMIT: true
     WORKFLOW_RENOVATE_VERSION: "${{ inputs.version || 'latest' }}"
   
@@ -43,21 +43,14 @@
       name: Renovate
       runs-on: ubuntu-latest
       steps:
-        - name: Generate Token
-          uses: actions/create-github-app-token@v1
-          id: app-token
-          with:
-            app-id: "${{ secrets.BOT_APP_ID }}"
-            private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
-  
         - name: Checkout
           uses: actions/checkout@v4
           with:
-            token: "${{ steps.app-token.outputs.token }}"
+            token: "${{ secrets.RENOVATE_TOKEN }}"
   
         - name: Renovate
           uses: renovatebot/github-action@v40.2.5
           with:
-            configurationFile: .github/renovate/renovate.json5
-            token: "${{ steps.app-token.outputs.token }}"
+            configurationFile: .gitea/renovate/renovate.json5
+            token: "${{ secrets.RENOVATE_TOKEN }}"
             renovate-version: "${{ env.WORKFLOW_RENOVATE_VERSION }}"

@@ -12,3 +12,7 @@ resources:
   - ./intel-device-plugin/ks.yaml
   #- ./etcd-backup/ks.yaml
   - ./descheduler/ks.yaml
+  - ./cilium/ks.yaml
+  - ./coredns/ks.yaml
+  - ./kubelet-csr-approver/ks.yaml
+  - ./spegel/ks.yaml

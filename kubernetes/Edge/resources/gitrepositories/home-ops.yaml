@@ -9,4 +9,4 @@ spec:
     branch: main
   secretRef:
     name: git-deploy-credentials
-  url: https://git.noms.tv/Homelab/Home-Ops.git
+  url: ssh://git@git-ssh.noms.tv/Homelab/Home-Ops.git

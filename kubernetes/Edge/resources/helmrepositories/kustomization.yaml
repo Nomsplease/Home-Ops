@@ -14,3 +14,6 @@ resources:
 - traefik.yaml
 - descheduler.yaml
 - cilium.yaml
+- coredns.yaml
+- postfinance.yaml
+- spegel.yaml

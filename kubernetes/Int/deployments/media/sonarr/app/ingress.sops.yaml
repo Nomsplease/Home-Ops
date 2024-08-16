@@ -9,7 +9,22 @@ spec:
     entryPoints:
         - websecure
     routes:
-        - match: ENC[AES256_GCM,data:oikgP9k1vN/cA7QtDKh1YcxmjKPBvlExFeI=,iv:ZgPfTcECL99fTGP9u+au1q9pmM4nHObyovvhViYDejo=,tag:EL0FTirRBGnGX6lkZKuShg==,type:str]
+        - match: ENC[AES256_GCM,data:amYNnXQMPAfFVImhlOUivZtWNF7hYA==,iv:IO5Ft9vV6kd+fqodhY82xzYy1EIX5Yj/SzSC/2xBp8w=,tag:TtlE+tXkkbI8cvYWSxgmJg==,type:str]
+          kind: Rule
+          priority: 10
+          middlewares:
+            - name: forwardauth-authentik
+              namespace: network
+          services:
+            - name: sonarr
+              port: 8989
+        - match: ENC[AES256_GCM,data:rl+SIsE9fxkfced8Qr8WxdXNrKV+cgOa8FkCkBRJF6oj5sPrcvGrHaOjC7nXNeio/HVxvhDhpzKqxsIxzIZYgGc=,iv:JIbOfS2JCl7dvPgntv28sM/waqUUliAxAIjIzjMrqPE=,tag:lJrvEGiEb5qgrvt8ukk8OQ==,type:str]
+          kind: Rule
+          priority: 15
+          services:
+            - name: sonarr
+              port: 8989
+        - match: ENC[AES256_GCM,data:Tx97KKi70LBq7/4iV2jfs4gj2xigp/0PNP8=,iv:/DKYAQKHrx/C56CZr4wjBzgNzABZ4VLK9btjtPOpf/g=,tag:yVKumS1TO2JQWuOlX/WWEw==,type:str]
           kind: Rule
           services:
             - name: sonarr
@@ -25,14 +40,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAwNUJQZjhrTlZ5ZUhxcmF2
-            YkFXZ1dKekQ0RGY1VXdHQU1wcUN2RXQ5djNFClBUa3hVK2xERnZJcjZKV0tjaGdZ
-            SE5KdFBFckl1MUZMZFFoNCtUVUIxUVkKLS0tIFhQUXE3RER6RTFOWHNMUGkwemFp
-            R01tZWZ0ckxuM1V6WlJqeFgvektRQW8KoHp/JISieQeEYFAIOuwzjvx+vjkY6Hoi
-            dGQHvOaQmAsst0NFE7wSbF31A92o/t+x1A+5v7PIUkqqriRB7eUtmg==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSArYStqNWFEYXU3Yml1Y1Ju
+            OFpnSmdOV1hOUkc3K1dXN3dqRVp5aEx6eUFrCkgvT1lnSzc3eFpQbVBCZVE1V2V0
+            TDRtUU5kLzBTbE11V1lpTitMOHUvZjAKLS0tIFNrVHY1dS9ub3RTeG5TVzQrOHpK
+            bVkzbnIwOGhCVlk2N2JQcDhqcWtwalkKNrPur0m8ylsDpgV2KxdAxp2jaEgDMP2S
+            l+1ONKlgKvEUDnF7MTUgUM/XpEH4KbWLsbivzeZopnxgfuPQMF0Tew==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-19T19:54:58Z"
-    mac: ENC[AES256_GCM,data:iKtVxVcVTHpqqX+la56PmiBvFl32DFhdXr3Giteh0UWaQBdcOemODd+3Rtu4qMkB1AL/VSQn6dRNkl/bVNLHuCSohC3xeqef3K/x7uaX7TO7cuyN+6Ry70Jtuz0olX04D9QZ3+P7lmljtFV8vNWM8ZvwNAziqweVjEyvv5/lupM=,iv:TxzSIUZuq6F6cBgAUd1zfwloGIlb9GFlg0SmIPkH870=,tag:UREd4sMLe0jYlV0N3GxDfw==,type:str]
+    lastmodified: "2024-08-16T13:31:33Z"
+    mac: ENC[AES256_GCM,data:l560wBSOY+pWNE9PVUl2wE/+vjo0G3zVYLEgoDGvtUWd/OdqDdCSaN2BhcIPADFbk/i6xD+JZk0xn2FxxW7hlCJ2VLt2vvR7RoXS5uWafsOKWRA4+OZW1zzo/JLN1/20LpQr64XYsOqsB1ucnorDL1bFp7nNcrlt8vs7nav2WF4=,iv:YOYc+ADx16nofy3E3bPLqU5CnAa7seb5Y4dre8DrcMY=,tag:2GtK5PKlCtN3EpQ621oWNQ==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1

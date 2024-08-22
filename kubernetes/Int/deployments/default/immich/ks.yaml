@@ -32,7 +32,7 @@ spec:
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_STORAGECLASS: ceph-filesystem
       VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
-      CNPG_DB_SIZE: 10Gi
+      CNPG_DB_SIZE: 15Gi
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1

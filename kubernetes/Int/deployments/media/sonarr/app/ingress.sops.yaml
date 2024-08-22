@@ -9,22 +9,22 @@ spec:
     entryPoints:
         - websecure
     routes:
-        - match: ENC[AES256_GCM,data:amYNnXQMPAfFVImhlOUivZtWNF7hYA==,iv:IO5Ft9vV6kd+fqodhY82xzYy1EIX5Yj/SzSC/2xBp8w=,tag:TtlE+tXkkbI8cvYWSxgmJg==,type:str]
+        - match: ENC[AES256_GCM,data:QRm8mcSl0Fokkom0ux7QjioA4qJzTA==,iv:T5HRIf+GkzQKo5CDaMdDovcstHUetTubWBkEz0hknwI=,tag:YCum0nODqQTQkBmJpHm6Yw==,type:str]
           kind: Rule
           priority: 10
           middlewares:
-            - name: forwardauth-authentik
-              namespace: network
+            - name: ak-outpost-authentik-embedded-outpost
+              namespace: authentication
           services:
             - name: sonarr
               port: 8989
-        - match: ENC[AES256_GCM,data:rl+SIsE9fxkfced8Qr8WxdXNrKV+cgOa8FkCkBRJF6oj5sPrcvGrHaOjC7nXNeio/HVxvhDhpzKqxsIxzIZYgGc=,iv:JIbOfS2JCl7dvPgntv28sM/waqUUliAxAIjIzjMrqPE=,tag:lJrvEGiEb5qgrvt8ukk8OQ==,type:str]
+        - match: ENC[AES256_GCM,data:kQml0htPcBSmgmQSQZSpC65tRFpa+LvOF46Pqv515Z0XHvLQ0nv27WRCa+pKbxfTVH9hPdhBTARkvbVepyhjyIM=,iv:/yeoNd3McIOjzSmEPRbz/B3d8MD88tHyl+9DEUPREXE=,tag:dMslr0Ms8/r1bz3pP/lIJw==,type:str]
           kind: Rule
           priority: 15
           services:
             - name: sonarr
               port: 8989
-        - match: ENC[AES256_GCM,data:Tx97KKi70LBq7/4iV2jfs4gj2xigp/0PNP8=,iv:/DKYAQKHrx/C56CZr4wjBzgNzABZ4VLK9btjtPOpf/g=,tag:yVKumS1TO2JQWuOlX/WWEw==,type:str]
+        - match: ENC[AES256_GCM,data:ZzV90+vzkd+wjMWuXAZcBcy9KvS1Evuqkwc=,iv:to3yhELnfszCWiR8DV/bkYvCOkSH1cM13QzjNKGA7dU=,tag:etjGn1rf6WCy1AOpPNokQQ==,type:str]
           kind: Rule
           services:
             - name: sonarr
@@ -40,14 +40,14 @@ sops:
         - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSArYStqNWFEYXU3Yml1Y1Ju
-            OFpnSmdOV1hOUkc3K1dXN3dqRVp5aEx6eUFrCkgvT1lnSzc3eFpQbVBCZVE1V2V0
-            TDRtUU5kLzBTbE11V1lpTitMOHUvZjAKLS0tIFNrVHY1dS9ub3RTeG5TVzQrOHpK
-            bVkzbnIwOGhCVlk2N2JQcDhqcWtwalkKNrPur0m8ylsDpgV2KxdAxp2jaEgDMP2S
-            l+1ONKlgKvEUDnF7MTUgUM/XpEH4KbWLsbivzeZopnxgfuPQMF0Tew==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA2R0lJK1I0VXgvOUt2M0pM
+            cU9ZTkNaNUp5YkpTaWE0S0cya3NDd29tcWtZCnFRTFNZRGs4b2Jyb3ZjTTBwemVJ
+            NzRRaWh6dHJ0YUR4WVZlbnV4ODhGK0EKLS0tIGM1MEgxb0IrV0xpU28vdUtmK3R6
+            YnU3azROejhneCtpcTF3VGlaMUoxOHMKfo8zwhkTv3RIFEhXBa7OyUiaEskg6LPD
+            78drJVPDBkgpEU/7sMN3Rfv0ap0pkw6fzllxgkDM1EJC48ITQcSckw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-08-16T13:31:33Z"
-    mac: ENC[AES256_GCM,data:l560wBSOY+pWNE9PVUl2wE/+vjo0G3zVYLEgoDGvtUWd/OdqDdCSaN2BhcIPADFbk/i6xD+JZk0xn2FxxW7hlCJ2VLt2vvR7RoXS5uWafsOKWRA4+OZW1zzo/JLN1/20LpQr64XYsOqsB1ucnorDL1bFp7nNcrlt8vs7nav2WF4=,iv:YOYc+ADx16nofy3E3bPLqU5CnAa7seb5Y4dre8DrcMY=,tag:2GtK5PKlCtN3EpQ621oWNQ==,type:str]
+    lastmodified: "2024-08-22T14:15:04Z"
+    mac: ENC[AES256_GCM,data:YUA+UX4yeTaccB1TqbbC+pLXh4xwE6HQsysCIrCpUI6IfnlfQrSTSIiER6/Pq3g+cDoeShQ9v5Kj1LT6o25Je2YneVzDSmPOeViySHigeroNWpGBubbrtc+kLwP7scxDrZ0rC3WXxkrWfMjAIBDfWNCyVBOd5B1MAAPWJQ86IlM=,iv:s8SO+FE+cZnTxt0VA76WXnXudO6TTJwlOGF5xniyqtE=,tag:XHD6IjHXMsuUYi6oCMptWA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData|data|match|externalName)$
     version: 3.8.1

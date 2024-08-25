@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: lancache-prefills
+spec:
+  schedule: "0 */4 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: steam-prefill
+              image: tpill90/steam-lancache-prefill:v2.6.1
+              args: [ "prefill", "--recent" ]
+              volumeMounts:
+              - name: pvc
+                mountPath: /Config
+                subPath: SteamPrefill
+          volumes:
+          - name: pvc
+            persistentVolumeClaim:
+              claimName: lancache

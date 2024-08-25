@@ -6,3 +6,7 @@ resources:
   - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
+  ## Include Voslync Backup
+  - ../../../../templates/volsync
+  ## Include CNPG Database
+  #- ../../../../templates/cnpg-vector-db

@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: lancache
+  name: lancache-cache
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: ceph-block
+    - ReadWriteMany
+  storageClassName: ceph-filesystem
   resources:
     requests:
-      storage: 1100Gi
+      storage: 1000Gi

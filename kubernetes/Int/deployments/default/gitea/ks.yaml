@@ -30,4 +30,3 @@ spec:
       APP: *app
       VOLSYNC_CAPACITY: 50Gi
       CNPG_DB_SIZE: 10Gi
-      CNPG_DB_VERSION: v2

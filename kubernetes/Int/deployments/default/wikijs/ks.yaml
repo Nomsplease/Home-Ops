@@ -28,4 +28,3 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      CNPG_DB_VERSION: v2

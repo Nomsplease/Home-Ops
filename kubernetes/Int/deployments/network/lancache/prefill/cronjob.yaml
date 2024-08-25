@@ -22,3 +22,4 @@ spec:
           - name: pvc
             persistentVolumeClaim:
               claimName: lancache
+          restartPolicy: OnFailure

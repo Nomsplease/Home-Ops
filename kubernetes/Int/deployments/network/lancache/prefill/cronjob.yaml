@@ -17,7 +17,7 @@ spec:
               volumeMounts:
               - name: pvc
                 mountPath: /Config
-                subPath: SteamPrefill
+                subPath: SteamPrefill/Config
           volumes:
           - name: pvc
             persistentVolumeClaim:

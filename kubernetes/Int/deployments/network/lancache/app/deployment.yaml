@@ -41,8 +41,10 @@ spec:
         volumeMounts:
         - name: pvc
           mountPath: /data/prefill
+          subPath: prefill
         - name: pvc
           mountPath: /data/logs
+          subPath: logs
         - name: cache
           mountPath: /data/cache
       volumes:

@@ -8,4 +8,4 @@ resources:
   ## Include Voslync Backup
   - ../../../../templates/volsync
   ## Include CNPG Database
-  - ../../../../templates/cnpg-db
+  #- ../../../../templates/cnpg-db

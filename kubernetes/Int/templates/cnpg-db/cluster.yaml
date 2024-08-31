@@ -50,21 +50,21 @@ spec:
   # # Note: previousCluster needs to be set to the name of the previous
   # # cluster when recovering from an existing cnpg cluster
   bootstrap:
-    initdb:
+    # initdb:
+    #   database: app
+    #   owner: app
+    #   secret:
+    #     name: "${APP}-db-secrets"
+    recovery:
+      source: &previousCluster "${APP}-cnpg-db-v1"
       database: app
       owner: app
       secret:
         name: "${APP}-db-secrets"
-  #   recovery:
-  #     source: &previousCluster "${APP}-cnpg-db-v1"
-  #     database: app
-  #     owner: app
-  #     secret:
-  #       name: "${APP}-db-secrets"
 
-  # # # Note: externalClusters is needed when recovering from an existing cnpg cluster
-  # externalClusters:
-  #   - name: *previousCluster
-  #     barmanObjectStore:
-  #       <<: *barmanObjectStore
-  #       serverName: *previousCluster
+  # # Note: externalClusters is needed when recovering from an existing cnpg cluster
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        <<: *barmanObjectStore
+        serverName: *previousCluster

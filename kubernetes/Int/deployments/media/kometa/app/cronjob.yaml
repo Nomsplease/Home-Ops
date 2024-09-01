@@ -20,18 +20,28 @@ spec:
               volumeMounts:
                 - name: pvc
                   mountPath: /config
-                - name: kometa-secrets
+                - name: kometa-config
                   mountPath: /config/config.yml
                   subPath: config.yml
+                  readOnly: true
+                - name: kometa-audiobooks
+                  mountPath: /config/audiobooks.yml
+                  subPath: audiobooks.yml
                   readOnly: true
           volumes:
             - name: pvc
               persistentVolumeClaim:
                 claimName: kometa
-            - name: kometa-secrets
+            - name: kometa-config
               secret:
                 secretName: kometa-secrets
                 items:
                 - key: config.yml
                   path: config.yml
+            - name: kometa-audiobooks
+              secret:
+                secretName: kometa-secrets
+                items:
+                - key: audiobooks.yml
+                  path: audiobooks.yml
           restartPolicy: OnFailure

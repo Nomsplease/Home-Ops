@@ -17,6 +17,11 @@ spec:
             - name: kometa
               image: kometateam/kometa:v2.0.2
               args: [ "--run", "--read-only-config" ]
+              env:
+                - name: KOMETA_CONFIG
+                  value: /config/config.yml
+                - name: KOMETA_RUN_LIBRARIES
+                  value: Audiobooks
               volumeMounts:
                 - name: pvc
                   mountPath: /config

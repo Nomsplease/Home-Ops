@@ -7,4 +7,5 @@ resources:
   - minio.sops.yaml
   - sabnzbd.sops.yaml
   - syncthing.sops.yaml
+  - audiobookshelf.sops.yaml
   

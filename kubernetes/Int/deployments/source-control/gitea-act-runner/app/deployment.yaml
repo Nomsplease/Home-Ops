@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea-act-runner
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: gitea-act-runner
+  template:
+    metadata:
+      labels:
+        app: gitea-act-runner
+    spec:
+      containers:
+        - name: gitea-act-runner
+          image: gitea/act_runner:0.2.10-dind-rootless
+          envFrom:
+            - secretRef:
+                name: gitea-act-runner-env
+          volumeMounts:
+            - name: data
+              mountPath: /data
+              subPath: data
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: gitea-act-runner

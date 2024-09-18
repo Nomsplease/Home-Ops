@@ -3,5 +3,3 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - externalSecret.yaml
-  ## Include Voslync Backup
-  - ../../../../templates/volsync-rwx

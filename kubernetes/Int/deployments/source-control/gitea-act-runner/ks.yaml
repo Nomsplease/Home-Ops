@@ -34,7 +34,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app gitea-act-runner-1
+  name: &app gitea-act-runner
   namespace: flux-system
 spec:
   targetNamespace: source-control
@@ -43,7 +43,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: volsync      
-  path: ./kubernetes/Int/deployments/source-control/gitea-act-runner/runner-1
+  path: ./kubernetes/Int/deployments/source-control/gitea-act-runner/runners
   prune: false
   sourceRef:
     kind: GitRepository

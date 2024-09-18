@@ -3,20 +3,20 @@
   name: "Renovate"
   
   on:
-    workflow_dispatch:
-      inputs:
-        dryRun:
-          description: Dry Run
-          default: "false"
-          required: false
-        logLevel:
-          description: Log Level
-          default: debug
-          required: false
-        version:
-          description: Renovate version
-          default: latest
-          required: false
+    # workflow_dispatch:
+    #   inputs:
+    #     dryRun:
+    #       description: Dry Run
+    #       default: "false"
+    #       required: false
+    #     logLevel:
+    #       description: Log Level
+    #       default: debug
+    #       required: false
+    #     version:
+    #       description: Renovate version
+    #       default: latest
+    #       required: false
     schedule:
       - cron: "*/5 * * * *" # Every hour
     push:

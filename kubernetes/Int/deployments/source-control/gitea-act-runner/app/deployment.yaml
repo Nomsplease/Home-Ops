@@ -25,7 +25,7 @@ spec:
             - secretRef:
                 name: gitea-act-runner-env
           volumeMounts:
-            - name: data
+            - name: pvc
               mountPath: /data
               subPath: data
       volumes:

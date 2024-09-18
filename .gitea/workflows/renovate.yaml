@@ -17,8 +17,8 @@
     #       description: Renovate version
     #       default: latest
     #       required: false
-    schedule:
-      - cron: "*/5 * * * *" # Every hour
+    # schedule:
+    #   - cron: "*/5 * * * *" # Every hour
     push:
       branches: ["main"]
       # paths:

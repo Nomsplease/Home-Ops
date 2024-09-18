@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: gitea-act-runner
-          image: gitea/act_runner:0.2.10-dind-rootless
+          image: gitea/act_runner:0.2.10
           envFrom:
             - secretRef:
                 name: gitea-act-runner-env

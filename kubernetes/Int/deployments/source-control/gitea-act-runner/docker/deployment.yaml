@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gitea-act-docker
+  name: docker
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
@@ -12,14 +12,14 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: gitea-act-docker
+      app: docker
   template:
     metadata:
       labels:
-        app: gitea-act-docker
+        app: docker
     spec:
       containers:
-        - name: gitea-act-docker
+        - name: docker
           image: docker:27.2.1-dind
           env:
           - name: DOCKER_TLS_CERTDIR

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gitea-act-runner
+  name: internal-runner-1
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
@@ -12,16 +12,16 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: gitea-act-runner-1
+      app: internal-runner-1
   template:
     metadata:
       labels:
-        app: gitea-act-runner-1
+        app: internal-runner-1
     spec:
       containers:
-        - name: gitea-act-runner-1
+        - name: internal-runner-1
           image: gitea/act_runner:0.2.10
-          command: ["sh", "-c", "while ! nc -z gitea-act-docker 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- /opt/act/run.sh"]
+          command: ["sh", "-c", "while ! nc -z docker 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- /opt/act/run.sh"]
           envFrom:
             - secretRef:
                 name: gitea-act-runner-env

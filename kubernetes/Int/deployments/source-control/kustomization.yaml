@@ -6,6 +6,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  #- ./gitea-act-runner/ks.yaml
+  - ./gitea-act-runner/ks.yaml
   
   

@@ -4,4 +4,4 @@ resources:
   - deployment.yaml
   - externalSecret.yaml
   ## Include Voslync Backup
-  - ../../../../templates/volsync
+  - ../../../../templates/volsync-rwx

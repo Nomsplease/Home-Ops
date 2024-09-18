@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app gitea-act-runner
+  name: &app gitea-act-docker
   namespace: flux-system
 spec:
   targetNamespace: source-control
@@ -12,7 +12,38 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: volsync      
-  path: ./kubernetes/Int/deployments/source-control/gitea-act-runner/app
+  path: ./kubernetes/Int/deployments/source-control/gitea-act-runner/docker
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  postBuild:
+    substitute:
+      APP: gitea-act
+      VOLSYNC_CAPACITY: 5Gi
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app gitea-act-runner-1
+  namespace: flux-system
+spec:
+  targetNamespace: source-control
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: volsync      
+  path: ./kubernetes/Int/deployments/source-control/gitea-act-runner/runner-1
   prune: false
   sourceRef:
     kind: GitRepository
@@ -28,4 +59,3 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 5Gi

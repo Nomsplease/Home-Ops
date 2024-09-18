@@ -12,38 +12,27 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: gitea-act-runner
+      app: gitea-act-runner-1
   template:
     metadata:
       labels:
-        app: gitea-act-runner
+        app: gitea-act-runner-1
     spec:
       containers:
-        - name: gitea-act-runner
+        - name: gitea-act-runner-1
           image: gitea/act_runner:0.2.10
-          command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- /opt/act/run.sh"]
+          command: ["sh", "-c", "while ! nc -z gitea-act-docker 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- /opt/act/run.sh"]
           envFrom:
             - secretRef:
                 name: gitea-act-runner-env
           volumeMounts:
             - name: pvc
               mountPath: /data
-              subPath: data
-            - name: pvc
-              mountPath: /certs
-              subPath: certs
-        - name: gitea-act-daemon
-          image: docker:27.2.1-dind
-          env:
-          - name: DOCKER_TLS_CERTDIR
-            value: /certs
-          securityContext:
-            privileged: true
-          volumeMounts:
+              subPath: runner-1
             - name: pvc
               mountPath: /certs
               subPath: certs
       volumes:
         - name: pvc
           persistentVolumeClaim:
-            claimName: gitea-act-runner
+            claimName: gitea-act

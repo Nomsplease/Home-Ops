@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea-act-docker
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: gitea-act-docker
+  template:
+    metadata:
+      labels:
+        app: gitea-act-docker
+    spec:
+      containers:
+        - name: gitea-act-docker
+          image: docker:27.2.1-dind
+          env:
+          - name: DOCKER_TLS_CERTDIR
+            value: /certs
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: pvc
+              mountPath: /certs
+              subPath: certs
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: gitea-act

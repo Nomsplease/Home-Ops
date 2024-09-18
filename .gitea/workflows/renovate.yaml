@@ -38,6 +38,7 @@
         - uses: actions/checkout@v4
         - run: renovate
           env:
+            RENOVATE_ENDPOINT: "https://git.noms.tv/api/v1"
             RENOVATE_AUTODISCOVER: true
             RENOVATE_AUTODISCOVER_FILTER: "${{ gitea.repository }}"
             RENOVATE_DRY_RUN: "${{ inputs.dryRun == true }}"

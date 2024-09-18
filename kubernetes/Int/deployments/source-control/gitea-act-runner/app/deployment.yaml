@@ -29,8 +29,9 @@ spec:
             - name: pvc
               mountPath: /data
               subPath: data
-            - name: docker-certs
+            - name: pvc
               mountPath: /certs
+              subPath: certs
         - name: gitea-act-daemon
           image: docker:27.2.1-dind
           env:
@@ -39,11 +40,10 @@ spec:
           securityContext:
             privileged: true
           volumeMounts:
-          - name: docker-certs
-            mountPath: /certs
+            - name: pvc
+              mountPath: /certs
+              subPath: certs
       volumes:
         - name: pvc
           persistentVolumeClaim:
             claimName: gitea-act-runner
-        - name: docker-certs
-          emptyDir: {}

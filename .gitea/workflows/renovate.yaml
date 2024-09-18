@@ -31,6 +31,8 @@
   
   env:
     LOG_LEVEL: "${{ inputs.logLevel || 'debug' }}"
+    DOCKER_HOST: "tcp://docker:2376"
+    DOCKER_TLS_VERIFY: "1"
     RENOVATE_AUTODISCOVER: true
     RENOVATE_AUTODISCOVER_FILTER: "${{ gitea.repository }}"
     RENOVATE_DRY_RUN: "${{ inputs.dryRun == true }}"

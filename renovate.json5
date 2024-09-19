@@ -10,15 +10,7 @@
     ":semanticCommits",
     ":skipStatusChecks",
     ":timezone(America/New_York)",
-    "local>gitea/.gitea/renovate/allowedVersions.json5",
-    "local>gitea/.gitea/renovate/autoMerge.json5",
-    "local>gitea/.gitea/renovate/clusters.json5",
-    "local>gitea/.gitea/renovate/commitMessage.json5",
-    "local>gitea/.gitea/renovate/customManagers.json5",
-    "local>gitea/.gitea/renovate/groups.json5",
-    "local>gitea/.gitea/renovate/labels.json5",
-    "local>gitea/.gitea/renovate/packageRules.json5",
-    "local>gitea/.gitea/renovate/semanticCommits.json5"
+    "local>HomeLab/Home-Ops/renovate-config"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],

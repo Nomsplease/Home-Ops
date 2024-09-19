@@ -22,6 +22,7 @@
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
+  "platform":"gitea",
   "onboarding": false,
   "requireConfig": "ignored",
   "ignorePaths": ["**/*.sops.*", "**/.archive/**", "**/resources/**"],

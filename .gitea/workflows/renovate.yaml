@@ -45,6 +45,6 @@
             RENOVATE_PLATFORM: gitea
             RENOVATE_PLATFORM_COMMIT: true
             WORKFLOW_RENOVATE_VERSION: "${{ inputs.version || 'latest' }}"
-            RENOVATE_CONFIG_FILE: "/workspace/Homelab/Home-Ops/.gitea/renovate/renovate.json5"
+            RENOVATE_CONFIG_FILE: ".gitea/renovate/renovate.json5"
             LOG_LEVEL: "${{ inputs.logLevel || 'debug' }}"
             RENOVATE_TOKEN: "${{ secrets.RENOVATE_TOKEN }}"

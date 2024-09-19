@@ -5,7 +5,7 @@
     workflow_dispatch:
     schedule:
       #- cron: "0 * * * *" # Every hour
-      - cron: "*/5 * * * *" # Every 5 Minutes
+      # - cron: "*/5 * * * *" # Every 5 Minutes
     push:
       branches: ["main"]
       paths: [".gitea/labels.yaml"]

@@ -16,6 +16,10 @@ spec:
       labels:
         app: satisfactory
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
         - name: satisfactory
           image: 'wolveix/satisfactory-server:v1.8.6'

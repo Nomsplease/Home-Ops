@@ -21,7 +21,7 @@ spec:
           image: 'wolveix/satisfactory-server:v1.8.6'
           imagePullPolicy: Always
           env:
-            - NAME: AUTOSAVENUM
+            - name: AUTOSAVENUM
               value: "10"
             - name: MAXPLAYERS
               value: "10"

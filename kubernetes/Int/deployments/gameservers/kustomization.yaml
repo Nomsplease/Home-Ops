@@ -8,3 +8,4 @@ resources:
   # Flux-Kustomizations
   - ./astroneer/ks.yaml
   - ./sevendaystodie/ks.yaml
+  - ./satisfactory/ks.yaml

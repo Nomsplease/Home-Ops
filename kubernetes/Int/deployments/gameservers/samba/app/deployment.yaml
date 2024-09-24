@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: samba
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: samba
+  template:
+    metadata:
+      labels:
+        app: samba
+    spec:
+      containers:
+        - name: samba
+          image: ghcr.io/dockur/samba:4.20.2
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 512m
+              memory: 512Mi
+            limits:
+              cpu: 1024m
+              memory: 1Gi
+          envFrom:
+            - secretRef:
+                name: samba-env
+          volumeMounts:
+            - name: config
+              mountPath: /etc/samba/
+              readOnly: true
+            - name: satisfactory
+              mountPath: /satisfactory
+            - name: astroneer
+              mountPath: /astroneer
+            - name: sevendaystodie
+              mountPath: /sevendaystodie
+      volumes:
+        - name: config
+          secret:
+            secretName: samba-env
+            items:
+              - key: smb.conf
+                path: smb.conf
+        - name: satisfactory
+          persistentVolumeClaim:
+            claimName: satisfactory
+        - name: astroneer
+          persistentVolumeClaim:
+            claimName: astroneer
+        - name: sevendaystodie
+          persistentVolumeClaim:
+            claimName: sevendaystodie

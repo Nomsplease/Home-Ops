@@ -6,7 +6,7 @@ metadata:
   name: &app gameservers-samba
   namespace: flux-system
 spec:
-  targetNamespace: default
+  targetNamespace: gameservers
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

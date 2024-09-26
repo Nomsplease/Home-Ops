@@ -37,7 +37,10 @@ nodes:
     installDiskSelector:
       model: Micron*
     nodeLabels:
-      intel.gpuType: igpu
+      custom.io/gpuManufacturer: intel
+      custom.io/intelgpuType: igpu
+      custom.io/cpuManufacturer: intel
+      custom.io/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -69,7 +72,10 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      intel.gpuType: igpu
+      custom.io/gpuManufacturer: intel
+      custom.io/intelgpuType: igpu
+      custom.io/cpuManufacturer: intel
+      custom.io/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -99,7 +105,10 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      intel.gpuType: igpu
+      custom.io/gpuManufacturer: intel
+      custom.io/intelgpuType: igpu
+      custom.io/cpuManufacturer: intel
+      custom.io/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -131,7 +140,10 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      intel.gpuType: igpu
+      custom.io/gpuManufacturer: intel
+      custom.io/intelgpuType: igpu
+      custom.io/cpuManufacturer: intel
+      custom.io/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -161,7 +173,10 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      intel.gpuType: igpu
+      custom.io/gpuManufacturer: intel
+      custom.io/intelgpuType: igpu
+      custom.io/cpuManufacturer: intel
+      custom.io/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -193,7 +208,10 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      intel.gpuType: igpu
+      custom.io/gpuManufacturer: intel
+      custom.io/intelgpuType: igpu
+      custom.io/cpuManufacturer: intel
+      custom.io/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:

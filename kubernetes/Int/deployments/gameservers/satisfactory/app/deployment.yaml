@@ -18,7 +18,7 @@ spec:
     spec:
       nodeSelector:
         matchLabels:
-          intel.cpuGen: alderlake
+          intel.cpuGen: "alderlake"
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

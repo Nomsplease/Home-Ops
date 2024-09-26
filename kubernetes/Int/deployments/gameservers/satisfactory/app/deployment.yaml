@@ -16,9 +16,16 @@ spec:
       labels:
         app: satisfactory
     spec:
-      nodeSelector:
-        matchLabels:
-          intel.cpuGen: "alderlake"
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: custom.io/cpuGeneration
+                operator: In
+                values:
+                - alderlake
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

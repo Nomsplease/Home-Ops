@@ -204,3 +204,44 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
+  - hostname: KC-N-01
+    ipAddress: 172.16.2.12
+    controlPlane: false
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/intel-ice-firmware
+                  - siderolabs/intel-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDiskSelector:
+      model: 'Samsung SSD 870'
+      type: ssd
+    nodeLabels:
+      intel.gpuType: igpu
+    nameservers:
+      - 172.16.2.1
+    networkInterfaces:
+      - interface: bond0
+        addresses:
+          - 172.16.2.12/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.2.1
+        bond:
+          mode: 802.3ad
+          lacpRate: fast
+          xmitHashPolicy: layer2+3
+          miimon: 100
+          updelay: 200
+          downdelay: 200
+          interfaces:
+            - enp1s0f0
+            - enp1s0f1

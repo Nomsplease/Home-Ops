@@ -225,6 +225,7 @@ nodes:
       type: ssd
     nodeLabels:
       intel.gpuType: igpu
+      intel.cpuGen: alderlake
     nameservers:
       - 172.16.2.1
     networkInterfaces:

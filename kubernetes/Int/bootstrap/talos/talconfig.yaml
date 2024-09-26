@@ -224,8 +224,10 @@ nodes:
       model: 'Samsung SSD 870'
       type: ssd
     nodeLabels:
-      intel.gpuType: igpu
-      intel.cpuGen: alderlake
+      custom.io/gpuManufacturer: intel
+      custom.io/intelgpuType: igpu
+      custom.io/cpuManufacturer: intel
+      custom.io/cpuGeneration: alderlake
     nameservers:
       - 172.16.2.1
     networkInterfaces:

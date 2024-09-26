@@ -16,6 +16,9 @@ spec:
       labels:
         app: satisfactory
     spec:
+      nodeSelector:
+        matchLabels:
+          intel.cpuGen: alderlake
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

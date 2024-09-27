@@ -11,7 +11,7 @@ spec:
         spec:
           initContainers:
           - name: talosctl
-            image: ghcr.io/siderolabs/talosctl:v1.7.7
+            image: ghcr.io/siderolabs/talosctl:v1.8.0
             args:
               - -n
               - "$(CP_NODE_IP)"

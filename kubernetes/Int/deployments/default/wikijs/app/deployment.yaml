@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: wikijs
-          image: requarks/wiki:2.5.303
+          image: requarks/wiki:2.5.304
           envFrom:
             - secretRef:
                 name: wikijs-env

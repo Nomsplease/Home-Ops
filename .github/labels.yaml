@@ -2,7 +2,7 @@
 # Areas
 - name: area/docs
   color: "0e8a16"
-- name: area/gitea
+- name: area/github
   color: "0e8a16"
 - name: area/kubernetes
   color: "0e8a16"

@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: tautulli
-          image: tautulli/tautulli:v2.14.3
+          image: tautulli/tautulli:v2.14.5
           env:
             - name: TZ
               value: America/New_York

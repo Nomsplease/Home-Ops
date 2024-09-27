@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: docker
-          image: docker:27.2.1-dind
+          image: docker:27.3.1-dind
           env:
           - name: DOCKER_TLS_CERTDIR
             value: /certs

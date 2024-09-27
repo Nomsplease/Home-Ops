@@ -20,7 +20,7 @@ spec:
       automountServiceAccountToken: true
       containers:
         - name: homepage
-          image: ghcr.io/gethomepage/homepage:v0.9.5
+          image: ghcr.io/gethomepage/homepage:v0.9.10
           volumeMounts:
             - name: pvc
               mountPath: /app/config

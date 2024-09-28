@@ -12,11 +12,16 @@ clusterPodNets:
 clusterSvcNets:
   - 10.96.0.0/12
 patches:
+  - "@./disable-cni.patch.yaml"
+  - "@./disable-kubeproxy.patch.yaml"
   - |-
     - op: add
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: "true"
+controlPlane:
+  patches:
+    - "@./etcd-backup.patch.yaml"
 nodes:
   - hostname: KC-C-01
     ipAddress: 172.16.2.6

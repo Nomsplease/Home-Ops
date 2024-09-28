@@ -35,12 +35,12 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: radarr-route
+  name: radarr
 spec:
   parentRefs:
   - name: cilium
   hostnames:
-  - "radarr.svc.noms.tv"
+  - "radarr.noms.tv"
   rules:
   - backendRefs:
     - name: radarr

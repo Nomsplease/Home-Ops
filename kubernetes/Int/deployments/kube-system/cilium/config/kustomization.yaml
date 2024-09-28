@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./l2.yaml
   - ./lrp.yaml
+  - ./gateway.yaml

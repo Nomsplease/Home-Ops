@@ -38,10 +38,15 @@ metadata:
   name: radarr
 spec:
   parentRefs:
-  - name: cilium
+    - name: internal
+      namespace: network
   hostnames:
   - "radarr.noms.tv"
   rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
   - backendRefs:
     - name: radarr
       port: 7878

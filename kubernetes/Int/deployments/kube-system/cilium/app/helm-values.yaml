@@ -1,0 +1,63 @@
+---
+cgroup:
+   automount:
+     enabled: false
+   hostRoot: /sys/fs/cgroup
+
+ipam:
+  mode: kubernetes
+
+ipv4NativeRoutingCIDR: 10.244.0.0/16
+
+k8sServiceHost: localhost
+k8sServicePort: 7445
+securityContext:
+  capabilities:
+    ciliumAgent: [ CHOWN, KILL, NET_ADMIN, NET_RAW, IPC_LOCK, SYS_ADMIN, SYS_RESOURCE, DAC_OVERRIDE, FOWNER, SETGID, SETUID ]
+    cleanCiliumState: [ NET_ADMIN, SYS_ADMIN, SYS_RESOURCE ]
+
+kubeProxyReplacement: true
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+
+externalIPs:
+  enabled: true
+
+loadBalancer:
+  # https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/#maglev-consistent-hashing
+  algorithm: maglev
+
+l2announcements:
+  enabled: true
+
+localRedirectPolicy: true
+
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+    rollOutPods: true
+  ui:
+    enabled: true
+    rollOutPods: false
+
+envoy:
+  securityContext:
+    capabilities:
+      keepCapNetBindService: true
+      envoy: [ NET_ADMIN, PERFMON, BPF ]
+
+ingressController:
+  enabled: false
+  default: true
+  loadbalancerMode: shared
+  service:
+    annotations:
+      io.cilium/lb-ipam-ips: 172.16.2.24
+
+gatewayAPI:
+  enabled: true
+
+operator:
+  rollOutPods: true
+
+rollOutCiliumPods: true

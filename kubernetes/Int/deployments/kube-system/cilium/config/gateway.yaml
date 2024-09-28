@@ -11,3 +11,9 @@ spec:
   - name: https
     protocol: HTTPS
     port: 443
+    hostname: "*.noms.tv"
+    tls:
+      certificateRefs:
+      - kind: Secret
+        group: ""
+        name: production-tls

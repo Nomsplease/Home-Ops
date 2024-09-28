@@ -15,7 +15,7 @@ spec:
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
-  name: l2-pool
+  name: l2-pool-services
 spec:
   allowFirstLastIPs: "Yes"
   blocks:

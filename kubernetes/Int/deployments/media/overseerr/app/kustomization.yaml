@@ -5,4 +5,4 @@ resources:
 - ingress.sops.yaml
 - service.yaml
 ## Include Voslync Backup
-- ../../../../templates/volsync
+- ../../../../templates/volsync-rwx

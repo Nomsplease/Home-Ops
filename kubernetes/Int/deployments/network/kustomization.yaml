@@ -9,8 +9,8 @@ resources:
   - ./cloudflare-ddns/ks.yaml
   - ./cloudflared/ks.yaml
   # - ./metallb/ks.yaml
-  #- ./traefik/ks.yaml
-  - ./gateway/ks.yaml
+  - ./traefik/ks.yaml
+  # - ./gateway/ks.yaml
   - ./external-proxy/ks.yaml
   - ./lancache/ks.yaml
   - ./dockge/ks.yaml

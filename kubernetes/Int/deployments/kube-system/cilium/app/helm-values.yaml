@@ -48,14 +48,14 @@ envoy:
 
 ingressController:
   enabled: false
-  default: true
-  loadbalancerMode: shared
-  service:
-    annotations:
-      io.cilium/lb-ipam-ips: 172.16.2.24
+  default: false
+  # loadbalancerMode: shared
+  # service:
+  #   annotations:
+  #     io.cilium/lb-ipam-ips: 172.16.2.24
 
 gatewayAPI:
-  enabled: true
+  enabled: false
 
 operator:
   rollOutPods: true

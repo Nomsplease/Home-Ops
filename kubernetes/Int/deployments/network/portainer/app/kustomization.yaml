@@ -7,7 +7,7 @@ resources:
   ## Include Voslync Backup
   - ../../../../templates/volsync-rwx
 configMapGenerator:
-  - name: cilium-helm-values
+  - name: ${APP}-helm-values
     files:
       - values.yaml=./helm-values.yaml
 configurations:

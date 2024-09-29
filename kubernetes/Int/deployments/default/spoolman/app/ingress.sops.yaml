@@ -1,0 +1,37 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: spoolman
+    annotations:
+        kubernetes.io/ingress.class: traefik
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: ENC[AES256_GCM,data:PmtiV05NHhc0dPDtKaIvEkdpTlQbV8py21JWFg==,iv:2y3XDIZ1tG7XKvMwpE2+fLLmqQl1/YKqTbS+1krY2r0=,tag:3rXL3XDAL2Q65yjsFvWsuA==,type:str]
+          kind: Rule
+          services:
+            - name: spoolman
+              port: 8000
+    tls:
+        secretName: production-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBtM1hBYkIzSGo1R2NRbVN2
+            c3JjR0NObm5PL3J3azgyYzRwVnVNdHNIdGpRCkE1cm9Sa1JISHJXbUdIWVk0WTFR
+            SjdXcTd4cnh0Um8vYVZCMzNxQ0Nza00KLS0tIEVuM1hydUpiZGlRQ2dJdmsvUU1G
+            dW53ZmVsb2RTcWk2VGVyN0pkRWZXNkEKLmHxhdbRQLI9ja3OkpX3TfzX5Cb/oTIu
+            cLjP5KBHtsWen/PphLxnwR8iuI6QN8Is2Upo9F4n9w5sGDsxR813yA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-22T18:05:24Z"
+    mac: ENC[AES256_GCM,data:ImvEDYT0TFV/S9FwUD5bjWAkYXVxmpOnL73ybpmLPET6SOyb+mZzLPAIOWdYLfXwiq+8a7l830JLU/kePVLK6cIobA3CN652NL2fCef8DB8XOMHh2ccZIjxcxBWCla+G/upJe9A0DQtsT9B2yqQHYiCKTXW8VYTyB2eRTgcadbw=,iv:YvVmHFmAEbPfVDUBz5gTZvASSYors1r9vtlW6Cesa1E=,tag:U0hMn31/IsS/49snHZ/Q1Q==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData|data|match|externalName)$
+    version: 3.8.1

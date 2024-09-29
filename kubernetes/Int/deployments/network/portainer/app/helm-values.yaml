@@ -6,7 +6,7 @@ ingress:
   ingressClassName: traefik
   enabled: true
   hosts:
-      - "portainer.noms.tv"
+    - host: "portainer.noms.tv"
 
 persistence:
   enabled: true

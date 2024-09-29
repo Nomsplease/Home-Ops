@@ -7,6 +7,8 @@ ingress:
   enabled: true
   hosts:
     - host: "portainer.noms.tv"
+      paths:
+        - path: "/"
 
 persistence:
   enabled: true

@@ -5,6 +5,6 @@ kind: Kustomization
 resources:
   - ./externalSecret.yaml
   - ./helm-release.yaml
-  - ./http-route.yaml
+  # - ./http-route.yaml
   ## Include CNPG Database
   - ../../../../templates/cnpg-db

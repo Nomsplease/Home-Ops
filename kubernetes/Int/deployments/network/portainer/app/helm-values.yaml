@@ -1,0 +1,13 @@
+---
+service:
+  type: ClusterIP
+
+ingress:
+  ingressClassName: traefik
+  enabled: true
+  hosts:
+      - "portainer.noms.tv"
+
+persistence:
+  enabled: true
+  existingClaim: portainer

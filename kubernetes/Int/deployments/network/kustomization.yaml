@@ -14,3 +14,4 @@ resources:
   - ./external-proxy/ks.yaml
   - ./lancache/ks.yaml
   - ./dockge/ks.yaml
+  - ./portainer/ks.yaml

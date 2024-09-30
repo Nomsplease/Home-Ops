@@ -8,7 +8,6 @@ resources:
   # Flux-Kustomizations
   - ./cloudflare-ddns/ks.yaml
   - ./cloudflared/ks.yaml
-  - ./multus/ks.yaml
   - ./traefik/ks.yaml
   # - ./gateway/ks.yaml
   - ./external-proxy/ks.yaml

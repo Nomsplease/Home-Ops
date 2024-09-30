@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
 - externalSecret.yaml
 - deployment.yaml
-- ingress.sops.yaml
+- ingress.yaml
 - service.yaml

@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: esphome
+spec:
+  ingressClassName: ingress-nginx
+  rules:
+  - host: esphome.svc.noms.tv
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: esphome
+          servicePort: 6052

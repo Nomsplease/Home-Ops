@@ -12,16 +12,12 @@ clusterPodNets:
 clusterSvcNets:
   - 10.96.0.0/12
 patches:
-  - "@./disable-cni.patch.yaml"
-  - "@./disable-kubeproxy.patch.yaml"
-  - |-
-    - op: add
-      path: /machine/kubelet/extraArgs
-      value:
-        rotate-server-certificates: "true"
+  - "@./patches/disable-cni.yaml"
+  - "@./patches/disable-kubeproxy.yaml"
+  - "@./patches/rotate-certs.yaml"
 controlPlane:
   patches:
-    - "@./etcd-backup.patch.yaml"
+    - "@./patches/etcd-backup.yaml"
 nodes:
   - hostname: KC-C-01
     ipAddress: 172.16.2.6
@@ -49,10 +45,13 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: enp1s0
+      ## Container Network
+      - interface: br0
         addresses:
           - 172.16.2.6/24
-        mtu: 1500
+        bridge:
+          interfaces:
+            - enp1s0
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
@@ -84,10 +83,13 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: enp1s0
+      ## Container Network
+      - interface: br0
         addresses:
           - 172.16.2.7/24
-        mtu: 1500
+        bridge:
+          interfaces:
+            - enp1s0
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
@@ -117,10 +119,13 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: enp1s0
+      ## Container Network
+      - interface: br0
         addresses:
           - 172.16.2.8/24
-        mtu: 1500
+        bridge:
+          interfaces:
+            - enp1s0
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
@@ -152,10 +157,13 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: enp1s0
+      ## Container Network
+      - interface: br0
         addresses:
           - 172.16.2.9/24
-        mtu: 1500
+        bridge:
+          interfaces:
+            - enp1s0
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
@@ -185,10 +193,13 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: enp1s0
+      ## Container Network
+      - interface: br0
         addresses:
           - 172.16.2.10/24
-        mtu: 1500
+        bridge:
+          interfaces:
+            - enp1s0
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
@@ -220,10 +231,13 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: enp1s0
+      ## Container Network
+      - interface: br0
         addresses:
           - 172.16.2.11/24
-        mtu: 1500
+        bridge:
+          interfaces:
+            - enp1s0
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
@@ -254,20 +268,23 @@ nodes:
     nameservers:
       - 172.16.2.1
     networkInterfaces:
-      - interface: bond0
+      ## Container Network
+      - interface: br0
         addresses:
           - 172.16.2.12/24
-        mtu: 1500
+        bridge:
+          interfaces:
+            - enp1s0f0
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
-        bond:
-          mode: 802.3ad
-          lacpRate: fast
-          xmitHashPolicy: layer2+3
-          miimon: 100
-          updelay: 200
-          downdelay: 200
+      ## Storage Network
+      - interface: br10
+        addresses:
+          - 172.10.1.12/24
+        bridge:
           interfaces:
-            - enp1s0f0
             - enp1s0f1
+        routes:
+          - network: 172.10.1.0/24
+            gateway: 172.10.1.1

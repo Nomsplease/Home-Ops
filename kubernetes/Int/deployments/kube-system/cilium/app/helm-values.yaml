@@ -1,67 +1,79 @@
 ---
+autoDirectNodeRoutes: true
+bandwidthManager:
+  bbr: true
+  enabled: true
+bpf:
+  masquerade: true
+  tproxy: true
 cgroup:
-   automount:
-     enabled: false
-   hostRoot: /sys/fs/cgroup
-
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+cluster:
+  id: 1
+  name: main
 cni:
   exclusive: false
-
-ipam:
-  mode: kubernetes
-
-ipv4NativeRoutingCIDR: 10.244.0.0/16
-autoDirectNodeRoutes: true
-
-k8sServiceHost: localhost
-k8sServicePort: 7445
-securityContext:
-  capabilities:
-    ciliumAgent: [ CHOWN, KILL, NET_ADMIN, NET_RAW, IPC_LOCK, SYS_ADMIN, SYS_RESOURCE, DAC_OVERRIDE, FOWNER, SETGID, SETUID ]
-    cleanCiliumState: [ NET_ADMIN, SYS_ADMIN, SYS_RESOURCE ]
-
-kubeProxyReplacement: true
-kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-
-externalIPs:
+devices: br+
+enableRuntimeDeviceDetection: true
+endpointRoutes:
   enabled: true
-
-loadBalancer:
-  # https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/#maglev-consistent-hashing
-  algorithm: maglev
-
-l2announcements:
-  enabled: true
-
-localRedirectPolicy: true
-
+envoy:
+  enabled: false
 hubble:
   enabled: true
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - http
   relay:
     enabled: true
     rollOutPods: true
+  serviceMonitor:
+    enabled: false
   ui:
     enabled: true
-    rollOutPods: false
-
-envoy:
-  securityContext:
-    capabilities:
-      keepCapNetBindService: true
-      envoy: [ NET_ADMIN, PERFMON, BPF ]
-
-ingressController:
-  enabled: false
-  default: false
-  # loadbalancerMode: shared
-  # service:
-  #   annotations:
-  #     io.cilium/lb-ipam-ips: 172.16.2.24
-
-gatewayAPI:
-  enabled: false
-
+    ingress:
+      enabled: false
+    rollOutPods: true
+ipam:
+  mode: "kubernetes"
+ipv4NativeRoutingCIDR: 10.244.0.0/16
+k8sServiceHost: 127.0.0.1
+k8sServicePort: 7445
+kubeProxyReplacement: true
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+l2announcements:
+  enabled: true
+loadBalancer:
+  algorithm: maglev
+  mode: dsr
+localRedirectPolicy: true
 operator:
   rollOutPods: true
-
 rollOutCiliumPods: true
+routingMode: native
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE

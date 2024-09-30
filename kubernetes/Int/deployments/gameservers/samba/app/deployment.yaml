@@ -39,8 +39,8 @@ spec:
               readOnly: true
             - name: satisfactory
               mountPath: /satisfactory
-            - name: astroneer
-              mountPath: /astroneer
+            # - name: astroneer
+            #   mountPath: /astroneer
             - name: sevendaystodie
               mountPath: /sevendaystodie
       volumes:
@@ -53,9 +53,9 @@ spec:
         - name: satisfactory
           persistentVolumeClaim:
             claimName: satisfactory
-        - name: astroneer
-          persistentVolumeClaim:
-            claimName: astroneer
+        # - name: astroneer
+        #   persistentVolumeClaim:
+        #     claimName: astroneer
         - name: sevendaystodie
           persistentVolumeClaim:
             claimName: sevendaystodie

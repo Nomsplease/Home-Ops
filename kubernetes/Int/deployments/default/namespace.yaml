@@ -6,5 +6,5 @@ metadata:
   labels:
     component: cnpg
   annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
+    kustomize.toolkit.fluxcd.io/prune: enabled
     volsync.backube/privileged-movers: "true"

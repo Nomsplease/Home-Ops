@@ -24,3 +24,4 @@ resources:
 - actions-runner-controller.yaml
 - cilium.yaml
 - coredns.yaml
+- angelnu.yaml

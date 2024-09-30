@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   interval: 10m
-  path: ./kubernetes/main/apps/network/ingress-nginx/app
+  path: ./kubernetes/Int/deployments/network/ingress-nginx/app
   prune: true
   sourceRef:
     kind: GitRepository

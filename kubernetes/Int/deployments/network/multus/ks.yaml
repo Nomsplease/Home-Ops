@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/Int/deployments/network/${APP}/app
+  path: ./kubernetes/Int/deployments/network/multus/app
   prune: false # never should be deleted
   sourceRef:
     kind: GitRepository

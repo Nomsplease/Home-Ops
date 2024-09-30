@@ -6,7 +6,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./samba/ks.yaml
+  #- ./samba/ks.yaml
   - ./astroneer/ks.yaml
   - ./sevendaystodie/ks.yaml
   - ./satisfactory/ks.yaml

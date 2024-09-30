@@ -4,6 +4,9 @@ cgroup:
      enabled: false
    hostRoot: /sys/fs/cgroup
 
+cni:
+  exclusive: false
+
 ipam:
   mode: kubernetes
 

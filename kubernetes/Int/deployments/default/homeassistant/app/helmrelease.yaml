@@ -72,7 +72,7 @@ spec:
 
     persistence:
       config:
-        existingClaim: home-assistant
+        existingClaim: homeassistant
         advancedMounts:
           home-assistant:
             app:

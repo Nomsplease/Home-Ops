@@ -1,11 +1,11 @@
 ---
 autoDirectNodeRoutes: true
-# bandwidthManager:
-#   bbr: true
-#   enabled: true
-# bpf:
-#   masquerade: true
-#   tproxy: true
+bandwidthManager:
+  bbr: true
+  enabled: true
+bpf:
+  masquerade: true
+  tproxy: true
 cgroup:
   autoMount:
     enabled: false

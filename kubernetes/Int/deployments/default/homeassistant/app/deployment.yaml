@@ -15,13 +15,13 @@ spec:
     metadata:
       labels:
         app: homeassistant
-        # annotations:
-        #   k8s.v1.cni.cncf.io/networks: |
-        #     [{
-        #       "name": "multus-iot",
-        #       "namespace": "default",
-        #       "ips": ["172.16.3.3/24"]
-        #     }]
+        annotations:
+          k8s.v1.cni.cncf.io/networks: |
+            [{
+              "name": "multus-iot",
+              "namespace": "kube-system",
+              "ips": ["172.16.3.3/24"]
+            }]
     spec:
       containers:
         - name: homeassistant

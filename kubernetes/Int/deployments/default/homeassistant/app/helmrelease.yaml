@@ -63,7 +63,7 @@ spec:
         enabled: true
         className: "traefik"
         hosts:
-          - host: hass.noms.tv
+          - host: hass.int.noms.tv
             paths:
               - path: /
                 service:

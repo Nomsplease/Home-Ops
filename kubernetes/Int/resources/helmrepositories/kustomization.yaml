@@ -25,3 +25,4 @@ resources:
 - cilium.yaml
 - coredns.yaml
 - angelnu.yaml
+- ingress-nginx.yaml

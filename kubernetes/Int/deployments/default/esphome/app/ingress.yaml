@@ -11,5 +11,7 @@ spec:
       - path: /
         pathType: Prefix
         backend:
-          serviceName: esphome
-          servicePort: 6052
+          service:
+            name: esphome
+            port:
+              number: 6052

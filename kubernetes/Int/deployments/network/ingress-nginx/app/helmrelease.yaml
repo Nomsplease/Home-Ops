@@ -77,14 +77,6 @@ spec:
         ssl-protocols: "TLSv1.3 TLSv1.2"
         use-forwarded-headers: "true"
 
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: false
-          namespace: network
-          namespaceSelector:
-            any: true
-
       extraArgs:
         default-ssl-certificate: "network/production-tls"
 

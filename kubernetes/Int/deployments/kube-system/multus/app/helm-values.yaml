@@ -6,7 +6,7 @@ image:
 cni:
   image:
     repository: ghcr.io/angelnu/cni-plugins
-    tag: 1.4.0
+    tag: 1.5.1
 
   paths:
     config: /etc/cni/net.d

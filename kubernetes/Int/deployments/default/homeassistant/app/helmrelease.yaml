@@ -61,7 +61,7 @@ spec:
     ingress:
       app:
         enabled: true
-        className: "traefik"
+        className: "ingress-nginx"
         hosts:
           - host: hass.int.noms.tv
             paths:

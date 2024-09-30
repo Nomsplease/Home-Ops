@@ -77,3 +77,4 @@ spec:
           home-assistant:
             app:
               - path: /config
+                subPath: config

@@ -55,6 +55,11 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
+        vlans:
+          - vlanId: 1003
+            routes:
+              - network: 172.16.3.0/24
+                gateway: 172.16.3.1
         vip:
           ip: 172.16.2.5
   - hostname: KC-W-01
@@ -93,6 +98,11 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
+        vlans:
+          - vlanId: 1003
+            routes:
+              - network: 172.16.3.0/24
+                gateway: 172.16.3.1
   - hostname: KC-C-02
     ipAddress: 172.16.2.8
     controlPlane: true
@@ -129,6 +139,11 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
+        vlans:
+          - vlanId: 1003
+            routes:
+              - network: 172.16.3.0/24
+                gateway: 172.16.3.1
         vip:
           ip: 172.16.2.5
   - hostname: KC-W-02
@@ -167,6 +182,11 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
+        vlans:
+          - vlanId: 1003
+            routes:
+              - network: 172.16.3.0/24
+                gateway: 172.16.3.1
   - hostname: KC-C-03
     ipAddress: 172.16.2.10
     controlPlane: true
@@ -203,6 +223,11 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
+        vlans:
+          - vlanId: 1003
+            routes:
+              - network: 172.16.3.0/24
+                gateway: 172.16.3.1
         vip:
           ip: 172.16.2.5
   - hostname: KC-W-03
@@ -241,6 +266,11 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
+        vlans:
+          - vlanId: 1003
+            routes:
+              - network: 172.16.3.0/24
+                gateway: 172.16.3.1
   - hostname: KC-N-01
     ipAddress: 172.16.2.12
     controlPlane: false
@@ -278,6 +308,11 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
+        vlans:
+          - vlanId: 1003
+            routes:
+              - network: 172.16.3.0/24
+                gateway: 172.16.3.1
       ## Storage Network
       # - interface: br10
       #   addresses:

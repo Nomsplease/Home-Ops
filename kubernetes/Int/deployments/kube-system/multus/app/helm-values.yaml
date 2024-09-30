@@ -9,8 +9,8 @@ cni:
     tag: 1.5.1
 
   paths:
-    config: /host/etc/cni/net.d
-    bin: /opt/cni/bin
+    config: "/host/etc/cni/net.d"
+    bin: "/opt/cni/bin"
 
 resources:
   requests:
@@ -20,4 +20,4 @@ resources:
     memory: 96Mi
     
 hostPaths:
-  netns: /var/run/netns
+  netns: "/var/run/netns"

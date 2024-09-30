@@ -1,17 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: esphome
+  name: actual-budget
 spec:
   ingressClassName: ingress-nginx
   rules:
-  - host: esphome.svc.noms.tv
+  - host: budget.noms.tv
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: esphome
+            name: actual-budget
             port:
-              number: 6052
+              number: 5006

@@ -279,12 +279,12 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 172.16.2.1
       ## Storage Network
-      - interface: br10
-        addresses:
-          - 172.10.1.12/24
-        bridge:
-          interfaces:
-            - enp1s0f1
-        routes:
-          - network: 172.10.1.0/24
-            gateway: 172.10.1.1
+      # - interface: br10
+      #   addresses:
+      #     - 172.10.1.12/24
+      #   bridge:
+      #     interfaces:
+      #       - enp1s0f1
+      #   routes:
+      #     - network: 172.10.1.0/24
+      #       gateway: 172.10.1.1

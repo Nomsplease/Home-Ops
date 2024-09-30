@@ -9,6 +9,7 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
           serviceName: esphome
           servicePort: 6052

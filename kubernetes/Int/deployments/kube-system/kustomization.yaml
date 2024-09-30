@@ -14,4 +14,4 @@ resources:
   - ./descheduler/ks.yaml
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
-  #- ./multus/ks.yaml
+  - ./multus/ks.yaml

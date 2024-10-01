@@ -74,7 +74,6 @@ spec:
           radarr:
             app:
               - path: /config
-                subPath: config
       media:
         type: nfs
         server: 172.16.1.10

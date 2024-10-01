@@ -64,7 +64,7 @@ spec:
       config:
         existingClaim: esphome
         advancedMounts:
-          lubelogger:
+          esphome:
             app:
               - path: /config
                 subPath: config

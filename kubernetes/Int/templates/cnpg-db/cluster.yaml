@@ -9,8 +9,14 @@ spec:
   imageName: "${CNPG_DB_IMAGE:-ghcr.io/cloudnative-pg/postgresql:16.3-7}"
   primaryUpdateStrategy: unsupervised
   storage:
-    size: "${CNPG_DB_SIZE:-10Gi}"
-    storageClass: "${CNPG_DB_STORAGECLASS:-ceph-filesystem}" 
+    pvcTemplate:
+      accessModes:
+        - "${CNPG_DB_ACCESSMODE:-ReadWriteMany}"
+      resources:
+        requests:
+          storage: "${CNPG_DB_SIZE:-10Gi}"
+      storageClassName: "${CNPG_DB_STORAGECLASS:-ceph-filesystem}" 
+      volumeMode: Filesystem
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true

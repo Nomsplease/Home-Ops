@@ -6,7 +6,7 @@ metadata:
   labels:
     component: cnpg
   annotations:
-    kustomize.toolkit.fluxcd.io/prune: enabled
+    # kustomize.toolkit.fluxcd.io/prune: disable
     volsync.backube/privileged-movers: "true"
   ## Rework this and disable this security issue
   ## https://github.com/JefeDavis/k8s-HomeOps/blob/main/kubernetes%2Fapps%2Fnetwork%2Fpod-gateway%2Fapp%2Fhelmrelease.yaml

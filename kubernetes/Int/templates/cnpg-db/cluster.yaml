@@ -44,7 +44,7 @@ spec:
       endpointURL: https://s3.int.noms.tv
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster
-      serverName: &currentCluster "${APP}-cnpg-db-v1"
+      serverName: &currentCluster "${APP}-cnpg-db-${CNPG_DB_CURRENT_VERSION:-v1}"
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -62,7 +62,7 @@ spec:
     #   secret:
     #     name: "${APP}-db-secrets"
     recovery:
-      source: &previousCluster "${APP}-cnpg-db-v1"
+      source: &previousCluster "${APP}-cnpg-db-${CNPG_DB_PREVIOUS_VERSION:-v1}"
       database: app
       owner: app
       secret:

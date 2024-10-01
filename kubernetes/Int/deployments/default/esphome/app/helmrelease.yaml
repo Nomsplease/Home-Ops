@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: esphome
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.4.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      lubelogger:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/esphome/esphome
+              tag: 2024.9.2
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 47m
+                memory: 2Gi
+              limits:
+                memory: 4Gi
+
+    service:
+      app:
+        controller: esphome
+        ports:
+          http:
+            port: 6052
+
+    ingress:
+      app:
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: esphome.svc.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      config:
+        existingClaim: esphome
+        advancedMounts:
+          lubelogger:
+            app:
+              - path: /config
+                subPath: config

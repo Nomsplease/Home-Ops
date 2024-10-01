@@ -7,7 +7,7 @@ resources:
   ## Include Voslync Backup
   - ../../../../templates/volsync-rwx
 configMapGenerator:
-  - name: ${APP}-helm-values
+  - name: portainer-helm-values
     files:
       - values.yaml=./helm-values.yaml
 configurations:

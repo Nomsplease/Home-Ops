@@ -3,7 +3,7 @@ service:
   type: ClusterIP
 
 ingress:
-  ingressClassName: traefik
+  ingressClassName: ingress-nginx
   enabled: true
   hosts:
     - host: "portainer.noms.tv"

@@ -1,8 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  # - ./helmrelease.yaml
+  - ./externalSecret.yaml
+  - ./helmrelease.yaml
   ## Include Voslync Backup
-  # - ../../../../templates/volsync-rwx
+  - ../../../../templates/volsync-rwx
   ## Include CNPG Database
   - ../../../../templates/cnpg-db

@@ -4,6 +4,6 @@ resources:
   - ./externalSecret.yaml
   - ./helmrelease.yaml
   ## Include Voslync Backup
-  - ../../../../templates/volsync-rw
+  - ../../../../templates/volsync-rwx
   ## Include CNPG Database
   #- ../../../../templates/cnpg-db

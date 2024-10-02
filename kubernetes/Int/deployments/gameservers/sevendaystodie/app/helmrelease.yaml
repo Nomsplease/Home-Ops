@@ -80,10 +80,6 @@ spec:
             targetPort: 8080
             protocol: TCP
 
-    ingress:
-      app:
-        enabled: false
-
     persistence:
       config:
         existingClaim: sevendaystodie

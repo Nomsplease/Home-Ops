@@ -1,7 +1,0 @@
-cluster:
-    discovery:
-        enabled: true
-        registries:
-            kubernetes:
-              disabled: true
-            service: {}

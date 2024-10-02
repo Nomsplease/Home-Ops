@@ -15,12 +15,15 @@ kind: Ingress
 metadata:
   name: audiobookshelf
 spec:
-  ingressClassName: nginx
+  ingressClassName: ingress-nginx
   rules:
   - host: books.noms.tv
     http:
       paths:
-        path: /
+      - path: /
+        pathType: Prefix
         backend:
-          serviceName: audiobookshelf
-          port: 13378
+          service:
+            name: audiobookshelf
+            port: 
+              number: 13378

@@ -15,12 +15,15 @@ kind: Ingress
 metadata:
   name: sabnzbd
 spec:
-  ingressClassName: nginx
+  ingressClassName: ingress-nginx
   rules:
   - host: sabnzbd.svc.noms.tv
     http:
       paths:
-        path: /
+      - path: /
+        pathType: Prefix
         backend:
-          serviceName: sabnzbd
-          port: 8080
+          service:
+            name: sabnzbd
+            port: 
+              number: 8080

@@ -15,12 +15,15 @@ kind: Ingress
 metadata:
   name: deluge
 spec:
-  ingressClassName: nginx
+  ingressClassName: ingress-nginx
   rules:
   - host: deluge.svc.noms.tv
     http:
       paths:
-        path: /
+      - path: /
+        pathType: Prefix
         backend:
-          serviceName: deluge
-          port: 8112
+          service:
+            name: deluge
+            port: 
+              number: 8112

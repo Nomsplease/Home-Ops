@@ -18,19 +18,25 @@ kind: Ingress
 metadata:
   name: minio
 spec:
-  ingressClassName: nginx
+  ingressClassName: ingress-nginx
   rules:
   - host: minio.noms.tv
     http:
       paths:
-        path: /
+      - path: /
+        pathType: Prefix
         backend:
-          serviceName: minio
-          port: 9002
+          service:
+            name: minio
+            port: 
+              number: 9002
   - host: s3.noms.tv
     http:
       paths:
-        path: /
+      - path: /
+        pathType: Prefix
         backend:
-          serviceName: minio
-          port: 9000
+          service:
+            name: minio
+            port: 
+              number: 9000

@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: traefik
+    - name: ingress-nginx
   path: ./kubernetes/Int/deployments/network/external-proxy/truenas-int
   prune: true
   sourceRef:

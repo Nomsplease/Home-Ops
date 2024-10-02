@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: audiobookshelf
+spec:
+  type: ExternalName
+  ports:
+    - name: audiobookshelf
+      port: 13378
+      targetPort: 13378
+  externalName: 172.16.1.10
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: audiobookshelf
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: books.noms.tv
+    http:
+      paths:
+        path: /
+        pathType: prefix
+        backend:
+          serviceName: audiobookshelf
+          port: 13378

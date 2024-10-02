@@ -21,7 +21,6 @@ spec:
     http:
       paths:
         path: /
-        pathType: prefix
         backend:
           serviceName: audiobookshelf
           port: 13378

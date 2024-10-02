@@ -21,7 +21,6 @@ spec:
     http:
       paths:
         path: /
-        pathType: prefix
         backend:
           serviceName: sabnzbd
           port: 8080

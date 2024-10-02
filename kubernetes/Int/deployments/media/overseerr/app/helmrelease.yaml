@@ -1,0 +1,72 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: overseerr
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.4.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      overseerr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: linuxserver/overseerr
+              tag: v1.33.2-ls102
+            env:
+              - name: TZ
+                value: America/New_York
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 47m
+                memory: 1Gi
+              limits:
+                memory: 4Gi
+
+    service:
+      app:
+        controller: overseerr
+        ports:
+          http:
+            port: 5055
+
+    ingress:
+      app:
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: request.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      config:
+        existingClaim: overseerr
+        advancedMounts:
+          overseerr:
+            app:
+              - path: /config

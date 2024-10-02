@@ -65,7 +65,7 @@ spec:
           nginx.ingress.kubernetes.io/auth-signin: |-
               https://prowlarr.noms.tv/outpost.goauthentik.io/start?rd=$escaped_request_uri
         hosts:
-          - host: plexstats.noms.tv
+          - host: prowlarr.noms.tv
             paths:
               - path: /
                 service:

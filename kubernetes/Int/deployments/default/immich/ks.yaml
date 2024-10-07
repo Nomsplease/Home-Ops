@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: volsync
   path: ./kubernetes/Int/deployments/default/immich/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-ops
@@ -46,7 +46,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/Int/deployments/default/immich/machine-learning
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-ops
@@ -67,7 +67,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/Int/deployments/default/immich/microservices
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-ops
@@ -88,7 +88,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/Int/deployments/default/immich/redis
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-ops

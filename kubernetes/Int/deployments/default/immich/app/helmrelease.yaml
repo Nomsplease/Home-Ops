@@ -25,13 +25,15 @@ spec:
         master:
           persistence:
             enabled: true
-            accessModes: ReadWriteMany
+            accessModes: 
+              - ReadWriteMany
             storageClass: ceph-filesystem
             size: 8Gi
         replcia:
           persistence:
             enabled: true
-            accessModes: ReadWriteMany
+            accessModes: 
+              - ReadWriteMany
             storageClass: ceph-filesystem
             size: 8Gi
 

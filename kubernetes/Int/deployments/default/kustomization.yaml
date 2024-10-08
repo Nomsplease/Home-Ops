@@ -7,7 +7,6 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./actual-budget/ks.yaml
-  - ./code-server/ks.yaml
   - ./esphome/ks.yaml
   - ./fastapi-dls/ks.yaml
   - ./gitea/ks.yaml

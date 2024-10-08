@@ -21,6 +21,9 @@ spec:
       radarr:
         annotations:
           reloader.stakater.com/auto: "true"
+      exporter:
+        annotations:
+          reloader.stakater.com/auto: "true"
 
         containers:
           app:
@@ -43,13 +46,50 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 4Gi
-
+          exporter:
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v2.0.1
+            args:
+              - radarr
+            envFrom:
+              - secretRef:
+                  name: radarr-exporter-env
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 9707
+                  failureThreshold: 5
+                  periodSeconds: 10
+              readiness: *probes
+              startup:
+                enabled: false
     service:
       app:
         controller: radarr
         ports:
           http:
             port: 7878
+      exporter:
+        controller: exporter
+        ports:
+          http:
+            port: *port
+    
+    serviceMonitor:
+      exporter:
+        enabled: true
+        serviceName: '{{ include "bjw-s.common.lib.chart.names.fullname" $ }}'
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
 
     ingress:
       app:

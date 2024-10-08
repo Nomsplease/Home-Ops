@@ -21,12 +21,8 @@ spec:
       radarr:
         annotations:
           reloader.stakater.com/auto: "true"
-      exporter:
-        annotations:
-          reloader.stakater.com/auto: "true"
-
         containers:
-          radarr:
+          app:
             image:
               repository: linuxserver/radarr
               tag: 5.8.3
@@ -46,6 +42,11 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 4Gi
+
+      exporter:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
           exporter:
             image:
               repository: ghcr.io/onedr0p/exportarr
@@ -68,8 +69,9 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
+
     service:
-      radarr:
+      app:
         controller: radarr
         ports:
           http:
@@ -92,7 +94,7 @@ spec:
             scrapeTimeout: 10s
 
     ingress:
-      radarr:
+      app:
         enabled: true
         className: "ingress-nginx"
         annotations:
@@ -109,7 +111,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: radarr
+                  identifier: app
                   port: http
 
     persistence:
@@ -117,7 +119,7 @@ spec:
         existingClaim: radarr
         advancedMounts:
           radarr:
-            radarr:
+            app:
               - path: /config
       media:
         type: nfs

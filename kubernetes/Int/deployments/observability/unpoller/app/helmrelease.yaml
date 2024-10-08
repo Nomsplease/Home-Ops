@@ -37,7 +37,7 @@ spec:
               TZ: America/New_York
               UP_UNIFI_DEFAULT_ROLE: Poller
               UP_UNIFI_DEFAULT_URL: https://172.16.0.20
-              UP_PROMETHEUS_HTTP_LISTEN: 0.0.0.0:80
+              UP_PROMETHEUS_HTTP_LISTEN: 0.0.0.0:9130
               UP_INFLUXDB_DISABLE: true
             envFrom:
               - secretRef:
@@ -67,7 +67,7 @@ spec:
         controller: unpoller
         ports:
           http:
-            port: 80
+            port: 9130
     serviceMonitor:
       app:
         serviceName: unpoller

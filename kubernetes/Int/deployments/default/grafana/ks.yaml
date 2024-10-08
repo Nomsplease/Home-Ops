@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
   path: ./kubernetes/Int/deployments/default/grafana/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-ops

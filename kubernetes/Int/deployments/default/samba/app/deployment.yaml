@@ -38,13 +38,13 @@ spec:
               mountPath: /etc/samba/
               readOnly: true
             - name: homeassistant
-              mountPath: /homeassistant
+              mountPath: /pvcs/homeassistant
               subPath: config
             - name: paperless
-              mountPath: /paperless-export
+              mountPath: /pvcs/paperless-export
               subPath: export
             - name: paperless
-              mountPath: /paperless-consume
+              mountPath: /pvcs/paperless-consume
               subPath: consume
             - name: homepage
               mountPath: /pvcs/homepage

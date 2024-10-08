@@ -68,3 +68,9 @@ spec:
             app:
               - path: /config
                 subPath: config
+      buildarea:
+        type: emptyDir
+        advancedMounts:
+          esphome:
+            app:
+              - path: /config/.esphome/platformio

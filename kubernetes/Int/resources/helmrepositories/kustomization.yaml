@@ -27,3 +27,4 @@ resources:
 - angelnu.yaml
 - ingress-nginx.yaml
 - immich.yaml
+- prometheus-community.yaml

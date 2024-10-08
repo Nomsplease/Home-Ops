@@ -59,6 +59,8 @@ spec:
         ports:
           http:
             port: 8091
+          ws:
+            port: 3000
 
     ingress:
       app:

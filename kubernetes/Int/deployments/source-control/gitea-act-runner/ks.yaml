@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: volsync      
   path: ./kubernetes/Int/deployments/source-control/gitea-act-runner/docker
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-ops

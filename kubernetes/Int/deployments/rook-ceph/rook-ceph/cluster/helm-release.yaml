@@ -30,7 +30,7 @@ spec:
       namespace: volsync-system
   values:
     monitoring:
-      enabled: false
+      enabled: true
     toolbox:
       enabled: true
       ## Enable to run toolbox as root

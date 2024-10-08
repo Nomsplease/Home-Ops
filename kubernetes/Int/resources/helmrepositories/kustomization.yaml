@@ -28,3 +28,4 @@ resources:
 - ingress-nginx.yaml
 - immich.yaml
 - prometheus-community.yaml
+- grafana.yaml

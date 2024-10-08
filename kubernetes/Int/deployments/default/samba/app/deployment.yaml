@@ -46,8 +46,8 @@ spec:
             - name: paperless
               mountPath: /paperless-consume
               subPath: consume
-            # - name: homepage
-            #   mountPath: /pvcs/homepage
+            - name: homepage
+              mountPath: /pvcs/homepage
       volumes:
         - name: config
           secret:
@@ -61,6 +61,6 @@ spec:
         - name: paperless
           persistentVolumeClaim:
             claimName: paperless
-        # - name: homepage
-        #   persistentVolumeClaim:
-        #     claimName: homepage
+        - name: homepage
+          persistentVolumeClaim:
+            claimName: homepage

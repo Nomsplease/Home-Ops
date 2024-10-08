@@ -26,7 +26,7 @@ spec:
           reloader.stakater.com/auto: "true"
 
         containers:
-          app:
+          radarr:
             image:
               repository: linuxserver/radarr
               tag: 5.8.3
@@ -69,7 +69,7 @@ spec:
               startup:
                 enabled: false
     service:
-      app:
+      radarr:
         controller: radarr
         ports:
           http:
@@ -92,7 +92,7 @@ spec:
             scrapeTimeout: 10s
 
     ingress:
-      app:
+      radarr:
         enabled: true
         className: "ingress-nginx"
         annotations:
@@ -109,7 +109,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: radarr
                   port: http
 
     persistence:
@@ -117,7 +117,7 @@ spec:
         existingClaim: radarr
         advancedMounts:
           radarr:
-            app:
+            radarr:
               - path: /config
       media:
         type: nfs

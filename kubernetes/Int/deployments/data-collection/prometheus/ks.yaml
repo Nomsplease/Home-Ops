@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/Int/deployments/data-collection/prometheus/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-ops
@@ -36,7 +36,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/Int/deployments/data-collection/prometheus/exporters
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-ops

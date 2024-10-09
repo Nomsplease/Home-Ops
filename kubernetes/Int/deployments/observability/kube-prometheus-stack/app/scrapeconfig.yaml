@@ -24,7 +24,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - rack-kvm.int.noms.tv
+        - https://rack-kvm.int.noms.tv
   metricsPath: /api/export/prometheus/metrics
   relabelings:
     - action: replace

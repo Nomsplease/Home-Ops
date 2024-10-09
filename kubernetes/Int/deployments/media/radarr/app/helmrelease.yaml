@@ -30,12 +30,16 @@ spec:
               - name: TZ
                 value: America/New_York
             probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
+              liveness: &app-probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &app-port 7878
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *app-probes
+              startup: *app-probes
             resources:
               requests:
                 cpu: 47m
@@ -57,30 +61,30 @@ spec:
               - secretRef:
                   name: radarr-exporter-env
             probes:
-              liveness: &probes
+              liveness: &exporter-probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /healthz
-                    port: &port 9707
-                  failureThreshold: 5
+                    port: &exporter-port 9707
+                  failureThreshold: 6
                   periodSeconds: 10
-              readiness: *probes
-              startup:
-                enabled: false
+              readiness: *exporter-probes
+              startup: *exporter-probes
 
     service:
       app:
+        nameOverride: radarr
         controller: radarr
         ports:
           http:
-            port: 7878
+            port: *app-port
       exporter:
         controller: exporter
         ports:
           http:
-            port: *port
+            port: *exporter-port
     
     serviceMonitor:
       exporter:
@@ -89,7 +93,7 @@ spec:
         endpoints:
           - port: http
             scheme: http
-            path: /
+            path: /metrics
             interval: 1m
             scrapeTimeout: 10s
 

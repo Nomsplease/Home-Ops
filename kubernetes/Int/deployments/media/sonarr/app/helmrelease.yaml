@@ -59,7 +59,7 @@ spec:
               - sonarr
             envFrom:
               - secretRef:
-                  name: "${app}-exporter-env"
+                  name: "${APP}-exporter-env"
             probes:
               liveness: &exporter-probes
                 enabled: true
@@ -81,7 +81,7 @@ spec:
           http:
             port: *app-port
       exporter:
-        nameOverride: "${app}-exporter"
+        nameOverride: "${APP}-exporter"
         controller: exporter
         ports:
           http:
@@ -90,7 +90,7 @@ spec:
     serviceMonitor:
       exporter:
         enabled: true
-        serviceName: "${app}-exporter"
+        serviceName: "${APP}-exporter"
         endpoints:
           - port: http
             scheme: http

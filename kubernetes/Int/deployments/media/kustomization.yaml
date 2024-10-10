@@ -13,3 +13,4 @@ resources:
   - ./tautulli/ks.yaml
   - ./kometa/ks.yaml
   - ./readarr/ks.yaml
+  - ./bazarr/ks.yaml

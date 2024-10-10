@@ -121,7 +121,7 @@ spec:
 
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "${APP}"
         advancedMounts:
           sonarr:
             app:

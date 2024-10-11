@@ -32,6 +32,9 @@ spec:
     limits:
       memory: 4Gi
 
+  monitoring:
+    enablePodMonitor: true
+
   backup:
     retentionPolicy: 30d
     barmanObjectStore: &barmanObjectStore

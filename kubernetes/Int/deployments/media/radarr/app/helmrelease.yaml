@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: linuxserver/radarr
-              tag: 5.8.3
+              tag: 5.12.2
             env:
               - name: TZ
                 value: America/New_York

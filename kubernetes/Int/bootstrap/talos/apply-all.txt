@@ -1,0 +1,8 @@
+talosctl apply-config -n 172.16.2.6 -f clusterconfig/KC-KC-C-01.yaml
+talosctl apply-config -n 172.16.2.7 -f clusterconfig/KC-KC-W-01.yaml
+talosctl apply-config -n 172.16.2.8 -f clusterconfig/KC-KC-C-02.yaml
+talosctl apply-config -n 172.16.2.9 -f clusterconfig/KC-KC-W-02.yaml
+talosctl apply-config -n 172.16.2.10 -f clusterconfig/KC-KC-C-03.yaml
+talosctl apply-config -n 172.16.2.11 -f clusterconfig/KC-KC-W-03.yaml
+talosctl apply-config -n 172.16.2.12 -f clusterconfig/KC-INT-N-01.yaml
+talosctl apply-config -n 172.22.19.21 -f clusterconfig/KC-KWH-N-01.yaml

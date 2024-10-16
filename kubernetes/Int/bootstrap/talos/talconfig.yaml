@@ -38,10 +38,11 @@ nodes:
     installDiskSelector:
       model: Micron*
     nodeLabels:
-      custom.io/gpuManufacturer: intel
-      custom.io/intelgpuType: igpu
-      custom.io/cpuManufacturer: intel
-      custom.io/cpuGeneration: coffeelake
+      noms.tv/Datacenter: INT
+      noms.tv/gpuManufacturer: intel
+      noms.tv/intelgpuType: igpu
+      noms.tv/cpuManufacturer: intel
+      noms.tv/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -81,10 +82,11 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      custom.io/gpuManufacturer: intel
-      custom.io/intelgpuType: igpu
-      custom.io/cpuManufacturer: intel
-      custom.io/cpuGeneration: coffeelake
+      noms.tv/Datacenter: INT
+      noms.tv/gpuManufacturer: intel
+      noms.tv/intelgpuType: igpu
+      noms.tv/cpuManufacturer: intel
+      noms.tv/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -122,10 +124,11 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      custom.io/gpuManufacturer: intel
-      custom.io/intelgpuType: igpu
-      custom.io/cpuManufacturer: intel
-      custom.io/cpuGeneration: coffeelake
+      noms.tv/Datacenter: INT
+      noms.tv/gpuManufacturer: intel
+      noms.tv/intelgpuType: igpu
+      noms.tv/cpuManufacturer: intel
+      noms.tv/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -165,10 +168,11 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      custom.io/gpuManufacturer: intel
-      custom.io/intelgpuType: igpu
-      custom.io/cpuManufacturer: intel
-      custom.io/cpuGeneration: coffeelake
+      noms.tv/Datacenter: INT
+      noms.tv/gpuManufacturer: intel
+      noms.tv/intelgpuType: igpu
+      noms.tv/cpuManufacturer: intel
+      noms.tv/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -206,10 +210,11 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      custom.io/gpuManufacturer: intel
-      custom.io/intelgpuType: igpu
-      custom.io/cpuManufacturer: intel
-      custom.io/cpuGeneration: coffeelake
+      noms.tv/Datacenter: INT
+      noms.tv/gpuManufacturer: intel
+      noms.tv/intelgpuType: igpu
+      noms.tv/cpuManufacturer: intel
+      noms.tv/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -249,10 +254,11 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      custom.io/gpuManufacturer: intel
-      custom.io/intelgpuType: igpu
-      custom.io/cpuManufacturer: intel
-      custom.io/cpuGeneration: coffeelake
+      noms.tv/Datacenter: INT
+      noms.tv/gpuManufacturer: intel
+      noms.tv/intelgpuType: igpu
+      noms.tv/cpuManufacturer: intel
+      noms.tv/cpuGeneration: coffeelake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -271,7 +277,7 @@ nodes:
             routes:
               - network: 172.16.3.0/24
                 gateway: 172.16.3.1
-  - hostname: KC-N-01
+  - hostname: INT-N-01
     ipAddress: 172.16.2.12
     controlPlane: false
     machineSpec:
@@ -291,10 +297,11 @@ nodes:
       model: 'Samsung SSD 870'
       type: ssd
     nodeLabels:
-      custom.io/gpuManufacturer: intel
-      custom.io/intelgpuType: igpu
-      custom.io/cpuManufacturer: intel
-      custom.io/cpuGeneration: alderlake
+      noms.tv/Datacenter: INT
+      noms.tv/gpuManufacturer: intel
+      noms.tv/intelgpuType: igpu
+      noms.tv/cpuManufacturer: intel
+      noms.tv/cpuGeneration: alderlake
     nameservers:
       - 172.16.2.1
     networkInterfaces:
@@ -323,3 +330,38 @@ nodes:
       #   routes:
       #     - network: 172.10.1.0/24
       #       gateway: 172.10.1.1
+  - hostname: KWH-N-01
+    ipAddress: 172.22.19.21
+    controlPlane: false
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/intel-ice-firmware
+                  - siderolabs/intel-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+                  - siderolabs/qemu-guest-agent
+    installDiskSelector:
+      model: 'QEMU HARDDISK'
+      size: '< 100GB'
+    nodeLabels:
+      noms.tv/Datacenter: KWH
+    nameservers:
+      - 172.22.19.1
+    networkInterfaces:
+      ## Container Network
+      - interface: br0
+        addresses:
+          - 172.22.19.21/24
+        bridge:
+          interfaces:
+            - enxbc2411f496b3
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.22.19.1

@@ -24,7 +24,7 @@ spec:
           - weight: 1
             preference:
               matchExpressions:
-              - key: custom.io/cpuGeneration
+              - key: noms.tv/cpuGeneration
                 operator: In
                 values:
                 - alderlake

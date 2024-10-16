@@ -13,6 +13,15 @@ spec:
       labels:
         app: lancache
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: noms.tv/Datacenter
+                operator: In
+                values:
+                - INT
       containers:
       - name: lancache
         image: lancachenet/monolithic@sha256:07d659d66bbaac9ca99712ab37d56419dde974bac1847434ea47489290f25a9a

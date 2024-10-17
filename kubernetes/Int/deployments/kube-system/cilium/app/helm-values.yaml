@@ -18,6 +18,7 @@ cni:
 devices: 
   - br+
   - tailscale0
+direct-node-routes-skip-unreachable: true
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true

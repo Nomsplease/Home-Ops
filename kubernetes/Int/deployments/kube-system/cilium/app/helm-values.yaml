@@ -15,7 +15,9 @@ cluster:
   name: main
 cni:
   exclusive: false
-devices: br+
+devices: 
+  - br+
+  - tailscale0
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true

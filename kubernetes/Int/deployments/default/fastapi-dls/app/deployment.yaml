@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: fastapi-dls
-          image: collinwebdesigns/fastapi-dls:1.3.12
+          image: collinwebdesigns/fastapi-dls:1.4.0
           envFrom:
             - secretRef:
                 name: fastapi-dls-env

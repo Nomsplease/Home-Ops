@@ -2,7 +2,6 @@ machine:
   network:
     kubespan:
       enabled: true
-      advertiseKubernetesNetworks: false
 cluster:
   discovery:
     enabled: true

@@ -1,6 +1,6 @@
 ---
 clusterName: KC
-talosVersion: v1.7.5
+talosVersion: v1.8.1
 kubernetesVersion: v1.30.2
 endpoint: https://172.16.2.5:6443
 domain: cluster.local
@@ -15,6 +15,7 @@ patches:
   - "@./patches/disable-cni.yaml"
   - "@./patches/disable-kubeproxy.yaml"
   - "@./patches/rotate-certs.yaml"
+  - "@./patches/kubespan.yaml"
 controlPlane:
   patches:
     - "@./patches/etcd-backup.yaml"
@@ -26,6 +27,18 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.2.5
+            - 172.16.2.6
+        - op: add
+          path: /cluster/apiServer/certSANs
+          value:
+            - 172.16.2.5
+            - 172.16.2.6
     schematic:
       customization:
           systemExtensions:
@@ -38,7 +51,7 @@ nodes:
     installDiskSelector:
       model: Micron*
     nodeLabels:
-      noms.tv/Datacenter: INT
+      noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
       noms.tv/cpuManufacturer: intel
@@ -70,6 +83,12 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.2.7
     schematic:
       customization:
           systemExtensions:
@@ -82,7 +101,7 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      noms.tv/Datacenter: INT
+      noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
       noms.tv/cpuManufacturer: intel
@@ -112,6 +131,13 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.2.5
+            - 172.16.2.8
     schematic:
       customization:
           systemExtensions:
@@ -124,7 +150,7 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      noms.tv/Datacenter: INT
+      noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
       noms.tv/cpuManufacturer: intel
@@ -156,6 +182,12 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.2.9
     schematic:
       customization:
           systemExtensions:
@@ -168,7 +200,7 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      noms.tv/Datacenter: INT
+      noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
       noms.tv/cpuManufacturer: intel
@@ -198,6 +230,13 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.2.5
+            - 172.16.2.10
     schematic:
       customization:
           systemExtensions:
@@ -210,7 +249,7 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      noms.tv/Datacenter: INT
+      noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
       noms.tv/cpuManufacturer: intel
@@ -242,6 +281,12 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.2.11
     schematic:
       customization:
           systemExtensions:
@@ -254,7 +299,7 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
-      noms.tv/Datacenter: INT
+      noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
       noms.tv/cpuManufacturer: intel
@@ -284,6 +329,12 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.2.12
     schematic:
       customization:
           systemExtensions:
@@ -297,7 +348,7 @@ nodes:
       model: 'Samsung SSD 870'
       type: ssd
     nodeLabels:
-      noms.tv/Datacenter: INT
+      noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
       noms.tv/cpuManufacturer: intel
@@ -337,6 +388,12 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.22.19.21
     schematic:
       customization:
           systemExtensions:
@@ -351,7 +408,7 @@ nodes:
       model: 'QEMU HARDDISK'
       size: '< 100GB'
     nodeLabels:
-      noms.tv/Datacenter: KWH
+      noms.tv/Datacenter: kwh
     nameservers:
       - 172.22.19.1
     networkInterfaces:

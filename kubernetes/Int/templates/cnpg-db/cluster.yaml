@@ -14,7 +14,7 @@ spec:
         - "${CNPG_DB_ACCESSMODE:-ReadWriteMany}"
       resources:
         requests:
-          storage: "${CNPG_DB_SIZE:-10Gi}"
+          storage: "${CNPG_DB_SIZE:-11Gi}"
       storageClassName: "${CNPG_DB_STORAGECLASS:-ceph-filesystem}" 
       volumeMode: Filesystem
   superuserSecret:

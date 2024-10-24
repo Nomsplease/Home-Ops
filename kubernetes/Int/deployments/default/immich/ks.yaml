@@ -29,4 +29,4 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 500Gi
-      CNPG_DB_SIZE: 15Gi
+      CNPG_DB_SIZE: 16Gi

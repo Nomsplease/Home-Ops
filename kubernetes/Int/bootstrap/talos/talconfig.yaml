@@ -15,7 +15,7 @@ patches:
   - "@./patches/disable-cni.yaml"
   - "@./patches/disable-kubeproxy.yaml"
   - "@./patches/rotate-certs.yaml"
-  - "@./patches/kubespan.yaml"
+  # - "@./patches/kubespan.yaml"
 controlPlane:
   patches:
     - "@./patches/etcd-backup.yaml"

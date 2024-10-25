@@ -17,8 +17,6 @@ cni:
   exclusive: false
 devices: 
   - br+
-  - tailscale0
-directRoutingSkipUnreachable: true
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true

@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: cnpg-db-cluster
+  name: cnpg-cluster
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:16.3-7
@@ -47,7 +47,7 @@ spec:
       endpointURL: https://s3.int.noms.tv
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster
-      serverName: &currentCluster cnpg-db-cluster-v1
+      serverName: &currentCluster cnpg-cluster-v1
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -63,7 +63,7 @@ spec:
       database: notused
       owner: postgres
       secret:
-        name: cnpg-db-cluster-secrets
+        name: cnpg-cluster-secrets
     # recovery:
     #   source: &previousCluster "${APP}-cnpg-db-${CNPG_DB_PREVIOUS_VERSION:-v1}"
     #   database: app

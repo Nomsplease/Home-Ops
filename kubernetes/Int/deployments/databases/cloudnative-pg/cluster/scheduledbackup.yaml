@@ -3,10 +3,10 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: cnpg-db-cluster
+  name: cnpg-cluster
 spec:
   schedule: "@daily"
   immediate: true
   backupOwnerReference: self
   cluster:
-    name: cnpg-db-cluster
+    name: cnpg-cluster

@@ -1,7 +1,7 @@
 ---
 clusterName: KC
-talosVersion: v1.8.1
-kubernetesVersion: v1.30.2
+talosVersion: v1.8.2
+kubernetesVersion: v1.31.2
 endpoint: https://172.16.2.5:6443
 domain: cluster.local
 allowSchedulingOnMasters: true
@@ -381,44 +381,44 @@ nodes:
       #   routes:
       #     - network: 172.10.1.0/24
       #       gateway: 172.10.1.1
-  - hostname: KWH-N-01
-    ipAddress: 172.22.19.21
-    controlPlane: false
-    machineSpec:
-      mode: metal
-      arch: amd64
-      secureboot: false
-    patches:
-      - |-
-        - op: add
-          path: /machine/certSANs
-          value:
-            - 172.22.19.21
-    schematic:
-      customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915-ucode
-                  - siderolabs/intel-ice-firmware
-                  - siderolabs/intel-ucode
-                  - siderolabs/iscsi-tools
-                  - siderolabs/util-linux-tools
-                  - siderolabs/qemu-guest-agent
-    installDiskSelector:
-      model: 'QEMU HARDDISK'
-      size: '< 100GB'
-    nodeLabels:
-      noms.tv/Datacenter: kwh
-    nameservers:
-      - 172.22.19.1
-    networkInterfaces:
-      ## Container Network
-      - interface: br0
-        addresses:
-          - 172.22.19.21/24
-        bridge:
-          interfaces:
-            - enxbc2411f496b3
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 172.22.19.1
+  # - hostname: KWH-N-01
+  #   ipAddress: 172.22.19.21
+  #   controlPlane: false
+  #   machineSpec:
+  #     mode: metal
+  #     arch: amd64
+  #     secureboot: false
+  #   patches:
+  #     - |-
+  #       - op: add
+  #         path: /machine/certSANs
+  #         value:
+  #           - 172.22.19.21
+  #   schematic:
+  #     customization:
+  #         systemExtensions:
+  #             officialExtensions:
+  #                 - siderolabs/i915-ucode
+  #                 - siderolabs/intel-ice-firmware
+  #                 - siderolabs/intel-ucode
+  #                 - siderolabs/iscsi-tools
+  #                 - siderolabs/util-linux-tools
+  #                 - siderolabs/qemu-guest-agent
+  #   installDiskSelector:
+  #     model: 'QEMU HARDDISK'
+  #     size: '< 100GB'
+  #   nodeLabels:
+  #     noms.tv/Datacenter: kwh
+  #   nameservers:
+  #     - 172.22.19.1
+  #   networkInterfaces:
+  #     ## Container Network
+  #     - interface: br0
+  #       addresses:
+  #         - 172.22.19.21/24
+  #       bridge:
+  #         interfaces:
+  #           - enxbc2411f496b3
+  #       routes:
+  #         - network: 0.0.0.0/0
+  #           gateway: 172.22.19.1

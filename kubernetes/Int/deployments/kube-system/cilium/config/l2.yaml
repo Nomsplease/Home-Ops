@@ -6,8 +6,7 @@ metadata:
   name: l2-policy
 spec:
   loadBalancerIPs: true
-  interfaces:
-    - br0
+  interfaces: ["^br.*"]
   nodeSelector:
     matchLabels:
       kubernetes.io/os: linux

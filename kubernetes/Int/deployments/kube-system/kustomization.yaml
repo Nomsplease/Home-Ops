@@ -13,5 +13,5 @@ resources:
   - ./etcd-backup/ks.yaml
   - ./descheduler/ks.yaml
   - ./cilium/ks.yaml
-  - ./coredns/ks.yaml
+  #- ./coredns/ks.yaml
   - ./multus/ks.yaml

@@ -6,7 +6,7 @@ metadata:
   name: cnpg-cluster
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.3-7
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
   primaryUpdateStrategy: unsupervised
   storage:
     pvcTemplate:

@@ -9,7 +9,7 @@ spec:
   imageName: "${CNPG_DB_IMAGE:-ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1}"
   primaryUpdateStrategy: unsupervised
   storage:
-    size: "${CNPG_DB_SIZE:-10Gi}"
+    size: "${CNPG_DB_SIZE:-20Gi}"
     storageClass: "${CNPG_DB_STORAGECLASS:-ceph-filesystem}" 
   superuserSecret:
     name: cloudnative-pg-secret

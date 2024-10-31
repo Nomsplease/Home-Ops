@@ -14,7 +14,7 @@ spec:
         - "${CNPG_DB_ACCESSMODE:-ReadWriteMany}"
       resources:
         requests:
-          storage: "${CNPG_DB_SIZE:-15Gi}"
+          storage: "${CNPG_DB_SIZE:-20Gi}"
       storageClassName: "${CNPG_DB_STORAGECLASS:-ceph-filesystem}" 
       volumeMode: Filesystem
   superuserSecret:
@@ -44,7 +44,7 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://cloudnative-pg/
-      endpointURL: https://s3.int.noms.tv:9000
+      endpointURL: https://s3.int.noms.tv
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster
       serverName: &currentCluster "${APP}-cnpg-db-${CNPG_DB_CURRENT_VERSION:-v1}"

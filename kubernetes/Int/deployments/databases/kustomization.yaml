@@ -8,4 +8,4 @@ resources:
   # Flux-Kustomizations
   - ./mariadb/ks.yaml
   - ./influxdb/ks.yaml
-  #- ./cloudnative-pg/ks.yaml
+  - ./cnpg/ks.yaml

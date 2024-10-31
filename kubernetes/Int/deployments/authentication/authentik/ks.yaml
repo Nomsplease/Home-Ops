@@ -24,7 +24,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      CNPG_DB_SIZE: 10Gi
+      CNPG_DB_SIZE: 20Gi
       CNPG_DB_CURRENT_VERSION: v3
       CNPG_DB_PREVIOUS_VERSION: v2
       VOLSYNC_CAPACITY: 10Gi

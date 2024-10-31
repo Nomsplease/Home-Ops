@@ -23,8 +23,11 @@ spec:
 
   postgresql:
     parameters:
-      max_connections: "400"
+      max_connections: "1000"
       shared_buffers: 256MB
+      search_path: '"$user", public, vectors'
+    shared_preload_libraries:
+      - "vectors.so"
 
   resources:
     requests:

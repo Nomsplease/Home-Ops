@@ -5,5 +5,3 @@ resources:
   - ./helmrelease.yaml
   ## Include Voslync Backup
   - ../../../../templates/volsync-rwx
-  ## Include CNPG Database
-  - ../../../../templates/cnpg-vector-db

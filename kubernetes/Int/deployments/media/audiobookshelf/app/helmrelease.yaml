@@ -80,14 +80,13 @@ spec:
     persistence:
       config:
         existingClaim: "${APP}"
-        globalMounts:
-          - path: /config
-            subpath: config
-      metadata:
-        existingClaim: "${APP}"
-        globalMounts:
-          - path: /metadata
-            subpath: metadata
+        advancedMounts:
+          audiobookshelf:
+            app:
+              - path: /config
+                subpath: config
+              - path: /metadata
+                subpath: metadata
       media:
         type: nfs
         server: 172.16.1.10

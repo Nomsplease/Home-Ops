@@ -5,5 +5,4 @@ resources:
   - deluge.yaml
   - minio.yaml
   - sabnzbd.yaml
-  - audiobookshelf.yaml
   

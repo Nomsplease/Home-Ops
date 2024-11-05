@@ -14,3 +14,4 @@ resources:
   - ./kometa/ks.yaml
   - ./readarr/ks.yaml
   - ./bazarr/ks.yaml
+  - ./audiobookshelf/ks.yaml

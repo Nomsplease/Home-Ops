@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fastapi-dls
+spec:
+  ingressClassName: ingress-nginx
+  rules:
+  - host: fastapi-dls.svc.noms.tv
+    http:
+      paths:
+      - backend:
+          service:
+            name: fastapi-dls
+            port:
+              number: 443
+        path: /
+        pathType: Prefix

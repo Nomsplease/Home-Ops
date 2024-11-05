@@ -84,9 +84,9 @@ spec:
           audiobookshelf:
             app:
               - path: /config
-                subpath: config
+                subPath: config
               - path: /metadata
-                subpath: metadata
+                subPath: metadata
       media:
         type: nfs
         server: 172.16.1.10

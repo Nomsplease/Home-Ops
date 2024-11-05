@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: paperless
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.13.2
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.13.4
           envFrom:
             - secretRef:
                 name: paperless-env

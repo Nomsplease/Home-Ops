@@ -76,6 +76,8 @@ spec:
       app:
         enabled: true
         className: "ingress-nginx"
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
           - host: fastapi-dls.svc.noms.tv
             paths:

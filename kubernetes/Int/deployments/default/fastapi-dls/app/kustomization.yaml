@@ -1,9 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- externalSecret.yaml
-- deployment.yaml
-- ingress.yaml
-- service.yaml
-## Include Voslync Backup
-- ../../../../templates/volsync
+  # - externalSecret.yaml
+  # - deployment.yaml
+  ## Include Voslync Backup
+  - ../../../../templates/volsync

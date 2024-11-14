@@ -67,3 +67,6 @@ spec:
     storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-filesystem}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteMany}"]
     capacity: "${VOLSYNC_CAPACITY}"
+    enableFileDeletion: true
+    cleanupCachePVC: true
+    cleanupTempPVC: true

@@ -20,6 +20,13 @@ spec:
     image:
       flavor: fpm
 
+    configs:
+      custom.config.php: |
+        <?php
+          $CONFIG = array(
+            'check_data_directory_permissions' => false, # https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/
+          );
+
     ## Enable pod autoscaling using HorizontalPodAutoscaler
     ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
     ##
@@ -136,3 +143,7 @@ spec:
     
     serviceMonitor:
       enabled: true
+
+  securityContext:
+    runAsNonRoot: true
+    readOnlyRootFilesystem: false

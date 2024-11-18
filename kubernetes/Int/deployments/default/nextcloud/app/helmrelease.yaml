@@ -20,13 +20,6 @@ spec:
     image:
       flavor: fpm
 
-    configs:
-      custom.config.php: |
-        <?php
-          $CONFIG = array(
-            'check_data_directory_permissions' => false, # https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/
-          );
-
     ## Enable pod autoscaling using HorizontalPodAutoscaler
     ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
     ##
@@ -84,6 +77,15 @@ spec:
         smtpFromUserKey: smtpFromUser
         smtpPasswordKey: smtpPassword
         smtpHostKey: smtpHost
+      securityContext:
+        runAsNonRoot: true
+        readOnlyRootFilesystem: false
+      configs:
+        custom.config.php: |
+          <?php
+            $CONFIG = array(
+              'check_data_directory_permissions' => false, # https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/
+            );
     
     persistence:
       existingClaim: nextcloud 
@@ -115,6 +117,9 @@ spec:
 
     cronjob:
       enabled: true
+      securityContext:
+        runAsNonRoot: true
+        readOnlyRootFilesystem: false
 
     livenessProbe:
       enabled: true
@@ -143,7 +148,3 @@ spec:
     
     serviceMonitor:
       enabled: true
-
-  securityContext:
-    runAsNonRoot: true
-    readOnlyRootFilesystem: false

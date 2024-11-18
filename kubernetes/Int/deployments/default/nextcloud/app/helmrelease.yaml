@@ -1,0 +1,138 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nextcloud
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: nextcloud
+      version: 0.8.4
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: flux-system
+      interval: 1m
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    image:
+      flavor: fpm
+
+    ## Enable pod autoscaling using HorizontalPodAutoscaler
+    ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+    ##
+    hpa:
+      enabled: false
+      cputhreshold: 60
+      minPods: 1
+      maxPods: 10
+
+    ingress:
+      enabled: true
+      className: "ingress-nginx"
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: 4G
+        nginx.ingress.kubernetes.io/server-snippet: |-
+          server_tokens off;
+          proxy_hide_header X-Powered-By;
+          rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+          rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+          rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+          rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+          location = /.well-known/carddav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location = /.well-known/caldav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location = /robots.txt {
+            allow all;
+            log_not_found off;
+            access_log off;
+          }
+          location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+            deny all;
+          }
+          location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+            deny all;
+          }
+      hosts:
+        - host: cloud.noms.tv
+          paths:
+            - path: /
+              pathType: Prefix
+
+    nextcloud:
+      host: cloud.noms.tv
+      persistence:
+        subPath: data
+      existingSecret:
+        enabled: true
+        secretName: nextcloud
+        usernameKey: adminUsername
+        passwordKey: adminPassword
+        smtpUsernameKey: smtpUsername
+        smtpFromUserKey: smtpFromUser
+        smtpPasswordKey: smtpPassword
+        smtpHostKey: smtpHost
+    
+    persistence:
+      existingClaim: nextcloud 
+
+    internalDatabase:
+      enabled: false
+
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: cnpg-cluster-rw.databases.svc.cluster.local
+      database: nextcloud
+      existingSecret:
+        enabled: true
+        secretName: nextcloud
+        usernameKey: dbUsername
+        passwordKey: dbPassword
+
+    redis:
+      enabled: true
+      global:
+        defaultStorageClass: ceph-filesystem
+      master:
+        persistence:
+          enabled: true
+      replica:
+        persistence:
+          enabled: true
+
+    cronjob:
+      enabled: true
+
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 30
+      successThreshold: 1
+
+    metrics:
+      enabled: true
+    
+    serviceMonitor:
+      enabled: true

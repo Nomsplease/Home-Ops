@@ -23,5 +23,6 @@ resources:
   - ./zwave-js-ui/ks.yaml
   - ./lubelogger/ks.yaml
   - ./linkwarden/ks.yaml
+  - ./nextcloud/ks.yaml
   
   

@@ -77,9 +77,6 @@ spec:
         smtpFromUserKey: smtpFromUser
         smtpPasswordKey: smtpPassword
         smtpHostKey: smtpHost
-      securityContext:
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
       configs:
         custom.config.php: |
           <?php
@@ -117,9 +114,6 @@ spec:
 
     cronjob:
       enabled: true
-      securityContext:
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
 
     livenessProbe:
       enabled: true

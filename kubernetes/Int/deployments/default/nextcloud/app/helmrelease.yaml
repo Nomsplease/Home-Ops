@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: nextcloud
-      version: 0.8.4
+      version: 6.2.3
       sourceRef:
         kind: HelmRepository
         name: nextcloud

@@ -17,9 +17,6 @@ spec:
     remediation:
       retries: 3
   values:
-    image:
-      flavor: fpm
-
     ## Enable pod autoscaling using HorizontalPodAutoscaler
     ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
     ##

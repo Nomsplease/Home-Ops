@@ -85,23 +85,17 @@ spec:
             ),
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
           );
-        custom.config.php: |
-          <?php
-            $CONFIG = array(
-              'check_data_directory_permissions' => false, # https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/
-            );
+        # custom.config.php: |
+        #   <?php
+        #     $CONFIG = array(
+        #       'check_data_directory_permissions' => false, # https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/
+        #     );
 
-    # Nextcloud Data (/var/www/html)
+    # Nextcloud Data (/var/www)
     persistence:
       enabled: true
       existingClaim: nextcloud
-      subPath: config
       accessMode: ReadWriteMany
-      nextcloudData:
-        enabled: true
-        subPath: data
-        existingClaim: nextcloud
-        accessMode: ReadWriteMany
 
     internalDatabase:
       enabled: false

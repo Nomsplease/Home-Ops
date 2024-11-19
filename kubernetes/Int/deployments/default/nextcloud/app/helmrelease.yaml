@@ -66,8 +66,6 @@ spec:
 
     nextcloud:
       host: cloud.noms.tv
-      persistence:
-        subPath: data
       existingSecret:
         enabled: true
         secretName: nextcloud
@@ -94,7 +92,9 @@ spec:
             );
     
     persistence:
-      existingClaim: nextcloud 
+      enabled: true
+      existingClaim: nextcloud
+      accessMode: ReadWriteMany
 
     internalDatabase:
       enabled: false

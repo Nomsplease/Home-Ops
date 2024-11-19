@@ -90,11 +90,18 @@ spec:
             $CONFIG = array(
               'check_data_directory_permissions' => false, # https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/
             );
-    
+
+    # Nextcloud Data (/var/www/html)
     persistence:
       enabled: true
       existingClaim: nextcloud
+      subPath: config
       accessMode: ReadWriteMany
+      nextcloudData:
+        enabled: true
+        subPath: data
+        existingClaim: nextcloud
+        accessMode: ReadWriteMany
 
     internalDatabase:
       enabled: false
@@ -117,34 +124,38 @@ spec:
       master:
         persistence:
           enabled: true
+          accessModes:
+            - ReadWriteMany
       replica:
         persistence:
           enabled: true
+          accessModes:
+            - ReadWriteMany
 
     cronjob:
       enabled: false
 
-    # livenessProbe:
-    #   enabled: true
-    #   initialDelaySeconds: 10
-    #   periodSeconds: 10
-    #   timeoutSeconds: 5
-    #   failureThreshold: 3
-    #   successThreshold: 1
-    # readinessProbe:
-    #   enabled: true
-    #   initialDelaySeconds: 10
-    #   periodSeconds: 10
-    #   timeoutSeconds: 5
-    #   failureThreshold: 3
-    #   successThreshold: 1
-    # startupProbe:
-    #   enabled: true
-    #   initialDelaySeconds: 30
-    #   periodSeconds: 10
-    #   timeoutSeconds: 5
-    #   failureThreshold: 30
-    #   successThreshold: 1
+    livenessProbe:
+      enabled: false
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+    readinessProbe:
+      enabled: false
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+    startupProbe:
+      enabled: false
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 30
+      successThreshold: 1
 
     metrics:
       enabled: true

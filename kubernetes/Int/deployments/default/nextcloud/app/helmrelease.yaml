@@ -31,6 +31,9 @@ spec:
       className: "ingress-nginx"
       annotations:
         nginx.ingress.kubernetes.io/proxy-body-size: 4G
+        nginx.ingress.kubernetes.io/affinity: cookie
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
         nginx.ingress.kubernetes.io/server-snippet: |-
           server_tokens off;
           proxy_hide_header X-Powered-By;
@@ -75,6 +78,15 @@ spec:
         smtpPasswordKey: smtpPassword
         smtpHostKey: smtpHost
       configs:
+        proxy.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' => array(
+              0 => '127.0.0.1',
+              1 => '10.0.0.0/8',
+            ),
+            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+          );
         custom.config.php: |
           <?php
             $CONFIG = array(
@@ -110,29 +122,29 @@ spec:
           enabled: true
 
     cronjob:
-      enabled: true
+      enabled: false
 
-    livenessProbe:
-      enabled: true
-      initialDelaySeconds: 10
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-      successThreshold: 1
-    readinessProbe:
-      enabled: true
-      initialDelaySeconds: 10
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-      successThreshold: 1
-    startupProbe:
-      enabled: true
-      initialDelaySeconds: 30
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 30
-      successThreshold: 1
+    # livenessProbe:
+    #   enabled: true
+    #   initialDelaySeconds: 10
+    #   periodSeconds: 10
+    #   timeoutSeconds: 5
+    #   failureThreshold: 3
+    #   successThreshold: 1
+    # readinessProbe:
+    #   enabled: true
+    #   initialDelaySeconds: 10
+    #   periodSeconds: 10
+    #   timeoutSeconds: 5
+    #   failureThreshold: 3
+    #   successThreshold: 1
+    # startupProbe:
+    #   enabled: true
+    #   initialDelaySeconds: 30
+    #   periodSeconds: 10
+    #   timeoutSeconds: 5
+    #   failureThreshold: 30
+    #   successThreshold: 1
 
     metrics:
       enabled: true

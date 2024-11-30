@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: influxdb
-        image: influxdb:1.8.10
+        image: influxdb:1.11.8
         env:
           - name: INFLUXDB_HTTP_ENABLED
             value: "true"
@@ -52,7 +52,7 @@ spec:
     spec:
       containers:
       - name: chronograf
-        image: influxdb:1.8.10
+        image: influxdb:1.11.8
         env:
           - name: INFLUXDB_HTTP_ENABLED
             value: "true"

@@ -24,7 +24,7 @@ spec:
                 - int
       containers:
       - name: lancache
-        image: lancachenet/monolithic@sha256:07d659d66bbaac9ca99712ab37d56419dde974bac1847434ea47489290f25a9a
+        image: lancachenet/monolithic@sha256:5f2eea8be8f164d2e3db312493f78b6032bd2892e6abf32ce0b0a03e84e64324
         env:
             - name: CACHE_DISK_SIZE
               value: 1000g

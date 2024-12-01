@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: linkwarden
-          image: ghcr.io/linkwarden/linkwarden:v2.8.3
+          image: ghcr.io/linkwarden/linkwarden:v2.8.4
           envFrom:
             - secretRef:
                 name: linkwarden-env

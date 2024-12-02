@@ -42,7 +42,7 @@ spec:
     storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
     ## Unlock requires string value
-    unlock: "11/18/2024"
+    unlock: "12/02/2024"
     retain:
       hourly: 24
       daily: 7

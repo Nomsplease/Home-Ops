@@ -24,5 +24,6 @@ resources:
   - ./lubelogger/ks.yaml
   - ./linkwarden/ks.yaml
   - ./nextcloud/ks.yaml
+  - ./owntracks/ks.yaml
   
   

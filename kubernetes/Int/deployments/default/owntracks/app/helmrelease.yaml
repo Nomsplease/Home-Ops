@@ -53,7 +53,7 @@ spec:
             port: *app-port
 
     ingress:
-      app:
+      recorder:
         enabled: true
         className: "ingress-nginx"
         hosts:
@@ -61,7 +61,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: recorder
                   port: http
 
     persistence:

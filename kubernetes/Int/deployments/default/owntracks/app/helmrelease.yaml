@@ -26,6 +26,9 @@ spec:
             image:
               repository: owntracks/recorder
               tag: 0.9.9-40
+            envFrom:
+              - secretRef:
+                  name: "${APP}-recorder"
             probes:
               liveness: &app-probes
                 enabled: true

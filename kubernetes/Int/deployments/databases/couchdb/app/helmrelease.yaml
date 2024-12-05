@@ -38,9 +38,9 @@ spec:
     persistentVolume:
       enabled: true
       existingClaims:
-        couchdb:
-          volumeName: couchdb
-          claimName: couchdb
+        - couchdb:
+            volumeName: couchdb
+            claimName: couchdb
       accessModes:
         - ReadWriteMany
       storageClass: ceph-filesystem

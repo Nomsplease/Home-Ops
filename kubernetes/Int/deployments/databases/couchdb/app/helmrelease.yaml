@@ -23,7 +23,7 @@ spec:
 
     couchdbConfig:
       couchdb:
-        uid: gK4bNYB33GDjzQrJKmZDjqm72QskicYg # Unique identifier for this CouchDB server instance
+        uuid: gK4bNYB33GDjzQrJKmZDjqm72QskicYg # Unique identifier for this CouchDB server instance
       cluster:
         q: 6 # Create 8 shards for each database
       chttpd:

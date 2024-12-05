@@ -25,7 +25,7 @@ spec:
       couchdb:
         uuid: gK4bNYB33GDjzQrJKmZDjqm72QskicYg # Unique identifier for this CouchDB server instance
       cluster:
-        q: 6 # Create 8 shards for each database
+        q: 2 # Create 8 shards for each database
       chttpd:
         bind_address: any
         # chttpd.require_valid_user disables all the anonymous requests to the port

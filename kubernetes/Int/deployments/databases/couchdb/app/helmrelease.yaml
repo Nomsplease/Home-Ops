@@ -1,0 +1,51 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: couchdb
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: couchdb
+      version: 4.5.6
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: couchdb
+        namespace: flux-system
+
+  values:
+    clusterSize: 3
+
+    allowAdminParty: false
+    createAdminSecret: false
+
+    persistentVolume:
+      enabled: true
+      existingClaims:
+        - couchdb
+      accessModes:
+        - ReadWriteMany
+      storageClass: ceph-filesystem
+
+    service:
+      enabled: true
+      type: ClusterIP
+      externalPort: 5984
+      targetPort: 5984
+
+    ingress:
+      enabled: false
+      className: "ingress-nginx"
+      hosts:
+        - couchdb.svc.noms.tv
+      path: /
+
+    resources:
+      requests:
+       cpu: 100m
+       memory: 128Mi
+      limits:
+       cpu: 2000m
+       memory: 2Gi

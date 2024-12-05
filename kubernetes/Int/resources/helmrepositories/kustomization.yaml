@@ -30,3 +30,4 @@ resources:
 - prometheus-community.yaml
 - grafana.yaml
 - nextcloud.yaml
+- couchdb.yaml

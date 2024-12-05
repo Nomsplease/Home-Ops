@@ -47,6 +47,35 @@ spec:
               limits:
                 memory: 4Gi
 
+      frontend:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: owntracks/frontend
+              tag: 2.15.3
+            envFrom:
+              - secretRef:
+                  name: "${APP}-frontend"
+            probes:
+              liveness: &frontend-probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &frontend-port 80
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *frontend-probes
+              startup: *frontend-probes
+            resources:
+              requests:
+                cpu: 47m
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+
     service:
       recorder:
         nameOverride: "${APP}-recorder"
@@ -54,6 +83,12 @@ spec:
         ports:
           http:
             port: *app-port
+      frontend:
+        nameOverride: "${APP}-frontend"
+        controller: frontend
+        ports:
+          http:
+            port: *frontend-port
 
     ingress:
       recorder:
@@ -65,6 +100,16 @@ spec:
               - path: /
                 service:
                   identifier: recorder
+                  port: http
+      frontend:
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: maps.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: frontend
                   port: http
 
     persistence:

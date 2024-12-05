@@ -78,13 +78,13 @@ spec:
 
     service:
       recorder:
-        nameOverride: "${APP}-recorder"
+        nameOverride: "recorder"
         controller: recorder
         ports:
           http:
             port: *app-port
       frontend:
-        nameOverride: "${APP}-frontend"
+        nameOverride: "frontend"
         controller: frontend
         ports:
           http:

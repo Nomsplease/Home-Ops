@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: plex-auto-languages
+  name: &app plex-auto-languages
 spec:
   interval: 30m
   chart:
@@ -47,3 +47,9 @@ spec:
               limits:
                 cpu: 1
                 memory: 1Gi
+
+    persistence:
+      config:
+        existingClaim: "${APP}"
+        globalMounts:
+          - path: /config

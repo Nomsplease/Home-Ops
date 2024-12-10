@@ -3,3 +3,5 @@ kind: Kustomization
 resources:
   - ./externalSecret.yaml
   - ./helmrelease.yaml
+  ## Include Voslync Backup
+  - ../../../../templates/volsync-rwx

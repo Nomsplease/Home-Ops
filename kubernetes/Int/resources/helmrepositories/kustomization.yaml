@@ -31,3 +31,4 @@ resources:
 - grafana.yaml
 - nextcloud.yaml
 - couchdb.yaml
+- external-dns.yaml

@@ -10,10 +10,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: rook-ceph-cluster      
   path: ./kubernetes/Int/deployments/network/lancache/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-ops
@@ -41,9 +39,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: lancache      
+    - name: volsync 
   path: ./kubernetes/Int/deployments/network/lancache/prefill
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-ops

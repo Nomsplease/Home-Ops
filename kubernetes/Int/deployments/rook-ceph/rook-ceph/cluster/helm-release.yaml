@@ -74,15 +74,15 @@ spec:
         - name: kc-c-03
           devices:
           - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC08560R"
-        # - name: kc-w-01 / k-w-02
-        #   devices:
-        #   - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0W101854X"
-        # - name: kc-w-02 /  k-w-04
-        #   devices:
-        #   - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708742X"
-        # - name: kc-w-03 /  k-w-06
-        #   devices:
-        #   - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W320254A"
+        - name: k-w-02
+          devices:
+          - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0W101854X"
+        - name: k-w-04
+          devices:
+          - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708742X"
+        - name: k-w-06
+          devices:
+          - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W320254A"
         - name: int-n-01
           devices:
           - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708745J"

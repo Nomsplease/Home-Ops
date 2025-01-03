@@ -83,12 +83,6 @@ spec:
         - name: k-w-06
           devices:
           - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W320254A"
-        - name: int-n-01
-          devices:
-          - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708745J"
-          - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W320270E"
-          - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0R931812B"
-          - name: "/dev/disk/by-id/nvme-CT1000P5PSSD8_22503D27B049"
       placement:
         mgr: &placement
           nodeAffinity:

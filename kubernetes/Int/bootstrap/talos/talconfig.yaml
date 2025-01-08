@@ -1,12 +1,12 @@
 ---
-clusterName: KC
+clusterName: K8S-Cluster
 talosVersion: v1.8.2
 kubernetesVersion: v1.31.2
-endpoint: https://172.16.2.5:6443
+endpoint: https://172.16.0.50:6443
 domain: cluster.local
 allowSchedulingOnMasters: true
 additionalMachineCertSans:
-  - 172.16.2.5
+  - 172.16.0.50
 clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
@@ -20,8 +20,175 @@ controlPlane:
   patches:
     - "@./patches/etcd-backup.yaml"
 nodes:
-  - hostname: KC-C-01
-    ipAddress: 172.16.2.6
+### Begin Controllers
+  ## Pi Controller - 01 ##
+  - hostname: K-C-01
+    ipAddress: 172.16.0.51
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: arm64
+      secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.0.50
+            - 172.16.0.51
+        - op: add
+          path: /cluster/apiServer/certSANs
+          value:
+            - 172.16.0.50
+            - 172.16.0.51
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDiskSelector:
+      model: 2115* #Model of the USB Controller
+    nodeLabels:
+      noms.tv/Datacenter: int
+      noms.tv/gpuManufacturer: broadcom
+      #noms.tv/intelgpuType: igpu/dedicated
+      noms.tv/cpuManufacturer: broadcom
+      noms.tv/cpuGeneration: rpi4
+    nameservers:
+      - 172.16.0.1
+    networkInterfaces:
+      ## Container Network
+      - interface: br0
+        addresses:
+          - 172.16.0.51/24
+        bridge:
+          interfaces:
+            - end0
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.0.1
+        vip:
+          ip: 172.16.0.50
+        vlans:
+          # Storage
+          - vlanId: 1002
+            routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
+  ## Pi Controller - 02 ##
+  - hostname: K-C-02
+    ipAddress: 172.16.0.52
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: arm64
+      secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.0.50
+            - 172.16.0.52
+        - op: add
+          path: /cluster/apiServer/certSANs
+          value:
+            - 172.16.0.50
+            - 172.16.0.52
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDiskSelector:
+      model: 2115* #Model of the USB Controller
+    nodeLabels:
+      noms.tv/Datacenter: int
+      noms.tv/gpuManufacturer: broadcom
+      #noms.tv/intelgpuType: igpu/dedicated
+      noms.tv/cpuManufacturer: broadcom
+      noms.tv/cpuGeneration: rpi4
+    nameservers:
+      - 172.16.0.1
+    networkInterfaces:
+      ## Container Network
+      - interface: br0
+        addresses:
+          - 172.16.0.52/24
+        bridge:
+          interfaces:
+            - end0
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.0.1
+        vip:
+          ip: 172.16.0.50
+        vlans:
+          # Storage
+          - vlanId: 1002
+            routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
+  ## Pi Controller - 03 ##
+  - hostname: K-C-03
+    ipAddress: 172.16.0.53
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: arm64
+      secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.0.50
+            - 172.16.0.53
+        - op: add
+          path: /cluster/apiServer/certSANs
+          value:
+            - 172.16.0.50
+            - 172.16.0.53
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDiskSelector:
+      model: 2115* #Model of the USB Controller
+    nodeLabels:
+      noms.tv/Datacenter: int
+      noms.tv/gpuManufacturer: broadcom
+      #noms.tv/intelgpuType: igpu/dedicated
+      noms.tv/cpuManufacturer: broadcom
+      noms.tv/cpuGeneration: rpi4
+    nameservers:
+      - 172.16.0.1
+    networkInterfaces:
+      ## Container Network
+      - interface: br0
+        addresses:
+          - 172.16.0.53/24
+        bridge:
+          interfaces:
+            - end0
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.0.1
+        vip:
+          ip: 172.16.0.50
+        vlans:
+          # Storage
+          - vlanId: 1002
+            routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
+  ## Temp Controller - 01 ##
+  - hostname: KTC-01
+    ipAddress: 172.16.0.48
     controlPlane: true
     machineSpec:
       mode: metal
@@ -32,13 +199,179 @@ nodes:
         - op: add
           path: /machine/certSANs
           value:
-            - 172.16.2.5
-            - 172.16.2.6
+            - 172.16.0.50
+            - 172.16.0.48
         - op: add
           path: /cluster/apiServer/certSANs
           value:
-            - 172.16.2.5
-            - 172.16.2.6
+            - 172.16.0.50
+            - 172.16.0.48
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/qemu-guest-agent
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDiskSelector:
+      size: '<= 100GB'
+    nameservers:
+      - 172.16.0.1
+    networkInterfaces:
+      ## Container Network
+      - interface: br0
+        addresses:
+          - 172.16.0.48/24
+        bridge:
+          interfaces:
+            - enxbc24112d5ec6
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.0.1
+        vip:
+          ip: 172.16.0.50
+        # vlans:
+        #   # Storage
+        #   - vlanId: 1002
+        #     routes:
+        #       - network: 172.16.2.0/24
+        #         gateway: 172.16.2.1
+        #   - vlanId: 1003
+        #     routes:
+        #       - network: 172.16.3.0/24
+        #         gateway: 172.16.3.1
+  ## Controller - 02 ##
+  - hostname: KC-02
+    ipAddress: 172.16.0.54
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.0.50
+            - 172.16.0.54
+        - op: add
+          path: /cluster/apiServer/certSANs
+          value:
+            - 172.16.0.50
+            - 172.16.0.54
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/intel-ice-firmware
+                  - siderolabs/intel-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDiskSelector:
+      model: Crucial*
+    nodeLabels:
+      noms.tv/Datacenter: int
+      noms.tv/gpuManufacturer: intel
+      noms.tv/intelgpuType: igpu
+      noms.tv/cpuManufacturer: intel
+      noms.tv/cpuGeneration: coffeelake
+    nameservers:
+      - 172.16.0.1
+    networkInterfaces:
+      ## Container Network
+      - interface: br0
+        addresses:
+          - 172.16.0.54/24
+        bridge:
+          interfaces:
+            - end0
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.0.1
+        vip:
+          ip: 172.16.0.50
+        vlans:
+          # Storage
+          - vlanId: 1002
+            routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
+  ## Controller - 03 ##
+  - hostname: KC-03
+    ipAddress: 172.16.0.55
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.0.50
+            - 172.16.0.55
+        - op: add
+          path: /cluster/apiServer/certSANs
+          value:
+            - 172.16.0.50
+            - 172.16.0.55
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/intel-ice-firmware
+                  - siderolabs/intel-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDiskSelector:
+      model: SanDisk*
+    nodeLabels:
+      noms.tv/Datacenter: int
+      noms.tv/gpuManufacturer: intel
+      noms.tv/intelgpuType: igpu
+      noms.tv/cpuManufacturer: intel
+      noms.tv/cpuGeneration: coffeelake
+    nameservers:
+      - 172.16.0.1
+    networkInterfaces:
+      ## Container Network
+      - interface: br0
+        addresses:
+          - 172.16.0.55/24
+        bridge:
+          interfaces:
+            - end0
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.0.1
+        vip:
+          ip: 172.16.0.50
+        vlans:
+          # Storage
+          - vlanId: 1002
+            routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
+### End Controllers
+### Begin Workers
+  ## Worker - 01 ##
+  - hostname: K-W-01
+    ipAddress: 172.16.0.56
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.0.56
     schematic:
       customization:
           systemExtensions:
@@ -51,33 +384,40 @@ nodes:
     installDiskSelector:
       model: Micron*
     nodeLabels:
+      node-role.kubernetes.io/worker: a
+      node-role.kubernetes.io/storage: a
       noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
       noms.tv/cpuManufacturer: intel
       noms.tv/cpuGeneration: coffeelake
     nameservers:
-      - 172.16.2.1
+      - 172.16.0.1
     networkInterfaces:
       ## Container Network
       - interface: br0
         addresses:
-          - 172.16.2.6/24
+          - 172.16.0.56/24
         bridge:
           interfaces:
             - enp1s0
         routes:
           - network: 0.0.0.0/0
-            gateway: 172.16.2.1
+            gateway: 172.16.0.1
         vlans:
+          # Storage
+          - vlanId: 1002
+            routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
+          # IOT
           - vlanId: 1003
             routes:
               - network: 172.16.3.0/24
                 gateway: 172.16.3.1
-        vip:
-          ip: 172.16.2.5
-  - hostname: KC-W-01
-    ipAddress: 172.16.2.7
+  ## Worker - 02 ##
+  - hostname: K-W-02
+    ipAddress: 172.16.0.57
     controlPlane: false
     machineSpec:
       mode: metal
@@ -88,7 +428,7 @@ nodes:
         - op: add
           path: /machine/certSANs
           value:
-            - 172.16.2.7
+            - 172.16.0.57
     schematic:
       customization:
           systemExtensions:
@@ -101,82 +441,39 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
+      node-role.kubernetes.io/worker: ""
+      node-role.kubernetes.io/storage: ""
       noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
       noms.tv/cpuManufacturer: intel
       noms.tv/cpuGeneration: coffeelake
     nameservers:
-      - 172.16.2.1
+      - 172.16.0.1
     networkInterfaces:
       ## Container Network
       - interface: br0
         addresses:
-          - 172.16.2.7/24
+          - 172.16.0.57/24
         bridge:
           interfaces:
             - enp1s0
         routes:
           - network: 0.0.0.0/0
-            gateway: 172.16.2.1
+            gateway: 172.16.0.1
         vlans:
+          # Storage
+          - vlanId: 1002
+            routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
           - vlanId: 1003
             routes:
               - network: 172.16.3.0/24
                 gateway: 172.16.3.1
-  - hostname: KC-C-02
-    ipAddress: 172.16.2.8
-    controlPlane: true
-    machineSpec:
-      mode: metal
-      arch: amd64
-      secureboot: false
-    patches:
-      - |-
-        - op: add
-          path: /machine/certSANs
-          value:
-            - 172.16.2.5
-            - 172.16.2.8
-    schematic:
-      customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915-ucode
-                  - siderolabs/intel-ice-firmware
-                  - siderolabs/intel-ucode
-                  - siderolabs/iscsi-tools
-                  - siderolabs/util-linux-tools
-    installDiskSelector:
-      model: PM991*
-    nodeLabels:
-      noms.tv/Datacenter: int
-      noms.tv/gpuManufacturer: intel
-      noms.tv/intelgpuType: igpu
-      noms.tv/cpuManufacturer: intel
-      noms.tv/cpuGeneration: coffeelake
-    nameservers:
-      - 172.16.2.1
-    networkInterfaces:
-      ## Container Network
-      - interface: br0
-        addresses:
-          - 172.16.2.8/24
-        bridge:
-          interfaces:
-            - enp1s0
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 172.16.2.1
-        vlans:
-          - vlanId: 1003
-            routes:
-              - network: 172.16.3.0/24
-                gateway: 172.16.3.1
-        vip:
-          ip: 172.16.2.5
-  - hostname: KC-W-02
-    ipAddress: 172.16.2.9
+  ## Worker - 03 ##
+  - hostname: K-W-03
+    ipAddress: 172.16.0.58
     controlPlane: false
     machineSpec:
       mode: metal
@@ -187,7 +484,7 @@ nodes:
         - op: add
           path: /machine/certSANs
           value:
-            - 172.16.2.9
+            - 172.16.0.58
     schematic:
       customization:
           systemExtensions:
@@ -200,82 +497,39 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
+      node-role.kubernetes.io/worker: ""
+      node-role.kubernetes.io/storage: ""
       noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
       noms.tv/cpuManufacturer: intel
       noms.tv/cpuGeneration: coffeelake
     nameservers:
-      - 172.16.2.1
+      - 172.16.0.1
     networkInterfaces:
       ## Container Network
       - interface: br0
         addresses:
-          - 172.16.2.9/24
+          - 172.16.0.58/24
         bridge:
           interfaces:
             - enp1s0
         routes:
           - network: 0.0.0.0/0
-            gateway: 172.16.2.1
+            gateway: 172.16.0.1
         vlans:
+          # Storage
+          - vlanId: 1002
+            routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
           - vlanId: 1003
             routes:
               - network: 172.16.3.0/24
                 gateway: 172.16.3.1
-  - hostname: KC-C-03
-    ipAddress: 172.16.2.10
-    controlPlane: true
-    machineSpec:
-      mode: metal
-      arch: amd64
-      secureboot: false
-    patches:
-      - |-
-        - op: add
-          path: /machine/certSANs
-          value:
-            - 172.16.2.5
-            - 172.16.2.10
-    schematic:
-      customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915-ucode
-                  - siderolabs/intel-ice-firmware
-                  - siderolabs/intel-ucode
-                  - siderolabs/iscsi-tools
-                  - siderolabs/util-linux-tools
-    installDiskSelector:
-      model: PM991*
-    nodeLabels:
-      noms.tv/Datacenter: int
-      noms.tv/gpuManufacturer: intel
-      noms.tv/intelgpuType: igpu
-      noms.tv/cpuManufacturer: intel
-      noms.tv/cpuGeneration: coffeelake
-    nameservers:
-      - 172.16.2.1
-    networkInterfaces:
-      ## Container Network
-      - interface: br0
-        addresses:
-          - 172.16.2.10/24
-        bridge:
-          interfaces:
-            - enp1s0
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 172.16.2.1
-        vlans:
-          - vlanId: 1003
-            routes:
-              - network: 172.16.3.0/24
-                gateway: 172.16.3.1
-        vip:
-          ip: 172.16.2.5
-  - hostname: KC-W-03
-    ipAddress: 172.16.2.11
+  ## Worker - 04 ##
+  - hostname: KW-04
+    ipAddress: 172.16.0.59
     controlPlane: false
     machineSpec:
       mode: metal
@@ -286,7 +540,7 @@ nodes:
         - op: add
           path: /machine/certSANs
           value:
-            - 172.16.2.11
+            - 172.16.0.59
     schematic:
       customization:
           systemExtensions:
@@ -299,6 +553,64 @@ nodes:
     installDiskSelector:
       model: PM991*
     nodeLabels:
+      node-role.kubernetes.io/worker: ""
+      node-role.kubernetes.io/storage: ""
+      noms.tv/Datacenter: int
+      noms.tv/gpuManufacturer: intel
+      noms.tv/intelgpuType: igpu
+      noms.tv/cpuManufacturer: intel
+      noms.tv/cpuGeneration: coffeelake
+    nameservers:
+      - 172.16.0.1
+    networkInterfaces:
+      ## Container Network
+      - interface: br0
+        addresses:
+          - 172.16.0.59/24
+        bridge:
+          interfaces:
+            - enp1s0
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.0.1
+        vlans:
+          # Storage
+          - vlanId: 1002
+            routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
+          - vlanId: 1003
+            routes:
+              - network: 172.16.3.0/24
+                gateway: 172.16.3.1
+  ## Worker - 05 ##
+  - hostname: K-W-05
+    ipAddress: 172.16.0.60
+    controlPlane: false
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    patches:
+      - |-
+        - op: add
+          path: /machine/certSANs
+          value:
+            - 172.16.0.60
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915-ucode
+                  - siderolabs/intel-ice-firmware
+                  - siderolabs/intel-ucode
+                  - siderolabs/iscsi-tools
+                  - siderolabs/util-linux-tools
+    installDiskSelector:
+      model: PM991*
+    nodeLabels:
+      node-role.kubernetes.io/worker: ""
+      node-role.kubernetes.io/storage: ""
       noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
@@ -310,20 +622,26 @@ nodes:
       ## Container Network
       - interface: br0
         addresses:
-          - 172.16.2.11/24
+          - 172.16.0.60/24
         bridge:
           interfaces:
             - enp1s0
         routes:
           - network: 0.0.0.0/0
-            gateway: 172.16.2.1
+            gateway: 172.16.0.1
         vlans:
+          # Storage
+          - vlanId: 1002
+            routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
           - vlanId: 1003
             routes:
               - network: 172.16.3.0/24
                 gateway: 172.16.3.1
-  - hostname: INT-N-01
-    ipAddress: 172.16.2.12
+  ## Worker - 06 ##
+  - hostname: K-W-06
+    ipAddress: 172.16.0.61
     controlPlane: false
     machineSpec:
       mode: metal
@@ -334,7 +652,7 @@ nodes:
         - op: add
           path: /machine/certSANs
           value:
-            - 172.16.2.12
+            - 172.16.0.61
     schematic:
       customization:
           systemExtensions:
@@ -345,80 +663,35 @@ nodes:
                   - siderolabs/iscsi-tools
                   - siderolabs/util-linux-tools
     installDiskSelector:
-      model: 'Samsung SSD 870'
-      type: ssd
+      model: PM991*
     nodeLabels:
+      node-role.kubernetes.io/worker: ""
+      node-role.kubernetes.io/storage: ""
       noms.tv/Datacenter: int
       noms.tv/gpuManufacturer: intel
       noms.tv/intelgpuType: igpu
       noms.tv/cpuManufacturer: intel
-      noms.tv/cpuGeneration: alderlake
+      noms.tv/cpuGeneration: coffeelake
     nameservers:
-      - 172.16.2.1
+      - 172.16.0.1
     networkInterfaces:
       ## Container Network
       - interface: br0
         addresses:
-          - 172.16.2.12/24
+          - 172.16.0.61/24
         bridge:
           interfaces:
-            - enp1s0f0
+            - enp1s0
         routes:
           - network: 0.0.0.0/0
-            gateway: 172.16.2.1
+            gateway: 172.16.0.1
         vlans:
+          # Storage
+          - vlanId: 1002
+            routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
           - vlanId: 1003
             routes:
               - network: 172.16.3.0/24
                 gateway: 172.16.3.1
-      ## Storage Network
-      # - interface: br10
-      #   addresses:
-      #     - 172.10.1.12/24
-      #   bridge:
-      #     interfaces:
-      #       - enp1s0f1
-      #   routes:
-      #     - network: 172.10.1.0/24
-      #       gateway: 172.10.1.1
-  # - hostname: KWH-N-01
-  #   ipAddress: 172.22.19.21
-  #   controlPlane: false
-  #   machineSpec:
-  #     mode: metal
-  #     arch: amd64
-  #     secureboot: false
-  #   patches:
-  #     - |-
-  #       - op: add
-  #         path: /machine/certSANs
-  #         value:
-  #           - 172.22.19.21
-  #   schematic:
-  #     customization:
-  #         systemExtensions:
-  #             officialExtensions:
-  #                 - siderolabs/i915-ucode
-  #                 - siderolabs/intel-ice-firmware
-  #                 - siderolabs/intel-ucode
-  #                 - siderolabs/iscsi-tools
-  #                 - siderolabs/util-linux-tools
-  #                 - siderolabs/qemu-guest-agent
-  #   installDiskSelector:
-  #     model: 'QEMU HARDDISK'
-  #     size: '< 100GB'
-  #   nodeLabels:
-  #     noms.tv/Datacenter: kwh
-  #   nameservers:
-  #     - 172.22.19.1
-  #   networkInterfaces:
-  #     ## Container Network
-  #     - interface: br0
-  #       addresses:
-  #         - 172.22.19.21/24
-  #       bridge:
-  #         interfaces:
-  #           - enxbc2411f496b3
-  #       routes:
-  #         - network: 0.0.0.0/0
-  #           gateway: 172.22.19.1

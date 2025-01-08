@@ -1,5 +1,5 @@
 monitoring:
-  enabled: true
+  enabled: false
 toolbox:
   enabled: true
   ## Enable to run toolbox as root
@@ -23,10 +23,13 @@ cephClusterSpec:
     modules:
       - name: pg_autoscaler
         enabled: true
+  mon:
+    count: 1
   network:
     provider: host
-    connections:
-      requireMsgr2: true
+    addressRanges:
+      public:
+        - "172.16.0.0/24"
   storage:
     useAllNodes: false
     useAllDevices: false
@@ -34,15 +37,15 @@ cephClusterSpec:
     config:
       osdsPerDevice: "1"
     nodes:
-    - name: kc-c-01
-      devices:
-      - name: "/dev/disk/by-id/nvme-CT2000P3PSSD8_2423E8B70EA3"
+    # - name: kc-c-01
+    #   devices:
+    #   - name: "/dev/disk/by-id/nvme-CT2000P3PSSD8_2423E8B70EA3"
     - name: kc-c-02
       devices:
       - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC09703D"
-    - name: kc-c-03
-      devices:
-      - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC08560R"
+    # - name: kc-c-03
+    #   devices:
+    #   - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC08560R"
     - name: k-w-02
       devices:
       - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0W101854X"
@@ -59,14 +62,13 @@ cephClusterSpec:
       - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0R931812B"
       - name: "/dev/disk/by-id/nvme-CT1000P5PSSD8_22503D27B049"
   placement:
-    mgr: &placement
+    all:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: node-role.kubernetes.io/control-plane
+                - key: node-role.kubernetes.io/storage
                   operator: Exists
-    mon: *placement
   resources:
     mgr:
       requests:

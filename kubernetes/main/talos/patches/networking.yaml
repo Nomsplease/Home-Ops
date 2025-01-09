@@ -1,0 +1,18 @@
+machine:
+  network:
+    nameservers:
+      - 172.16.0.1
+    interfaces:
+      - interface: br0
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.0.1
+        vlans:
+          - routes:
+              - network: 172.16.2.0/24
+                gateway: 172.16.2.1
+            vlanId: 1002
+          - routes:
+              - network: 172.16.3.0/24
+                gateway: 172.16.3.1
+            vlanId: 1003

@@ -1,0 +1,36 @@
+---
+creation_rules:
+  - path_regex: kubernetes/.+\.sops\.yaml
+    encrypted_regex: '^(token|crt|key|id|secret|secretboxEncryptionSecret|ca|stringData|data)$'
+    mac_only_encrypted: true
+    key_groups:
+      - age:
+          - age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+  # ## Encrypt Helm Values
+  # - path_regex: values.sops.yaml
+  #   age: >-
+  #     age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+
+  # ## Ecrypt Talos Secrets
+  # - path_regex: talsecret.sops.ya?ml
+  #   age: >-
+  #     age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+  # - path_regex: talenv.sops.ya?ml
+  #   age: >-
+  #     age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+
+  # ##
+  # # Standardized Encryption Rules
+  # ##
+  # - path_regex: .*\.sops\.ya?ml
+  #   encrypted_regex: "^(data|stringData|data|match|externalName)$"
+  #   age: >-
+  #     age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+
+  # - path_regex: .*deployment.ya?ml
+  #   encrypted_regex: "^(data|env)$"
+  #   age: >-
+  #     age1k8rczdg4c0u0a2z57zy334al5n0s3vk6mrqm6njnt3j8hr39sq4qxcrlcs
+stores:
+  yaml:
+    indent: 2

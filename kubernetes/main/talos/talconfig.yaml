@@ -1,0 +1,330 @@
+---
+clusterName: main
+talosVersion: v1.9.1
+kubernetesVersion: v1.32.0
+endpoint: https://172.16.0.50:6443
+domain: cluster.local
+allowSchedulingOnMasters: false
+additionalMachineCertSans:
+  - 127.0.0.1
+  - 172.16.0.50
+clusterPodNets:
+  - 10.42.0.0/16
+clusterSvcNets:
+  - 10.43.0.0/16
+patches:
+  - "@./patches/cluster.yaml"
+  - "@./patches/features.yaml"
+  - "@./patches/files.yaml"
+  - "@./patches/kubelet.yaml"
+  - "@./patches/sysctls.yaml"
+  - "@./patches/networking.yaml"
+controlPlane:
+  patches:
+   - "@./patches/cluster-cp.yaml"
+   - "@./patches/features-cp.yaml"
+   - "@./patches/vip.yaml"
+nodes:
+
+############################################################
+
+##########
+## MC-1 ##
+##########                   
+  - hostname: MC-1
+    ipAddress: "172.16.0.51"
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/qemu-guest-agent
+    patches:
+      - "@./patches/qemu-kernel-args.yaml"
+    installDiskSelector:
+      size: <= 100GB
+    nodeLabels:
+      topology.kubernetes.io/region: main
+      topology.kubernetes.io/zone: m
+      node-role.kubernetes.io/control-plane: ""
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.51/24
+        bridge:
+          interfaces:
+            - enp6s18
+##########
+## MC-2 ##
+##########
+
+  - hostname: MC-2
+    ipAddress: "172.16.0.52"
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/qemu-guest-agent
+    patches:
+      - "@./patches/qemu-kernel-args.yaml"
+    installDiskSelector:
+      size: <= 100GB
+    nodeLabels:
+      topology.kubernetes.io/region: main
+      topology.kubernetes.io/zone: m
+      node-role.kubernetes.io/control-plane: ""
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.52/24
+        bridge:
+          interfaces:
+            - enp6s18
+
+##########
+## MC-3 ##
+##########
+
+  - hostname: MC-3
+    ipAddress: "172.16.0.53"
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/qemu-guest-agent
+    patches:
+      - "@./patches/qemu-kernel-args.yaml"
+    installDiskSelector:
+      size: <= 100GB
+    nodeLabels:
+      topology.kubernetes.io/region: main
+      topology.kubernetes.io/zone: m
+      node-role.kubernetes.io/control-plane: ""
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.53/24
+        bridge:
+          interfaces:
+            - enp6s18
+
+############################################################
+
+##########
+## MW-1 ##
+##########
+
+  - hostname: MW-1
+    ipAddress: "172.16.0.54"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915
+                  - siderolabs/intel-ucode
+                  - siderolabs/mei
+    patches:
+      - "@./patches/pre-alderlake-kernel-args.yaml"
+    installDiskSelector:
+      model: Micron*
+    nodeLabels:
+      topology.kubernetes.io/region: main
+      topology.kubernetes.io/zone: m
+      node-role.kubernetes.io/storage: ""
+      node-role.kubernetes.io/worker: ""
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.54/24
+        bridge:
+          interfaces:
+            - enp1s0
+
+##########
+## MW-2 ##
+##########
+
+  - hostname: MW-2
+    ipAddress: "172.16.0.55"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915
+                  - siderolabs/intel-ucode
+                  - siderolabs/mei
+    patches:
+      - "@./patches/pre-alderlake-kernel-args.yaml"
+    installDiskSelector:
+      model: PM991*
+    nodeLabels:
+      topology.kubernetes.io/region: main
+      topology.kubernetes.io/zone: m
+      node-role.kubernetes.io/storage: ""
+      node-role.kubernetes.io/worker: ""
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.55/24
+        bridge:
+          interfaces:
+            - enp1s0
+
+##########
+## MW-3 ##
+##########
+
+  - hostname: MW-3
+    ipAddress: "172.16.0.56"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915
+                  - siderolabs/intel-ucode
+                  - siderolabs/mei
+    patches:
+      - "@./patches/pre-alderlake-kernel-args.yaml"
+    installDiskSelector:
+      model: PM991*
+    nodeLabels:
+      topology.kubernetes.io/region: main
+      topology.kubernetes.io/zone: m
+      node-role.kubernetes.io/storage: ""
+      node-role.kubernetes.io/worker: ""
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.56/24
+        bridge:
+          interfaces:
+            - enp1s0
+
+##########
+## MW-4 ##
+##########
+
+  - hostname: MW-4
+    ipAddress: "172.16.0.57"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915
+                  - siderolabs/intel-ucode
+                  - siderolabs/mei
+    patches:
+      - "@./patches/pre-alderlake-kernel-args.yaml"
+    installDiskSelector:
+      model: PM991*
+    nodeLabels:
+      topology.kubernetes.io/region: main
+      topology.kubernetes.io/zone: m
+      node-role.kubernetes.io/storage: ""
+      node-role.kubernetes.io/worker: ""
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.57/24
+        bridge:
+          interfaces:
+            - enp1s0
+
+
+##########
+## MW-5 ##
+##########
+
+  - hostname: MW-5
+    ipAddress: "172.16.0.58"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915
+                  - siderolabs/intel-ucode
+                  - siderolabs/mei
+    patches:
+      - "@./patches/pre-alderlake-kernel-args.yaml"
+    installDiskSelector:
+      model: PM991*
+    nodeLabels:
+      topology.kubernetes.io/region: main
+      topology.kubernetes.io/zone: m
+      node-role.kubernetes.io/storage: ""
+      node-role.kubernetes.io/worker: ""
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.58/24
+        bridge:
+          interfaces:
+            - enp1s0
+
+##########
+## MW-6 ##
+##########
+
+  - hostname: MW-6
+    ipAddress: "172.16.0.59"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/i915
+                  - siderolabs/intel-ucode
+                  - siderolabs/mei
+    patches:
+      - "@./patches/pre-alderlake-kernel-args.yaml"
+    installDiskSelector:
+      model: PM991*
+    nodeLabels:
+      topology.kubernetes.io/region: main
+      topology.kubernetes.io/zone: m
+      node-role.kubernetes.io/storage: ""
+      node-role.kubernetes.io/worker: ""
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.59/24
+        bridge:
+          interfaces:
+            - enp1s0

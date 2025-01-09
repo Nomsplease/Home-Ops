@@ -19,6 +19,5 @@ metadata:
 spec:
   allowFirstLastIPs: "Yes"
   blocks:
-    - # Services Net
-      start: 172.16.2.10
-      stop: 172.16.2.250
+    - start: 172.16.0.70
+      stop: 172.16.2.90

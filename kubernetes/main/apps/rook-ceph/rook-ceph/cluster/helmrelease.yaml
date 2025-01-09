@@ -96,7 +96,8 @@ spec:
         mgr: &placement
           tolerations:
             - key: node-role.kubernetes.io/control-plane
-              operator: NoSchedule
+              operator: Exists
+              effect: "NoSchedule"
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:

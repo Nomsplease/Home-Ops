@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: cloudflare-ddns
+    namespace: networking
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 2
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: cloudflare-ddns
+    template:
+        metadata:
+            labels:
+                app: cloudflare-ddns
+        spec:
+            containers:
+                - name: cloudflare-ddns
+                  image: favonia/cloudflare-ddns:1.15.0
+                  envFrom:
+                    - secretRef:
+                        name: cloudflare-ddns-env

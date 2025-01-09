@@ -1,0 +1,62 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app deluge
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      exporter:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          exporter:
+            image:
+              repository: ngosang/deluge-exporter
+              tag: 1.0.2
+            envFrom:
+              - secretRef:
+                  name: "${APP}"
+            probes:
+              liveness: &exporter-probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &exporter-port 8011
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *exporter-probes
+              startup: *exporter-probes
+
+    service:
+      exporter:
+        nameOverride: "${APP}-exporter"
+        controller: exporter
+        ports:
+          http:
+            port: *exporter-port
+
+    serviceMonitor:
+      exporter:
+        enabled: true
+        serviceName: "${APP}-exporter"
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s

@@ -12,6 +12,7 @@ metadata:
 stringData:
   identity: |
     {{ ENV.FLUX_GITHUB_DEPLOY_KEY | indent(4) }}
+  identity.pub: {{ ENV.FLUX_GITHUB_PUB_KEY }}
   known_hosts: |
     {{ ENV.FLUX_GITHUB_PUBLIC_KEYS | indent(4) }}
 ---

@@ -4,4 +4,4 @@ resources:
 - cronjob.yaml
 - externalSecret.yaml
 ## Include Voslync Backup
-- ../../../../templates/volsync
+- ../../../../../shared/templates/volsync

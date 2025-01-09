@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cnpg-cluster
+spec:
+  instances: 3
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
+  primaryUpdateStrategy: unsupervised
+  storage:
+    pvcTemplate:
+      accessModes:
+        - ReadWriteMany
+      resources:
+        requests:
+          storage: 50Gi
+      storageClassName: ceph-filesystem
+      volumeMode: Filesystem
+  superuserSecret:
+    name: cnpg
+  enableSuperuserAccess: true
+
+  postgresql:
+    parameters:
+      max_connections: "1000"
+      shared_buffers: 256MB
+      search_path: '"$user", public, vectors'
+    shared_preload_libraries:
+      - "vectors.so"
+
+  resources:
+    requests:
+      cpu: 500m
+    limits:
+      memory: 8Gi
+
+  monitoring:
+    enablePodMonitor: true
+
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore: &barmanObjectStore
+      data:
+        compression: bzip2
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: s3://cloudnative-pg/
+      endpointURL: https://s3.int.noms.tv
+      # Note: serverName version needs to be inclemented
+      # when recovering from an existing cnpg cluster
+      serverName: &currentCluster cnpg-cluster-v2
+      s3Credentials:
+        accessKeyId:
+          name: cnpg
+          key: aws-access-key-id
+        secretAccessKey:
+          name: cnpg
+          key: aws-secret-access-key
+
+  # Note: previousCluster needs to be set to the name of the previous
+  # cluster when recovering from an existing cnpg cluster
+  bootstrap:
+    recovery:
+      source: &previousCluster cnpg-cluster-v1
+
+  # Note: externalClusters is needed when recovering from an existing cnpg cluster
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        <<: *barmanObjectStore
+        serverName: *previousCluster

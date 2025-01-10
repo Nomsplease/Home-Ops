@@ -145,6 +145,10 @@ spec:
           - path: /config/cache
       config:
         existingClaim: "${APP}"
+        advancedMounts:
+          bazarr:
+            app:
+              - path: /config
       log:
         type: emptyDir
         globalMounts:

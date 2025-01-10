@@ -8,10 +8,10 @@ resources:
   # Flux-Kustomizations
   # - ./overseerr/ks.yaml
   - ./sonarr/ks.yaml
-  # - ./radarr/ks.yaml
-  # - ./prowlarr/ks.yaml
-  # - ./tautulli/ks.yaml
-  # - ./kometa/ks.yaml
+  - ./radarr/ks.yaml
+  - ./prowlarr/ks.yaml
+  - ./tautulli/ks.yaml
+  - ./kometa/ks.yaml
   # - ./readarr/ks.yaml
   # - ./bazarr/ks.yaml
   # - ./audiobookshelf/ks.yaml

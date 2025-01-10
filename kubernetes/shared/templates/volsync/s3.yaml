@@ -9,7 +9,7 @@ spec:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: "${APP}-volsync-s3-secret"
+    name: "${APP}-volsync-secret"
     template:
       engineVersion: v2
       data:
@@ -35,13 +35,13 @@ spec:
   restic:
     copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
     pruneIntervalDays: 7
-    repository: "${APP}-volsync-s3-secret"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-ceph-filesystem}"
+    repository: "${APP}-volsync-secret"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-ceph-blockpool}"
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-2Gi}"
-    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-csi-ceph-filesystem}"
-    cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteMany}"]
-    storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-filesystem}"
-    accessModes: ["${VOLSYNC_SNAP_ACCESSMODES:-ReadWriteMany}"]
+    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-ceph-block}"
+    cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"]
+    storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
+    accessModes: ["${VOLSYNC_SNAP_ACCESSMODES:-ReadWriteOnce}"]
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:-1000}
       runAsGroup: ${VOLSYNC_PGID:-1000}
@@ -53,21 +53,21 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: "${APP}-s3-dst"
+  name: "${APP}-dst"
   labels:
     kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
 spec:
   trigger:
     manual: restore-once
   restic:
-    repository: "${APP}-volsync-s3-secret"
+    repository: "${APP}-volsync-secret"
     copyMethod: Snapshot
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-ceph-filesystem}"
-    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-ceph-filesystem}"
-    cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteMany}"]
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-ceph-blockpool}"
+    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-ceph-block}"
+    cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"]
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-2Gi}"
-    storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-filesystem}"
-    accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteMany}"]
+    storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
+    accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
     capacity: "${VOLSYNC_CAPACITY:-5Gi}"
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:-1000}

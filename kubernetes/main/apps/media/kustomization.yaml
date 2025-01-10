@@ -15,6 +15,6 @@ resources:
   # - ./readarr/ks.yaml
   # - ./bazarr/ks.yaml
   # - ./audiobookshelf/ks.yaml
-  - ./deluge/ks.yaml
-  - ./sabnzbd/ks.yaml
-  - ./plex-auto-languages/ks.yaml
+  # - ./deluge/ks.yaml
+  # - ./sabnzbd/ks.yaml
+  # - ./plex-auto-languages/ks.yaml

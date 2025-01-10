@@ -47,7 +47,7 @@ spec:
     service:
       app:
         nameOverride: *app
-        controller: *app
+        controller: exporter
         ports:
           http:
             port: *app-port

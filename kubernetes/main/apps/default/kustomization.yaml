@@ -10,7 +10,7 @@ resources:
   - ./esphome/ks.yaml
   - ./fastapi-dls/ks.yaml
   - ./gitea/ks.yaml
-  # - ./homeassistant/ks.yaml
+  - ./homeassistant/ks.yaml
   - ./homepage/ks.yaml
   # - ./immich/ks.yaml
   - ./mosquitto/ks.yaml

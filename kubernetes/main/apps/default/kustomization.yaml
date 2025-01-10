@@ -17,11 +17,11 @@ resources:
   # - ./paperless/ks.yaml
   # - ./samba/ks.yaml
   # # - ./spoolman/ks.yaml
-  # - ./tasmoadmin/ks.yaml
-  # - ./wikijs/ks.yaml
+  - ./tasmoadmin/ks.yaml
+  - ./wikijs/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave-js-ui/ks.yaml
-  # - ./lubelogger/ks.yaml
+  - ./lubelogger/ks.yaml
   # - ./linkwarden/ks.yaml
   # # - ./owntracks/ks.yaml
   

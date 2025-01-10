@@ -64,32 +64,6 @@ spec:
               limits:
                 memory: 128Mi
 
-      exporter:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          exporter:
-            image:
-              repository: ghcr.io/onedr0p/exportarr
-              tag: v2.0.1
-            args:
-              - bazarr
-            envFrom:
-              - secretRef:
-                  name: "${APP}-exporter-env"
-            probes:
-              liveness: &exporter-probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /healthz
-                    port: &exporter-port 9707
-                  failureThreshold: 6
-                  periodSeconds: 10
-              readiness: *exporter-probes
-              startup: *exporter-probes
-
     service:
       app:
         nameOverride: *app
@@ -97,23 +71,6 @@ spec:
         ports:
           http:
             port: *app-port
-      exporter:
-        nameOverride: "${APP}-exporter"
-        controller: exporter
-        ports:
-          http:
-            port: *exporter-port
-    
-    serviceMonitor:
-      exporter:
-        enabled: true
-        serviceName: "${APP}-exporter"
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
 
     ingress:
       app:
@@ -145,10 +102,6 @@ spec:
           - path: /config/cache
       config:
         existingClaim: "${APP}"
-        advancedMounts:
-          bazarr:
-            app:
-              - path: /config
       log:
         type: emptyDir
         globalMounts:

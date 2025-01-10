@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: webhook-receiver
 spec:
-  ingressClassName: external
+  ingressClassName: ingress-nginx
   rules:
     - host: flux-webhook.noms.tv
       http:

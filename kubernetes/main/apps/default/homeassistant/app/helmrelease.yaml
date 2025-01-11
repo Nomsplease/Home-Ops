@@ -17,6 +17,14 @@ spec:
         namespace: flux-system
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     controllers:
       home-assistant:
         annotations:
@@ -30,7 +38,6 @@ spec:
                 "ips": ["172.16.3.3/24"],
                 "mac": "3e:59:e4:f7:43:08"
               }]
-
         containers:
           app:
             image:
@@ -65,7 +72,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-
     service:
       app:
         controller: home-assistant
@@ -74,12 +80,11 @@ spec:
             port: 8123
           code-server:
             port: 12321
-
     ingress:
       app:
         className: "ingress-nginx"
         hosts:
-          - host: hass.int.noms.tv
+          - host: hass.noms.tv
             paths:
               - path: /
                 service:
@@ -88,13 +93,12 @@ spec:
       code-server:
         className: "ingress-nginx"
         hosts:
-          - host: hass-code.int.noms.tv
+          - host: hass-code.noms.tv
             paths:
               - path: /
                 service:
                   identifier: app
                   port: code-server    
-
     persistence:
       config:
         existingClaim: homeassistant

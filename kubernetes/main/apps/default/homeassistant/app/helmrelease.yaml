@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: home-assistant
+  name: homeassistant
 spec:
   interval: 30m
   chart:
@@ -26,7 +26,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
     controllers:
-      home-assistant:
+      homeassistant:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -74,7 +74,7 @@ spec:
                 memory: 512Mi
     service:
       app:
-        controller: home-assistant
+        controller: homeassistant
         ports:
           http:
             port: 8123

@@ -28,5 +28,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 500Gi
       CNPG_DB_SIZE: 16Gi
+      VOLSYNC_CAPACITY: 150Gi
+      VOLSYNC_ACCESSMODES: ReadWriteMany
+      VOLSYNC_STORAGECLASS: ceph-filesystem

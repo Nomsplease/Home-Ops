@@ -12,7 +12,7 @@ resources:
   - ./gitea/ks.yaml
   - ./homeassistant/ks.yaml
   - ./homepage/ks.yaml
-  # - ./immich/ks.yaml
+  - ./immich/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
   - ./mosquitto/ks.yaml

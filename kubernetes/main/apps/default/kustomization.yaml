@@ -13,7 +13,11 @@ resources:
   - ./homeassistant/ks.yaml
   - ./homepage/ks.yaml
   # - ./immich/ks.yaml
+  - ./linkwarden/ks.yaml
+  - ./lubelogger/ks.yaml
   - ./mosquitto/ks.yaml
+  - ./node-red/ks.yaml
+  # # - ./owntracks/ks.yaml
   # - ./paperless/ks.yaml
   # - ./samba/ks.yaml
   # # - ./spoolman/ks.yaml
@@ -21,8 +25,5 @@ resources:
   - ./wikijs/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave-js-ui/ks.yaml
-  - ./lubelogger/ks.yaml
-  - ./linkwarden/ks.yaml
-  # # - ./owntracks/ks.yaml
   
   

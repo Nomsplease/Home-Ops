@@ -37,6 +37,9 @@ spec:
             env:
               - name: TZ
                 value: America/New_York
+            envFrom:
+              - secretRef:
+                  name: wikijs-env
             probes:
               liveness: &app-probes
                 enabled: true

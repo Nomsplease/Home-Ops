@@ -12,4 +12,4 @@ resources:
   - ./external-dns/ks.yaml
   - ./external-proxy/ks.yaml
   - ./lancache/ks.yaml
-  - ./portainer/ks.yaml
+  # - ./portainer/ks.yaml

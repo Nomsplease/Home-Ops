@@ -54,6 +54,7 @@ spec:
       dashboard:
         enabled: true
         urlPrefix: /
+        port: 80
         ssl: false
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       mgr:

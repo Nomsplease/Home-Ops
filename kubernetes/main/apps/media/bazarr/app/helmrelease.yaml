@@ -31,7 +31,7 @@ spec:
                 value: America/New_York
             envFrom:
               - secretRef:
-                  name: "${APP}-env"
+                  name: bazarr-env
             probes:
               liveness: &app-probes
                 enabled: true
@@ -63,15 +63,50 @@ spec:
                 cpu: 10m
               limits:
                 memory: 128Mi
-
+          exporter:
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v2.0.1
+            args:
+              - bazarr
+            envFrom:
+              - secretRef:
+                  name: bazarr-env
+            probes:
+              liveness: &exporter-probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &exporter-port 9707
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *exporter-probes
+              startup: *exporter-probes
     service:
       app:
-        nameOverride: *app
+        nameOverride: bazarr
         controller: *app
         ports:
           http:
             port: *app-port
-
+      exporter:
+        nameOverride: bazarr-exporter
+        controller: *app
+        ports:
+          http:
+            port: *exporter-port
+    serviceMonitor:
+      exporter:
+        enabled: true
+        serviceName: bazarr-exporter
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
     ingress:
       app:
         enabled: true

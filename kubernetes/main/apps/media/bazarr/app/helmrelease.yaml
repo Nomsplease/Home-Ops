@@ -100,7 +100,7 @@ spec:
     serviceMonitor:
       exporter:
         enabled: true
-        serviceName: bazarr-exporter
+        serviceName: bazarr
         endpoints:
           - port: http
             scheme: http
@@ -136,7 +136,7 @@ spec:
         globalMounts:
           - path: /config/cache
       config:
-        existingClaim: "${APP}"
+        existingClaim: bazarr
       log:
         type: emptyDir
         globalMounts:

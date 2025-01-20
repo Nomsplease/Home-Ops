@@ -7,7 +7,7 @@ tasks:
   genconfig:
     desc: Generate cluster configurations via Talhelper [CLUSTER=main]
     cmds:
-      - talhelper genconfig --config-file {{.CLUSTER_DIR}}/talos/talconfig.yaml --out-dir {{.CLUSTER_DIR}}/talos/clusterconfig/
+      - talhelper genconfig --config-file {{.CLUSTER_DIR}}/talos/talconfig.yaml --secret-file {{.CLUSTER_DIR}}/talos/talsecret.sops.yaml --out-dir {{.CLUSTER_DIR}}/talos/clusterconfig/
       - cp {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig {{.CLUSTER_DIR}}/talosconfig
 
   talos:

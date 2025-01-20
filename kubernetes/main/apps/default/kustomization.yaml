@@ -11,6 +11,7 @@ resources:
   - ./fastapi-dls/ks.yaml
   - ./gitea/ks.yaml
   - ./homeassistant/ks.yaml
+  - ./old-homeassistant/ks.yaml
   - ./homepage/ks.yaml
   # - ./immich/ks.yaml
   - ./linkwarden/ks.yaml

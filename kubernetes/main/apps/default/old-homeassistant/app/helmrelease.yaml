@@ -29,15 +29,6 @@ spec:
       old-homeassistant:
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"multus-iot",
-                "namespace": "kube-system",
-                "ips": ["172.16.3.3/24"],
-                "mac": "3e:59:e4:f7:43:08"
-              }]
         containers:
           app:
             image:

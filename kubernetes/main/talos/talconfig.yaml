@@ -42,11 +42,13 @@ nodes:
       customization:
           systemExtensions:
               officialExtensions:
-                  - siderolabs/qemu-guest-agent
+                  - siderolabs/i915
+                  - siderolabs/intel-ucode
+                  - siderolabs/mei
     patches:
-      - "@./patches/qemu-kernel-args.yaml"
+      - "@./patches/pre-alderlake-kernel-args.yaml"
     installDiskSelector:
-      size: <= 100GB
+      model: SanDisk SSD PLUS
     nodeLabels:
       topology.kubernetes.io/region: main
       topology.kubernetes.io/zone: m
@@ -57,7 +59,7 @@ nodes:
           - 172.16.0.51/24
         bridge:
           interfaces:
-            - enp6s18
+            - enp1s0
 ##########
 ## MC-2 ##
 ##########
@@ -73,11 +75,13 @@ nodes:
       customization:
           systemExtensions:
               officialExtensions:
-                  - siderolabs/qemu-guest-agent
+                  - siderolabs/i915
+                  - siderolabs/intel-ucode
+                  - siderolabs/mei
     patches:
-      - "@./patches/qemu-kernel-args.yaml"
+      - "@./patches/pre-alderlake-kernel-args.yaml"
     installDiskSelector:
-      size: <= 100GB
+      model: Crucial_CT960M50
     nodeLabels:
       topology.kubernetes.io/region: main
       topology.kubernetes.io/zone: m
@@ -88,7 +92,7 @@ nodes:
           - 172.16.0.52/24
         bridge:
           interfaces:
-            - enp6s18
+            - enp1s0
 
 ##########
 ## MC-3 ##
@@ -105,11 +109,13 @@ nodes:
       customization:
           systemExtensions:
               officialExtensions:
-                  - siderolabs/qemu-guest-agent
+                  - siderolabs/i915
+                  - siderolabs/intel-ucode
+                  - siderolabs/mei
     patches:
-      - "@./patches/qemu-kernel-args.yaml"
+      - "@./patches/pre-alderlake-kernel-args.yaml"
     installDiskSelector:
-      size: <= 100GB
+      model: "Samsung SSD 850"
     nodeLabels:
       topology.kubernetes.io/region: main
       topology.kubernetes.io/zone: m
@@ -120,7 +126,7 @@ nodes:
           - 172.16.0.53/24
         bridge:
           interfaces:
-            - enp6s18
+            - enp1s0
 
 ############################################################
 

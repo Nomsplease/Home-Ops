@@ -62,7 +62,7 @@ spec:
         enabled: true
         className: "ingress-nginx"
         hosts:
-          - host: esphome.svc.noms.tv
+          - host: esphome.noms.tv
             paths:
               - path: /
                 service:

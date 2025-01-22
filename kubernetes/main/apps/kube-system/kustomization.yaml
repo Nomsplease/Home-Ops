@@ -9,5 +9,6 @@ resources:
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
   - ./intel-device-plugin/ks.yaml
+  - ./multus/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./spegel/ks.yaml

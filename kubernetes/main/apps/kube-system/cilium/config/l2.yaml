@@ -20,4 +20,4 @@ spec:
   allowFirstLastIPs: "Yes"
   blocks:
     - start: 172.16.0.70
-      stop: 172.16.2.90
+      stop: 172.16.0.90

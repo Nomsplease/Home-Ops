@@ -18,6 +18,7 @@ resources:
   - ./lubelogger/ks.yaml
   - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml
+  - ./open-webui/ks.yaml
   # # - ./owntracks/ks.yaml
   # - ./paperless/ks.yaml
   # - ./samba/ks.yaml

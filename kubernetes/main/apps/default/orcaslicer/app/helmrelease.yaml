@@ -16,14 +16,6 @@ spec:
         name: bjw-s
         namespace: flux-system
   values:
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
     controllers:
       orcaslicer:
         annotations:
@@ -39,9 +31,9 @@ spec:
               - name: TITLE
                 value: OrcaSlicer
               - name: PUID
-                value: 1000
+                value: 0
               - name: PGID
-                value: 1000
+                value: 0
               - name: DRINODE
                 value: /dev/dri/renderD128
             probes:

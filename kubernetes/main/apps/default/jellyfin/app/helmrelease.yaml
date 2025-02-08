@@ -73,6 +73,10 @@ spec:
                 subPath: config
               - path: /cache
                 subPath: cache
+      transcode:
+        type: emptyDir
+        globalMounts:
+          - path: /transcode
       media:
         type: nfs
         server: 172.16.1.10

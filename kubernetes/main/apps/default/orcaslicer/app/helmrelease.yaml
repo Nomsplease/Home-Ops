@@ -78,3 +78,9 @@ spec:
         existingClaim: orcaslicer
         globalMounts:
           - path: /config
+      shared:
+        type: nfs
+        server: 172.16.1.10
+        path: /mnt/BigPool/3D-Printing
+        globalMounts:
+          - path: /shared

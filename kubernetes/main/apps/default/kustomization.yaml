@@ -19,6 +19,7 @@ resources:
   - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml
   - ./open-webui/ks.yaml
+  - ./orcaslicer/ks.yaml
   # # - ./owntracks/ks.yaml
   # - ./paperless/ks.yaml
   # - ./samba/ks.yaml

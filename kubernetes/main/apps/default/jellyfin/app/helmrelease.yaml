@@ -34,7 +34,7 @@ spec:
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &app-port 3000
+                    port: &app-port 8096
                   failureThreshold: 6
                   periodSeconds: 10
               readiness: *app-probes

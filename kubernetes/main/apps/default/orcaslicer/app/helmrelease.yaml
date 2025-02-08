@@ -22,6 +22,8 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           app:
+            securityContext:
+              privileged: true
             image:
               repository: lscr.io/linuxserver/orcaslicer
               tag: v2.2.0-ls71

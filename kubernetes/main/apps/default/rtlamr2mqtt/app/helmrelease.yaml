@@ -36,11 +36,11 @@ spec:
             securityContext:
               privileged: true
             ## Enable to List all devices
-            env:
-              - name: LISTEN_ONLY
-                value: yes
-              - name: RTL_MSGTYPE
-                value: "ALL"
+            # env:
+            #   - name: LISTEN_ONLY
+            #     value: yes
+            #   - name: RTL_MSGTYPE
+            #     value: "ALL"
             ##
             resources:
               requests:

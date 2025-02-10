@@ -23,6 +23,7 @@ resources:
   - ./orcaslicer/ks.yaml
   # # - ./owntracks/ks.yaml
   # - ./paperless/ks.yaml
+  - ./rtlamr2mqtt/ks.yaml
   # - ./samba/ks.yaml
   # # - ./spoolman/ks.yaml
   - ./tasmoadmin/ks.yaml

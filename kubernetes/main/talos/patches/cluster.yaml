@@ -15,6 +15,9 @@ cluster:
       kind: Policy
       rules:
         - level: Metadata
+    extraArgs:
+      feature-gates: MutatingAdmissionPolicy=true
+      runtime-config: admissionregistration.k8s.io/v1alpha1=true
   scheduler:
     extraArgs:
       bind-address: 0.0.0.0

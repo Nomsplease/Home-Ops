@@ -25,7 +25,7 @@ resources:
   # - ./paperless/ks.yaml
   - ./rtlamr2mqtt/ks.yaml
   # - ./samba/ks.yaml
-  # # - ./spoolman/ks.yaml
+  - ./spoolman/ks.yaml
   - ./tasmoadmin/ks.yaml
   - ./wikijs/ks.yaml
   - ./zigbee2mqtt/ks.yaml

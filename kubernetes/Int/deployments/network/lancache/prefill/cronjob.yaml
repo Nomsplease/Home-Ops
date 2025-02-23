@@ -38,7 +38,7 @@ spec:
         spec:
           containers:
             - name: battle-prefill
-              image: tpill90/battlenet-lancache-prefill:v2.1.0
+              image: tpill90/battlenet-lancache-prefill:v2.2.0
               args: [ "prefill" ]
               volumeMounts:
               - name: pvc

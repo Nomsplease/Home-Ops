@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: main@sha256:2ae6ed7a2a9a862a7c2e28428298c5625e498d59b7de1ac2a0b1c3c43132a2b7
+              tag: main@sha256:4450eb013528cbb49d8c4ea83602fb918be7dc01cabd492f8302184b78b793f2
             probes:
               liveness: &app-probes
                 enabled: true

@@ -5,17 +5,17 @@ kind: Cluster
 metadata:
   name: cnpg-cluster
 spec:
-  instances: 2
+  instances: 1
   imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
   primaryUpdateStrategy: unsupervised
   storage:
     pvcTemplate:
       accessModes:
-        - ReadWriteMany
+        - ReadWriteOnce
       resources:
         requests:
-          storage: 150Gi
-      storageClassName: ceph-filesystem
+          storage: 50Gi
+      storageClassName: ceph-block
       volumeMode: Filesystem
   superuserSecret:
     name: cnpg
@@ -39,18 +39,18 @@ spec:
     enablePodMonitor: true
 
   backup:
-    retentionPolicy: 30d
+    retentionPolicy: 7d
     barmanObjectStore: &barmanObjectStore
       data:
         compression: bzip2
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: s3://cloudnative-pg/
+      destinationPath: s3://cnpg/
       endpointURL: https://s3.int.noms.tv
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster
-      serverName: &currentCluster cnpg-cluster-v2
+      serverName: &currentCluster cnpg-cluster-v3
       s3Credentials:
         accessKeyId:
           name: cnpg
@@ -63,7 +63,7 @@ spec:
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      source: &previousCluster cnpg-cluster-v1
+      source: &previousCluster cnpg-cluster-v2
 
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   externalClusters:

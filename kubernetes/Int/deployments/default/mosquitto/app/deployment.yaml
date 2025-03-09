@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: mosquitto
-          image: eclipse-mosquitto:2.0.20
+          image: eclipse-mosquitto:2.0.21
           volumeMounts:
             - name: config
               mountPath: /mosquitto/config

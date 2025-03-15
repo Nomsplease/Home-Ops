@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: fyb3roptik/threadfin
-              tag: 1.2.30
+              tag: 1.2.31
             env:
               - name: PUID
                 value: 1000

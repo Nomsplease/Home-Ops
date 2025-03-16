@@ -25,16 +25,10 @@ spec:
         master:
           persistence:
             enabled: true
-            accessModes: 
-              - ReadWriteMany
-            storageClass: ceph-filesystem
             size: 8Gi
         replcia:
           persistence:
             enabled: true
-            accessModes: 
-              - ReadWriteMany
-            storageClass: ceph-filesystem
             size: 8Gi
 
     immich:
@@ -49,22 +43,22 @@ spec:
       DB_HOSTNAME:
         valueFrom:
           secretKeyRef:
-            name: immich-env
+            name: immich
             key: DB_HOSTNAME
       DB_USERNAME:
         valueFrom:
           secretKeyRef:
-            name: immich-env
+            name: immich
             key: DB_USERNAME
       DB_PASSWORD:
         valueFrom:
           secretKeyRef:
-            name: immich-env
+            name: immich
             key: DB_PASSWORD
       DB_DATABASE_NAME:
         valueFrom:
           secretKeyRef:
-            name: immich-env
+            name: immich
             key: DB_DATABASE_NAME
       LOG_LEVEL: verbose
       TZ: America/New_York

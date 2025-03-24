@@ -88,19 +88,5 @@ spec:
                   pathType: Prefix
 
     machine-learning:
-      resources:
-        requests:
-          cpu: 500m
-          memory: 4Gi
-      persistence:
-        cache:
-          type: pvc
-          existingClaim: immich
-          subPath: ml-cache
-      probes:
-        liveness:
-          spec:
-            initialDelaySeconds: 120
-        readiness:
-          spec:
-            initialDelaySeconds: 120
+      enabled: false
+      # Use Remote ML instance

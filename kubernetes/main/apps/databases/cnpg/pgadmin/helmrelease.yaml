@@ -60,7 +60,7 @@ spec:
         enabled: true
         className: "ingress-nginx"
         hosts:
-          - host: pgadmin.svc.noms.tv
+          - host: pgadmin.int.noms.tv
             paths:
               - path: /
                 service:

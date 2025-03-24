@@ -13,7 +13,7 @@ resources:
   - ./homeassistant/ks.yaml
   - ./old-homeassistant/ks.yaml
   - ./homepage/ks.yaml
-  #- ./immich/ks.yaml
+  - ./immich/ks.yaml
   - ./jellyfin/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml

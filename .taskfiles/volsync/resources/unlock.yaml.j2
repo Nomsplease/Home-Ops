@@ -16,7 +16,7 @@ spec:
           args: ["unlock", "--remove-all"]
           envFrom:
             - secretRef:
-                name: {{ ENV.APP }}-volsync-secret
+                name: {{ ENV.APP }}-volsync-local-secret
           volumeMounts:
             - name: repository
               mountPath: /repository

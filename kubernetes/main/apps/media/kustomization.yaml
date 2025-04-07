@@ -6,15 +6,16 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./overseerr/ks.yaml
-  - ./sonarr/ks.yaml
-  - ./radarr/ks.yaml
-  - ./prowlarr/ks.yaml
-  - ./tautulli/ks.yaml
-  - ./kometa/ks.yaml
-  - ./readarr/ks.yaml
-  - ./bazarr/ks.yaml
   - ./audiobookshelf/ks.yaml
+  - ./bazarr/ks.yaml
+  - ./channels/ks.yaml
   - ./deluge/ks.yaml
-  - ./sabnzbd/ks.yaml
+  - ./kometa/ks.yaml
+  - ./overseerr/ks.yaml
   - ./plex-auto-languages/ks.yaml
+  - ./prowlarr/ks.yaml
+  - ./radarr/ks.yaml
+  - ./readarr/ks.yaml
+  - ./sabnzbd/ks.yaml
+  - ./sonarr/ks.yaml
+  - ./tautulli/ks.yaml

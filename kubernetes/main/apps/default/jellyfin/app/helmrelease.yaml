@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: jellyfin/jellyfin
-              tag: 10.10.5
+              tag: 10.10.7
             env:
               - name: TZ
                 value: America/New_York

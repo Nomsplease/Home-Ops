@@ -7,18 +7,14 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./actual-budget/ks.yaml
-  #- ./esphome/ks.yaml
   - ./fastapi-dls/ks.yaml
   - ./gitea/ks.yaml
-  #- ./homeassistant/ks.yaml
   - ./old-homeassistant/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
   - ./jellyfin/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
-  #- ./mosquitto/ks.yaml
-  #- ./node-red/ks.yaml
   - ./open-webui/ks.yaml
   - ./orcaslicer/ks.yaml
   # # - ./owntracks/ks.yaml
@@ -28,7 +24,5 @@ resources:
   - ./spoolman/ks.yaml
   - ./tasmoadmin/ks.yaml
   - ./wikijs/ks.yaml
-  #- ./zigbee2mqtt/ks.yaml
-  #- ./zwave-js-ui/ks.yaml
   
   

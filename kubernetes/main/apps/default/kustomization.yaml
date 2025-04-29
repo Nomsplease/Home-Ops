@@ -18,7 +18,7 @@ resources:
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
   #- ./mosquitto/ks.yaml
-  - ./node-red/ks.yaml
+  #- ./node-red/ks.yaml
   - ./open-webui/ks.yaml
   - ./orcaslicer/ks.yaml
   # # - ./owntracks/ks.yaml

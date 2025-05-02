@@ -1,0 +1,12 @@
+services:
+  cloudflared:
+    command: tunnel run
+    image: cloudflare/cloudflared:2025.4.2
+    env_file: .env
+    networks:
+      - traefik_proxy
+    restart: unless-stopped
+networks:
+ traefik_proxy:
+   name: traefik_proxy
+   external: true

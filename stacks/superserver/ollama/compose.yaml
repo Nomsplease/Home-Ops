@@ -1,0 +1,30 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - OLLAMA_KEEP_ALIVE=1h
+      - OLLAMA_HOST=0.0.0.0
+      - ENABLE_IMAGE_GENERATION=True
+      - COMFYUI_BASE_URL=http://stable-diffusion-webui:7860
+    networks:
+      - default
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /data/ollama:/root/.ollama
+    ports:
+      - 11434:11434
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - gpu
+networks:
+  default:
+    name: ainet

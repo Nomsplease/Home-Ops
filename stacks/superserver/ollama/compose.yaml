@@ -1,6 +1,7 @@
 services:
   ollama:
     image: ollama/ollama:latest
+    container_name: ollama
     restart: unless-stopped
     environment:
       - PUID=${PUID:-1000}

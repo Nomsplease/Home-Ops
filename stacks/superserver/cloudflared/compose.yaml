@@ -2,6 +2,7 @@ services:
   cloudflared:
     command: tunnel run --token $TUNNEL_TOKEN
     image: cloudflare/cloudflared:2025.4.2
+    container_name: cloudflared
     networks:
       - traefik_proxy
     restart: unless-stopped

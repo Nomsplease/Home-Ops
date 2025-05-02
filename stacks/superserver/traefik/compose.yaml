@@ -3,6 +3,7 @@ services:
     command:
       - --configFile=/config/config.yaml
     image: traefik:v3
+    container_name: traefik
     networks:
       - traefik_proxy
     ports:

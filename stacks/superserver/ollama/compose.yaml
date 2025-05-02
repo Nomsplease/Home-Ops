@@ -11,6 +11,7 @@ services:
       - COMFYUI_BASE_URL=http://stable-diffusion-webui:7860
     networks:
       - default
+      - traefik_proxy
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
@@ -25,6 +26,17 @@ services:
               count: all
               capabilities:
                 - gpu
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.ollama.entrypoints=websecure
+      - traefik.http.routers.ollama.rule=Host(`ollama.noms.tv`)
+      - traefik.http.services.ollama.loadbalancer.server.port=11434
+      - traefik.http.services.ollama.loadbalancer.server.scheme=http
+      - traefik.http.routers.ollama.service=ollama
+      - traefik.http.routers.ollama.tls=true
 networks:
   default:
     name: ainet
+  traefik_proxy:
+    name: traefik_proxy
+    external: true

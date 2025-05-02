@@ -1,6 +1,7 @@
 services:
   cloudflared:
-    command: tunnel run
+    #command: tunnel run
+    command: echo $TUNNEL_TOKEN
     image: cloudflare/cloudflared:2025.4.2
     networks:
       - traefik_proxy

@@ -6,6 +6,7 @@ services:
     container_name: traefik
     networks:
       - traefik_proxy
+      - kasm_default_network
     ports:
       - 80:80
       - 443:443
@@ -17,10 +18,12 @@ services:
       - /data/traefik/config:/config
       - /var/run/docker.sock:/var/run/docker.sock
 networks:
- traefik_proxy:
+  traefik_proxy:
    name: traefik_proxy
    driver: bridge
    ipam:
      config:
        - subnet: 10.0.1.0/24
          gateway: 10.0.1.1
+  kasm_default_network:
+    external: true

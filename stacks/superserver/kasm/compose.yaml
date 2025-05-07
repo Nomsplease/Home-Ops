@@ -26,7 +26,7 @@ services:
     restart: "always"
   kasm_redis:
     container_name: kasm_redis
-    command: ["sh", "-c", "redis-server --requirepass $${REDIS_PASSWORD}"]
+    command: ["sh", "-c", "redis-server --requirepass ${REDIS_PASSWORD}"]
     user: "${KASM_UID?}:${KASM_GID?}"
     image: redis:5-alpine
     networks:

@@ -171,7 +171,7 @@ services:
     container_name: kasm_proxy
     image: "kasmweb/proxy:1.17.0"
     ports:
-      - "443:443"
+      - "8443:443"
     networks:
       - kasm_default_network
       - kasm_sidecar_network

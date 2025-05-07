@@ -1,0 +1,6 @@
+KASM_UID="op://Komodo/Kasm/AppUID"
+KASM_GID="op://Komodo/Kasm/AppGID"
+POSTGRES_PASSWORD="op://Komodo/Kasm/Database/Password"
+POSTGRES_USER="kasmapp"
+POSTGRES_DB="kasm"
+REDIS_PASSWORD="op://Komodo/Kasm/Redis Password"

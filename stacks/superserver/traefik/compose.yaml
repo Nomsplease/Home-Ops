@@ -6,7 +6,6 @@ services:
     container_name: traefik
     networks:
       - traefik_proxy
-      - kasm_default_network
     ports:
       - 80:80
       - 443:443

@@ -35,7 +35,7 @@ services:
                 - utility
     restart: unless-stopped
     networks:
-      - proxynet
+      - traefik_proxy
     ports:
       - 7860:7860 # Add this line to expose the port
     labels:

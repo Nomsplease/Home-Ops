@@ -11,7 +11,7 @@ services:
               capabilities:
                 - gpu
     volumes:
-      - /data/immich-ml:/cache
+      - /data/containers/immich-ml:/cache
     restart: always
     ports:
       - 3003:3003

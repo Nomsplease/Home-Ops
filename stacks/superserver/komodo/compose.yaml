@@ -11,6 +11,7 @@ services:
   mongo:
     image: mongo
     container_name: komodo-mongo
+    env_file: ./.env
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
     command: --quiet --wiredTigerCacheSizeGB 0.25
@@ -26,6 +27,7 @@ services:
   core:
     image: ghcr.io/moghtech/komodo-core:${COMPOSE_KOMODO_IMAGE_TAG:-latest}
     container_name: komodo-core
+    env_file: ./.env
     restart: unless-stopped
     depends_on:
       - mongo
@@ -53,6 +55,7 @@ services:
   periphery:
     image: ghcr.io/moghtech/komodo-periphery:${COMPOSE_KOMODO_IMAGE_TAG:-latest}
     container_name: komodo-periphery
+    env_file: ./.env
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
     networks:

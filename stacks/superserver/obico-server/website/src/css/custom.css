@@ -1,0 +1,177 @@
+/* stylelint-disable docusaurus/copyright-header */
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #01a299;
+  --ifm-color-primary-dark: #01928a;
+  --ifm-color-primary-darker: #018a82;
+  --ifm-color-primary-darkest: #01716b;
+  --ifm-color-primary-light: #01b2a8;
+  --ifm-color-primary-lighter: #01bab0;
+  --ifm-color-primary-lightest: #01d3c7;
+  --ifm-code-font-size: 95%;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #03dac5;
+  --ifm-color-primary-dark: #03c4b1;
+  --ifm-color-primary-darker: #03b9a7;
+  --ifm-color-primary-darkest: #02998a;
+  --ifm-color-primary-light: #03f0d9;
+  --ifm-color-primary-lighter: #03fbe3;
+  --ifm-color-primary-lightest: #23fce7;
+}
+
+.DocSearch {
+  --docsearch-hit-active-color: var(--ifm-color-content-inverse);
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+
+.markdown > h2 {
+  --ifm-h2-font-size: 1.75rem;
+}
+.markdown > h3 {
+  --ifm-h3-font-size: 1.25rem;
+}
+
+
+.guide-link {
+  color: var(--ifm-color-gray-900);
+}
+
+.guide-link:hover {
+  text-decoration: none;
+  color: var(--ifm-color-gray-600);
+}
+
+html[data-theme=dark] .guide-link {
+  color: var(--ifm-color-gray-300);
+}
+
+html[data-theme=dark] .guide-link:hover {
+  color: var(--ifm-color-gray-600);
+}
+
+
+.obico-button {
+  border-radius: 10rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  --obico-button-primary-color: var(--ifm-color-primary);
+  --obico-button-primary-text: var(--ifm-color-gray-100);
+  --obico-button-primary-hover: var(--ifm-color-primary-dark);
+
+  --obico-button-secondary-color: var(--ifm-color-gray-600);
+  --obico-button-secondary-hover: var(--ifm-color-primary-dark);
+}
+
+html[data-theme=dark] .obico-button {
+  --obico-button-primary-hover: var(--ifm-color-primary-light);
+  --obico-button-secondary-hover: var(--ifm-color-primary-light);
+  --obico-button-primary-text: var(--ifm-color-gray-900);
+}
+
+.obico-button-secondary {
+  border: 1px solid var(--obico-button-secondary-color);
+}
+.obico-button-secondary:hover {
+  color: var(--obico-button-secondary-hover);
+  border-color: var(--obico-button-secondary-hover);
+  background: none;
+}
+
+.obico-button-primary {
+  border: 1px solid var(--obico-button-primary-color);
+  color: var(--obico-button-primary-text);
+  background-color: var(--obico-button-primary-color);
+}
+.obico-button-primary:hover {
+  background-color: var(--obico-button-primary-hover);
+  border-color: var(--obico-button-primary-hover);
+  color: var(--obico-button-primary-text);
+}
+
+.obico-navbar-button {
+  margin-right: .5rem;
+}
+
+.menu .obico-navbar-button {
+  margin-right: 0;
+  margin-top: .625rem;
+
+  --obico-button-secondary-color: var(--ifm-menu-color) !important;
+}
+
+
+.copyright {
+  opacity: .5;
+}
+
+@media (min-width: 996px) {
+  .copyright {
+    margin-top: 2.5rem;
+  }
+}
+
+
+.social-link-wrapper {
+  margin-bottom: .5rem;
+}
+
+.social-button-iframe {
+  height: 20px;
+}
+.social-button-iframe.youtube {
+  height: 24px;
+}
+
+/* Aspect ratio for embedded videos */
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+}
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.superscript {
+  vertical-align: super;
+  font-size: 0.8em;
+}
+
+
+/* Announcement block */
+div[class^='announcementBar_'] {
+  --site-announcement-bar-stripe-color1: #bcf8f5;
+  --site-announcement-bar-stripe-color2: #e3fffe;
+  background: repeating-linear-gradient(
+    35deg,
+    var(--site-announcement-bar-stripe-color1),
+    var(--site-announcement-bar-stripe-color1) 20px,
+    var(--site-announcement-bar-stripe-color2) 10px,
+    var(--site-announcement-bar-stripe-color2) 40px
+  );
+  font-weight: bold;
+}

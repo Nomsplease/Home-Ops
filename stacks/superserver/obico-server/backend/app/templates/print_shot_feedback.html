@@ -1,0 +1,8 @@
+{% extends "vue_layout.html" %}
+
+{% block vue_content %}
+  <print-shot-feedback-app
+    :config='{"printId": {{ object.id }}}'
+  >
+  </print-shot-feedback-app>
+{% endblock vue_content %}

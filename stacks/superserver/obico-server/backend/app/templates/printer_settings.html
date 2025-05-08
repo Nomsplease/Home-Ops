@@ -1,0 +1,23 @@
+{% extends "vue_layout.html" %}
+
+{% block vue_content %}
+  <printer-settings-page></printer-settings-page>
+{% endblock vue_content %}
+
+{% block body_bottom_ext %}
+  {% if not page_context.app_platform %}
+    {{ block.super }}
+  {% endif %}
+{% endblock %}
+
+{% block useful_libs %}
+  {% if not page_context.app_platform %}
+    {{ block.super }}
+  {% endif %}
+{% endblock %}
+
+{% block bootstrap_js %}
+  {% if not page_context.app_platform %}
+    {{ block.super }}
+  {% endif %}
+{% endblock %}

@@ -16,7 +16,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - /data/ollama:/root/.ollama
+      - /data/containers/ollama:/root/.ollama
     ports:
       - 11434:11434
     deploy:

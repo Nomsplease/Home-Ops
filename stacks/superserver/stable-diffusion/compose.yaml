@@ -41,7 +41,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.stable-diffusion.entrypoints=websecure
-      - traefik.http.routers.stable-diffusion.rule=Host(`comfy.noms.tv`)
+      - traefik.http.routers.stable-diffusion.rule=Host(`stable.noms.tv`)
       - traefik.http.services.stable-diffusion.loadbalancer.server.port=7860
       - traefik.http.services.stable-diffusion.loadbalancer.server.scheme=http
       - traefik.http.routers.stable-diffusion.service=stable-diffusion

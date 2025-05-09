@@ -3,7 +3,6 @@ services:
     container_name: readarr
     networks:
       - default
-      - database_network
       - traefik_proxy
     environment:
       - PUID=568

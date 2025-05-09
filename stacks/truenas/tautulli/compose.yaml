@@ -1,0 +1,23 @@
+services:
+  tautulli:
+    container_name: tautulli
+    networks:
+      - default
+      - traefik_proxy
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=America/New_York
+    image: lscr.io/linuxserver/tautulli:latest
+    ports:
+      - '8787:8787'
+    restart: unless-stopped
+    volumes:
+      - /mnt/AppData/Applications/Tautulli:/config
+networks:
+  default:
+    name: media_services
+    external: true
+  traefik_proxy:
+    name: traefik_proxy
+    external: true

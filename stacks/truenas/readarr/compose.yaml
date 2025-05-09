@@ -1,0 +1,28 @@
+services:
+  readarr:
+    container_name: readarr
+    networks:
+      - default
+      - database_network
+      - traefik_proxy
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=America/New_York
+    image: lscr.io/linuxserver/readarr:latest
+    ports:
+      - '8787:8787'
+    restart: unless-stopped
+    volumes:
+      - /mnt/AppData/Applications/Readarr:/config
+      - /mnt/BigPool/Media:/PlexMedia
+networks:
+  default:
+    name: media_services
+    external: true
+  database_network:
+    name: database_network
+    external: true
+  traefik_proxy:
+    name: traefik_proxy
+    external: true

@@ -13,3 +13,7 @@ services:
       - /mnt/AppData/Applications/Sabnzbd/config:/config
       - /mnt/AppData/Downloads:/Downloads
       - /mnt/BigPool/Media:/BigPoolMedia
+networks:
+  default:
+    name: media_services
+    external: true

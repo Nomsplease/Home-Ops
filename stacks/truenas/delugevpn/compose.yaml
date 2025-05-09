@@ -1,4 +1,3 @@
-networks: {}
 services:
   delugevpn:
     cap_add:
@@ -26,3 +25,7 @@ services:
     restart: always
     volumes:
       - /mnt/AppData/Applications/Deluge/scripts:/scripts
+networks:
+  default:
+    name: media_services
+    external: true

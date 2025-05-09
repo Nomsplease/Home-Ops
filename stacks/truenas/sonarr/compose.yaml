@@ -2,6 +2,7 @@ services:
   sonarr:
     container_name: sonarr
     networks:
+      - deafult
       - database_network
       - traefik_proxy
     environment:

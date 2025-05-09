@@ -1,5 +1,5 @@
 services:
-  app:
+  sabnzbd:
     container_name: sabnzbd
     environment:
       - PUID=568

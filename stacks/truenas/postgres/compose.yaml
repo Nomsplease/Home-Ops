@@ -3,7 +3,6 @@ services:
     image: postgres:17.5
     container_name: mediadb
     env_file: ./.env
-    user: "568:568"
     networks:
       - deafult
     restart: unless-stopped

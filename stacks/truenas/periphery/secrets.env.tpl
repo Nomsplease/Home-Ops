@@ -52,10 +52,3 @@ PERIPHERY_INCLUDE_DISK_MOUNTS=/etc/hostname
 
 ## Include 1Password Service Token
 OP_SERVICE_ACCOUNT_TOKEN="op://Komodo/Service Account Token/Token"
-
-#=----------------------=#
-#= Mongo DB Environment =#
-#=----------------------=#
-
-MONGO_INITDB_ROOT_USERNAME=${KOMODO_DB_USERNAME}
-MONGO_INITDB_ROOT_PASSWORD=${KOMODO_DB_PASSWORD}

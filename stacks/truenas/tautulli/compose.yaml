@@ -10,7 +10,7 @@ services:
       - TZ=America/New_York
     image: lscr.io/linuxserver/tautulli:latest
     ports:
-      - '8787:8787'
+      - '8181:8181'
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Tautulli:/config

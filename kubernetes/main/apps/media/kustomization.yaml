@@ -8,13 +8,13 @@ resources:
   # Flux-Kustomizations
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
-  - ./deluge/ks.yaml
+  # - ./deluge/ks.yaml
   - ./kometa/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex-auto-languages/ks.yaml
   - ./prowlarr/ks.yaml
-  - ./radarr/ks.yaml
+  # - ./radarr/ks.yaml
   - ./readarr/ks.yaml
-  - ./sabnzbd/ks.yaml
-  - ./sonarr/ks.yaml
+  # - ./sabnzbd/ks.yaml
+  # - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml

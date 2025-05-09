@@ -10,7 +10,7 @@ services:
       - TZ=America/New_York
     image: lscr.io/linuxserver/bazarr:latest
     ports:
-      - '7878:7878'
+      - '9707:9707'
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Bazarr:/config

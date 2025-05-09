@@ -1,7 +1,7 @@
 
 # general settings
 TZ=America/New_York
-DRY_RUN=true
+DRY_RUN=false
 HTTP_MAX_RETRIES=0
 HTTP_TIMEOUT=100
 

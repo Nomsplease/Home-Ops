@@ -1,6 +1,9 @@
 services:
   sonarr:
     container_name: sonarr
+    networks:
+      - database_network
+      - traefik_proxy
     environment:
       - PUID=568
       - PGID=568
@@ -12,3 +15,10 @@ services:
     volumes:
       - /mnt/AppData/Applications/Sonarr/config:/config
       - /mnt/BigPool/Media:/PlexMedia
+networks:
+  database_network:
+    name: database_network
+    external: true
+  traefik_proxy:
+    name: traefik_proxy
+    external: true

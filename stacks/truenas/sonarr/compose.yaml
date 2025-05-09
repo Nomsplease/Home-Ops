@@ -1,0 +1,14 @@
+services:
+  sonarr:
+    container_name: sonarr
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=America/New_York
+    image: lscr.io/linuxserver/sonarr:latest
+    ports:
+      - '8989:8989'
+    restart: unless-stopped
+    volumes:
+      - /mnt/AppData/Applications/Sonarr/config:/config
+      - /mnt/BigPool/Media:/PlexMedia

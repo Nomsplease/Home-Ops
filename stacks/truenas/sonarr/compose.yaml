@@ -16,6 +16,13 @@ services:
       - /mnt/AppData/Applications/Sonarr:/config
       - /mnt/BigPool/Media:/PlexMedia
 networks:
+  default:
+    name: media_services
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.3.0/24
+          gateway: 10.0.3.1
   database_network:
     name: database_network
     external: true

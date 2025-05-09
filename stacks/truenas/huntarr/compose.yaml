@@ -1,0 +1,21 @@
+services:
+  huntarr:
+    container_name: huntarr
+    networks:
+      - default
+      - traefik_proxy
+    environment:
+      - TZ=America/New_York
+    image: huntarr/huntarr:latest
+    ports:
+      - '9705:9705'
+    restart: unless-stopped
+    volumes:
+      - /mnt/AppData/Applications/Huntarr:/config
+networks:
+  default:
+    name: media_services
+    external: true
+  traefik_proxy:
+    name: traefik_proxy
+    external: true

@@ -1,0 +1,21 @@
+services:
+  monolithic:
+    environment:
+      - USE_GENERIC_CACHE=true
+      - LANCACHE_IP=172.16.1.4
+      - DNS_BIND_IP=172.16.1.4
+      - UPSTREAM_DNS=1.1.1.1 1.0.0.1
+      - CACHE_ROOT=./lancache
+      - CACHE_DISK_SIZE=1000g
+      - MIN_FREE_DISK=10g
+      - CACHE_INDEX_SIZE=500m
+      - CACHE_MAX_AGE=30d
+      - TZ=America/New_York
+    image: lancachenet/monolithic@sha256:8749eca7fc7ee8bcd9c356c27aaafca67eb33d283791e37078b7b2634631d9f7
+    ports:
+      - 172.16.1.4:80:80/tcp
+      - 172.16.1.4:443:443/tcp
+    restart: unless-stopped
+    volumes:
+      - /mnt/AppData/LanCache/cache:/data/cache
+      - /mnt/AppData/LanCache/logs:/data/logs

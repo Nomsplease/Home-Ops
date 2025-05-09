@@ -13,8 +13,6 @@ services:
       - KOMETA_TEST=False
       - KOMETA_NO_MISSING=False
     image: lscr.io/linuxserver/kometa:latest
-    ports:
-      - '8989:8989'
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Kometa:/config

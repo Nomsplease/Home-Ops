@@ -16,8 +16,6 @@ services:
     logging:
       driver: ${COMPOSE_LOGGING_DRIVER:-local}
     ## https://komo.do/docs/connect-servers#configuration
-    environment:
-      PERIPHERY_ROOT_DIRECTORY: /mnt/AppData/Applications/Komodo
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /proc:/proc
@@ -25,7 +23,6 @@ services:
       - /mnt/AppData/Applications/Komodo/op:/usr/bin/op
     ports:
       - 8120:8120
-    command: periphery --config-path /mnt/AppData/Applications/Komodo/periphery.config.toml
 
 networks:
   default: {}

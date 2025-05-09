@@ -17,7 +17,6 @@ services:
     image: dpage/pgadmin4:latest
     container_name: pgadmin
     env_file: ./.env
-    user: "568:568"
     networks:
       - deafult
       - traefik_proxy

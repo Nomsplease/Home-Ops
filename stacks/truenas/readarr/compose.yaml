@@ -20,9 +20,6 @@ networks:
   default:
     name: media_services
     external: true
-  database_network:
-    name: database_network
-    external: true
   traefik_proxy:
     name: traefik_proxy
     external: true

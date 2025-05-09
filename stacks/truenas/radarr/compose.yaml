@@ -16,6 +16,14 @@ services:
     volumes:
       - /mnt/AppData/Applications/Radarr:/config
       - /mnt/BigPool/Media:/PlexMedia
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.radarr.entrypoints=websecure
+      - traefik.http.routers.radarr.rule=Host(`radarr.noms.tv`)
+      - traefik.http.services.radarr.loadbalancer.server.port=7878
+      - traefik.http.services.radarr.loadbalancer.server.scheme=http
+      - traefik.http.routers.radarr.service=radarr
+      - traefik.http.routers.radarr.tls=true
 networks:
   default:
     name: media_services

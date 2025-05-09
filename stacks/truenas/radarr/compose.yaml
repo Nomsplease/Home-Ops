@@ -1,6 +1,6 @@
 services:
-  sonarr:
-    container_name: sonarr
+  radarr:
+    container_name: radarr
     networks:
       - default
       - database_network
@@ -11,7 +11,7 @@ services:
       - TZ=America/New_York
     image: lscr.io/linuxserver/radarr:latest
     ports:
-      - '8989:8989'
+      - '7878:7878'
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Radarr:/config

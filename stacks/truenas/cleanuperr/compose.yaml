@@ -8,7 +8,6 @@ services:
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Cleanuperr/logs:/var/logs
-      - /mnt/AppData/Applications/Cleanuperr/ignored.txt:/ignored.txt
       - /mnt/AppData/Downloads:/Downloads
       - /mnt/BigPool/Media:/BigPoolMedia
 networks:

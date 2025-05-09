@@ -18,7 +18,6 @@ TRIGGERS__DOWNLOADCLEANER=0 0 * * * ?
 
 # queue cleaner
 QUEUECLEANER__ENABLED=true
-QUEUECLEANER__IGNORED_DOWNLOADS_PATH=/ignored.txt
 QUEUECLEANER__RUNSEQUENTIALLY=true
 
 # failed imports
@@ -39,11 +38,9 @@ QUEUECLEANER__SLOW_IGNORE_ABOVE_SIZE=60GB
 
 # content blocker
 CONTENTBLOCKER__ENABLED=true
-CONTENTBLOCKER__IGNORED_DOWNLOADS_PATH=/ignored.txt
 
 # download cleaner
 DOWNLOADCLEANER__ENABLED=true
-DOWNLOADCLEANER__IGNORED_DOWNLOADS_PATH=/ignored.txt
 DOWNLOADCLEANER__DELETE_PRIVATE=true
 
 # categories to seed until max ratio or min seed time has been reached

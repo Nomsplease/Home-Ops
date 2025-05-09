@@ -33,6 +33,9 @@ PERIPHERY_PASSKEYS=${KOMODO_PASSKEY}
 
 ## Specify the root directory used by Periphery agent.
 PERIPHERY_ROOT_DIRECTORY=/mnt/AppData/Applications/Komodo
+PERIPHERY_REPO_DIR=${PERIPHERY_ROOT_DIRECTORY}/repos
+PERIPHERY_STACK_DIR=${PERIPHERY_ROOT_DIRECTORY}/stacks
+PERIPHERY_BUILD_DIR=${PERIPHERY_ROOT_DIRECTORY}/builds
 
 ## Enable SSL using self signed certificates.
 ## Connect to Periphery at https://address:8120.

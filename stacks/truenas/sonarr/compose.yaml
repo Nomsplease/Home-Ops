@@ -16,6 +16,14 @@ services:
     volumes:
       - /mnt/AppData/Applications/Sonarr:/config
       - /mnt/BigPool/Media:/PlexMedia
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.sonarr.entrypoints=websecure
+      - traefik.http.routers.sonarr.rule=Host(`sonarr.noms.tv`)
+      - traefik.http.services.sonarr.loadbalancer.server.port=8989
+      - traefik.http.services.sonarr.loadbalancer.server.scheme=http
+      - traefik.http.routers.sonarr.service=sonarr
+      - traefik.http.routers.sonarr.tls=true
 networks:
   default:
     name: media_services

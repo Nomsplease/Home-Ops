@@ -1,0 +1,28 @@
+networks: {}
+services:
+  delugevpn:
+    cap_add:
+      - NET_ADMIN
+    container_name: delugevpn
+    env_file: ./.env
+    image: binhex/arch-delugevpn:latest
+    ports:
+      - '8112:8112'
+    restart: always
+    volumes:
+      - /mnt/AppData/Applications/Deluge/config:/config
+      - /mnt/AppData/Downloads:/Downloads
+      - /mnt/BigPool/Media:/BigPoolMedia
+      - /etc/localtime:/etc/localtime:ro
+  mamip:
+    command:
+      - sh
+      - /scripts/mam_ip.sh
+    container_name: script-mam-ip
+    depends_on:
+      - delugevpn
+    image: alpine:latest
+    network_mode: service:delugevpn
+    restart: always
+    volumes:
+      - /mnt/AppData/Applications/Deluge/scripts:/scripts

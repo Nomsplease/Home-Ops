@@ -1,0 +1,25 @@
+services:
+  bazarr:
+    container_name: bazarr
+    networks:
+      - default
+      - database_network
+      - traefik_proxy
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=America/New_York
+    image: lscr.io/linuxserver/bazarr:latest
+    ports:
+      - '7878:7878'
+    restart: unless-stopped
+    volumes:
+      - /mnt/AppData/Applications/Bazarr:/config
+      - /mnt/BigPool/Media:/PlexMedia
+networks:
+  default:
+    name: media_services
+    external: true
+  traefik_proxy:
+    name: traefik_proxy
+    external: true

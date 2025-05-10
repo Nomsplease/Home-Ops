@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Sabnzbd/config:/config
-      - /mnt/AppData/Downloads:/Downloads
+      - /mnt/Scratch/Downloads:/Downloads
       - /mnt/BigPool/Media:/BigPoolMedia
 networks:
   default:

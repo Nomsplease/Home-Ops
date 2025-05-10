@@ -10,7 +10,7 @@ services:
     restart: always
     volumes:
       - /mnt/AppData/Applications/Deluge/config:/config
-      - /mnt/AppData/Downloads:/Downloads
+      - /mnt/Scratch/Downloads:/Downloads
       - /mnt/BigPool/Media:/BigPoolMedia
       - /etc/localtime:/etc/localtime:ro
   mamip:

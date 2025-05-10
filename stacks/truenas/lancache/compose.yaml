@@ -17,5 +17,5 @@ services:
       - 172.16.1.4:443:443/tcp
     restart: unless-stopped
     volumes:
-      - /mnt/Scratch/LanCache/cache:/data/cache
-      - /mnt/Scratch/LanCache/logs:/data/logs
+      - /mnt/Scratch/Lancache/cache:/data/cache
+      - /mnt/Scratch/Lancache/logs:/data/logs

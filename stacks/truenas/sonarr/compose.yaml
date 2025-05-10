@@ -15,6 +15,7 @@ services:
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Sonarr:/config
+      - /mnt/Scratch/Downloads:/Downloads
       - /mnt/BigPool/Media:/PlexMedia
     labels:
       - traefik.enable=true

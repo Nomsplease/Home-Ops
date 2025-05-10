@@ -12,7 +12,6 @@ services:
     volumes:
       - /mnt/AppData/Applications/Sabnzbd/config:/config
       - /mnt/Scratch/Downloads:/Downloads
-      - /mnt/BigPool/Media:/BigPoolMedia
 networks:
   default:
     name: media_services

@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: collinwebdesigns/fastapi-dls
-              tag: 1.4.1
+              tag: 1.5.4
             env:
               - name: TZ
                 value: America/New_York

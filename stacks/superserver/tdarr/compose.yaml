@@ -17,7 +17,7 @@ services:
       - /data/containers/Tdarr/configs:/app/configs
       - /data/containers/Tdarr/logs:/app/logs
       - truenas-media:/media
-      - truenas-scratch-tdarr/Node-SuperServer:/temp
+      - truenas-scratch-tdarr:/temp
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128
 volumes:
@@ -30,4 +30,4 @@ volumes:
     driver_opts:
       type: "nfs"
       o: "addr=172.16.1.10,nolock,soft,nfsvers=4"
-      device: ":/mnt/Scratch/Tdarr"
+      device: ":/mnt/Scratch/Tdarr/Node-SuperServer"

@@ -14,6 +14,14 @@ services:
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Tautulli:/config
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.tautulli.entrypoints=websecure
+      - traefik.http.routers.tautulli.rule=Host(`tautulli.noms.tv`)
+      - traefik.http.services.tautulli.loadbalancer.server.port=8181
+      - traefik.http.services.tautulli.loadbalancer.server.scheme=http
+      - traefik.http.routers.tautulli.service=tautulli
+      - traefik.http.routers.tautulli.tls=true
 networks:
   default:
     name: media_services

@@ -10,8 +10,8 @@ services:
       - PGID=568
       - TZ=America/New_York
     image: lscr.io/linuxserver/radarr:latest
-    ports:
-      - '7878:7878'
+    # ports:
+    #   - '7878:7878'
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Radarr:/config

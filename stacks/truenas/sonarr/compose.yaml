@@ -26,14 +26,10 @@ services:
       - traefik.http.routers.sonarr.service=sonarr
       - traefik.http.routers.sonarr.tls=true
       # Authentik Enablement
-      - traefik.http.middlewares.authentik.forwardauth.address=http://authentik-proxy:9000/outpost.goauthentik.io/auth/traefik
-      - traefik.http.middlewares.authentik.forwardauth.trustForwardHeader=true
-      - traefik.http.middlewares.authentik.forwardauth.authResponseHeaders=X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid,X-authentik-jwt,X-authentik-meta-jwks,X-authentik-meta-outpost,X-authentik-meta-provider,X-authentik-meta-app,X-authentik-meta-version
-      - traefik.http.routers.sonarr.middlewares=authentik
+      - traefik.http.routers.sonarr.middlewares=authentik@file
       - traefik.http.routers.sonarr.priority=10
       - traefik.http.routers.sonarr-auth.rule=Host(`sonarr.noms.tv`) && PathPrefix(`/outpost.goauthentik.io/`)
       - traefik.http.routers.sonarr-auth.priority=15
-      - traefik.http.routers.sonarr-auth.service=authentik
 networks:
   default:
     name: media_services

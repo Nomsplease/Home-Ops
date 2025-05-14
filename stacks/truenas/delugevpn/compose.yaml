@@ -5,8 +5,8 @@ services:
     container_name: delugevpn
     env_file: ./.env
     image: binhex/arch-delugevpn:latest
-    # ports:
-    #   - '8112:8112'
+    ports:
+      - '8112:8112'
     restart: always
     volumes:
       - /mnt/AppData/Applications/Deluge/config:/config

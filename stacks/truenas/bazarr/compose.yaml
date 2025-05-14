@@ -15,6 +15,21 @@ services:
     volumes:
       - /mnt/AppData/Applications/Bazarr:/config
       - /mnt/BigPool/Media:/PlexMedia
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.bazarr.entrypoints=websecure
+      - traefik.http.routers.bazarr.rule=Host(`bazarr.noms.tv`)
+      - traefik.http.services.bazarr.loadbalancer.server.port=9707
+      - traefik.http.services.bazarr.loadbalancer.server.scheme=http
+      - traefik.http.routers.bazarr.service=bazarr
+      - traefik.http.routers.bazarr.tls=true
+      ###
+      # Authentik Enablement
+      - traefik.http.routers.bazarr.middlewares=authentik@file
+      - traefik.http.routers.bazarr.priority=10
+      - traefik.http.routers.bazarr-auth.rule=Host(`bazarr.noms.tv`) && PathPrefix(`/outpost.goauthentik.io/`)
+      - traefik.http.routers.bazarr-auth.priority=15
+      ###
 networks:
   default:
     name: media_services

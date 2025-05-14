@@ -16,6 +16,21 @@ services:
       - /mnt/AppData/Applications/Readarr:/config
       - /mnt/Scratch/Downloads:/Downloads
       - /mnt/BigPool/Media:/PlexMedia
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.readarr.entrypoints=websecure
+      - traefik.http.routers.readarr.rule=Host(`readarr.noms.tv`)
+      - traefik.http.services.readarr.loadbalancer.server.port=9707
+      - traefik.http.services.readarr.loadbalancer.server.scheme=http
+      - traefik.http.routers.readarr.service=readarr
+      - traefik.http.routers.readarr.tls=true
+      ###
+      # Authentik Enablement
+      - traefik.http.routers.readarr.middlewares=authentik@file
+      - traefik.http.routers.readarr.priority=10
+      - traefik.http.routers.readarr-auth.rule=Host(`readarr.noms.tv`) && PathPrefix(`/outpost.goauthentik.io/`)
+      - traefik.http.routers.readarr-auth.priority=15
+      ###
 networks:
   default:
     name: media_services

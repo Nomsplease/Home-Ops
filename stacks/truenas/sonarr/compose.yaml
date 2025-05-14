@@ -25,6 +25,12 @@ services:
       - traefik.http.services.sonarr.loadbalancer.server.scheme=http
       - traefik.http.routers.sonarr.service=sonarr
       - traefik.http.routers.sonarr.tls=true
+      # Authentik Enablement
+      - traefik.http.routers.sonarr.middlewares=authentik
+      - traefik.http.routers.sonarr.priority=10
+      - traefik.http.routers.sonarr-auth.rule=Host(`app.company`) && PathPrefix(`/outpost.goauthentik.io/`)
+      - traefik.http.routers.sonarr-auth.priority=15
+      - traefik.http.routers.sonarr-auth.service=authentik
 networks:
   default:
     name: media_services

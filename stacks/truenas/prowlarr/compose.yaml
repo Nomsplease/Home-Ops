@@ -15,6 +15,21 @@ services:
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Prowlarr:/config
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.prowlarr.entrypoints=websecure
+      - traefik.http.routers.prowlarr.rule=Host(`prowlarr.noms.tv`)
+      - traefik.http.services.prowlarr.loadbalancer.server.port=9707
+      - traefik.http.services.prowlarr.loadbalancer.server.scheme=http
+      - traefik.http.routers.prowlarr.service=prowlarr
+      - traefik.http.routers.prowlarr.tls=true
+      ###
+      # Authentik Enablement
+      - traefik.http.routers.prowlarr.middlewares=authentik@file
+      - traefik.http.routers.prowlarr.priority=10
+      - traefik.http.routers.prowlarr-auth.rule=Host(`prowlarr.noms.tv`) && PathPrefix(`/outpost.goauthentik.io/`)
+      - traefik.http.routers.prowlarr-auth.priority=15
+      ###
 networks:
   default:
     name: media_services

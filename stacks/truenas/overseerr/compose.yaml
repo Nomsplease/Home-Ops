@@ -9,11 +9,19 @@ services:
       - PGID=568
       - TZ=America/New_York
     image: lscr.io/linuxserver/overseerr:latest
-    ports:
-      - '5055:5055'
+    # ports:
+    #   - '5055:5055'
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Overseerr:/config
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.overseerr.entrypoints=websecure
+      - traefik.http.routers.overseerr.rule=Host(`request.noms.tv`)
+      - traefik.http.services.overseerr.loadbalancer.server.port=5055
+      - traefik.http.services.overseerr.loadbalancer.server.scheme=http
+      - traefik.http.routers.overseerr.service=overseerr
+      - traefik.http.routers.overseerr.tls=true
 networks:
   default:
     name: media_services

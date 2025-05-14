@@ -10,8 +10,8 @@ services:
       - PGID=568
       - TZ=America/New_York
     image: lscr.io/linuxserver/prowlarr:latest
-    ports:
-      - '9696:9696'
+    # ports:
+    #   - '9696:9696'
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Prowlarr:/config

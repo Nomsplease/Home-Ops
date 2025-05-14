@@ -19,7 +19,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.prowlarr.entrypoints=websecure
       - traefik.http.routers.prowlarr.rule=Host(`prowlarr.noms.tv`)
-      - traefik.http.services.prowlarr.loadbalancer.server.port=9707
+      - traefik.http.services.prowlarr.loadbalancer.server.port=9696
       - traefik.http.services.prowlarr.loadbalancer.server.scheme=http
       - traefik.http.routers.prowlarr.service=prowlarr
       - traefik.http.routers.prowlarr.tls=true

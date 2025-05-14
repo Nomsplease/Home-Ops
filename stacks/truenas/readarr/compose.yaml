@@ -20,7 +20,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.readarr.entrypoints=websecure
       - traefik.http.routers.readarr.rule=Host(`readarr.noms.tv`)
-      - traefik.http.services.readarr.loadbalancer.server.port=9707
+      - traefik.http.services.readarr.loadbalancer.server.port=8787
       - traefik.http.services.readarr.loadbalancer.server.scheme=http
       - traefik.http.routers.readarr.service=readarr
       - traefik.http.routers.readarr.tls=true

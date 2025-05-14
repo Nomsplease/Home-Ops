@@ -1,6 +1,9 @@
 services:
   jellyfin:
     container_name: jellyfin
+    networks:
+      - default
+      - traefik_proxy
     environment:
       - PUID=568
       - PGID=568

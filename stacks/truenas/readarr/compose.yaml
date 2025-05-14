@@ -9,8 +9,8 @@ services:
       - PGID=568
       - TZ=America/New_York
     image: lscr.io/linuxserver/readarr:develop
-    ports:
-      - '8787:8787'
+    # ports:
+    #   - '8787:8787'
     restart: unless-stopped
     volumes:
       - /mnt/AppData/Applications/Readarr:/config

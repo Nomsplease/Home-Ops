@@ -13,8 +13,8 @@ services:
     security_opt:
       - no-new-privileges:true
     volumes:
-      - /mnt/AppData/Applications/Traefik/letsencrypt:/letsencrypt
-      - /mnt/AppData/Applications/Traefik/config:/config
+      - /mnt/AppData/Traefik/letsencrypt:/letsencrypt
+      - /mnt/AppData/Traefik/config:/config
       - /var/run/docker.sock:/var/run/docker.sock
 networks:
   traefik_proxy:

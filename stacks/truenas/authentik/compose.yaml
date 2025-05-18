@@ -4,7 +4,7 @@ services:
     networks:
       - traefik_proxy
     env_file: .env
-    image: ghcr.io/goauthentik/proxy:2024.10.5
+    image: ghcr.io/goauthentik/proxy:2025.4.1
     ports:
       - '9000:9000'
       - '9443:9443'

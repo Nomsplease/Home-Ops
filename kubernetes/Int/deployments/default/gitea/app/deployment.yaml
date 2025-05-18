@@ -28,7 +28,7 @@ spec:
       #           name: gitea-env
       containers:
         - name: gitea
-          image: gitea/gitea:1.22.6-rootless
+          image: gitea/gitea:1.23.8-rootless
           volumeMounts:
             - name: config
               mountPath: /etc/gitea

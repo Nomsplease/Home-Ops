@@ -13,8 +13,9 @@ services:
     #   - '8787:8787'
     restart: unless-stopped
     volumes:
-      - /mnt/AppData/Applications/Readarr:/config
-      - /mnt/Scratch/Downloads:/Downloads
+      - /mnt/AppData/Readarr:/config
+      - /mnt/Scratch/Downloads:/ScratchDownloads
+      - /mnt/BigPool/Downloads:/BigPoolDownloads
       - /mnt/BigPool/Media:/PlexMedia
     labels:
       - traefik.enable=true

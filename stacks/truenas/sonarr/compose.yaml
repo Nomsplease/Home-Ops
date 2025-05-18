@@ -14,8 +14,9 @@ services:
     #   - '8989:8989'
     restart: unless-stopped
     volumes:
-      - /mnt/AppData/Applications/Sonarr:/config
-      - /mnt/Scratch/Downloads:/Downloads
+      - /mnt/AppData/Sonarr:/config
+      - /mnt/Scratch/Downloads:/ScratchDownloads
+      - /mnt/BigPool/Downloads:/BigPoolDownloads
       - /mnt/BigPool/Media:/PlexMedia
     labels:
       - traefik.enable=true

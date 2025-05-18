@@ -11,7 +11,7 @@ services:
     #   - '9705:9705'
     restart: unless-stopped
     volumes:
-      - /mnt/AppData/Applications/Huntarr:/config
+      - /mnt/AppData/Huntarr:/config
     labels:
       - traefik.enable=true
       - traefik.http.routers.huntarr.entrypoints=websecure

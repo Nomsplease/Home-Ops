@@ -9,8 +9,9 @@ services:
       - '8112:8112'
     restart: always
     volumes:
-      - /mnt/AppData/Applications/Deluge/config:/config
-      - /mnt/Scratch/Downloads:/Downloads
+      - /mnt/AppData/Deluge/config:/config
+      - /mnt/Scratch/Downloads:/ScratchDownloads
+      - /mnt/BigPool/Downloads:/BigPoolDownloads
       - /etc/localtime:/etc/localtime:ro
     labels:
       - traefik.enable=true
@@ -31,7 +32,7 @@ services:
     network_mode: service:delugevpn
     restart: always
     volumes:
-      - /mnt/AppData/Applications/Deluge/scripts:/scripts
+      - /mnt/AppData/Deluge/scripts:/scripts
 networks:
   default:
     name: media_services

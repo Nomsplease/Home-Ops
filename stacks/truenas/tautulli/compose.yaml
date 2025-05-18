@@ -13,7 +13,7 @@ services:
       - '8181:8181'
     restart: unless-stopped
     volumes:
-      - /mnt/AppData/Applications/Tautulli:/config
+      - /mnt/AppData/Tautulli:/config
     labels:
       - traefik.enable=true
       - traefik.http.routers.tautulli.entrypoints=websecure

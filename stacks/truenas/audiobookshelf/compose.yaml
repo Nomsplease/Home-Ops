@@ -13,8 +13,8 @@ services:
       - '13378:13378'
     restart: unless-stopped
     volumes:
-      - /mnt/AppData/Applications/Audiobookshelf/config:/config
-      - /mnt/AppData/Applications/Audiobookshelf/metadata:/metadata
+      - /mnt/AppData/Audiobookshelf/config:/config
+      - /mnt/AppData/Audiobookshelf/metadata:/metadata
       - /mnt/BigPool/Media:/data
 networks:
   default:

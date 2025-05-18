@@ -15,7 +15,7 @@ services:
     image: lscr.io/linuxserver/kometa:latest
     restart: unless-stopped
     volumes:
-      - /mnt/AppData/Applications/Kometa:/config
+      - /mnt/AppData/Kometa:/config
 networks:
   default:
     name: media_services

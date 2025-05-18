@@ -13,7 +13,7 @@ services:
     image: plexinc/pms-docker:plexpass
     restart: unless-stopped
     volumes:
-      - /mnt/AppData/Applications/Plex/config:/config
+      - /mnt/AppData/Plex/config:/config
       - /mnt/BigPool/Media:/data
     tmpfs:
       - /config/Library/Application Support/Plex Media Server/Logs

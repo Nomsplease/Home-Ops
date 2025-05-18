@@ -10,8 +10,9 @@ services:
       - '8080:8080'
     restart: unless-stopped
     volumes:
-      - /mnt/AppData/Applications/Sabnzbd/config:/config
-      - /mnt/Scratch/Downloads:/Downloads
+      - /mnt/AppData/Sabnzbd/config:/config
+      - /mnt/Scratch/Downloads:/ScratchDownloads
+      - /mnt/BigPool/Downloads:/BigPoolDownloads
 networks:
   default:
     name: media_services

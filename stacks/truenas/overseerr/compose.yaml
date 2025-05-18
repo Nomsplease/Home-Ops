@@ -13,7 +13,7 @@ services:
     #   - '5055:5055'
     restart: unless-stopped
     volumes:
-      - /mnt/AppData/Applications/Overseerr:/config
+      - /mnt/AppData/Overseerr:/config
     labels:
       - traefik.enable=true
       - traefik.http.routers.overseerr.entrypoints=websecure

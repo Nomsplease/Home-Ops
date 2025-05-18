@@ -14,7 +14,7 @@ services:
     #   - '9696:9696'
     restart: unless-stopped
     volumes:
-      - /mnt/AppData/Applications/Prowlarr:/config
+      - /mnt/AppData/Prowlarr:/config
     labels:
       - traefik.enable=true
       - traefik.http.routers.prowlarr.entrypoints=websecure

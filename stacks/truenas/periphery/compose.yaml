@@ -19,8 +19,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /proc:/proc
-      - /mnt/AppData/Applications/Komodo:/mnt/AppData/Applications/Komodo
-      - /mnt/AppData/Applications/Komodo/op:/usr/bin/op
+      - /mnt/AppData/Komodo:/mnt/AppData/Komodo
+      - /mnt/AppData/Komodo/op:/usr/bin/op
     ports:
       - 8120:8120
 

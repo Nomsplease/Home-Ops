@@ -1,6 +1,0 @@
-services:
-  plex-auto-languages:
-    container_name: plex-auto-languages
-    env_file: .env
-    image: ghcr.io/remirigal/plex-auto-languages:master
-    restart: unless-stopped

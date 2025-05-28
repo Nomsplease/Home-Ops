@@ -66,7 +66,7 @@ spec:
       config:
         existingClaim: komodo
         advancedMounts:
-          jellyfin:
+          komodo:
             app:
               - path: /repo-cache
                 subPath: repo-cache

@@ -55,7 +55,7 @@ spec:
       config:
         existingClaim: mongo-komodo
         advancedMounts:
-          jellyfin:
+          mongo-komodo:
             app:
               - path: /data/db
                 subPath: db

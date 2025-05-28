@@ -8,7 +8,7 @@ spec:
     - name: jellyfin
       port: 8096
       targetPort: 8096
-  externalName: 172.16.1.10
+  externalName: truenas.int.noms.tv
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

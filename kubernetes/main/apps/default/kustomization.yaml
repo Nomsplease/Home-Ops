@@ -15,11 +15,8 @@ resources:
   - ./komodo/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
-  - ./open-webui/ks.yaml
-  - ./orcaslicer/ks.yaml
   # # - ./owntracks/ks.yaml
   # - ./paperless/ks.yaml
-  # - ./rtlamr2mqtt/ks.yaml
   # - ./samba/ks.yaml
   - ./spoolman/ks.yaml
   - ./tasmoadmin/ks.yaml

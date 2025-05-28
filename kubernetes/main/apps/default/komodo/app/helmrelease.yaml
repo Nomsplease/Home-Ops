@@ -1,0 +1,74 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: komodo
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      komodo:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/moghtech/komodo-core
+              tag: 1.17.5
+            envFrom:
+              - secretRef:
+                  name: "${APP}"
+            probes:
+              liveness: &app-probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &app-port 9120
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *app-probes
+              startup: *app-probes
+            resources:
+              requests:
+                cpu: 47m
+                memory: 1Gi
+              limits:
+                memory: 8Gi
+    service:
+      app:
+        controller: komodo
+        ports:
+          http:
+            port: *app-port
+    ingress:
+      app:
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: komodo.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        existingClaim: komodo
+        advancedMounts:
+          jellyfin:
+            app:
+              - path: /repo-cache
+                subPath: repo-cache
+              - path: /syncs
+                subPath: syncs

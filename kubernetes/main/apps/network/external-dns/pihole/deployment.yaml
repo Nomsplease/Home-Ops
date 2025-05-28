@@ -32,6 +32,7 @@ spec:
         # the policy to upsert-only so they do not get deleted.
         - --policy=upsert-only
         - --provider=pihole
+        - --pihole-api-version=6
       securityContext:
         fsGroup: 65534
 ---

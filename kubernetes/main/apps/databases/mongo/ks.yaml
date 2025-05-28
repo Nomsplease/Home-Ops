@@ -6,7 +6,7 @@ metadata:
   name: &app mongo-komodo
   namespace: flux-system
 spec:
-  targetNamespace: default
+  targetNamespace: databases
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

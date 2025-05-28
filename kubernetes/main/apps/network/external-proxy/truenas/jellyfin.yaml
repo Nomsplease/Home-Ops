@@ -4,7 +4,11 @@ metadata:
   name: jellyfin
 spec:
   type: ExternalName
-  externalName: jellyfin.int.noms.tv
+  ports:
+    - name: jellyfin
+      port: 8096
+      targetPort: 8096
+  externalName: 172.16.1.10
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -22,4 +26,4 @@ spec:
           service:
             name: jellyfin
             port: 
-              number: 443
+              number: 8096

@@ -13,6 +13,7 @@ resources:
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
   - ./jellyfin/ks.yaml
+  - ./komodo/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
   - ./open-webui/ks.yaml

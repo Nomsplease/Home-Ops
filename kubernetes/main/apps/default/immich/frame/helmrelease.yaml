@@ -29,7 +29,7 @@ spec:
               tag: v1.0.26.1
             envFrom:
               - secretRef:
-                  name: lubelogger-env
+                  name: immich-frame
             probes:
               liveness: &app-probes
                 enabled: true

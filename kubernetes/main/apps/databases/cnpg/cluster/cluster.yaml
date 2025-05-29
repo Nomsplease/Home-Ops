@@ -22,10 +22,6 @@ spec:
   enableSuperuserAccess: true
 
   postgresql:
-    parameters:
-      max_connections: "1000"
-      shared_buffers: 256MB
-      search_path: '"$user", public, vectors'
     shared_preload_libraries:
       - "vchord.so"
 

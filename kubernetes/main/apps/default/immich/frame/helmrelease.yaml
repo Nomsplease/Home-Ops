@@ -50,10 +50,10 @@ spec:
 
     service:
       app:
-        controller: homepage
+        controller: immich-frame
         ports:
           http:
-            port: 3000
+            port: *app-port
 
     ingress:
       app:

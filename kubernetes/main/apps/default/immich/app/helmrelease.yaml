@@ -100,3 +100,9 @@ spec:
           size: 10Gi
           type: emptyDir
           accessMode: ReadWriteMany
+      resources:
+        requests:
+          cpu: 1500m
+          memory: 2Gi
+        limits:
+          gpu.intel.com/i915: 1000m

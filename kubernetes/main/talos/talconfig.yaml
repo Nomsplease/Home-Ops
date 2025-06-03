@@ -1,6 +1,6 @@
 ---
 clusterName: main
-talosVersion: v1.9.1
+talosVersion: v1.10.3
 kubernetesVersion: v1.32.0
 endpoint: https://172.16.0.50:6443
 domain: cluster.local
@@ -334,3 +334,36 @@ nodes:
         bridge:
           interfaces:
             - enp1s0
+
+  - hostname: MW-G # GPU Worker
+    ipAddress: "172.16.0.60"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/qemu-guest-agent
+                  - siderolabs/nvidia-container-toolkit-lts
+                  - siderolabs/nonfree-kmod-nvidia-lts
+    patches:
+      - "@./patches/amd-kernel-args.yaml"
+      - "@./patches/nvidia-kernel-modules.yaml"
+    installDiskSelector:
+      size: '< 150GB'
+    nodeLabels:
+      topology.kubernetes.io/region: main
+      topology.kubernetes.io/zone: m
+      node-role.kubernetes.io/storage: ""
+      node-role.kubernetes.io/worker: ""
+      node-role.kubernetes.io/gpu: "nvidia"
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.60/24
+          - 172.16.3.60/24
+        bridge:
+          interfaces:
+            - ens18

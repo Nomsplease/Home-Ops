@@ -28,12 +28,26 @@ spec:
     - name: nvidia-device-plugin-gfd
       namespace: kube-system
   values:
-    migStrategy: none
-    config:
-      name: nvidia-device-plugin
-    plugin:
-      enabled: true
+    runtimeClassName: nvidia
+    nodeSelector:
+      nvidia.com/gpu.present: "true"
+    securityContext:
+      privileged: true
     gfd:
       enabled: false
     nfd:
       enabled: false
+
+    config:
+      map:
+        default: |-
+          version: v1
+          flags:
+            migStrategy: none
+          sharing:
+            timeSlicing:
+              renameByDefault: false
+              failRequestsGreaterThanOne: false
+              resources:
+                - name: nvidia.com/gpu
+                  replicas: 10

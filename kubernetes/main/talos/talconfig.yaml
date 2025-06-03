@@ -363,7 +363,6 @@ nodes:
       - interface: br0
         addresses:
           - 172.16.0.60/24
-          - 172.16.3.60/24
         bridge:
           interfaces:
             - ens18

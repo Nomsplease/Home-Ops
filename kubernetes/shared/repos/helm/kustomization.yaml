@@ -29,6 +29,7 @@ resources:
   - ./kyverno.yaml
   - ./metrics-server.yaml
   - ./node-feature-discovery.yaml
+  - ./nvidia.yaml
   - ./openebs.yaml
   - ./piraeus.yaml
   - ./prometheus-community.yaml

@@ -31,6 +31,8 @@ spec:
     migStrategy: none
     config:
       name: nvidia-device-plugin
+    plugin:
+      enabled: true
     gfd:
       enabled: true
     nfd:

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: nvidia-device-plugin
+  name: nvidia-device-plugin-gfd
 spec:
   interval: 30m
   chart:
@@ -25,15 +25,13 @@ spec:
       strategy: rollback
       retries: 3
   dependsOn:
-    - name: nvidia-device-plugin-gfd
+    - name: node-feature-discovery
       namespace: kube-system
   values:
     migStrategy: none
-    config:
-      name: nvidia-device-plugin
     plugin:
-      enabled: true
-    gfd:
       enabled: false
+    gfd:
+      enabled: true
     nfd:
       enabled: false

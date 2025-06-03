@@ -1,0 +1,98 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ollama
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      ollama:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          runtimeClassName: nvidia
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: nvidia.com/gpu.present
+                        operator: In
+                        values:
+                          - "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/ollama/ollama
+              tag: 0.9.0@sha256:2ea3b768a8f2dcd4d910f838d79702bb952089414dd578146619c0a939647ac6
+            env:
+              OLLAMA_HOST: 0.0.0.0
+              OLLAMA_ORIGINS: "*"
+              OLLAMA_LOG_LEVEL: debug
+              # OLLAMA_MODELS: &pvc /models
+              OLLAMA_LOAD_TIMEOUT: 10m
+              # https://github.com/ollama/ollama/blob/main/docs/faq.md#how-can-i-set-the-quantization-type-for-the-kv-cache
+              OLLAMA_KV_CACHE_TYPE: q8_0
+              OLLAMA_FLASH_ATTENTION: 1
+            probes:
+              liveness: &app-probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &app-port 11434
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *app-probes
+              startup: *app-probes
+            resources:
+              requests:
+                memory: 2G
+                cpu: 2000m
+                nvidia.com/gpu: 1
+              limits:
+                memory: 16G
+                nvidia.com/gpu: 1
+
+    service:
+      app:
+        controller: ollama
+        ports:
+          http:
+            port: *app-port
+
+    ingress:
+      app:
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: ollama.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      config:
+        existingClaim: ollama
+        globalMounts:
+          - path: /.ollama
+      tmp:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        globalMounts:
+          - path: /tmp

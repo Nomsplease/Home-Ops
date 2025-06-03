@@ -28,7 +28,10 @@ spec:
     - name: node-feature-discovery
       namespace: kube-system
   values:
+    migStrategy: none
+    config:
+      name: nvidia-device-plugin
     gfd:
       enabled: true
     nfd:
-      enabled: alse
+      enabled: false

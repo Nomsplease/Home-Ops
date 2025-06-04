@@ -67,11 +67,31 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   postBuild:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 5Gi
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app cnpg-plugins
+  namespace: flux-system
+spec:
+  targetNamespace: databases
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/main/apps/databases/cnpg/plugins
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app

@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: paperless-redis
-          image: redis:7.4.1
+          image: redis:8.0.2
           volumeMounts:
             - name: pvc
               mountPath: /data

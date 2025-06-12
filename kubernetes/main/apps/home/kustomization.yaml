@@ -7,5 +7,6 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./mealie/ks.yaml
+  - ./paperless/ks.yaml
   
   

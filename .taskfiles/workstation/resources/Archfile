@@ -1,0 +1,16 @@
+age
+cloudflared
+go-task
+helm
+helmfile
+jq
+k9s
+kubectl
+krew
+kubeconform
+kustomize
+mise
+moreutils
+sops
+stern
+yq

@@ -7,6 +7,23 @@ vars:
 
 tasks:
 
+  arch:
+    desc: Set up tools on Arch
+    cmds:
+      - sudo pacman --needed -S - < {{.WORKSTATION_RESOURCES_DIR}}/Archfile
+      - paru --needed -S - < {{.WORKSTATION_RESOURCES_DIR}}/Aurfile
+    sources:
+      - '{{.WORKSTATION_RESOURCES_DIR}}/Archfile'
+      - '{{.WORKSTATION_RESOURCES_DIR}}/Aurfile'
+    generates:
+      - '{{.WORKSTATION_RESOURCES_DIR}}/Archfile.lock.json'
+      - '{{.WORKSTATION_RESOURCES_DIR}}/Aurfile.lock.json'
+    preconditions:
+      - which pacman
+      - which paru
+      - test -f {{.WORKSTATION_RESOURCES_DIR}}/Archfile
+      - test -f {{.WORKSTATION_RESOURCES_DIR}}/Aurfile
+
   brew:
     desc: Set up Homebrew tools
     cmds:
@@ -21,9 +38,8 @@ tasks:
 
   krew:
     desc: Set up Krew tools
-    deps: [brew]
     cmds:
-      - kubectl krew install cert-manager cnpg browse-pvc rook-ceph view-secret
+      - kubectl krew install cert-manager cnpg browse-pvc rook-ceph view-secret modify-secret resource-capacity
     preconditions:
       - kubectl krew version
       - which kubectl

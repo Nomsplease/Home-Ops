@@ -14,7 +14,7 @@ spec:
     size: ${CNPG_CAPACITY:=2Gi}
     storageClass: ${CNPG_STORAGECLASS:=ceph-block}
   superuserSecret:
-    name: cloudnative-pg-secret
+    name: ${APP}-cnpg-admin-secret
   enableSuperuserAccess: true
   monitoring:
     enablePodMonitor: true

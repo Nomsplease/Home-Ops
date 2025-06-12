@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: init-patch
+spec:
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      secret:
+        name: ${APP}-cnpg-app-secret

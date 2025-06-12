@@ -6,3 +6,7 @@ resources:
   - ../../resources/base
 components:
   - ../../resources/common
+patches:
+  - path: ./init.yaml
+    target:
+      kind: Cluster

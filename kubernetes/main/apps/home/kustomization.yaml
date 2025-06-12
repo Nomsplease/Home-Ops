@@ -6,8 +6,5 @@ namespace: home
 components:
   - ../../components/common
 resources:
-  # Pre Flux-Kustomizations
-  - ./namespace.yaml
-  # Flux-Kustomizations
   - ./mealie/ks.yaml
   - ./paperless/ks.yaml

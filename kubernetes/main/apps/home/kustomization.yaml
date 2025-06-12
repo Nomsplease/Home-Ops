@@ -6,5 +6,7 @@ namespace: home
 components:
   - ../../components/common
 resources:
+  - ./namespace.yaml
+  
   - ./mealie/ks.yaml
   - ./paperless/ks.yaml

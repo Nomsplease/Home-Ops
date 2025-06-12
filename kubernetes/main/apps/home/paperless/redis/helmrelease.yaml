@@ -50,9 +50,6 @@ spec:
 
     persistence:
       config:
-        existingClaim: paperless
-        advancedMounts:
-          paperless-redis:
-            app:
-              - path: /data
-                subPath: redis
+        existingClaim: "${APP}"
+        globalMounts:
+          - path: /data

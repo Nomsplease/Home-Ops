@@ -22,6 +22,11 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
+          tolerations:
+            - key: "GPUOnly"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
           runtimeClassName: nvidia
           affinity:
             nodeAffinity:

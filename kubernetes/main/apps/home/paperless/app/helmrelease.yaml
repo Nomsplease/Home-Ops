@@ -34,7 +34,7 @@ spec:
               tag: 2.13.5
             envFrom:
               - secretRef:
-                  name: "${APP}-env"
+                  name: "${APP}"
             probes:
               liveness: &app-probes
                 enabled: true

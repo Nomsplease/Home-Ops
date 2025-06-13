@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: ingress-nginx
   path: ./kubernetes/main/apps/network/external-proxy/truenas
-  prune: false // TODO: Revert to True after flux Operator migration
+  prune: false ##TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
     name: home-ops

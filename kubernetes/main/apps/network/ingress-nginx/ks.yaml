@@ -12,7 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   interval: 10m
   path: ./kubernetes/main/apps/network/ingress-nginx/app
-  prune: false // TODO: Revert to True after flux Operator migration
+  prune: false ##TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
     name: home-ops

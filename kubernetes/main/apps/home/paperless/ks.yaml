@@ -20,7 +20,7 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 50Gi
-  prune: false // TODO: Revert to True after flux Operator migration
+  prune: false ##TODO: Revert to True after flux Operator migration
   retryInterval: 1m
   sourceRef:
     kind: GitRepository
@@ -45,7 +45,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-  prune: false // TODO: Revert to True after flux Operator migration
+  prune: false ##TODO: Revert to True after flux Operator migration
   retryInterval: 1m
   sourceRef:
     kind: GitRepository
@@ -74,7 +74,7 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 1Gi
-  prune: false // TODO: Revert to True after flux Operator migration
+  prune: false ##TODO: Revert to True after flux Operator migration
   retryInterval: 1m
   sourceRef:
     kind: GitRepository
@@ -99,7 +99,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-  prune: false // TODO: Revert to True after flux Operator migration
+  prune: false ##TODO: Revert to True after flux Operator migration
   retryInterval: 1m
   sourceRef:
     kind: GitRepository

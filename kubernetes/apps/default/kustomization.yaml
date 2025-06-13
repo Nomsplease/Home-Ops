@@ -2,6 +2,9 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: default
+components:
+  - ../../components/common
 resources:
   - ./namespace.yaml
   - ./actual-budget/ks.yaml
@@ -13,7 +16,6 @@ resources:
   - ./lubelogger/ks.yaml
   - ./mealie/ks.yaml
   - ./old-homeassistant/ks.yaml
-  # # - ./owntracks/ks.yaml
   - ./paperless/ks.yaml
   # - ./samba/ks.yaml
   - ./spoolman/ks.yaml

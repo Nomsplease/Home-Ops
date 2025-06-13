@@ -16,7 +16,9 @@ spec:
     s3Credentials:
       accessKeyId:
         name: cloudnative-pg-secret
+        namespace: databases
         key: aws-access-key-id
       secretAccessKey:
         name: cloudnative-pg-secret
+        namespace: databases
         key: aws-secret-access-key

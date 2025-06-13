@@ -18,7 +18,7 @@ spec:
       retries: 3
   values:
     controllers:
-      paperless-tika:
+      main:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -43,7 +43,7 @@ spec:
 
     service:
       app:
-        controller: *app
+        controller: main
         ports:
           http:
             port: *app-port

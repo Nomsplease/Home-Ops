@@ -3,21 +3,19 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  # Pre Flux-Kustomizations
   - ./namespace.yaml
-  # Flux-Kustomizations
   - ./actual-budget/ks.yaml
   - ./fastapi-dls/ks.yaml
-  - ./old-homeassistant/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
   - ./komodo/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
+  - ./mealie/ks.yaml
+  - ./old-homeassistant/ks.yaml
   # # - ./owntracks/ks.yaml
+  - ./paperless/ks.yaml
   # - ./samba/ks.yaml
   - ./spoolman/ks.yaml
   - ./tasmoadmin/ks.yaml
   - ./wikijs/ks.yaml
-  
-  

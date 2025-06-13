@@ -13,6 +13,7 @@ spec:
     - ../../../../components/cnpg/overlay/init
   dependsOn:
     - name: volsync
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/main/apps/home/mealie/app
   postBuild:

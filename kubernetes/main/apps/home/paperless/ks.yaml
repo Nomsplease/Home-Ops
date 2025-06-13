@@ -13,6 +13,7 @@ spec:
     - ../../../../components/cnpg/overlay/init
   dependsOn:
     - name: volsync
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/main/apps/home/paperless/app
   postBuild:
@@ -66,6 +67,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: volsync
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/main/apps/home/paperless/redis
   postBuild:

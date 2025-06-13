@@ -1,6 +1,0 @@
-machine:
-  network:
-    interfaces:
-      - interface: br0
-        vip:
-          ip: 172.16.0.50

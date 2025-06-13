@@ -12,7 +12,6 @@
     ":timezone(America/New_York)",
     "github>Nomsplease/Home-Ops//.github/renovate/allowedVersions.json5",
     "github>Nomsplease/Home-Ops//.github/renovate/autoMerge.json5",
-    "github>Nomsplease/Home-Ops//.github/renovate/clusters.json5",
     "github>Nomsplease/Home-Ops//.github/renovate/commitMessage.json5",
     "github>Nomsplease/Home-Ops//.github/renovate/customManagers.json5",
     "github>Nomsplease/Home-Ops//.github/renovate/groups.json5",

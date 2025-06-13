@@ -4,101 +4,105 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app paperless
-  namespace: flux-system
+  namespace: &namespace home
 spec:
-  targetNamespace: home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: volsync
   components:
     - ../../../../components/cnpg/overlay/init
-  path: ./kubernetes/main/apps/home/paperless/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: home-ops
-  wait: true
+  dependsOn:
+    - name: volsync
   interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  path: ./kubernetes/main/apps/home/paperless/app
   postBuild:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 50Gi
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app paperless-gotenberg
-  namespace: flux-system
+  namespace: &namespace home
 spec:
-  targetNamespace: home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/main/apps/home/paperless/gotenberg
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: home-ops
-  wait: true
   interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  path: ./kubernetes/main/apps/home/paperless/gotenberg
   postBuild:
     substitute:
       APP: *app
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app paperless-redis
-  namespace: flux-system
+  namespace: &namespace home
 spec:
-  targetNamespace: home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: volsync
-  path: ./kubernetes/main/apps/home/paperless/redis
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: home-ops
-  wait: true
   interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  path: ./kubernetes/main/apps/home/paperless/redis
   postBuild:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 1Gi
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app paperless-tika
-  namespace: flux-system
+  namespace: &namespace home
 spec:
-  targetNamespace: home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/main/apps/home/paperless/tika
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: home-ops
-  wait: true
   interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  path: ./kubernetes/main/apps/home/paperless/tika
   postBuild:
     substitute:
       APP: *app
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false

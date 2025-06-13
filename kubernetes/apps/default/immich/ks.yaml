@@ -4,59 +4,55 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app immich
-  namespace: flux-system
+  namespace: &namespace default
 spec:
-  targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: volsync
-  path: ./kubernetes/apps/default/immich/app
-  prune: true 
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  wait: true
+      namespace: flux-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 5m
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
+  path: ./kubernetes/apps/default/immich/app
   postBuild:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 500Gi
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app immich-frame
-  namespace: flux-system
+  namespace: &namespace default
 spec:
-  targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: immich
-  path: ./kubernetes/apps/default/immich/frame
-  prune: true 
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  wait: true
+    - name: volsync
+      namespace: flux-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 5m
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
+  path: ./kubernetes/apps/default/immich/frame
   postBuild:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 10Gi
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false

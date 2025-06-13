@@ -8,14 +8,10 @@ metadata:
 spec:
   interval: 30m
   path: ./kubernetes/main/apps
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-ops
-  # decryption:
-  #   provider: sops
-  #   secretRef:
-  #     name: sops-age
   postBuild:
     substituteFrom:
       - name: cluster-settings

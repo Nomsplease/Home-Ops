@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/main/apps/default/wikijs/app
-  prune: true
+  prune: false // TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
     name: home-ops

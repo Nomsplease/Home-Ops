@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
   path: ./kubernetes/main/apps/default/tasmoadmin/app
-  prune: true
+  prune: false // TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
     name: home-ops

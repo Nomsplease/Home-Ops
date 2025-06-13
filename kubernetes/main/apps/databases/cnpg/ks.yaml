@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/main/apps/databases/cnpg/operator
-  prune: true
+  prune: false // TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
     name: home-ops
@@ -36,7 +36,7 @@ spec:
   dependsOn:
     - name: cnpg-operator
   path: ./kubernetes/main/apps/databases/cnpg/cluster
-  prune: true
+  prune: false // TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
     name: home-ops
@@ -59,7 +59,7 @@ spec:
   dependsOn:
     - name: cnpg-cluster
   path: ./kubernetes/main/apps/databases/cnpg/pgadmin
-  prune: true
+  prune: false // TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
     name: home-ops
@@ -84,7 +84,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/databases/cnpg/plugins
-  prune: true
+  prune: false // TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
     name: home-ops

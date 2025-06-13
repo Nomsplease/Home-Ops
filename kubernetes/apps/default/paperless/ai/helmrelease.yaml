@@ -40,10 +40,20 @@ spec:
             resources:
               limits:
                 memory: 1Gi
-
     service:
       app:
         controller: main
         ports:
           http:
             port: *app-port
+    ingress:
+      app:
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: archive-ai.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http

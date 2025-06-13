@@ -26,16 +26,13 @@ spec:
             image:
               repository: gitea/gitea
               tag: 1.22.6-rootless
-            envFrom:
-              - secretRef:
-                  name: "${APP}"
             probes:
               liveness: &app-probes
                 enabled: true
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &app-port 3000
+                    port: &app-port "3000"
                   failureThreshold: 6
                   periodSeconds: 10
               readiness: *app-probes
@@ -63,7 +60,7 @@ spec:
     persistence:
       config:
         type: secret
-        name: gitea
+        name: "${APP}"
         advancedMounts:
           - path: /etc/gitea/app.ini
             subPath: app.ini

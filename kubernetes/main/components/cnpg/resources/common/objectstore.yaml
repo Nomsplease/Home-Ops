@@ -15,10 +15,8 @@ spec:
     endpointURL: https://s3.noms.tv
     s3Credentials:
       accessKeyId:
-        name: cloudnative-pg-secret
-        namespace: databases
+        name: ${APP}-cnpg-backup-secret
         key: aws-access-key-id
       secretAccessKey:
-        name: cloudnative-pg-secret
-        namespace: databases
+        name: ${APP}-cnpg-backup-secret
         key: aws-secret-access-key

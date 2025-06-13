@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: redis
-              tag: 7.4.1
+              tag: 8.0.2
             probes:
               liveness: &app-probes
                 enabled: true

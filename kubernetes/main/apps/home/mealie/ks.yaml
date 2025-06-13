@@ -4,30 +4,27 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app mealie
-  namespace: flux-system
+  namespace: &namespace home
 spec:
-  targetNamespace: home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: volsync
-  path: ./kubernetes/main/apps/home/mealie/app
-  prune: true
   components:
     - ../../../../components/cnpg/overlay/init
-  sourceRef:
-    kind: GitRepository
-    name: home-ops
-  wait: true
+  dependsOn:
+    - name: volsync
   interval: 30m
-  retryInterval: 1m
-  timeout: 5m
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
+  path: ./kubernetes/main/apps/home/mealie/app
   postBuild:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 10Gi
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: home-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false

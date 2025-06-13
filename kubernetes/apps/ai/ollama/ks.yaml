@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: volsync
   path: ./kubernetes/apps/ai/ollama/app
-  prune: false ##TODO: Revert to True after flux Operator migration
+  prune: true 
   sourceRef:
     kind: GitRepository
     name: flux-system

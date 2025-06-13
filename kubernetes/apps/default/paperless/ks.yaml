@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: volsync
   path: ./kubernetes/apps/default/paperless/app
-  prune: false ##TODO: Revert to True after flux Operator migration
+  prune: true 
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -45,7 +45,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/default/paperless/gotenberg
-  prune: false ##TODO: Revert to True after flux Operator migration
+  prune: true 
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -66,7 +66,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/default/paperless/redis
-  prune: false ##TODO: Revert to True after flux Operator migration
+  prune: true 
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -87,7 +87,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/default/paperless/tika
-  prune: false ##TODO: Revert to True after flux Operator migration
+  prune: true 
   sourceRef:
     kind: GitRepository
     name: flux-system

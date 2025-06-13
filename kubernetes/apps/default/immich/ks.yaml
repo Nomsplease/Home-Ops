@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: volsync
   path: ./kubernetes/apps/default/immich/app
-  prune: false ##TODO: Revert to True after flux Operator migration
+  prune: true 
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -44,7 +44,7 @@ spec:
   dependsOn:
     - name: immich
   path: ./kubernetes/apps/default/immich/frame
-  prune: false ##TODO: Revert to True after flux Operator migration
+  prune: true 
   sourceRef:
     kind: GitRepository
     name: flux-system

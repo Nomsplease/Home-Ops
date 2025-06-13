@@ -14,7 +14,7 @@ instance:
     kind: GitRepository
     url: https://github.com/Nomsplease/Home-Ops
     ref: refs/heads/main
-    path: ./kubernetes/main/flux/cluster
+    path: kubernetes/flux/cluster
     interval: 1h
   commonMetadata:
     labels:

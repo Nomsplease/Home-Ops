@@ -43,14 +43,12 @@ spec:
             resources:
               limits:
                 memory: 4G
-
     service:
       app:
         controller: gitea
         ports:
           http:
             port: *app-port
-
     ingress:
       app:
         enabled: true
@@ -62,7 +60,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-
     persistence:
       config:
         type: secret

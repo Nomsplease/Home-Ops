@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - helmrelease.yaml
   ## Templates
-  - ../../../../../shared/templates/volsync
+  - ../../../../shared/templates/volsync

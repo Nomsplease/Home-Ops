@@ -6,4 +6,4 @@ resources:
   - ingress.yaml
   - service.yaml
   ## Include Voslync Backup
-  - ../../../../../shared/templates/volsync
+  - ../../../../shared/templates/volsync

@@ -4,4 +4,4 @@ resources:
   - ./externalSecret.yaml
   # - ./helmrelease.yaml // TODO: Fix Helm deployment error. error calling include: template: app-template/charts/common/templates/lib/controller/_getByIdentifier.tpl:9:37: executing "bjw-s.common.lib.controller.getByIdentifier" at <$identifier>: wrong type for value; expected string; got int
   ## Include Voslync Backup
-  - ../../../../../shared/templates/volsync
+  - ../../../../shared/templates/volsync

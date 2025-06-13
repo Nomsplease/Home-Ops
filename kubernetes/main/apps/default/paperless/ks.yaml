@@ -16,7 +16,7 @@ spec:
   prune: false ##TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
-    name: home-ops
+    name: flux-system
   wait: true
   interval: 30m
   retryInterval: 1m
@@ -48,7 +48,7 @@ spec:
   prune: false ##TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
-    name: home-ops
+    name: flux-system
   wait: true
   interval: 30m
   retryInterval: 1m
@@ -69,7 +69,7 @@ spec:
   prune: false ##TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
-    name: home-ops
+    name: flux-system
   wait: true
   interval: 30m
   retryInterval: 1m
@@ -90,7 +90,7 @@ spec:
   prune: false ##TODO: Revert to True after flux Operator migration
   sourceRef:
     kind: GitRepository
-    name: home-ops
+    name: flux-system
   wait: true
   interval: 30m
   retryInterval: 1m

@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: requarks/wiki
-              tag: 2.5.305
+              tag: 2.5.307
             env:
               - name: TZ
                 value: America/New_York

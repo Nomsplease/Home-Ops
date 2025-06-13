@@ -37,16 +37,16 @@ metadata:
               TZ: America/New_York
               HASS_HTTP_TRUSTED_PROXY_1: 10.42.0.0/16
             probes:
-              liveness: &app-probes
+              liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   tcpSocket:
-                    port: *port
+                    port: &port 8123
                   failureThreshold: 6
                   periodSeconds: 10
-              readiness: *app-probes
-              startup: *app-probes
+              readiness: *probes
+              startup: *probes
             resources:
               limits:
                 memory: 4Gi
@@ -69,7 +69,7 @@ metadata:
         controller: *app
         ports:
           http:
-            port: &port 8123
+            port: *port
           code-server:
             port: 12321
     ingress:

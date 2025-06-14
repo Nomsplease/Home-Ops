@@ -10,3 +10,4 @@ resources:
   - ./esphome/ks.yaml
   - ./homeassistant/ks.yaml
   - ./mosquitto/ks.yaml
+  - ./node-red/ks.yaml

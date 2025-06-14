@@ -70,12 +70,12 @@ spec:
         existingClaim: *app
         advancedMounts:
           esphome:
-            app:
+            main:
               - path: /config
                 subPath: config
       tmpfs:
         type: emptyDir
         advancedMounts:
           esphome:
-            app:
+            main:
               - path: /config/.esphome/platformio

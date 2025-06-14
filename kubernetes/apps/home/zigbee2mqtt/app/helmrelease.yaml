@@ -53,7 +53,7 @@ spec:
               # DEBUG: "zigbee-herdsman*"
             envFrom:
               - secretRef:
-                  name: zigbee-secret
+                  name: zigbee2mqtt
             probes:
               liveness:
                 enabled: true

@@ -77,7 +77,7 @@ spec:
       main:
         className: "ingress-nginx"
         hosts:
-          - host: new-hass.noms.tv
+          - host: hass.noms.tv
             paths:
               - path: /
                 service:
@@ -86,7 +86,7 @@ spec:
       code-server:
         className: "ingress-nginx"
         hosts:
-          - host: new-hass-code.noms.tv
+          - host: hass-code.noms.tv
             paths:
               - path: /
                 service:

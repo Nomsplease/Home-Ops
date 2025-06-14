@@ -8,5 +8,6 @@ machine:
           - network: 0.0.0.0/0
             gateway: 172.16.0.1
         vlans:
+          - vlanId: 1001
           - vlanId: 1003
             

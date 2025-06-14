@@ -30,16 +30,16 @@ spec:
               repository: eclipse-mosquitto
               tag: 2.0.21
             probes:
-              liveness: &app-probes
+              liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &app-port 1883
+                    port: &port 1883
                   failureThreshold: 6
                   periodSeconds: 10
-              readiness: *app-probes
-              startup: *app-probes
+              readiness: *probes
+              startup: *probes
             resources:
               limits:
                 memory: 512Mi

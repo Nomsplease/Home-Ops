@@ -28,6 +28,11 @@ spec:
       namespace: volsync-system
   values:
     csi:
+      pluginTolerations:
+        - key: "GPUOnly"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
       cephFSKernelMountOptions: ms_mode=prefer-crc
       enableLiveness: true
       serviceMonitor:

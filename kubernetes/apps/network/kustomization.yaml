@@ -10,6 +10,5 @@ resources:
   - ./cloudflared/ks.yaml
   - ./ingress-nginx/ks.yaml
   - ./external-dns/ks.yaml
-  - ./external-proxy/ks.yaml
   - ./lancache/ks.yaml
   # - ./portainer/ks.yaml

@@ -1,6 +1,6 @@
 ---
 clusterName: main
-talosVersion: v1.10.3
+talosVersion: v1.10.4
 kubernetesVersion: v1.32.0
 endpoint: https://172.16.0.50:6443
 domain: cluster.local
@@ -40,13 +40,25 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915
-                  - siderolabs/intel-ucode
-                  - siderolabs/mei
-    patches:
-      - "@./patches/pre-alderlake-kernel-args.yaml"
+        extraKernelArgs: &intel-extraKernelArgs
+          - -init_on_alloc                      # Less security, faster puter
+          - -init_on_free                       # Less security, faster puter
+          - -selinux                            # Less security, faster puter
+          - apparmor=0                          # Less security, faster puter
+          # - i915.enable_guc=3                   # Meteor Lake CPU / iGPU
+          - init_on_alloc=0                     # Less security, faster puter
+          - init_on_free=0                      # Less security, faster puter
+          - intel_iommu=on                      # PCI Passthrough
+          - iommu=pt                            # PCI Passthrough
+          - mitigations=off                     # Less security, faster puter
+          - security=none                       # Less security, faster puter
+          # - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU / iGPU
+          - talos.auditd.disabled=1             # Less security, faster puter
+        systemExtensions: &intel-officialExtensions
+            officialExtensions:
+                - siderolabs/i915
+                - siderolabs/intel-ucode
+                - siderolabs/mei
     installDiskSelector:
       model: SanDisk SSD PLUS
     nodeLabels:
@@ -73,13 +85,8 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915
-                  - siderolabs/intel-ucode
-                  - siderolabs/mei
-    patches:
-      - "@./patches/pre-alderlake-kernel-args.yaml"
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: Crucial_CT960M50
     nodeLabels:
@@ -107,13 +114,8 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915
-                  - siderolabs/intel-ucode
-                  - siderolabs/mei
-    patches:
-      - "@./patches/pre-alderlake-kernel-args.yaml"
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: "Samsung SSD 850"
     nodeLabels:
@@ -142,13 +144,8 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915
-                  - siderolabs/intel-ucode
-                  - siderolabs/mei
-    patches:
-      - "@./patches/pre-alderlake-kernel-args.yaml"
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: Micron*
     nodeLabels:
@@ -176,13 +173,8 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915
-                  - siderolabs/intel-ucode
-                  - siderolabs/mei
-    patches:
-      - "@./patches/pre-alderlake-kernel-args.yaml"
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: PM991*
     nodeLabels:
@@ -210,13 +202,8 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915
-                  - siderolabs/intel-ucode
-                  - siderolabs/mei
-    patches:
-      - "@./patches/pre-alderlake-kernel-args.yaml"
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: PM991*
     nodeLabels:
@@ -244,13 +231,8 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915
-                  - siderolabs/intel-ucode
-                  - siderolabs/mei
-    patches:
-      - "@./patches/pre-alderlake-kernel-args.yaml"
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: PM991*
     nodeLabels:
@@ -279,13 +261,8 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915
-                  - siderolabs/intel-ucode
-                  - siderolabs/mei
-    patches:
-      - "@./patches/pre-alderlake-kernel-args.yaml"
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: PM991*
     nodeLabels:
@@ -313,13 +290,8 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/i915
-                  - siderolabs/intel-ucode
-                  - siderolabs/mei
-    patches:
-      - "@./patches/pre-alderlake-kernel-args.yaml"
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: PM991*
     nodeLabels:
@@ -335,7 +307,11 @@ nodes:
           interfaces:
             - enp1s0
 
-  - hostname: MW-G # GPU Worker
+######################
+## MW-BiG Nvidia Node ##
+######################
+
+  - hostname: MW-BiG
     ipAddress: "172.16.0.60"
     machineSpec:
       mode: metal
@@ -343,26 +319,39 @@ nodes:
       secureboot: false
     schematic:
       customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/qemu-guest-agent
-                  - siderolabs/nvidia-container-toolkit-lts
-                  - siderolabs/nonfree-kmod-nvidia-lts
+        extraKernelArgs:
+          - -init_on_alloc                      # Less security, faster puter
+          - -init_on_free                       # Less security, faster puter
+          - -selinux                            # Less security, faster puter
+          - apparmor=0                          # Less security, faster puter
+          # - i915.enable_guc=3                   # Meteor Lake CPU / iGPU
+          - init_on_alloc=0                     # Less security, faster puter
+          - init_on_free=0                      # Less security, faster puter
+          - amd_iommu=on                      # PCI Passthrough
+          - iommu=pt                            # PCI Passthrough
+          - mitigations=off                     # Less security, faster puter
+          - security=none                       # Less security, faster puter
+          # - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU / iGPU
+          - talos.auditd.disabled=1             # Less security, faster puter
+        systemExtensions:
+            officialExtensions:
+                - siderolabs/nvidia-container-toolkit-lts
+                - siderolabs/nonfree-kmod-nvidia-lts
     patches:
-      - "@./patches/amd-kernel-args.yaml"
       - "@./patches/nvidia-kernel-modules.yaml"
     installDiskSelector:
-      size: '< 150GB'
+      model: CT500P2SSD8
     nodeLabels:
       topology.kubernetes.io/region: main
       topology.kubernetes.io/zone: m
       node-role.kubernetes.io/storage: ""
       node-role.kubernetes.io/worker: ""
-      node-role.kubernetes.io/gpu: "nvidia"
+      node-role.kubernetes.io/nvidia-gpu: ""
+      node-role.kubernetes.io/intel-gpu: ""
     networkInterfaces:
       - interface: br0
         addresses:
           - 172.16.0.60/24
         bridge:
           interfaces:
-            - ens18
+            - enp133s0f1

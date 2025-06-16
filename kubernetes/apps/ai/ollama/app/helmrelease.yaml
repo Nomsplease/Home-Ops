@@ -46,7 +46,7 @@ spec:
               OLLAMA_HOST: 0.0.0.0
               OLLAMA_ORIGINS: "*"
               OLLAMA_LOG_LEVEL: debug
-              # OLLAMA_MODELS: &pvc /models
+              OLLAMA_MODELS: &pvc /models
               OLLAMA_LOAD_TIMEOUT: 10m
               OLLAMA_KEEP_ALIVE: -1
               # https://github.com/ollama/ollama/blob/main/docs/faq.md#how-can-i-set-the-quantization-type-for-the-kv-cache
@@ -95,7 +95,7 @@ spec:
       config:
         existingClaim: ollama
         globalMounts:
-          - path: /.ollama
+          - path: *pvc
       tmp:
         enabled: true
         type: emptyDir

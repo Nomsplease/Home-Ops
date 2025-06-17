@@ -4,7 +4,7 @@ talosVersion: v1.10.4
 kubernetesVersion: v1.33.1
 endpoint: https://172.16.0.50:6443
 domain: cluster.local
-allowSchedulingOnMasters: false
+allowSchedulingOnMasters: true
 additionalMachineCertSans:
   - 127.0.0.1
   - 172.16.0.50

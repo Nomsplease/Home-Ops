@@ -32,7 +32,7 @@ tasks:
   apps:
     desc: Bootstrap Apps
     cmds:
-      - until kubectl --kubeconfig kubeconfig wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
+      - until kubectl --kubeconfig kubeconfig wait nodes --for=condition=Ready --all --timeout=10m; do sleep 5; done
       - for: { var: CRDS }
         cmd: kubectl apply --server-side --filename {{.ITEM}}
       - for: { var: TEMPLATES }

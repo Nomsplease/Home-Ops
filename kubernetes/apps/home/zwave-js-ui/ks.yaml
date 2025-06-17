@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: volsync
-      namespace: flux-system
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/home/zwave-js-ui/app
   postBuild:

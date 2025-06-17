@@ -1,0 +1,82 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app esphome
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      *app :
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "kube-system",
+                "ips": ["172.16.3.5/24"],
+                "mac": "3e:59:e4:f7:43:09"
+              }]
+        containers:
+          main:
+            image:
+              repository: ghcr.io/esphome/esphome
+              tag: 2025.5.2
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 6052
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *probes
+              startup: *probes
+            resources:
+              limits:
+                memory: 4Gi
+    service:
+      main:
+        controller: *app
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames: ["esphome.noms.tv"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+    persistence:
+      config:
+        existingClaim: *app
+        advancedMounts:
+          esphome:
+            main:
+              - path: /config
+                subPath: config
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          esphome:
+            main:
+              - path: /config/.esphome/platformio

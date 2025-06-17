@@ -219,6 +219,7 @@ nodes:
         systemExtensions:
             officialExtensions:
                 - siderolabs/i915
+                - siderolabs/mei
                 - siderolabs/nvidia-container-toolkit-lts
                 - siderolabs/nonfree-kmod-nvidia-lts
     patches:

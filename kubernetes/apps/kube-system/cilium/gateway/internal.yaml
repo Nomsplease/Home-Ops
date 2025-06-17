@@ -10,10 +10,14 @@ metadata:
     gateway: internal
 spec:
   gatewayClassName: cilium
+  addresses:
+    - type: IPAddress
+      value: 172.16.0.71
+    - type: IPAddress
+      value: ::ffff:172.16.0.71
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      io.cilium/lb-ipam-ips: "172.16.0.71"
   listeners:
     - name: http
       protocol: HTTP

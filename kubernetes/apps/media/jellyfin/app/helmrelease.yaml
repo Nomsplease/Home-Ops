@@ -26,6 +26,9 @@ spec:
             image:
               repository: lscr.io/linuxserver/jellyfin
               tag: 10.10.7@sha256:58cf629c955968b94157e6607797bd285ad4d408d83ca2ea4bfc7dffbc2c3661
+            env:
+              PUID: "568"
+              PGID: "568"
             probes:
               liveness: &probes
                 enabled: true

@@ -6,9 +6,6 @@ metadata:
   name: node-feature-discovery
 spec:
   interval: 5m
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
   ref:
     tag: 0.17.3
   url: oci://kubernetes-sigs.github.io/node-feature-discovery/charts

@@ -11,4 +11,3 @@ resources:
   - ./ingress-nginx/ks.yaml
   - ./external-dns/ks.yaml
   - ./lancache/ks.yaml
-  # - ./portainer/ks.yaml

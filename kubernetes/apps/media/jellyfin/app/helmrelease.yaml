@@ -47,8 +47,10 @@ spec:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
                 - matchExpressions:
-                  - key: intel.feature.node.kubernetes.io/arc-gpu
-                    operator: Exists
+                  - key: gpu.intel.com/family
+                    operator: In
+                    values:
+                      - A_Series
     service:
       main:
         controller: *app

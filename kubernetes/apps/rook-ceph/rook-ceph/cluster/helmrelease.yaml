@@ -82,28 +82,28 @@ spec:
         nodes:
           - name: main-1
             devices:
-            - name: "/dev/disk/by-id/nvme-CT2000P3PSSD8_2423E8B70EA3"
+              - name: "/dev/disk/by-id/nvme-CT2000P3PSSD8_2423E8B70EA3"
           - name: main-2
             devices:
-            - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0W101854X"
+              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0W101854X"
           - name: main-3
             devices:
-            - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC09703D"
+              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC09703D"
           - name: main-4
             devices:
-            - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708742X"
+              - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708742X"
           - name: main-5
             devices:
-            - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC08560R"
+              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC08560R"
           - name: main-6
             devices:
-            - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W320254A"
+              - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W320254A"
           - name: main-big
             devices:
-            - name: "/dev/disk/by-id/nvme-CT1000P5PSSD8_22503D27B049"
-            - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0R931812B"
-            - name: "/dev/disk/by-id/nvme-WD_BLACK_SN750_SE_1TB_22014F805192"
-            - name: "/dev/disk/by-id/nvme-WD_BLACK_SN750_SE_1TB_22014F805280"
+              - name: "/dev/disk/by-id/nvme-CT1000P5PSSD8_22503D27B049"
+              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0R931812B"
+              - name: "/dev/disk/by-id/nvme-WD_BLACK_SN750_SE_1TB_22014F805192"
+              - name: "/dev/disk/by-id/nvme-WD_BLACK_SN750_SE_1TB_22014F805280"
     cephBlockPools:
       - name: ceph-blockpool
         spec:

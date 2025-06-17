@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE="ubuntu:mantic"
+IMAGE="ubuntu:latest"
 COMMAND="/bin/bash"
 SUFFIX=$(date +%s | shasum | base64 | fold -w 10 | head -1 | tr '[:upper:]' '[:lower:]')
 

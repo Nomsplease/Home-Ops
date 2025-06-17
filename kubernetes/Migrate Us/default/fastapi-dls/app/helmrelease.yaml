@@ -98,7 +98,7 @@ spec:
                 subPath: database
       certs:
         type: secret
-        name: production-tls
+        name: noms-tv-tls
         defaultMode: 0400
         advancedMounts:
           fastapi-dls:

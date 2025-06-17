@@ -7,11 +7,11 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: production-tls
+  name: noms-tv-tls
   namespace: network
   annotations:
     cert-manager.io/alt-names: '*.noms.tv,noms.tv'
-    cert-manager.io/certificate-name: production-tls
+    cert-manager.io/certificate-name: noms-tv-tls
     cert-manager.io/common-name: noms.tv
     cert-manager.io/ip-sans: ""
     cert-manager.io/issuer-group: ""

@@ -1,0 +1,233 @@
+---
+clusterName: main
+talosVersion: v1.10.4
+kubernetesVersion: v1.33.1
+endpoint: https://172.16.0.50:6443
+domain: cluster.local
+allowSchedulingOnMasters: false
+additionalMachineCertSans:
+  - 127.0.0.1
+  - 172.16.0.50
+clusterPodNets:
+  - 10.42.0.0/16
+clusterSvcNets:
+  - 10.43.0.0/16
+patches:
+  - "@./patches/cluster.yaml"
+  - "@./patches/features.yaml"
+  - "@./patches/files.yaml"
+  - "@./patches/kubelet.yaml"
+  - "@./patches/sysctls.yaml"
+  - "@./patches/networking.yaml"
+controlPlane:
+  patches:
+   - "@./patches/cluster-cp.yaml"
+   - "@./patches/features-cp.yaml"
+   - "@./patches/vip.yaml"
+nodes:
+##########
+## Main-1 ##
+##########
+
+  - hostname: Main-1
+    ipAddress: "172.16.0.51"
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs: &intel-extraKernelArgs
+          - -init_on_alloc                      # Less security, faster puter
+          - -init_on_free                       # Less security, faster puter
+          - -selinux                            # Less security, faster puter
+          - apparmor=0                          # Less security, faster puter
+          # - i915.enable_guc=3                   # Meteor Lake CPU / iGPU
+          - init_on_alloc=0                     # Less security, faster puter
+          - init_on_free=0                      # Less security, faster puter
+          - intel_iommu=on                      # PCI Passthrough
+          - iommu=pt                            # PCI Passthrough
+          - mitigations=off                     # Less security, faster puter
+          - security=none                       # Less security, faster puter
+          # - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU / iGPU
+          - talos.auditd.disabled=1             # Less security, faster puter
+        systemExtensions: &intel-officialExtensions
+            officialExtensions:
+                - siderolabs/i915
+                - siderolabs/intel-ucode
+                - siderolabs/mei
+    installDiskSelector:
+      model: Micron*
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.51/24
+        bridge:
+          interfaces:
+            - enp1s0
+
+##########
+## Main-2 ##
+##########
+
+  - hostname: Main-2
+    ipAddress: "172.16.0.52"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
+    installDiskSelector:
+      model: PM991*
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.52/24
+        bridge:
+          interfaces:
+            - enp1s0
+
+##########
+## Main-3 ##
+##########
+
+  - hostname: Main-3
+    ipAddress: "172.16.0.53"
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
+    installDiskSelector:
+      model: PM991*
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.53/24
+        bridge:
+          interfaces:
+            - enp1s0
+
+##########
+## Main-4 ##
+##########
+
+  - hostname: Main-4
+    ipAddress: "172.16.0.54"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
+    installDiskSelector:
+      model: PM991*
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.54/24
+        bridge:
+          interfaces:
+            - enp1s0
+
+
+##########
+## Main-5 ##
+##########
+
+  - hostname: Main-5
+    ipAddress: "172.16.0.55"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
+    installDiskSelector:
+      model: PM991*
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.55/24
+        bridge:
+          interfaces:
+            - enp1s0
+
+##########
+## Main-6 ##
+##########
+
+  - hostname: Main-6
+    ipAddress: "172.16.0.56"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs: *intel-extraKernelArgs
+        systemExtensions: *intel-officialExtensions
+    installDiskSelector:
+      model: PM991*
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.56/24
+        bridge:
+          interfaces:
+            - enp1s0
+
+######################
+## Main-BiG GPU Node ##
+######################
+
+  - hostname: Main-BiG
+    ipAddress: "172.16.0.57"
+    controlPlane: true
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs:
+          - -init_on_alloc                      # Less security, faster puter
+          - -init_on_free                       # Less security, faster puter
+          - -selinux                            # Less security, faster puter
+          - apparmor=0                          # Less security, faster puter
+          # - i915.enable_guc=3                   # Meteor Lake CPU / iGPU
+          - init_on_alloc=0                     # Less security, faster puter
+          - init_on_free=0                      # Less security, faster puter
+          - amd_iommu=on                      # PCI Passthrough
+          - iommu=pt                            # PCI Passthrough
+          - mitigations=off                     # Less security, faster puter
+          - security=none                       # Less security, faster puter
+          # - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU / iGPU
+          - talos.auditd.disabled=1             # Less security, faster puter
+        systemExtensions:
+            officialExtensions:
+                - siderolabs/nvidia-container-toolkit-lts
+                - siderolabs/nonfree-kmod-nvidia-lts
+    patches:
+      - "@./patches/nvidia-kernel-modules.yaml"
+    installDiskSelector:
+      model: CT500P2SSD8
+    networkInterfaces:
+      - interface: br0
+        addresses:
+          - 172.16.0.57/24
+        bridge:
+          interfaces:
+            - enp133s0f1

@@ -5,61 +5,58 @@ version: '3'
 tasks:
 
   genconfig:
-    desc: Generate cluster configurations via Talhelper [CLUSTER=main]
+    desc: Generate cluster configurations via Talhelper
     cmds:
-      - talhelper genconfig --config-file {{.CLUSTER_DIR}}/talos/talconfig.yaml --secret-file {{.CLUSTER_DIR}}/talos/talsecret.sops.yaml --out-dir {{.CLUSTER_DIR}}/talos/clusterconfig/
-      - cp {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig {{.CLUSTER_DIR}}/talosconfig
+      - talhelper genconfig --config-file talos/talconfig.yaml --secret-file talos/talsecret.sops.yaml --out-dir talos/clusterconfig/
+      - cp talos/clusterconfig/talosconfig talosconfig
 
   talos:
-    desc: Bootstrap Talos [CLUSTER=main]
+    desc: Bootstrap Talos
     cmds:
       - for: { var: TALOS_NODES }
         cmd: >
-          talhelper gencommand --config-file {{.CLUSTER_DIR}}/talos/talconfig.yaml --out-dir {{.CLUSTER_DIR}}/talos/clusterconfig/ apply --node {{.ITEM}} --extra-flags --insecure | sh
-      - until talosctl --talosconfig {{.CLUSTER_DIR}}/talosconfig --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 5; done
-      - talosctl --talosconfig {{.CLUSTER_DIR}}/talosconfig kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} {{.CLUSTER_DIR}}
+          talhelper gencommand --config-file talos/talconfig.yaml --out-dir talos/clusterconfig/ apply --node {{.ITEM}} --extra-flags --insecure | sh
+      - until talosctl --talosconfig talosconfig --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 5; done
+      - talosctl --talosconfig talosconfig kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name main "$(basename "${KUBECONFIG}")" &>/dev/null
     vars:
       TALOS_CONTROLLER:
-        sh: talosctl config info --talosconfig {{.CLUSTER_DIR}}/talosconfig --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --talosconfig talosconfig --output json | jq --raw-output '.endpoints[]' | shuf -n 1
       TALOS_NODES:
-        sh: ls {{.CLUSTER_DIR}}/talos/clusterconfig/*.yaml | sed 's|{{.CLUSTER_DIR}}/talos/clusterconfig/||; s/^{{.CLUSTER}}-//; s/\.yaml$//'
-    requires:
-      vars: [CLUSTER]
+        sh: ls talos/clusterconfig/*.yaml | sed 's|talos/clusterconfig/||; s/^{{.CLUSTER}}-//; s/\.yaml$//'
     preconditions:
-      - test -f {{.CLUSTER_DIR}}/talos/clusterconfig/talosconfig
-      - talosctl config info --talosconfig {{.CLUSTER_DIR}}/talosconfig
-      - test -f {{.CLUSTER_DIR}}/talosconfig
+      - test -f talos/clusterconfig/talosconfig
+      - talosctl config info --talosconfig talosconfig
+      - test -f talosconfig
       - which jq ls sops talosctl shuf talhelper
 
   apps:
-    desc: Bootstrap Apps [CLUSTER=main]
+    desc: Bootstrap Apps
     cmds:
-      - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
-      - helmfile --file {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
-      - until kubectl wait nodes --for=condition=Ready --all --timeout=10m; do sleep 5; done
-    requires:
-      vars: [CLUSTER]
-    preconditions:
-      - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talosconfig
-      - test -f {{.CLUSTER_DIR}}/bootstrap/apps/helmfile.yaml
-      - which helmfile kubectl
-
-  flux:
-    desc: Bootstrap Flux [CLUSTER=main]
-    cmds:
+      - until kubectl --kubeconfig kubeconfig wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
+      - for: { var: CRDS }
+        cmd: kubectl apply --server-side --filename {{.ITEM}}
       - for: { var: TEMPLATES }
-        cmd: op run --env-file {{.CLUSTER_DIR}}/bootstrap/bootstrap.env --no-masking -- minijinja-cli {{.ITEM}} | kubectl apply --server-side --filename -
-      - kubectl apply --server-side --kustomize {{.CLUSTER_DIR}}/flux/config
+        cmd: op run --env-file bootstrap/bootstrap.env --no-masking -- minijinja-cli {{.ITEM}} | kubectl apply --server-side --filename -
+      - helmfile --file bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+      - until kubectl --kubeconfig kubeconfig wait nodes --for=condition=Ready --all --timeout=10m; do sleep 5; done
     vars:
+      CRDS:
+        - https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/tags/v0.17.0/config/crd/standard/dnsendpoint.yaml
+        - https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.83.0/stripped-down-crds.yaml
       TEMPLATES:
-        sh: ls {{.CLUSTER_DIR}}/bootstrap/apps/*.j2
+        sh: ls bootstrap/apps/*.j2
     env:
       VAULT: '{{if eq .CLUSTER "main"}}kubernetes{{else}}{{.CLUSTER}}{{end}}' # ¯\_(ツ)_/¯
       FLUX_GITHUB_PUBLIC_KEYS:
         sh: curl -fsSL https://api.github.com/meta | jq --raw-output '"github.com "+.ssh_keys[]'
-    requires:
-      vars: [CLUSTER]
     preconditions:
       - op user get --me
-      - which curl flux jq kubectl ls op
+      - talosctl --talosconfig talosconfig config info
+      - test -f talosconfig
+      - test -f kubeconfig
+      - test -f bootstrap/apps/helmfile.yaml
+      - which helmfile kubectl curl flux jq ls op
+
+  flux:
+    desc: Bootstrap Flux
+      - kubectl apply --server-side --kustomize flux/config

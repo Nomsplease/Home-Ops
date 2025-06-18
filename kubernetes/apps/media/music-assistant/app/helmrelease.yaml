@@ -42,8 +42,7 @@ spec:
                 enabled: true
                 custom: true
                 spec:
-                  httpGet:
-                    path: /health
+                  tcpSocket:
                     port: &port 8095
                   initialDelaySeconds: 0
                   periodSeconds: 10

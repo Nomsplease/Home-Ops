@@ -11,5 +11,5 @@ resources:
   # Flux-Kustomizations
   - ./cloudflare-ddns/ks.yaml
   - ./cloudflare-tunnel/ks.yaml
-  - ./external-dns/ks.yaml
+  - ./unifi-dns/ks.yaml
   - ./lancache/ks.yaml

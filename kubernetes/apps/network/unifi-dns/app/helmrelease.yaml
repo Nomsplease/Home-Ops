@@ -1,30 +1,37 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: unifi-dns
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 1.17.0
+  url: oci://ghcr.io/home-operations/charts-mirror/external-dns
+---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app external-dns-unifi
+  name: &app unifi-dns
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: external-dns
-      version: 1.16.1
-      sourceRef:
-        kind: HelmRepository
-        name: external-dns
-        namespace: flux-system
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: unifi-dns
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
   values:
     fullnameOverride: *app
-    # logLevel: debug
     provider:
       name: webhook
       webhook:
@@ -34,18 +41,11 @@ spec:
         env:
           - name: UNIFI_HOST
             value: https://172.16.0.1
-          - name: UNIFI_USER
+          - name: UNIFI_API_KEY
             valueFrom:
               secretKeyRef:
-                name: &secret external-dns-unifi-secret
-                key: EXTERNAL_DNS_UNIFI_USER
-          - name: UNIFI_PASS
-            valueFrom:
-              secretKeyRef:
-                name: *secret
-                key: EXTERNAL_DNS_UNIFI_PASS
-          # - name: LOG_LEVEL
-          #   value: "debug"
+                name: &secret unifi-dns
+                key: UNIFI_API_KEY
         livenessProbe:
           httpGet:
             path: /healthz
@@ -58,8 +58,6 @@ spec:
             port: http-webhook
           initialDelaySeconds: 10
           timeoutSeconds: 5
-    extraArgs:
-      - --ignore-ingress-tls-spec
     triggerLoopOnEvent: true
     policy: sync
     sources: ["gateway-httproute", "service"]

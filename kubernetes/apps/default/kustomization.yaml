@@ -10,10 +10,10 @@ resources:
   # - ./actual-budget/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
-  # - ./komodo/ks.yaml
-  # - ./linkwarden/ks.yaml
-  # - ./lubelogger/ks.yaml
-  # - ./mealie/ks.yaml
+  - ./komodo/ks.yaml
+  - ./linkwarden/ks.yaml
+  - ./lubelogger/ks.yaml
+  - ./mealie/ks.yaml
   # - ./old-homeassistant/ks.yaml
   # - ./paperless/ks.yaml
   # - ./spoolman/ks.yaml

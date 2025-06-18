@@ -77,10 +77,3 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /var/lib/pgadmin
-      backups:
-        type: nfs
-        server: 172.16.1.10
-        path: /mnt/BigPool/Backups/Kubernetes
-        advancedMounts:
-          - path: /var/lib/pgadmin/storage/
-            subPath: PGAdmin

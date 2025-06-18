@@ -76,7 +76,3 @@ server:
         - name: internal
           namespace: kube-system
           sectionName: https
-      rules:
-        - backendRefs:
-            - name: immich-server
-              port: *port

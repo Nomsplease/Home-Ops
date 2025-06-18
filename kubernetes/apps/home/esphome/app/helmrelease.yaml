@@ -25,7 +25,7 @@ spec:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
-                "name":"multus-iot",
+                "name":"iot",
                 "namespace": "kube-system",
                 "ips": ["172.16.3.5/24"],
                 "mac": "3e:59:e4:f7:43:09"

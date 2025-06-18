@@ -7,15 +7,15 @@ components:
   - ../../components/common
 resources:
   - ./namespace.yaml
-  # - ./actual-budget/ks.yaml
+  # - ./actual-budget/ks.yaml ##TODO: Fix Me
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
   - ./komodo/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
   - ./mealie/ks.yaml
-  # - ./old-homeassistant/ks.yaml
-  # - ./paperless/ks.yaml
-  # - ./spoolman/ks.yaml
-  # - ./tasmoadmin/ks.yaml
-  # - ./wikijs/ks.yaml
+  # - ./old-homeassistant/ks.yaml ##TODO: Fix Me
+  # - ./paperless/ks.yaml ##TODO: Fix Me
+  # - ./spoolman/ks.yaml ##TODO: Fix Me
+  # - ./tasmoadmin/ks.yaml ##TODO: Fix Me
+  # - ./wikijs/ks.yaml ##TODO: Fix Me

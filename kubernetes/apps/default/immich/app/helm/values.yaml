@@ -68,11 +68,3 @@ server:
     limits:
       gpu.intel.com/i915: 1000m
       memory: 8Gi
-  route:
-    main:
-      enabled: true
-      hostnames: ["photos.noms.tv"]
-      parentRefs:
-        - name: internal
-          namespace: kube-system
-          sectionName: https

@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./httproute.yaml
 configMapGenerator:
   - name: immich-values
     files:

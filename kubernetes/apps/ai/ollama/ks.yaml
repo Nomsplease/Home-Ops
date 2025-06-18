@@ -4,30 +4,28 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app ollama
-  namespace: flux-system
+  namespace: &namespace ai
 spec:
-  targetNamespace: ai
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../components/volsync
+    - ../../../../components/volsync
   dependsOn:
     - name: volsync
-  path: ./kubernetes/apps/ai/ollama/app
-  prune: true 
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  wait: true
+      namespace: volsync-system
   interval: 30m
-  retryInterval: 1m
-  timeout: 5m
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
+  path: ./kubernetes/apps/home/zwave-js-ui/app
   postBuild:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 100Gi
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false

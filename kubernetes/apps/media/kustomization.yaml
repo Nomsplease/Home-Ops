@@ -8,3 +8,4 @@ components:
 resources:
   - ./namespace.yaml
   - ./jellyfin/ks.yaml
+  - ./music-assistant/ks.yaml

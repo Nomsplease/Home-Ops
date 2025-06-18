@@ -4,41 +4,22 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app multus
-  namespace: flux-system
+  namespace: &namespace kube-system
 spec:
-  targetNamespace: kube-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  interval: 30m
   path: ./kubernetes/apps/kube-system/multus/app
-  prune: false # never should be deleted
+  postBuild:
+    substitute:
+      APP: *app
+  prune: true 
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: *namespace
   timeout: 5m
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app multus-config
-  namespace: flux-system
-spec:
-  targetNamespace: kube-system
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  dependsOn:
-    - name: multus
-  path: ./kubernetes/apps/kube-system/multus/config
-  prune: false # never should be deleted
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  wait: false

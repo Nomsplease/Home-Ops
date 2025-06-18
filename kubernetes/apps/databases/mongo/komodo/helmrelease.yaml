@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app mongo-komodo
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      *app :
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: mongo
+              tag: 8.0.10@sha256:98028cf281bb5d49ace5e1ddbd4509e8f1382fe80ef1cf101eeefdc106d76cd4
+            envFrom:
+              - secretRef:
+                  name: *app
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 27017
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 2Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      main:
+        controller: *app
+        ports:
+          http:
+            port: *port
+    persistence:
+      config:
+        existingClaim: *app
+        advancedMounts:
+          mongo-komodo:
+            app:
+              - path: /data/db
+                subPath: db
+              - path: /data/configdb
+                subPath: configdb

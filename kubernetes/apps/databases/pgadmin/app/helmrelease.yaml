@@ -1,0 +1,85 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app pgadmin
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      *app :
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: dpage/pgadmin4
+              tag: 9.4.0@sha256:6b1c0db09695758c72abcd5160b7c4cc6d0847ab0c90a2403bdbf951f0defb5a
+            envFrom:
+              - secretRef:
+                  name: *app
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 80
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      main:
+        controller: *app
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames: ["pgadmin.noms.tv"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+    persistence:
+      config:
+        existingClaim: *app
+        globalMounts:
+          - path: /var/lib/pgadmin
+      backups:
+        type: nfs
+        server: 172.16.1.10
+        path: /mnt/BigPool/Backups/Kubernetes/PGAdmin
+        globalMounts:
+          - path: /var/lib/pgadmin/storage/

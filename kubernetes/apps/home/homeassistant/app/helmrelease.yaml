@@ -101,8 +101,8 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
-                port: code-server
+              - name: code-server
+                port: 12321
     persistence:
       config:
         existingClaim: *app

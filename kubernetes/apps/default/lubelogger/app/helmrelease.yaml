@@ -72,19 +72,7 @@ spec:
         advancedMounts:
           lubelogger:
             app:
-              - path: /App/config
-                subPath: config
               - path: /App/data
                 subPath: data
-              - path: /App/wwwroot/translations
-                subPath: translations
-              - path: /App/wwwroot/documents
-                subPath: documents
-              - path: /App/wwwroot/images
-                subPath: images
-              - path: /App/wwwroot/temp
-                subPath: temp
-              - path: /App/log
-                subPath: log
               - path: /root/.aspnet/DataProtection-Keys
                 subPath: DataProtectionKeys

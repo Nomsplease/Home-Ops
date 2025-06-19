@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app huntarr
+  name: &app readarr
 spec:
   interval: 30m
   chartRef:
@@ -24,7 +24,7 @@ spec:
         containers:
           main:
             image:
-              repository: lscr.io/linuxserver/readarr:develop
+              repository: lscr.io/linuxserver/readarr
               tag: develop-version-0.4.17.2801@sha256:f3978bd06611493011137d82ebdd5e49b3ebb17ad921dbd05017d40b7f2000e3
             probes:
               liveness: &probes

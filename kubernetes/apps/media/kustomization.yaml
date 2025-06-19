@@ -9,3 +9,4 @@ resources:
   - ./namespace.yaml
   - ./jellyfin/ks.yaml
   - ./music-assistant/ks.yaml
+  - ./plex/ks.yaml

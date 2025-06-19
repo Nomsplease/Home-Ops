@@ -24,15 +24,27 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/linuxserver/prowlarr
-              tag: version-1.37.0.5076@sha256:b058be8a4e083e0cba238f03759994617a559abe0c89e5ed66454b44395da6a9
+              repository: ghcr.io/home-operations/prowlarr
+              tag: 1.37.0.5076@sha256:aab0bfd4e96bdca19cca280a2bbf8ac60b9251dcae13459856b724a2dd3ae020
+            env:
+              TZ: America/New_York
+              PROWLARR__AUTHENTICATION_METHOD: External
+              PROWLARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              PROWLARR__INSTANCE_NAME: Prowlarr
+              PROWLARR__PORT: &port 80
+              PROWLARR__LOG_LEVEL: info
+              PROWLARR__THEME: dark
+            envFrom:
+              - secretRef:
+                  name: prowlarr
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
-                  tcpSocket:
-                    port: &port 9696
+                  httpGet:
+                    path: /ping
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -42,7 +54,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 512Mi
+                memory: 1Gi
     service:
       main:
         controller: *app

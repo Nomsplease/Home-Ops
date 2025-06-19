@@ -21,15 +21,6 @@ spec:
       *app :
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"net",
-                "namespace": "kube-system",
-                "ips": ["172.16.1.49/24"],
-                "mac": "3e:59:e4:e7:44:09"
-              }]
         containers:
           main:
             image:
@@ -63,6 +54,14 @@ spec:
                     operator: In
                     values:
                       - A_Series
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"net",
+                "namespace": "kube-system",
+                "ips": ["172.16.1.49/24"],
+                "mac": "3e:59:e4:e7:44:09"
+              }]
     service:
       main:
         controller: *app

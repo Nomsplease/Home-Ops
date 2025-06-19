@@ -24,11 +24,8 @@ spec:
         containers:
           main:
             image:
-              repository: lscr.io/linuxserver/jellyfin
-              tag: 10.10.7@sha256:58cf629c955968b94157e6607797bd285ad4d408d83ca2ea4bfc7dffbc2c3661
-            env:
-              DOCKER_MODS: linuxserver/mods:jellyfin-opencl-intel-25.13.33276.16
-              TZ: America/New_York
+              repository: ghcr.io/jellyfin/jellyfin
+              tag: 10.10.7@sha256:e4d1dc5374344446a3a78e43dd211247f22afba84ea2e5a13cbe1a94e1ff2141
             probes:
               liveness: &probes
                 enabled: true
@@ -72,6 +69,10 @@ spec:
               - name: *app
                 port: *port
     persistence:
+      cache:
+        existingClaim: jellyfin-cache
+        globalMounts:
+          - path: /cache
       config:
         existingClaim: *app
         globalMounts:

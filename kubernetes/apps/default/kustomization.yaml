@@ -10,7 +10,6 @@ resources:
   # - ./actual-budget/ks.yaml ##TODO: Fix Me
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
-  - ./komodo/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
   - ./mealie/ks.yaml

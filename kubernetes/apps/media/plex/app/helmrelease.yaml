@@ -85,7 +85,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: *app
+              - identifier: main
                 port: *port
             filters:
               - type: RequestHeaderModifier
@@ -96,7 +96,7 @@ spec:
                   type: PathPrefix
                   value: /library/streams
           - backendRefs:
-              - identifier: *app
+              - identifier: main
                 port: *port
     persistence:
       config:

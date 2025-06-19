@@ -81,7 +81,7 @@ spec:
         server: 172.16.1.10
         path: /mnt/BigPool/Media
         globalMounts:
-          - path: /media
+          - path: /data
       tmpfs:
         type: emptyDir
         globalMounts:

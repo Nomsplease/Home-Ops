@@ -24,22 +24,28 @@ spec:
         containers:
           main:
             image:
-              repository: plexinc/pms-docker
-              tag: 1.41.8.9834-071366d65@sha256:3ec0e4ea00cb2d964da92a5b3dd06e882e0a91d38f9a326fb54b8f229a3a6e89
+              repository: ghcr.io/home-operations/plex
+              tag: 1.41.8.9834@sha256:40e620ffcdc65331a0c2a7ed9a95700da7d527244f33c21bd35fc30aa25f19ea
             env:
               TZ: America/New_York
-              ALLOWED_NETWORKS: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+              PLEX_ADVERTISE_URL: https://plex.noms.tv:443,http://192.168.42.128:32400
+              PLEX_NO_AUTH_NETWORKS: 172.16.0.0/12
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
-                  tcpSocket:
+                  httpGet:
+                    path: /identity
                     port: &port 32400
                   failureThreshold: 6
                   periodSeconds: 10
               readiness: *probes
               startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               limits:
                 memory: 16Gi
@@ -54,17 +60,19 @@ spec:
                     operator: In
                     values:
                       - A_Series
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"net",
-                "namespace": "kube-system",
-                "ips": ["172.16.1.49/24"],
-                "mac": "3e:59:e4:e7:44:09"
-              }]
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [44]
     service:
       main:
-        controller: *app
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 172.16.1.72, ::ffff:172.16.1.72
         ports:
           http:
             port: *port
@@ -77,7 +85,18 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
+              - identifier: *app
+                port: *port
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  remove: ["Range"]
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /library/streams
+          - backendRefs:
+              - identifier: *app
                 port: *port
     persistence:
       config:

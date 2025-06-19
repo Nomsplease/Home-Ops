@@ -14,3 +14,4 @@ resources:
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
+  - ./watchstate/ks.yaml

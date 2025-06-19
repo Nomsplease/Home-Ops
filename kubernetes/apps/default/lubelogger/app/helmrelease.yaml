@@ -70,8 +70,8 @@ spec:
       config:
         existingClaim: *app
         advancedMounts:
-          lubelogger:
-            app:
+          *app :
+            main:
               - path: /App/data
                 subPath: data
               - path: /root/.aspnet/DataProtection-Keys

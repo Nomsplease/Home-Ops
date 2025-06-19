@@ -11,4 +11,5 @@ resources:
   - ./jellyfin/ks.yaml
   - ./music-assistant/ks.yaml
   - ./plex/ks.yaml
+  - ./prowlarr/ks.yaml
   - ./readarr/ks.yaml

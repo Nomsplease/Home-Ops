@@ -12,4 +12,5 @@ resources:
   - ./music-assistant/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
+  - ./radarr/ks.yaml
   - ./readarr/ks.yaml

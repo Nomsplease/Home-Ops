@@ -66,17 +66,28 @@ spec:
             port: *port
           websocket:
             port: 3000
-    route:
-      app:
-        hostnames: ["zwave.noms.tv"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - name: *app
-                port: *port
+    ingress:
+      *app :
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: zwave.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http
+    # route:
+    #   app:
+    #     hostnames: ["zwave.noms.tv"]
+    #     parentRefs:
+    #       - name: internal
+    #         namespace: kube-system
+    #         sectionName: https
+    #     rules:
+    #       - backendRefs:
+    #           - name: *app
+    #             port: *port
     persistence:
       config:
         existingClaim: *app

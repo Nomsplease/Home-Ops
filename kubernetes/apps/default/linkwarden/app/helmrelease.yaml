@@ -64,14 +64,25 @@ spec:
         ports:
           http:
             port: *port
-    route:
-      app:
-        hostnames: ["bookmarks.noms.tv"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - name: *app
-                port: *port
+    ingress:
+      *app :
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: bookmarks.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http
+    # route:
+    #   app:
+    #     hostnames: ["bookmarks.noms.tv"]
+    #     parentRefs:
+    #       - name: internal
+    #         namespace: kube-system
+    #         sectionName: https
+    #     rules:
+    #       - backendRefs:
+    #           - name: *app
+    #             port: *port

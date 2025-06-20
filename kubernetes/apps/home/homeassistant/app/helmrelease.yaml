@@ -82,27 +82,38 @@ spec:
             port: *port
           code-server:
             port: 12321
-    route:
-      app:
-        hostnames: ["hass.noms.tv"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - name: *app
-                port: *port
-      code:
-        hostnames: ["hass.noms.tv"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - name: code-server
-                port: 12321
+    ingress:
+      *app :
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: hass.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http
+    # route:
+    #   app:
+    #     hostnames: ["hass.noms.tv"]
+    #     parentRefs:
+    #       - name: internal
+    #         namespace: kube-system
+    #         sectionName: https
+    #     rules:
+    #       - backendRefs:
+    #           - name: *app
+    #             port: *port
+    #   code:
+    #     hostnames: ["hass.noms.tv"]
+    #     parentRefs:
+    #       - name: internal
+    #         namespace: kube-system
+    #         sectionName: https
+    #     rules:
+    #       - backendRefs:
+    #           - name: code-server
+    #             port: 12321
     persistence:
       config:
         existingClaim: *app

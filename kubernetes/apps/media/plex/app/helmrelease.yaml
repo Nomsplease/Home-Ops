@@ -76,28 +76,39 @@ spec:
         ports:
           http:
             port: *port
-    route:
-      app:
-        hostnames: ["plex.noms.tv"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: main
-                port: *port
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier:
-                  remove: ["Range"]
-            matches:
-              - path:
-                  type: PathPrefix
-                  value: /library/streams
-          - backendRefs:
-              - identifier: main
-                port: *port
+    ingress:
+      *app :
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: plex.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http
+    # route:
+    #   app:
+    #     hostnames: ["plex.noms.tv"]
+    #     parentRefs:
+    #       - name: internal
+    #         namespace: kube-system
+    #         sectionName: https
+    #     rules:
+    #       - backendRefs:
+    #           - identifier: main
+    #             port: *port
+    #         filters:
+    #           - type: RequestHeaderModifier
+    #             requestHeaderModifier:
+    #               remove: ["Range"]
+    #         matches:
+    #           - path:
+    #               type: PathPrefix
+    #               value: /library/streams
+    #       - backendRefs:
+    #           - identifier: main
+    #             port: *port
     persistence:
       config:
         existingClaim: *app

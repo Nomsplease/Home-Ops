@@ -64,6 +64,17 @@ redis:
       enabled: true
       size: 8Gi
 server:
+  ingress:
+    main:
+      enabled: true
+      className: "ingress-nginx"
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      hosts:
+        - host: photos.noms.tv
+          paths:
+            - path: /
+              pathType: Prefix
   resources:
     limits:
       gpu.intel.com/i915: 1000m

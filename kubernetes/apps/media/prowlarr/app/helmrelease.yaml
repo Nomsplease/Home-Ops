@@ -28,17 +28,17 @@ spec:
               tag: 2.0.0.5094@sha256:5b890c19bf39a1ca3d889d2b8a6f6a9f1bfa2f63ad51d700f64fd2bd11eec089
             env:
               TZ: America/New_York
-              PROWLARR__AUTHENTICATION_METHOD: External
-              PROWLARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              PROWLARR__INSTANCE_NAME: Prowlarr
+              PROWLARR__AUTHENTICATION__METHOD: External
+              PROWLARR__AUTHENTICATION__REQUIRED: DisabledForLocalAddresses
+              PROWLARR__INSTANCENAME: Prowlarr
               PROWLARR__PORT: &port 9696
-              PROWLARR__LOG_LEVEL: info
+              PROWLARR__LOG__LEVEL: info
+              PROWLARR__LOG__DBENABLED: 'false'
               PROWLARR__THEME: dark
               PROWLARR__UPDATE__BRANCH: develop
-
             envFrom:
               - secretRef:
-                  name: prowlarr
+                  name: *app
             probes:
               liveness: &probes
                 enabled: true

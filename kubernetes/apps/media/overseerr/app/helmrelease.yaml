@@ -47,18 +47,18 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-    #         securityContext:
-    #           allowPrivilegeEscalation: false
-    #           readOnlyRootFilesystem: true
-    #           capabilities: { drop: ["ALL"] }
-    # defaultPodOptions:
-    #   securityContext:
-    #     runAsNonRoot: true
-    #     runAsUser: 1000
-    #     runAsGroup: 1000
-    #     fsGroup: 1000
-    #     fsGroupChangePolicy: OnRootMismatch
-    #     seccompProfile: { type: RuntimeDefault }
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       main:
         controller: *app
@@ -90,5 +90,7 @@ spec:
     persistence:
       config:
         existingClaim: *app
+        globalMounts:
+          - path: /app/config
       tmp:
         type: emptyDir

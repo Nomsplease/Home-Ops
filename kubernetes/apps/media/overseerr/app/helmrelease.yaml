@@ -24,7 +24,7 @@ spec:
         containers:
           main:
             image:
-              repository: sctx/overseerr:latest
+              repository: sctx/overseerr
               tag: develop@sha256:2ac9936db6918b55f6a6dd952b3049a95ad65acc2cb423117df185ac0009516b
             env:
               LOG_LEVEL: debug
@@ -47,6 +47,18 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       main:
         controller: *app

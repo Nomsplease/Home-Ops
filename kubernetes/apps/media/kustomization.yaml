@@ -10,6 +10,7 @@ resources:
   - ./huntarr/ks.yaml
   - ./jellyfin/ks.yaml
   - ./music-assistant/ks.yaml
+  - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml

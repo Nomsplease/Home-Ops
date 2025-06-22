@@ -32,7 +32,7 @@ spec:
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &port 13378
+                    port: &port 80
                   failureThreshold: 6
                   periodSeconds: 10
               readiness: *probes

@@ -78,7 +78,7 @@ spec:
                 subPath: config
               - path: /metadata
                 subPath: metadata
-      media:
+      data:
         type: nfs
         server: 172.16.1.10
         path: /mnt/BigPool/Media

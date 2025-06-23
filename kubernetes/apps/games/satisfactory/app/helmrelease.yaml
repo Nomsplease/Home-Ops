@@ -43,7 +43,7 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               limits:
@@ -55,7 +55,6 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [44]
     service:
       main:
         type: LoadBalancer
@@ -70,7 +69,3 @@ spec:
     persistence:
       config:
         existingClaim: *app
-      steam:
-        type: emptyDir
-        globalMounts:
-          - path: /home/steam

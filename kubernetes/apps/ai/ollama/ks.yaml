@@ -15,7 +15,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 30m
-  path: ./kubernetes/apps/home/zwave-js-ui/app
+  path: ./kubernetes/apps/ai/ollama/app
   postBuild:
     substitute:
       APP: *app

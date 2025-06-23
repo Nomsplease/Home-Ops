@@ -70,3 +70,7 @@ spec:
     persistence:
       config:
         existingClaim: *app
+      steam:
+        type: emptyDir
+        globalMounts:
+          - path: /home/steam

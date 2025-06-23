@@ -1,0 +1,72 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app satisfactory
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      *app :
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: wolveix/satisfactory-server
+              tag: v1.9.9@sha256:464d11e36e10a2399bd2faaf1057a0825ac62a71ebdb6ee7e8a449584116945c
+            env:
+              AUTOSAVENUM: "10"
+              MAXPLAYERS: "10"
+              ROOTLESS: "true"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 7777
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              limits:
+                memory: 8Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [44]
+    service:
+      main:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 172.16.1.73, ::ffff:172.16.1.73
+        ports:
+          tcp:
+            port: *port
+          udp:
+            port: *port
+            protocol: UDP
+    persistence:
+      config:
+        existingClaim: *app

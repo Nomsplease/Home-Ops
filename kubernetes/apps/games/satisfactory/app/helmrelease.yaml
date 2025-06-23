@@ -59,7 +59,7 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 172.16.1.73, ::ffff:172.16.1.73
+          lbipam.cilium.io/ips: 172.16.1.73
         ports:
           tcp:
             port: *port

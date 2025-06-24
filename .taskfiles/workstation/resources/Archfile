@@ -1,3 +1,4 @@
+## Arch Repo
 age
 cloudflared
 go-task
@@ -15,3 +16,13 @@ moreutils
 sops
 stern
 yq
+
+## AUR Packages
+kube-ps1
+kubecolor
+minijinja-cli-bin
+talosctl-bin
+talhelper
+viddy
+1password
+1password-cli

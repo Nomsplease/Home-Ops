@@ -56,6 +56,17 @@ spec:
                 cpu: 10m
               limits:
                 memory: 8Gi
+            securityContext:
+              allowPrivilegeEscalation: true
+              readOnlyRootFilesystem: false
+              # capabilities: { drop: ["ALL"] }
+    # defaultPodOptions:
+    #   securityContext:
+    #     runAsNonRoot: true
+    #     runAsUser: 568
+    #     runAsGroup: 568
+    #     fsGroup: 568
+    #     fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         controller: *app

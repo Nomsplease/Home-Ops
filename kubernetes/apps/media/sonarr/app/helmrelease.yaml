@@ -58,15 +58,15 @@ spec:
                 memory: 8Gi
             securityContext:
               allowPrivilegeEscalation: true
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               # capabilities: { drop: ["ALL"] }
-    # defaultPodOptions:
-    #   securityContext:
-    #     runAsNonRoot: true
-    #     runAsUser: 568
-    #     runAsGroup: 568
-    #     fsGroup: 568
-    #     fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        # fsGroup: 568
+        # fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         controller: *app

@@ -63,17 +63,28 @@ spec:
         ports:
           http:
             port: *port
-    route:
-      app:
-        hostnames: ["photo-frame.noms.tv"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - name: *app
-                port: *port
+    ingress:
+      *app :
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: photo-frame.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http
+    # route:
+    #   app:
+    #     hostnames: ["photo-frame.noms.tv"]
+    #     parentRefs:
+    #       - name: internal
+    #         namespace: kube-system
+    #         sectionName: https
+    #     rules:
+    #       - backendRefs:
+    #           - name: *app
+    #             port: *port
     persistence:
       config:
         existingClaim: *app

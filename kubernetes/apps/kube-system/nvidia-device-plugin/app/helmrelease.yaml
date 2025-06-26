@@ -24,9 +24,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: nvidia-device-plugin-gfd
-      namespace: kube-system
   values:
     runtimeClassName: nvidia
     nodeSelector:

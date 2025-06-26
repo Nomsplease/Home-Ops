@@ -105,3 +105,4 @@ spec:
         medium: Memory
         globalMounts:
           - path: /tmp
+          - path: /.ollama

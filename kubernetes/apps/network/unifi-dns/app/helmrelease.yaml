@@ -60,7 +60,7 @@ spec:
           timeoutSeconds: 5
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["ingress", "gateway-httproute", "service"]
+    sources: ["ingress", "service"]
     txtOwnerId: main
     txtPrefix: k8s.main.
     domainFilters: ["noms.tv"]

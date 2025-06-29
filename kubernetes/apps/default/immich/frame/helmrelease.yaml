@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immichframe/immichframe
-              tag: v1.0.27.1@sha256:ffa5ccacb9a653f498417613ca32ccc33399edf238b90951cb5d3e690659164b
+              tag: v1.0.27.2@sha256:466ec1e148fe45e38ca069b7e7fa1c3340bc6f97697d83c9adc58f9b60fdc868
             envFrom:
               - secretRef:
                   name: immich-frame

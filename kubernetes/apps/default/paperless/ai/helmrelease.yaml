@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: clusterzx/paperless-ai
-              tag: 3.0.4
+              tag: 3.0.7
             probes:
               liveness: &app-probes
                 enabled: true

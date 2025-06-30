@@ -26,8 +26,6 @@ spec:
             image:
               repository: bellamy/wallos
               tag: 3.3.0@sha256:9dd49af3c8839e561aa458411d90074f8d9da434bdd65a8a13657d5d19229f73
-            env:
-              TZ: America/New_York
             probes:
               liveness: &probes
                 enabled: true
@@ -45,10 +43,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -56,12 +50,6 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-    service:
-      main:
-        controller: *app
-        ports:
-          http:
-            port: *port
     ingress:
       *app :
         enabled: true
@@ -73,6 +61,12 @@ spec:
                 service:
                   identifier: main
                   port: http
+    service:
+      main:
+        controller: *app
+        ports:
+          http:
+            port: *port
     # route:
     #   app:
     #     hostnames: ["mealie.noms.tv"]
@@ -88,7 +82,9 @@ spec:
       config:
         existingClaim: *app
         advancedMounts:
-          - path: /db
-            subPath: db
-          - path: /logos
-            subPath: logos
+          *app :
+            main:
+              - path: /db
+                subPath: db
+              - path: /logos
+                subPath: logos

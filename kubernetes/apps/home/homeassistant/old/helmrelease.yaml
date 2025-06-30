@@ -60,7 +60,10 @@ spec:
         ports:
           http:
             port: *port
-          code-server:
+      code-server:
+        controller: *app
+        ports:
+          http:
             port: 12321
     ingress:
       *app :
@@ -78,7 +81,7 @@ spec:
               - path: /
                 service:
                   identifier: code-server
-                  port: code-server
+                  port: http
     persistence:
       config:
         existingClaim: *app

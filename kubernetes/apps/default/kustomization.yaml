@@ -13,8 +13,8 @@ resources:
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
   - ./mealie/ks.yaml
-  # - ./old-homeassistant/ks.yaml ##TODO: Fix Me
   # - ./paperless/ks.yaml ##TODO: Fix Me
   # - ./spoolman/ks.yaml ##TODO: Fix Me
   # - ./tasmoadmin/ks.yaml ##TODO: Fix Me
+  - ./wallos/ks.yaml
   # - ./wikijs/ks.yaml ##TODO: Fix Me

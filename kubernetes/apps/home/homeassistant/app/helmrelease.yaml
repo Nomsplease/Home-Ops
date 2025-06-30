@@ -139,6 +139,8 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
+          - path: /media
+            subPath: media
       config-cache:
         existingClaim: home-assistant-cache
         globalMounts:

@@ -62,6 +62,17 @@ spec:
               "--port", "12321",
               "/config"
             ]
+            probes:
+              liveness: &code-probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &code-port 12321
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *code-probes
+              startup: *code-probes
             resources:
               limits:
                 memory: 512Mi
@@ -80,8 +91,11 @@ spec:
         ports:
           http:
             port: *port
-          code-server:
-            port: 12321
+      code-server:
+        controller: *app
+        ports:
+          http:
+            port: *code-port
     ingress:
       *app :
         enabled: true
@@ -92,6 +106,12 @@ spec:
               - path: /
                 service:
                   identifier: main
+                  port: http
+          - host: hass-code.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: code-server
                   port: http
     # route:
     #   app:

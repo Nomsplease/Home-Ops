@@ -76,21 +76,21 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
-      downloads:
+      complete:
         type: nfs
         server: 172.16.1.10
         path: /mnt/BigPool/Downloads
         globalMounts:
-          - path: /BigPoolDownloads
+          - path: /Downloads/Complete
       media:
         type: nfs
         server: 172.16.1.10
         path: /mnt/BigPool/Media
         globalMounts:
           - path: /PlexMedia
-      scratch-downloads:
+      incomplete:
         type: nfs
         server: 172.16.1.10
         path: /mnt/Scratch/Downloads
         globalMounts:
-          - path: /ScratchDownloads
+          - path: /Downloads/Incomplete

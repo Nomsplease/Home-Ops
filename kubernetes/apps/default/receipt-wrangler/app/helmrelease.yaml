@@ -57,7 +57,7 @@ spec:
                 spec:
                   exec:
                     command:
-                      - redis-cli ping || exit 1
+                      - /usr/local/bin/redis-cli ping || exit 1
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1

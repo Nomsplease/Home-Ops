@@ -46,13 +46,10 @@ spec:
                 cpu: 10m
               limits:
                 memory: 2Gi
-          valkey:
+          redis:
             image:
-              repository: valkey/valkey
-              tag: 8.1.2@sha256:fec42f399876eb6faf9e008570597741c87ff7662a54185593e74b09ce83d177
-            envFrom:
-              - secretRef:
-                  name: *app
+              repository: redis
+              tag: 8.0.2@sha256:b43d2dcbbdb1f9e1582e3a0f37e53bf79038522ccffb56a25858969d7a9b6c11
             probes:
               liveness: &probes
                 enabled: true
@@ -77,7 +74,7 @@ spec:
         ports:
           http:
             port: *port
-      valkey:
+      redis:
         controller: *app
         ports:
           http:

@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: ghcr.io/hargata/lubelogger
-              tag: v1.4.7@sha256:15d6c2495d3325b77fac4106939ca215d3d94588168e09ad53790cee85d1fd83
+              tag: v1.4.8@sha256:435d8db68ec0dcb1f17a67a14c3684c4739d0775ca95c2ce633b7c509486374c
             envFrom:
               - secretRef:
                   name: lubelogger

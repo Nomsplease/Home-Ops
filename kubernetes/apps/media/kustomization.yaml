@@ -17,4 +17,5 @@ resources:
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml
   - ./sonarr/ks.yaml
+  - ./tautulli/ks.yaml
   - ./watchstate/ks.yaml

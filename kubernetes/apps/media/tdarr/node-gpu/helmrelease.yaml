@@ -36,17 +36,6 @@ spec:
               serverPort: 8266
               inContainer: 'true'
               ffmpegVersion: 7
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  tcpSocket:
-                    port: &port 8267
-                  failureThreshold: 6
-                  periodSeconds: 10
-              readiness: *probes
-              startup: *probes
             resources:
               limits:
                 memory: 16Gi

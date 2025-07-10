@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app tdarr-node-gpu
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      *app :
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/haveagitgat/tdarr_node:latest
+              tag: 2.45.01@sha256:7e98e8b97350101bda7af1673e473edd65915f10a0c5ae040487dec220a870c8
+            env:
+              TZ: America/New_York
+              PUID: 568
+              PGID: 568
+              UMASK_SET: 002
+              nodeName: *app
+              serverIP: 172.16.1.10
+              serverPort: 8266
+              inContainer: 'true'
+              ffmpegVersion: 7
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 8268
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *probes
+              startup: *probes
+            resources:
+              limits:
+                memory: 16Gi
+                gpu.intel.com/i915: 1000m
+        pod:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: gpu.intel.com/family
+                    operator: In
+                    values:
+                      - A_Series
+    service:
+      main:
+        controller: *app
+        ports:
+          http:
+            port: *port
+    persistence:
+      config:
+        existingClaim: *app
+        globalMounts:
+          - path: /app/configs
+            subPath: config
+          - path: /app/logs
+            subPath: logs
+      media:
+        type: nfs
+        server: 172.16.1.10
+        path: /mnt/BigPool/Media
+        globalMounts:
+          - path: /media
+      temp:
+        type: nfs
+        server: 172.16.1.10
+        path: /mnt/Scratch/Tdarr
+        globalMounts:
+          - path: /temp
+            subPath: *app

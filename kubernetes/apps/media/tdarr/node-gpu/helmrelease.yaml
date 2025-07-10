@@ -42,7 +42,7 @@ spec:
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &port 8268
+                    port: &port 8267
                   failureThreshold: 6
                   periodSeconds: 10
               readiness: *probes

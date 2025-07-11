@@ -21,9 +21,6 @@ spec:
       *app :
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          annotations:
-            lbipam.cilium.io/ips: 172.16.3.70
         containers:
           main:
             image:
@@ -45,9 +42,11 @@ spec:
                 memory: 512Mi
     service:
       main:
-        controller: *app
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 172.16.3.70, ::ffff:172.16.3.70
         ports:
-          http:
+          mqtt:
             port: *port
     persistence:
       config:

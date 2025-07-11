@@ -44,7 +44,7 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 172.16.3.70, ::ffff:172.16.3.70
+          lbipam.cilium.io/ips: 172.16.1.74, ::ffff:172.16.1.74
         ports:
           mqtt:
             port: *port

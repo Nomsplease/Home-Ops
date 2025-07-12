@@ -33,7 +33,6 @@ spec:
               "--speaker", "0",
               "--voice", "en_US-lessac-medium",
               "--max-piper-procs", "1",
-              "--update-voices",
               "--debug"
             ]
             probes:

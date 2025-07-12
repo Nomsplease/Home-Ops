@@ -32,7 +32,7 @@ spec:
               - --data-dir /data
               - --download-dir /data
               - --device cpu
-              - --model auto
+              - --model tiny-int8
               - --language en
               - --beam-size 0
               - --debug

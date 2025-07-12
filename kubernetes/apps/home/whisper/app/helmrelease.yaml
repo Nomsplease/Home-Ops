@@ -27,7 +27,10 @@ spec:
               repository: rhasspy/wyoming-whisper
               tag: 2.5.0@sha256:0d78ad506e450fb113616650b7328233385905e2f2ed07fa59221012144500e3
             args:
+              - python3 -m wyoming_faster_whisper
+              - --uri 'tcp://0.0.0.0:10300'
               - --data-dir /data
+              - --download-dir /data
               - --device cpu
               - --model auto
               - --language en

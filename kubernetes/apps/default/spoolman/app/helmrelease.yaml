@@ -34,6 +34,12 @@ spec:
             image:
               repository: ghcr.io/donkie/spoolman
               tag: 0.22.1@sha256:238ea5bfb2eeda4436c39f54e73df5fef4ee904fb7c291617588b856786fe0ef
+            command: ["uvicorn"]
+            args: [
+              "spoolman.main:app",
+              "--host", "0.0.0.0",
+              "--port", "80"
+            ]
             env:
               TZ: America/New_York
               SPOOLMAN_PORT: "80"

@@ -3,58 +3,60 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: spoolman
+  name: &app spoolman
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.5.1
-      interval: 30m
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
   values:
     controllers:
-      spoolman:
+      *app :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app:
+          main:
             image:
               repository: ghcr.io/donkie/spoolman
-              tag: 0.22.1
+              tag: 0.22.1@sha256:238ea5bfb2eeda4436c39f54e73df5fef4ee904fb7c291617588b856786fe0ef
             env:
-              - name: TZ
-                value: America/New_York
-              - name: SPOOLMAN_PORT
-                value: "8000"
+              TZ: America/New_York
+              SPOOLMAN_PORT: "80"
             probes:
-              liveness: &app-probes
+              liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &app-port 8000
-                  failureThreshold: 6
+                    port: &port 80
+                  initialDelaySeconds: 0
                   periodSeconds: 10
-              readiness: *app-probes
-              startup: *app-probes
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 47m
-                memory: 1Gi
+                cpu: 10m
               limits:
-                memory: 2Gi
+                memory: 512Mi
     service:
-      app:
-        controller: spoolman
+      main:
+        controller: *app
         ports:
           http:
-            port: *app-port
+            port: *port
     ingress:
-      app:
+      *app :
         enabled: true
         className: "ingress-nginx"
         hosts:
@@ -62,10 +64,10 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: main
                   port: http
     persistence:
       config:
-        existingClaim: spoolman
+        existingClaim: *app
         globalMounts:
           - path: /home/app/.local/share/spoolman

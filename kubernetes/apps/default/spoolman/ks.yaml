@@ -9,15 +9,17 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
   dependsOn:
     - name: volsync
-      namespace: flux-system
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/default/spoolman/app
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 1Gi
+      VOLSYNC_CAPACITY: 5Gi
   prune: true 
   retryInterval: 1m
   sourceRef:

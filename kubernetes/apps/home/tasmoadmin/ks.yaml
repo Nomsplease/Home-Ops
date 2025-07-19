@@ -15,7 +15,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 30m
-  path: ./kubernetes/apps/default/tasmoadmin/app
+  path: ./kubernetes/apps/home/tasmoadmin/app
   postBuild:
     substitute:
       APP: *app

@@ -50,12 +50,6 @@ spec:
                     operator: In
                     values:
                       - A_Series
-    service:
-      main:
-        controller: *app
-        ports:
-          http:
-            port: *port
     persistence:
       config:
         existingClaim: *app

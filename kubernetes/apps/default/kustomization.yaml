@@ -8,6 +8,7 @@ components:
 resources:
   - ./namespace.yaml
   # - ./actual-budget/ks.yaml ##TODO: Fix Me
+  - ./gitea/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
   - ./linkwarden/ks.yaml

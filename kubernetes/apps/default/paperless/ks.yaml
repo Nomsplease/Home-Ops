@@ -94,11 +94,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
   dependsOn:
     - name: volsync
-      namespace: flux-system
-  interval: 30m
+      namespace: volsync-system
   path: ./kubernetes/apps/default/paperless/redis
+  interval: 30m
   postBuild:
     substitute:
       APP: *app

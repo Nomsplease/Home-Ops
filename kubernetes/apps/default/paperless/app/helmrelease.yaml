@@ -18,41 +18,41 @@ spec:
       retries: 3
   values:
     controllers:
-      paperless:
+      *app :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app:
+          main:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 2.16.3
             envFrom:
               - secretRef:
-                  name: "${APP}"
+                  name: *app
             probes:
-              liveness: &app-probes
+              liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &app-port 8000
+                    port: &port 8000
                   failureThreshold: 6
                   periodSeconds: 10
-              readiness: *app-probes
-              startup: *app-probes
+              readiness: *probes
+              startup: *probes
             resources:
               limits:
                 memory: 1Gi
 
     service:
-      app:
+      main:
         controller: *app
         ports:
           http:
-            port: *app-port
+            port: *port
 
     ingress:
-      app:
+      main:
         enabled: true
         className: "ingress-nginx"
         hosts:
@@ -60,20 +60,18 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: main
                   port: http
 
     persistence:
       config:
-        existingClaim: "${APP}"
-        advancedMounts:
-          paperless:
-            app:
-              - path: /usr/src/paperless/data
-                subPath: data
-              - path: /usr/src/paperless/media
-                subPath: media
-              - path: /usr/src/paperless/export
-                subPath: export
-              - path: /usr/src/paperless/consume
-                subPath: consume
+        existingClaim: *app
+        globalMounts:
+          - path: /usr/src/paperless/data
+            subPath: data
+          - path: /usr/src/paperless/media
+            subPath: media
+          - path: /usr/src/paperless/export
+            subPath: export
+          - path: /usr/src/paperless/consume
+            subPath: consume

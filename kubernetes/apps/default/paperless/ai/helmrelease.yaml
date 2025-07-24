@@ -18,36 +18,36 @@ spec:
       retries: 3
   values:
     controllers:
-      main:
+      *app :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app:
+          main:
             image:
               repository: clusterzx/paperless-ai
               tag: 3.0.7
             probes:
-              liveness: &app-probes
+              liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &app-port 3000
+                    port: &port 3000
                   failureThreshold: 6
                   periodSeconds: 10
-              readiness: *app-probes
-              startup: *app-probes
+              readiness: *probes
+              startup: *probes
             resources:
               limits:
                 memory: 1Gi
     service:
-      app:
-        controller: main
+      main:
+        controller: *app
         ports:
           http:
-            port: *app-port
+            port: *port
     ingress:
-      app:
+      main:
         enabled: true
         className: "ingress-nginx"
         hosts:
@@ -55,5 +55,5 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: main
                   port: http

@@ -18,11 +18,11 @@ spec:
       retries: 3
   values:
     controllers:
-      paperless-gotenberg:
+      *app :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app:
+          main:
             image:
               repository: gotenberg/gotenberg
               tag: 8.21.1
@@ -31,23 +31,23 @@ spec:
               - --chromium-disable-javascript=true
               - --chromium-allow-list=file:///tmp/.*
             probes:
-              liveness: &app-probes
+              liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &app-port 3000
+                    port: &port 3000
                   failureThreshold: 6
                   periodSeconds: 10
-              readiness: *app-probes
-              startup: *app-probes
+              readiness: *probes
+              startup: *probes
             resources:
               limits:
                 memory: 1Gi
 
     service:
-      app:
+      main:
         controller: *app
         ports:
           http:
-            port: *app-port
+            port: *port

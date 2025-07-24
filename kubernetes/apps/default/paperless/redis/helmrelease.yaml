@@ -18,38 +18,34 @@ spec:
       retries: 3
   values:
     controllers:
-      paperless-redis:
-        annotations:
-          reloader.stakater.com/auto: "true"
+      *app :
         containers:
-          app:
+          main:
             image:
               repository: redis
               tag: 8.0.3
             probes:
-              liveness: &app-probes
+              liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &app-port 6379
+                    port: &port 6379
                   failureThreshold: 6
                   periodSeconds: 10
-              readiness: *app-probes
-              startup: *app-probes
+              readiness: *probes
+              startup: *probes
             resources:
               limits:
                 memory: 1Gi
-
     service:
       app:
         controller: *app
         ports:
           http:
-            port: *app-port
-
+            port: *port
     persistence:
       config:
-        existingClaim: "${APP}"
+        existingClaim: *app
         globalMounts:
           - path: /data

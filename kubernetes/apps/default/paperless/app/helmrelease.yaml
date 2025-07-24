@@ -29,20 +29,20 @@ spec:
             envFrom:
               - secretRef:
                   name: *app
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  tcpSocket:
-                    port: &port 8000
-                  failureThreshold: 6
-                  periodSeconds: 10
-              readiness: *probes
-              startup: *probes
+            # probes:
+            #   liveness: &probes
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       tcpSocket:
+            #         port: &port 8000
+            #       failureThreshold: 6
+            #       periodSeconds: 10
+            #   readiness: *probes
+            #   startup: *probes
             resources:
               limits:
-                memory: 1Gi
+                memory: 4Gi
 
     service:
       main:

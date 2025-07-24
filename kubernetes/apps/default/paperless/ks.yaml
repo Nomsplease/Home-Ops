@@ -9,9 +9,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
   dependsOn:
     - name: volsync
-      namespace: flux-system
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/default/paperless/ai
   postBuild:
@@ -40,9 +42,10 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/cnpg/overlay/init
+    - ../../../../components/volsync
   dependsOn:
     - name: volsync
-      namespace: flux-system
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/default/paperless/app
   postBuild:

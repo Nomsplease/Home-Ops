@@ -73,6 +73,8 @@ spec:
           udp:
             port: *port
             protocol: UDP
+          messaging:
+            port: 8888
     persistence:
       config:
         existingClaim: *app

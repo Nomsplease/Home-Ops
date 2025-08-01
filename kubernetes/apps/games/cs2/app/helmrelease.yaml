@@ -47,10 +47,6 @@ spec:
                     port: *port
                   failureThreshold: 30
                   periodSeconds: 10
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
             resources:
               limits:
                 memory: 4Gi
@@ -72,7 +68,7 @@ spec:
           udp:
             port: *port
             protocol: UDP
-          messaging:
+          tv:
             port: 27020
             protocol: UDP
     persistence:

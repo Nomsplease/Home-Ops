@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/helmrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: appflowy
+spec:
+  interval: 5m
+  url: https://khorshuheng.github.io/appflowy-self-host-resources
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app appflowy
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: appflowy
+      version: 0.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: appflowy
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: Secret
+      name: appflowy-values

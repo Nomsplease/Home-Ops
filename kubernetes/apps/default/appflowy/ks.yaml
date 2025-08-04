@@ -18,12 +18,14 @@ spec:
   patches:
     - patch: |-
         apiVersion: postgresql.cnpg.io/v1
-        kind: Database
+        kind: Cluster
         metadata:
           name: patch
         spec:
-          extensions:
-          - name: vector
+          bootstrap:
+            initdb:
+            postInitApplicationSQL:
+              - CREATE EXTENSION IF NOT EXISTS "vector";
   path: ./kubernetes/apps/default/appflowy/app
   postBuild:
     substitute:

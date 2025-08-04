@@ -15,6 +15,15 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 30m
+  patches:
+    - patch: |-
+        apiVersion: postgresql.cnpg.io/v1
+        kind: Cluster
+        metadata:
+          name: patch
+        spec:
+          extensions:
+          - name: vector
   path: ./kubernetes/apps/default/appflowy/app
   postBuild:
     substitute:

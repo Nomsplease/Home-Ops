@@ -83,9 +83,9 @@ spec:
         enabled: true
         className: "ingress-nginx"
         hosts:
-          - host: appflowy-minio.noms.tv
+          - host: board.noms.tv
             paths:
-              - path: /
+              - path: /minio
                 service:
                   identifier: main
                   port: http

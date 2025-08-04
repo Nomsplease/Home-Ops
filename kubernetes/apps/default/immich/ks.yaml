@@ -23,8 +23,9 @@ spec:
         metadata:
           name: patch
         spec:
-          extensions:
-          - name: vector
+          postgresql:
+            shared_preload_libraries:
+              - "vchord.so"
       target:
         kind: Cluster
   path: ./kubernetes/apps/default/immich/app

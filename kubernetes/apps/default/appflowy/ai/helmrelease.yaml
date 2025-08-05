@@ -26,14 +26,9 @@ spec:
             image:
               repository: appflowyinc/appflowy_ai
               tag: 0.6.16@sha256:f492173854f2f465f98ced925c0212ad70a9976f4b7474da94ef421838b50769
-            env:
-              OPENAI_API_KEY: "${AI_OPENAI_API_KEY}"
-              APPFLOWY_AI_SERVER_PORT: "${AI_SERVER_PORT}"
-              APPFLOWY_AI_DATABASE_URL: "${AI_DATABASE_URL}"
-              APPFLOWY_AI_REDIS_URL: "${AI_REDIS_URL}"
             envFrom:
               - secretRef:
-                  name: appflowy
+                  name: appflowy-ai
             probes:
               liveness: &probes
                 enabled: true

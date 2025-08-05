@@ -32,7 +32,7 @@ spec:
               APPFLOWY_GOTRUE_JWT_EXP=${GOTRUE_JWT_EXP}
             envFrom:
               - secretRef:
-                  name: appflowy
+                  name: *app
             probes:
               liveness: &probes
                 enabled: true

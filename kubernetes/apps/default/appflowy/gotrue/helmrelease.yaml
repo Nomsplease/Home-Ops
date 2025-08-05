@@ -26,9 +26,6 @@ spec:
             image:
               repository: appflowyinc/gotrue
               tag: 0.9.64@sha256:b6616aa6e0f93c7c8081f17a00018d06da6dae952efcfd23f3ca6444b4b19954
-            env:
-              DATABASE_URL: "${GOTRUE_DATABASE_URL}"
-              PORT: &port 9999
             envFrom:
               - secretRef:
                   name: *app
@@ -38,7 +35,7 @@ spec:
                 custom: true
                 spec:
                   tcpSocket:
-                    port: *port
+                    port: &port 9999
                   initialDelaySeconds: 30
                   periodSeconds: 30
                   timeoutSeconds: 10

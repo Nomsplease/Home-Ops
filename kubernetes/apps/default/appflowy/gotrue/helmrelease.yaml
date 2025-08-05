@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app appflowy-minio
+  name: &app appflowy-gotrue
 spec:
   interval: 30m
   chartRef:
@@ -24,20 +24,21 @@ spec:
         containers:
           main:
             image:
-              repository: minio/minio
-              tag: RELEASE.2025-07-23T15-54-02Z@sha256:d249d1fb6966de4d8ad26c04754b545205ff15a62e4fd19ebd0f26fa5baacbc0
+              repository: appflowyinc/gotrue
+              tag: 0.9.64@sha256:b6616aa6e0f93c7c8081f17a00018d06da6dae952efcfd23f3ca6444b4b19954
+            env:
+              DATABASE_URL: "${GOTRUE_DATABASE_URL}"
+              PORT: &port 9999
             envFrom:
               - secretRef:
-                  name: appflowy
-            args: ["server", "/data", "--console-address", ":9001"]
+                  name: *app
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
-                  httpGet:
-                    path: /minio/health/live
-                    port: &port 9000
+                  tcpSocket:
+                    port: *port
                   initialDelaySeconds: 30
                   periodSeconds: 30
                   timeoutSeconds: 10
@@ -51,7 +52,7 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                memory: 2Gi
+                memory: 1Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -66,37 +67,17 @@ spec:
         controller: *app
         ports:
           http:
-            port: 9001
-          s3:
             port: *port
-    serviceMonitor:
-      app:
-        serviceName: minio
-        endpoints:
-          - port: s3
-            scheme: http
-            path: /minio/v2/metrics/cluster
-            interval: 1m
-            scrapeTimeout: 10s
     ingress:
       *app :
         enabled: true
         className: "ingress-nginx"
+        annotations:
+          nginx.ingress.kubernetes.io/rewrite-target: /$2
         hosts:
           - host: board.noms.tv
             paths:
-              - path: /minio
+              - path: /gotrue(/|$)(.*)
                 service:
                   identifier: main
                   port: http
-          - host: board.noms.tv
-            paths:
-              - path: /minio-api
-                service:
-                  identifier: main
-                  port: s3
-    persistence:
-      config:
-        existingClaim: *app
-        globalMounts:
-          - path: /data

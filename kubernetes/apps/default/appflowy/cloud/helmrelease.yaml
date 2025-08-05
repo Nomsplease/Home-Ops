@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app appflowy-minio
+  name: &app appflowy-cloud
 spec:
   interval: 30m
   chartRef:
@@ -24,20 +24,22 @@ spec:
         containers:
           main:
             image:
-              repository: minio/minio
-              tag: RELEASE.2025-07-23T15-54-02Z@sha256:d249d1fb6966de4d8ad26c04754b545205ff15a62e4fd19ebd0f26fa5baacbc0
+              repository: appflowyinc/appflowy_cloud
+              tag: 0.9.64@sha256:d6ba6df1d8dc43336f24e6bb24d58e9077be29477214e45ff9cafcbec2aec1b5
+            env:
+              APPFLOWY_ENVIRONMENT: "production"
+              APPFLOWY_GOTRUE_JWT_SECRET=${GOTRUE_JWT_SECRET}
+              APPFLOWY_GOTRUE_JWT_EXP=${GOTRUE_JWT_EXP}
             envFrom:
               - secretRef:
                   name: appflowy
-            args: ["server", "/data", "--console-address", ":9001"]
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
-                  httpGet:
-                    path: /minio/health/live
-                    port: &port 9000
+                  tcpSocket:
+                    port: &port 8000
                   initialDelaySeconds: 30
                   periodSeconds: 30
                   timeoutSeconds: 10
@@ -66,37 +68,21 @@ spec:
         controller: *app
         ports:
           http:
-            port: 9001
-          s3:
             port: *port
-    serviceMonitor:
-      app:
-        serviceName: minio
-        endpoints:
-          - port: s3
-            scheme: http
-            path: /minio/v2/metrics/cluster
-            interval: 1m
-            scrapeTimeout: 10s
     ingress:
       *app :
         enabled: true
         className: "ingress-nginx"
+        annotations:
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
         hosts:
           - host: board.noms.tv
             paths:
-              - path: /minio
+              - path: /api
                 service:
                   identifier: main
                   port: http
-          - host: board.noms.tv
-            paths:
-              - path: /minio-api
+              - path: /ws
                 service:
                   identifier: main
-                  port: s3
-    persistence:
-      config:
-        existingClaim: *app
-        globalMounts:
-          - path: /data
+                  port: http

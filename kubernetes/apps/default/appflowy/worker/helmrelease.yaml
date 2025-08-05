@@ -28,7 +28,7 @@ spec:
               tag: 0.9.64@sha256:1b42e517d7f52c8d2a2393fb4ba34f0fd897842bf184d77ea564bd37b2098fd1
             envFrom:
               - secretRef:
-                  name: appflowy-worker
+                  name: *app
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

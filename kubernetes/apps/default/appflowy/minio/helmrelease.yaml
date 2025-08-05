@@ -28,7 +28,7 @@ spec:
               tag: RELEASE.2025-07-23T15-54-02Z@sha256:d249d1fb6966de4d8ad26c04754b545205ff15a62e4fd19ebd0f26fa5baacbc0
             envFrom:
               - secretRef:
-                  name: appflowy
+                  name: *app
             args: ["server", "/data", "--console-address", ":9001"]
             probes:
               liveness: &probes

@@ -47,9 +47,3 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [10000]
         seccompProfile: { type: RuntimeDefault }
-    service:
-      main:
-        controller: *app
-        ports:
-          http:
-            port: *port

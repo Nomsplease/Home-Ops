@@ -28,7 +28,7 @@ spec:
               tag: 0.9.64@sha256:7ce31fd818121e3b625be0464028af6a5e2a04b71455922fc3fe2c09f6280d14
             envFrom:
               - secretRef:
-                  name: appflowy
+                  name: *app
             probes:
               liveness: &probes
                 enabled: true

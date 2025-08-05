@@ -26,23 +26,9 @@ spec:
             image:
               repository: appflowyinc/appflowy_worker
               tag: 0.9.64@sha256:1b42e517d7f52c8d2a2393fb4ba34f0fd897842bf184d77ea564bd37b2098fd1
-            env:
-              APPFLOWY_ENVIRONMENT: "production"
             envFrom:
               - secretRef:
-                  name: appflowy
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  tcpSocket:
-                    port: &port 5001
-                  initialDelaySeconds: 30
-                  periodSeconds: 30
-                  timeoutSeconds: 10
-                  failureThreshold: 6
-              readiness: *probes
+                  name: appflowy-worker
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

@@ -30,7 +30,7 @@ spec:
               TZ: America/New_York
             envFrom:
               - secretRef:
-                  name: linkwarden
+                  name: *app
             probes:
               liveness: &probes
                 enabled: true

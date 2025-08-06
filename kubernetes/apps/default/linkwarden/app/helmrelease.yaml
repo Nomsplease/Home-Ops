@@ -51,13 +51,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         controller: *app
@@ -86,3 +79,9 @@ spec:
     #       - backendRefs:
     #           - name: *app
     #             port: *port
+    persistence:
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /data/data
+            subPath: data

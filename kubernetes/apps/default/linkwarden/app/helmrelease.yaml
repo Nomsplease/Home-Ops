@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: ghcr.io/linkwarden/linkwarden
-              tag: v2.8.4@sha256:8a8e6323508f97ddaa863281b9ff52949fc153eea1ec07cb84539436371caf28
+              tag: v2.11.5@sha256:4d0d1261f6cefcd5752708f357b3aa355da3432fb4a023672890c8707217f914
             env:
               TZ: America/New_York
             envFrom:

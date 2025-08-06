@@ -52,3 +52,14 @@ spec:
         ports:
           http:
             port: *port
+    ingress:
+      *app :
+        enabled: true
+        className: "ingress-nginx"
+        hosts:
+          - host: board.noms.tv
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http

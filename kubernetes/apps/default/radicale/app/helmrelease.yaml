@@ -72,5 +72,11 @@ spec:
         globalMounts:
           - path: /etc/radicale/config
             subPath: config
+      users:
+        type: secret
+        name: *app
+        globalMounts:
+          - path: /etc/radicale/users
+            subPath: users
       data:
         existingClaim: *app

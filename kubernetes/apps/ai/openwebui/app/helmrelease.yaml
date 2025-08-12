@@ -28,6 +28,9 @@ spec:
               tag: main@sha256:fc0419167d8fde32ea71848006ed437fda2d906888cad1c4efba38c3de6f2c9b
             env:
               OLLAMA_BASE_URL: "http://ollama:11434"
+            envFrom:
+              - secretRef:
+                  name: *app
             probes:
               liveness: &probes
                 enabled: true

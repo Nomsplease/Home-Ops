@@ -66,10 +66,11 @@ spec:
                   identifier: main
                   port: http
     persistence:
+      config:
+        type: secret
+        name: *app
+        globalMounts:
+          - path: /etc/radicale/config
+            subPath: config
       data:
         existingClaim: *app
-        globalMounts:
-          - path: /etc/radicale
-            subPath: config
-          - path: /var/lib/radicale
-            subPath: data

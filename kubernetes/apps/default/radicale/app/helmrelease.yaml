@@ -28,9 +28,9 @@ spec:
               tag: 3.5.4@sha256:0880b199606527f5a77f30d4d692932f9b48e710942bafd481c29afa364b5ae4
             env:
               TZ: America/New_York
-            envFrom:
-              - secretRef:
-                  name: *app
+            # envFrom:
+            #   - secretRef:
+            #       name: *app
             probes:
               liveness: &probes
                 enabled: true

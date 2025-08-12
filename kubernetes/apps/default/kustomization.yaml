@@ -16,6 +16,7 @@ resources:
   - ./lubelogger/ks.yaml
   - ./mealie/ks.yaml
   - ./paperless/ks.yaml
+  - ./radicale/ks.yaml
   - ./spoolman/ks.yaml
   - ./wallos/ks.yaml
   # - ./wikijs/ks.yaml ##TODO: Fix Me

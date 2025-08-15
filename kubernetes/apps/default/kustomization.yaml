@@ -7,7 +7,7 @@ components:
   - ../../components/common
 resources:
   - ./namespace.yaml
-  # - ./actual-budget/ks.yaml ##TODO: Fix Me
+  - ./actual-budget/ks.yaml
   - ./appflowy/ks.yaml
   - ./gitea/ks.yaml
   - ./homepage/ks.yaml

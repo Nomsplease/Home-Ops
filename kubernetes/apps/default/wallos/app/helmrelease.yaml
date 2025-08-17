@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: bellamy/wallos
-              tag: 3.3.1@sha256:2c871147f779386c37ce884298539e6f50b53ba34086b96a2b7aa240cb1b5d61
+              tag: 4.1.1@sha256:a1de777eb1d4863f7c8790bfa2e01a11760d0a1db067c135c5a581d27522e75c
             probes:
               liveness: &probes
                 enabled: true

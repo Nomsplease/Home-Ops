@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: appflowyinc/gotrue
-              tag: 0.9.64@sha256:b6616aa6e0f93c7c8081f17a00018d06da6dae952efcfd23f3ca6444b4b19954
+              tag: 0.9.92@sha256:7c508d388bc78920437ae8937d3319adf75a9749767f8ef813dbbdbdd59a3f22
             envFrom:
               - secretRef:
                   name: *app

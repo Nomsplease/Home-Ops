@@ -8,6 +8,6 @@ components:
 resources:
   - ./namespace.yaml
   - ./ollama/ks.yaml
-  - ./openwebui/ks.yaml
+  # - ./openwebui/ks.yaml
   
   

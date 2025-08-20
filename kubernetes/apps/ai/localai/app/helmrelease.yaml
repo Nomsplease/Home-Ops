@@ -49,12 +49,6 @@ spec:
                 nvidia.com/gpu: 1
     defaultPodOptions:
       runtimeClassName: "nvidia"
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         controller: *app

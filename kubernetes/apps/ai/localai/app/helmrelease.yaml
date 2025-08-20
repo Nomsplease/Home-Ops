@@ -77,8 +77,13 @@ spec:
                   identifier: main
                   port: http
     persistence:
-      models:
+      data:
         existingClaim: *app
+        globalMounts:
+          - path: /backends
+            subPath: backends
+          - path: /models
+            subPath: models
       tmp:
         enabled: true
         type: emptyDir

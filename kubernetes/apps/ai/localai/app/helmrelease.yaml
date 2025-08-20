@@ -77,10 +77,8 @@ spec:
                   identifier: main
                   port: http
     persistence:
-      config:
+      models:
         existingClaim: *app
-        globalMounts:
-          - path: /build/models
       tmp:
         enabled: true
         type: emptyDir

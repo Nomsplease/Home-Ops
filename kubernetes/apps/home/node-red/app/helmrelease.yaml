@@ -33,7 +33,7 @@ spec:
           main:
             image:
               repository: nodered/node-red
-              tag: 4.0.9-22
+              tag: 4.1.0-22
             probes:
               liveness: &probes
                 enabled: true

@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: dpage/pgadmin4
-              tag: 9.4.0@sha256:6b1c0db09695758c72abcd5160b7c4cc6d0847ab0c90a2403bdbf951f0defb5a # Do not use 9.5 until https://github.com/pgadmin-org/pgadmin4/issues/8914 is fixed
+              tag: 9.7.0@sha256:5929bac24d91b5d7219686c8d66a703cd5851a498620bca4f5e4263873b015c0 # Do not use 9.5 until https://github.com/pgadmin-org/pgadmin4/issues/8914 is fixed
             envFrom:
               - secretRef:
                   name: *app

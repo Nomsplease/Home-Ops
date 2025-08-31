@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: gitea/act_runner
-              tag: 0.2.12@sha256:62a561c82dd67ec77ea600db7eac78ac5fed8e2244950fbf1829c54da12e8e54
+              tag: 0.2.13@sha256:8477d5b61b655caad4449888bae39f1f34bebd27db56cb15a62dccb3dcf3a944
             command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- run.sh"]
             env:
               DOCKER_HOST: tcp://localhost:2376
@@ -86,7 +86,7 @@ spec:
           main:
             image:
               repository: gitea/act_runner
-              tag: 0.2.12@sha256:62a561c82dd67ec77ea600db7eac78ac5fed8e2244950fbf1829c54da12e8e54
+              tag: 0.2.13@sha256:8477d5b61b655caad4449888bae39f1f34bebd27db56cb15a62dccb3dcf3a944
             command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- run.sh"]
             env:
               DOCKER_HOST: tcp://localhost:2376
@@ -147,7 +147,7 @@ spec:
           main:
             image:
               repository: gitea/act_runner
-              tag: 0.2.12@sha256:62a561c82dd67ec77ea600db7eac78ac5fed8e2244950fbf1829c54da12e8e54
+              tag: 0.2.13@sha256:8477d5b61b655caad4449888bae39f1f34bebd27db56cb15a62dccb3dcf3a944
             command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- run.sh"]
             env:
               DOCKER_HOST: tcp://localhost:2376

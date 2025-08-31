@@ -25,7 +25,7 @@ env:
   TZ: America/New_York
 image:
   # renovate: datasource=github-releases depName=immich-app/immich
-  tag: v1.135.3
+  tag: v1.140.1
 immich:
   metrics:
     enabled: false

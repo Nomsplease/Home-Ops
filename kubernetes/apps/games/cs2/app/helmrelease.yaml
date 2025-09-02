@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: cm2network/cs2
-              tag: latest@sha256:94255fa9a585f48b22cb5f3b47cc92b11e90b616b9639fc3329b291290620edb
+              tag: latest@sha256:9bc00820405ff02356f9413f0bd90ba9562387e6edb4b295f25f2b5879a876bb
             envFrom:
               - secretRef:
                   name: *app

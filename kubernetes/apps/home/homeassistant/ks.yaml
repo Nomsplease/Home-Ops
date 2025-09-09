@@ -10,7 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/cnpg/overlay/restore
     - ../../../../components/volsync
   dependsOn:
     - name: volsync
@@ -22,7 +21,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      CNPG_CAPACITY: 10Gi
       VOLSYNC_CAPACITY: 20Gi
   prune: true 
   retryInterval: 1m

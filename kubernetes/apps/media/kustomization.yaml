@@ -8,6 +8,7 @@ components:
 resources:
   - ./namespace.yaml
   - ./audiobookshelf/ks.yaml
+  - ./bazarr/ks.yaml
   - ./huntarr/ks.yaml
   - ./jellyfin/ks.yaml
   - ./music-assistant/ks.yaml

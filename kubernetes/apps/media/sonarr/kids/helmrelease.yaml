@@ -73,28 +73,14 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        enabled: true
-        className: "ingress-nginx"
-        hosts:
-          - host: sonarr-kids.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-    # route:
-    #   app:
-    #     hostnames: ["sonarr.noms.tv"]
-    #     parentRefs:
-    #       - name: internal
-    #         namespace: kube-system
-    #         sectionName: https
-    #     rules:
-    #       - backendRefs:
-    #           - name: *app
-    #             port: *port
+        hostnames:
+          - "{{ .Release.Name }}.noms.tv"
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

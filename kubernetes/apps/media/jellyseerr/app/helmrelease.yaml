@@ -70,7 +70,7 @@ spec:
         enabled: true
         className: "ingress-nginx"
         hosts:
-          - host: jellyseerr.noms.tv
+          - host: request.noms.tv
             paths:
               - path: /
                 service:

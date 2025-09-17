@@ -102,3 +102,5 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
+      tmp:
+        type: emptyDir

@@ -3,12 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app sonarr
+  name: sonarr
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: sonarr
   install:
     remediation:
       retries: -1
@@ -18,33 +18,34 @@ spec:
       retries: 3
   values:
     controllers:
-      *app :
+      sonarr:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/home-operations/sonarr
               tag: 4.0.15.2940@sha256:ca6c735014bdfb04ce043bf1323a068ab1d1228eea5bab8305ca0722df7baf78
             env:
-              TZ: America/New_York
-              SONARR__AUTHENTICATION__METHOD: External
-              SONARR__AUTHENTICATION__REQUIRED: DisabledForLocalAddresses
-              SONARR__INSTANCENAME: Sonarr
-              SONARR__PORT: &port 80
+              SONARR__APP__INSTANCENAME: Sonarr
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__DBENABLED: "False"
               SONARR__LOG__LEVEL: info
-              SONARR__LOG__DBENABLED: 'false'
-              SONARR__THEME: dark
+              SONARR__SERVER__PORT: &port 80
               SONARR__UPDATE__BRANCH: develop
+              TZ: America/New_York
             envFrom:
               - secretRef:
-                  name: *app
+                  name: "{{ .Release.Name }}"
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
-                  tcpSocket:
+                  httpGet:
+                    path: /ping
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -53,53 +54,40 @@ spec:
               readiness: *probes
             resources:
               requests:
-                cpu: 10m
+                cpu: 100m
               limits:
-                memory: 8Gi
+                memory: 4Gi
             securityContext:
-              allowPrivilegeEscalation: true
+              allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              # capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-        runAsGroup: 0
-        # fsGroup: 568
-        # fsGroupChangePolicy: OnRootMismatch
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
-        controller: *app
+      app:
         ports:
           http:
             port: *port
-    ingress:
-      *app :
-        enabled: true
-        className: "ingress-nginx"
-        hosts:
-          - host: sonarr.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-    # route:
-    #   app:
-    #     hostnames: ["sonarr.noms.tv"]
-    #     parentRefs:
-    #       - name: internal
-    #         namespace: kube-system
-    #         sectionName: https
-    #     rules:
-    #       - backendRefs:
-    #           - name: *app
-    #             port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.noms.tv"
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
+      config-cache:
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
-          - path: /config
+          - path: /config/MediaCover
       complete:
         type: nfs
         server: 172.16.1.10

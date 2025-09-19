@@ -62,7 +62,6 @@ spec:
                 memory: 512Mi
     service:
       main:
-        controller: *app
         ports:
           http:
             port: *port
@@ -70,13 +69,9 @@ spec:
       app:
         hostnames: ["filament.noms.tv"]
         parentRefs:
-          - name: internal
-            namespace: kube-system
+          - name: envoy
+            namespace: network
             sectionName: https
-        rules:
-          - backendRefs:
-              - name: *app
-                port: *port
     persistence:
       config:
         existingClaim: *app

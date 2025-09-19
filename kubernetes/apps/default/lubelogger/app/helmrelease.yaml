@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app lubelogger
+  name: lubelogger
 spec:
   interval: 30m
   chartRef:
@@ -18,17 +18,17 @@ spec:
       retries: 3
   values:
     controllers:
-      *app :
+      lubelogger:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/hargata/lubelogger
               tag: v1.5.0@sha256:9327c3bed46c36fc44234596ae9759acb707453a019a576bfe57ed9280c1a261
             envFrom:
               - secretRef:
-                  name: lubelogger
+                  name: "{{ .Release.Name }}"
             probes:
               liveness: &probes
                 enabled: true
@@ -50,39 +50,24 @@ spec:
               limits:
                 memory: 512Mi
     service:
-      main:
-        controller: *app
+      app:
         ports:
           http:
             port: *port
-    ingress:
-      *app :
-        enabled: true
-        className: "ingress-nginx"
-        hosts:
-          - host: cars.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
     route:
       app:
-        hostnames: ["test-cars.noms.tv"]
+        hostnames:
+          - "cars.noms.tv"
         parentRefs:
-          - name: internal
-            namespace: kube-system
+          - name: envoy
+            namespace: network
             sectionName: https
-        rules:
-          - backendRefs:
-              - name: *app
-                port: *port
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
-          *app :
-            main:
+          lubelogger:
+            app:
               - path: /App/data
                 subPath: data
               - path: /root/.aspnet/DataProtection-Keys

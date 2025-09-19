@@ -46,32 +46,16 @@ spec:
                 memory: 512Mi
     service:
       main:
-        controller: *app
         ports:
           http:
             port: *port
-    ingress:
-      *app :
-        enabled: true
-        className: "ingress-nginx"
-        hosts:
-          - host: pgadmin.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-    # route:
-    #   app:
-    #     hostnames: ["pgadmin.noms.tv"]
-    #     parentRefs:
-    #       - name: internal
-    #         namespace: kube-system
-    #         sectionName: https
-    #     rules:
-    #       - backendRefs:
-    #           - name: *app
-    #             port: *port
+    route:
+      app:
+        hostnames: ["pgadmin.noms.tv"]
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https
     persistence:
       config:
         existingClaim: *app

@@ -3,48 +3,45 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app reflector
-  namespace: flux-system
+  name: &app certificates-import
+  namespace: &namespace network
 spec:
-  targetNamespace: cert-manager
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/cert-manager/certificates/reflector
-  prune: false
+  interval: 1h
+  path: ./kubernetes/apps/network/certificates/import
+  prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: *namespace
   timeout: 5m
+  wait: true
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app certificates
-  namespace: flux-system
+  name: &app certificates-export
+  namespace: &namespace network
 spec:
-  targetNamespace: cert-manager
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: cert-manager-issuers
-    - name: external-secrets
-      namespace: external-secrets
-  path: ./kubernetes/apps/cert-manager/certificates/app
-  prune: false
+    - name: certificates-import
+      namespace: network
+  interval: 1h
+  path: ./kubernetes/apps/network/certificates/export
+  prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: *namespace
   timeout: 5m
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
+  wait: false

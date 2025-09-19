@@ -9,6 +9,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
+  - ./certificates/ks.yaml
   - ./cloudflare-ddns/ks.yaml
   - ./cloudflare-tunnel/ks.yaml
   - ./unifi-dns/ks.yaml

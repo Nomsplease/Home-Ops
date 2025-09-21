@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: appflowyinc/appflowy_ai
-              tag: 0.9.100@sha256:cac908609b2c3ac13deebe76a58fb23174c53fcf9967a9fd3614df02c458c9e7
+              tag: 0.9.120@sha256:448d1896ac712db3a83e5e40122399e1dcf5d64a4899da00860d589e172d4d92
             envFrom:
               - secretRef:
                   name: *app

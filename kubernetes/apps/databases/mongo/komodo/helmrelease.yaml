@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: mongo
-              tag: 8.0.13@sha256:bf41aa48a1cc0ccc8e6071236acfc428b7110ec2cf14b47c8961bc472e2c7c61
+              tag: 8.0.13@sha256:cf340b1e5283843c63eb12999922f20c463ae31285f746d30f05dcc21cd1d47c
             envFrom:
               - secretRef:
                   name: *app

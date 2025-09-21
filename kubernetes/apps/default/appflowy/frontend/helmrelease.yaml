@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: appflowyinc/admin_frontend
-              tag: 0.9.64@sha256:7ce31fd818121e3b625be0464028af6a5e2a04b71455922fc3fe2c09f6280d14
+              tag: 0.9.121@sha256:8e615a62b6f11f1140f795a1897f20a98cb95c17b291bc22c7281146e48d8140
             envFrom:
               - secretRef:
                   name: *app

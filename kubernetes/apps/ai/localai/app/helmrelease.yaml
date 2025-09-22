@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: localai/localai
               tag: v3.4.0-gpu-nvidia-cuda-12@sha256:546b1da3cc33821bb2c98d4288a79dd3978d4eb636d67f9269066debde0d83a2
@@ -50,14 +50,14 @@ spec:
     defaultPodOptions:
       runtimeClassName: "nvidia"
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
+      app:
         hostnames:
-          - "ai.noms.tv"
+          - "{{ .Release.Name }}.noms.tv"
         parentRefs:
           - name: envoy
             namespace: network

@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/ollama/ollama
               tag: latest@sha256:03eaa1581455ba16e7c954d799e4f44996b60ae668261acd00a0e80a241ed720
@@ -67,13 +67,14 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
-        hostnames: ["ollama.noms.tv"]
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.noms.tv"
         parentRefs:
           - name: envoy
             namespace: network

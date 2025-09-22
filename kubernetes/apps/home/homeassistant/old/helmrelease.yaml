@@ -51,6 +51,17 @@ spec:
               "--port", "12321",
               "/config"
             ]
+            probes:
+              liveness: &code-probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &code-port 12321
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *code-probes
+              startup: *code-probes
             resources:
               limits:
                 memory: 512Mi

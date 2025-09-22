@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/home-assistant/home-assistant
               tag: 2025.1.2
@@ -66,7 +66,7 @@ spec:
               limits:
                 memory: 512Mi
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
@@ -75,7 +75,7 @@ spec:
           http:
             port: *code-port
     route:
-      main:
+      app:
         hostnames: ["old-hass.noms.tv"]
         parentRefs:
           - name: envoy

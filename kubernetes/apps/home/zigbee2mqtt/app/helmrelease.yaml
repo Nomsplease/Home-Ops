@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/koenkk/zigbee2mqtt
               tag: 2.6.0
@@ -53,7 +53,7 @@ spec:
               # DEBUG: "zigbee-herdsman*"
             envFrom:
               - secretRef:
-                  name: zigbee2mqtt
+                  name: *app
             probes:
               liveness:
                 enabled: true
@@ -79,13 +79,13 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
-        hostnames: 
+      app:
+        hostnames:
           - "zigbee.noms.tv"
         parentRefs:
           - name: envoy

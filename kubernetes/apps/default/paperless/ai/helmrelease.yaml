@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: clusterzx/paperless-ai
               tag: 3.0.7
@@ -41,14 +41,14 @@ spec:
               limits:
                 memory: 1Gi
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
+      app:
         hostnames:
-          - "archive-ai.noms.tv"
+          - "{{ .Release.Name }}.noms.tv"
         parentRefs:
           - name: envoy
             namespace: network

@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: wolveix/satisfactory-server
               tag: v1.9.9@sha256:464d11e36e10a2399bd2faaf1057a0825ac62a71ebdb6ee7e8a449584116945c
@@ -63,7 +63,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 172.16.1.73, ::ffff:172.16.1.73

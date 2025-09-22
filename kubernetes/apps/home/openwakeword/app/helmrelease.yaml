@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: rhasspy/wyoming-openwakeword
               tag: 1.10.0@sha256:3165a5cd8aef84beb882e640aa1f5c01c97f8c0b1f50016164ecdf2ab65d033a
@@ -46,8 +46,7 @@ spec:
               limits:
                 memory: 2Gi
     service:
-      main:
-        controller: *app
+      app:
         ports:
           http:
             port: *port

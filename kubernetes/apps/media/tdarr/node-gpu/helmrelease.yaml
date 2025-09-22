@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/haveagitgat/tdarr_node
               tag: 2.45.01@sha256:7e98e8b97350101bda7af1673e473edd65915f10a0c5ae040487dec220a870c8

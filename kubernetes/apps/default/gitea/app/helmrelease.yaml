@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: gitea/gitea
               tag: 1.24.5-rootless@sha256:35951356de5321229c41405d6f1dcbe5d51883ca4538ea334d989298b8286611
@@ -39,18 +39,18 @@ spec:
               startup: *probes
             resources:
               limits:
-                memory: 4G
+                memory: 2G
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
           ssh:
             port: 2222
     route:
-      *app :
+      app:
         hostnames:
-          - "{{ .Release.Name }}.noms.tv"
+          - "git.noms.tv"
         parentRefs:
           - name: envoy
             namespace: network

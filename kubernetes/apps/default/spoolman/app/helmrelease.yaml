@@ -30,7 +30,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/donkie/spoolman
               tag: 0.22.1@sha256:238ea5bfb2eeda4436c39f54e73df5fef4ee904fb7c291617588b856786fe0ef
@@ -61,13 +61,14 @@ spec:
               limits:
                 memory: 512Mi
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
-        hostnames: ["filament.noms.tv"]
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.noms.tv"
         parentRefs:
           - name: envoy
             namespace: network

@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/gethomepage/homepage
               tag: v1.4.6@sha256:a1a578fdcfc72754985c3b3b26e4f398a6a782e354d10cf2b156ecbf06d252e9
@@ -54,12 +54,12 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
+      app:
         hostnames:
           - "{{ .Release.Name }}.noms.tv"
         parentRefs:

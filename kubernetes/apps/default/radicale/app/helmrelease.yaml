@@ -22,15 +22,12 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/kozea/radicale
               tag: nightly-20250813@sha256:e7972f6d939e62181fb0bcb0b60877b6b83ff08e65866c0797df1f1814d01dbb
             env:
               TZ: America/New_York
-            # envFrom:
-            #   - secretRef:
-            #       name: *app
             probes:
               liveness: &probes
                 enabled: true
@@ -49,12 +46,12 @@ spec:
               limits:
                 memory: 1Gi
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
+      app:
         hostnames:
           - "calendar.noms.tv"
         parentRefs:

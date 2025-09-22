@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: cm2network/cs2
               tag: latest@sha256:9bc00820405ff02356f9413f0bd90ba9562387e6edb4b295f25f2b5879a876bb
@@ -58,7 +58,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 172.16.1.76, ::ffff:172.16.1.76

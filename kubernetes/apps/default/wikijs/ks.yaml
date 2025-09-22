@@ -9,9 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: external-secrets
-      namespace: external-secrets
+  components:
+    - ../../../../components/cnpg/overlay/init
   interval: 30m
   path: ./kubernetes/apps/default/wikijs/app
   postBuild:

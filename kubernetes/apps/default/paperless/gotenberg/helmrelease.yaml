@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: gotenberg/gotenberg
               tag: 8.22.0
@@ -46,7 +46,7 @@ spec:
                 memory: 1Gi
 
     service:
-      main:
+      app:
         ports:
           http:
             port: *port

@@ -31,7 +31,7 @@ spec:
                 "mac": "3e:59:e4:f7:44:09"
               }]
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/music-assistant/server
               tag: 2.5.8@sha256:f534116c53d49b3120961c908a5fa24f28684806bf222ccd74add9e16b105aa4
@@ -65,12 +65,12 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
+      app:
         hostnames:
           - "music.noms.tv"
         parentRefs:

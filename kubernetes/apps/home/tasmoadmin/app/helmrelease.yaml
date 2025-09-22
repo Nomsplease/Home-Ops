@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/tasmoadmin/tasmoadmin
               tag: v4.3.1@sha256:75d10a02dc84c9a74f3f19d2da1310af3a42ca7aac4ea8c8453135c3b1e605b0
@@ -41,13 +41,14 @@ spec:
               limits:
                 memory: 512Mi
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
-        hostnames: ["tasmoadmin.noms.tv"]
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.noms.tv"
         parentRefs:
           - name: envoy
             namespace: network

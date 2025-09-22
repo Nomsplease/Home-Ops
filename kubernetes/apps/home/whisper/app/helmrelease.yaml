@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: rhasspy/wyoming-whisper
               tag: 2.5.0@sha256:0d78ad506e450fb113616650b7328233385905e2f2ed07fa59221012144500e3
@@ -48,8 +48,7 @@ spec:
               limits:
                 memory: 2Gi
     service:
-      main:
-        controller: *app
+      app:
         ports:
           http:
             port: *port

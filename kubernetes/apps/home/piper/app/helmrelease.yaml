@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: rhasspy/wyoming-piper
               tag: 1.6.3@sha256:2f5de2c89bfb87e7b625265315a9d9f6deb5db44cec3a3e9aa0087d002eac459
@@ -54,8 +54,7 @@ spec:
               limits:
                 memory: 2Gi
     service:
-      main:
-        controller: *app
+      app:
         ports:
           http:
             port: *port

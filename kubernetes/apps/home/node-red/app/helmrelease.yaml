@@ -30,7 +30,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: nodered/node-red
               tag: 4.1.0-22
@@ -49,13 +49,14 @@ spec:
               limits:
                 memory: 4Gi
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
-        hostnames: ["node-red.noms.tv"]
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.noms.tv"
         parentRefs:
           - name: envoy
             namespace: network

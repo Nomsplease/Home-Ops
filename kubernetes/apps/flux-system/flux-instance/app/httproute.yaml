@@ -7,8 +7,8 @@ metadata:
 spec:
   hostnames: ["flux-webhook.noms.tv"]
   parentRefs:
-    - name: internal
-      namespace: kube-system
+    - name: envoy
+      namespace: network
       sectionName: https
   rules:
     - backendRefs:

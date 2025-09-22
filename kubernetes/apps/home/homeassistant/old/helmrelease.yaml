@@ -56,32 +56,34 @@ spec:
                 memory: 512Mi
     service:
       main:
-        controller: *app
         ports:
           http:
             port: *port
       code-server:
-        controller: *app
         ports:
           http:
-            port: 12321
-    ingress:
+            port: *code-port
+    route:
       *app :
-        enabled: true
-        className: "ingress-nginx"
-        hosts:
-          - host: old-hass.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-          - host: old-hass-code.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: code-server
-                  port: http
+        hostnames: ["old-hass.noms.tv"]
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+      code:
+        hostnames: ["old-hass-code.noms.tv"]
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: code-server
+                port: 12321
     persistence:
       config:
         existingClaim: *app

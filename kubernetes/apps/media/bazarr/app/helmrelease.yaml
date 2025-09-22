@@ -64,7 +64,7 @@ spec:
           http:
             port: *port
     route:
-      *app :
+      main:
         hostnames:
           - "{{ .Release.Name }}.noms.tv"
         parentRefs:

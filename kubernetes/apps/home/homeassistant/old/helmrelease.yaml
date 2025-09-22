@@ -64,7 +64,7 @@ spec:
           http:
             port: *code-port
     route:
-      *app :
+      main:
         hostnames: ["old-hass.noms.tv"]
         parentRefs:
           - name: envoy

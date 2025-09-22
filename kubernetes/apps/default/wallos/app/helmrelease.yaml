@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: bellamy/wallos
               tag: 4.1.1@sha256:a1de777eb1d4863f7c8790bfa2e01a11760d0a1db067c135c5a581d27522e75c
@@ -44,13 +44,14 @@ spec:
               limits:
                 memory: 512Mi
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
-        hostnames: ["subscriptions.noms.tv"]
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.noms.tv"
         parentRefs:
           - name: envoy
             namespace: network

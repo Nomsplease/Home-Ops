@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/actualbudget/actual
               tag: 25.8.0@sha256:3d7fb08d3b405426e8625013a5ed95f5015e6c04d0f044e2e3fe7d7b7a41951b
@@ -54,13 +54,14 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
-        hostnames: ["budget.noms.tv"]
+      app:
+        hostnames:
+          - "budget.noms.tv"
         parentRefs:
           - name: envoy
             namespace: network

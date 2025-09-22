@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: lubelogger
+  name: &app lubelogger
 spec:
   interval: 30m
   chartRef:
@@ -18,7 +18,7 @@ spec:
       retries: 3
   values:
     controllers:
-      lubelogger:
+      *app :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -28,7 +28,7 @@ spec:
               tag: v1.5.0@sha256:9327c3bed46c36fc44234596ae9759acb707453a019a576bfe57ed9280c1a261
             envFrom:
               - secretRef:
-                  name: "{{ .Release.Name }}"
+                  name: *app
             probes:
               liveness: &probes
                 enabled: true
@@ -64,7 +64,7 @@ spec:
             sectionName: https
     persistence:
       config:
-        existingClaim: "{{ .Release.Name }}"
+        existingClaim: *app
         advancedMounts:
           lubelogger:
             app:

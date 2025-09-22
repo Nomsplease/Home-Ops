@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 2.18.2@sha256:fbe142ff2e02713740329ebb5981c6bb6fe54f8b4de18e98637c2ff586ea1935
@@ -43,22 +43,19 @@ spec:
             resources:
               limits:
                 memory: 4Gi
-
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
-
     route:
-      *app :
+      app:
         hostnames:
           - "archive.noms.tv"
         parentRefs:
           - name: envoy
             namespace: network
             sectionName: https
-
     persistence:
       config:
         existingClaim: *app

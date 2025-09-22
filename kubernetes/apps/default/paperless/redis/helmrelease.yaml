@@ -20,7 +20,7 @@ spec:
     controllers:
       *app :
         containers:
-          main:
+          app:
             image:
               repository: redis
               tag: 8.2.1

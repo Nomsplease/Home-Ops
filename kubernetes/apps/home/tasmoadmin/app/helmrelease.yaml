@@ -46,7 +46,7 @@ spec:
           http:
             port: *port
     route:
-      app:
+      *app :
         hostnames: ["tasmoadmin.noms.tv"]
         parentRefs:
           - name: envoy

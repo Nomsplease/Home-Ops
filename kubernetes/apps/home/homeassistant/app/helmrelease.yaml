@@ -87,53 +87,34 @@ spec:
               }]
     service:
       main:
-        controller: *app
         ports:
           http:
             port: *port
       code-server:
-        controller: *app
         ports:
           http:
             port: *code-port
-    ingress:
+    route:
       *app :
-        enabled: true
-        className: "ingress-nginx"
-        hosts:
-          - host: hass.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-          - host: hass-code.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: code-server
-                  port: http
-    # route:
-    #   app:
-    #     hostnames: ["hass.noms.tv"]
-    #     parentRefs:
-    #       - name: internal
-    #         namespace: kube-system
-    #         sectionName: https
-    #     rules:
-    #       - backendRefs:
-    #           - name: *app
-    #             port: *port
-    #   code:
-    #     hostnames: ["hass.noms.tv"]
-    #     parentRefs:
-    #       - name: internal
-    #         namespace: kube-system
-    #         sectionName: https
-    #     rules:
-    #       - backendRefs:
-    #           - name: code-server
-    #             port: 12321
+        hostnames: ["hass.noms.tv"]
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+      code:
+        hostnames: ["hass-code.noms.tv"]
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: code-server
+                port: 12321
     persistence:
       config:
         existingClaim: *app

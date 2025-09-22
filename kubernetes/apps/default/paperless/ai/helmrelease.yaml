@@ -42,18 +42,14 @@ spec:
                 memory: 1Gi
     service:
       main:
-        controller: *app
         ports:
           http:
             port: *port
-    ingress:
-      main:
-        enabled: true
-        className: "ingress-nginx"
-        hosts:
-          - host: archive-ai.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
+    route:
+      *app :
+        hostnames:
+          - "archive-ai.noms.tv"
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https

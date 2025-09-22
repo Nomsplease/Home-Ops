@@ -50,21 +50,17 @@ spec:
                 memory: 1Gi
     service:
       main:
-        controller: *app
         ports:
           http:
             port: *port
-    ingress:
+    route:
       *app :
-        enabled: true
-        className: "ingress-nginx"
-        hosts:
-          - host: calendar.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
+        hostnames:
+          - "calendar.noms.tv"
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https
     persistence:
       config:
         type: secret

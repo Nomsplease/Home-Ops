@@ -58,18 +58,14 @@ spec:
               limits:
                 memory: 1Gi
     service:
-      app:
-        controller: wikijs
+      main:
         ports:
           http:
-            port: 3000
-    ingress:
+            port: *port
+    route:
       app:
-        className: "ingress-nginx"
-        hosts:
-          - host: wiki.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["wiki.noms.tv"]
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https

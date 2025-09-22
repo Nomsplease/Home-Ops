@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/arabcoders/watchstate
               tag: master@sha256:39d22707aaffb2500c1ab95a09c8c2289e2f72f05e68d7c0a5254e9c477cf474
@@ -51,12 +51,12 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
+      app:
         hostnames:
           - "{{ .Release.Name }}.noms.tv"
         parentRefs:

@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: lscr.io/linuxserver/readarr
               tag: develop-version-0.4.17.2801@sha256:f3978bd06611493011137d82ebdd5e49b3ebb17ad921dbd05017d40b7f2000e3
@@ -44,12 +44,12 @@ spec:
               limits:
                 memory: 512Mi
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
+      app:
         hostnames:
           - "{{ .Release.Name }}.noms.tv"
         parentRefs:

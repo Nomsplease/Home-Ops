@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/home-operations/tautulli
               tag: 2.15.3@sha256:3e0eaca8c082ebe121a0ae9125bea1b4e2d177fca34ac8df4ec14a28e62f63a4
@@ -59,12 +59,12 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      main:
+      app:
         hostnames:
           - "{{ .Release.Name }}.noms.tv"
         parentRefs:

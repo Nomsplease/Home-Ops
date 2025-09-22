@@ -22,7 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/advplyr/audiobookshelf
               tag: 2.29.0@sha256:dd4a3079d26bfe9f0ea63de3e3eff483dfa25fef05ef850a5a9d121dca3794b2
@@ -41,12 +41,12 @@ spec:
               limits:
                 memory: 2Gi
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
     route:
-      *app :
+      app:
         hostnames:
           - "books.noms.tv"
         parentRefs:

@@ -9,6 +9,5 @@ resources:
   - ./namespace.yaml
   - ./localai/ks.yaml
   - ./ollama/ks.yaml
-  # - ./openwebui/ks.yaml
   
   

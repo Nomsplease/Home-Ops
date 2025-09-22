@@ -51,21 +51,17 @@ spec:
       runtimeClassName: "nvidia"
     service:
       main:
-        controller: *app
         ports:
           http:
             port: *port
-    ingress:
+    route:
       *app :
-        enabled: true
-        className: "ingress-nginx"
-        hosts:
-          - host: ai.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
+        hostnames:
+          - "ai.noms.tv"
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https
     persistence:
       data:
         existingClaim: *app

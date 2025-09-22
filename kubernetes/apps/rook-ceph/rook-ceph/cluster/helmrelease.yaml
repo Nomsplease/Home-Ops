@@ -32,17 +32,21 @@ spec:
     remediation:
       retries: 3
   values:
-    ingress:
-      dashboard:
-        ingressClassName: ingress-nginx
-        host:
-          name: rook.noms.tv
-          path: /
     monitoring:
       enabled: true
       createPrometheusRules: true
     toolbox:
       enabled: true
+    route:
+      dashboard:
+        host:
+          name: rook.noms.tv
+          path: /
+          pathType: PathPrefix
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https
     cephClusterSpec:
       cephConfig:
         global:
@@ -59,7 +63,7 @@ spec:
         enabled: true
         urlPrefix: /
         ssl: false
-        # prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
+        prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       mgr:
         modules:
           - name: diskprediction_local

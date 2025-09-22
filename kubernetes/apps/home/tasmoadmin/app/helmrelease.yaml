@@ -42,21 +42,16 @@ spec:
                 memory: 512Mi
     service:
       main:
-        controller: *app
         ports:
           http:
             port: *port
     route:
-      app:
+      *app :
         hostnames: ["tasmoadmin.noms.tv"]
         parentRefs:
-          - name: internal
-            namespace: kube-system
+          - name: envoy
+            namespace: network
             sectionName: https
-        rules:
-          - backendRefs:
-              - name: *app
-                port: *port
     persistence:
       data:
         existingClaim: *app

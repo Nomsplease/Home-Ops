@@ -4,6 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app music-assistant
+  dnsname: music
 spec:
   interval: 30m
   chartRef:
@@ -72,7 +73,7 @@ spec:
     route:
       app:
         hostnames:
-          - "music.noms.tv"
+          - "{{ .Release.Dnsname }}.noms.tv"
         parentRefs:
           - name: envoy
             namespace: network

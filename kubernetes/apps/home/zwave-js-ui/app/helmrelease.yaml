@@ -60,23 +60,11 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       main:
-        controller: *app
         ports:
           http:
             port: *port
           websocket:
             port: 3000
-    ingress:
-      *app :
-        enabled: true
-        className: "ingress-nginx"
-        hosts:
-          - host: zwave.noms.tv
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
     route:
       app:
         hostnames:

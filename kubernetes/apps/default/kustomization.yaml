@@ -15,6 +15,7 @@ resources:
   - ./lubelogger/ks.yaml
   - ./mealie/ks.yaml
   - ./paperless/ks.yaml
+  - ./puter/ks.yaml
   - ./radicale/ks.yaml
   - ./spoolman/ks.yaml
   - ./wallos/ks.yaml

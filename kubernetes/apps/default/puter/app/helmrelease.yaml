@@ -83,3 +83,7 @@ spec:
             subPath: config
           - path: /var/puter
             subPath: data
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /opt

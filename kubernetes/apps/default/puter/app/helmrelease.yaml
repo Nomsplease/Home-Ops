@@ -52,7 +52,7 @@ spec:
                 memory: 4Gi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: {drop: ["ALL"]}
     defaultPodOptions:
       securityContext:
@@ -83,7 +83,3 @@ spec:
             subPath: config
           - path: /var/puter
             subPath: data
-      tmpfs:
-        type: emptyDir
-        globalMounts:
-          - path: /opt

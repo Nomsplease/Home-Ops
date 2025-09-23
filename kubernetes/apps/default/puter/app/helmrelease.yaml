@@ -27,7 +27,6 @@ spec:
               repository: ghcr.io/heyputer/puter
               tag: 2.5.1@sha256:0c5aa88f5d4db7749577b0118b16e674ff9db323604079b1b90ff6bafdcd0ab5
             env:
-              CONFIG_PATH: /config
               TZ: America/New_York
               PUID: 1000
               PGID: 1000
@@ -79,7 +78,7 @@ spec:
       config:
         existingClaim: *app
         globalMounts:
-          - path: /config
+          - path: //etc/puter
             subPath: config
           - path: /var/puter
             subPath: data

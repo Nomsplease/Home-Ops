@@ -103,7 +103,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: app
+              - name: homeassistant-app
                 port: *port
       code:
         hostnames: ["hass-code.noms.tv"]
@@ -113,7 +113,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: code-server
+              - name: homeassistant-code-server
                 port: 12321
     persistence:
       config:

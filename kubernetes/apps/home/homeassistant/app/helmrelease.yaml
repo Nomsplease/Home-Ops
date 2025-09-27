@@ -103,7 +103,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
+              - name: app
                 port: *port
       code:
         hostnames: ["hass-code.noms.tv"]

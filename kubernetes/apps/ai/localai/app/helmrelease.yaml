@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: localai/localai
-              tag: v3.5.0-gpu-nvidia-cuda-12@sha256:beea5dafeca17301ff2e888eaeec4452df4799b31a2bab579e55ae75c62db160
+              tag: v3.5.4-gpu-nvidia-cuda-12@sha256:f41f63b672a3c0e4877264da907608cd32408d2dd7270f7ba6c0e1d211eebac0
             env:
               DEBUG: "true"
             probes:

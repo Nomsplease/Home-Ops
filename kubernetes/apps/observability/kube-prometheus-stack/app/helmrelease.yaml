@@ -43,8 +43,8 @@ spec:
           enabled: true
           hostnames: ["alertmanager.noms.tv"]
           parentRefs:
-            - name: internal
-              namespace: kube-system
+            - name: envoy
+              namespace: network
               sectionName: https
       alertmanagerSpec:
         alertmanagerConfiguration:

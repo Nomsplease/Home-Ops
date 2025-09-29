@@ -87,7 +87,7 @@ spec:
               }]
     service:
       app:
-        forceRename: "{{ .Release.Name }}"
+        forceRename: *app
         primary: true
         ports:
           http:
@@ -105,7 +105,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: "{{ .Release.Name }}"
+              - name: *app
                 port: *port
       code:
         hostnames: ["hass-code.noms.tv"]

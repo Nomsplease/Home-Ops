@@ -44,7 +44,8 @@ spec:
               tag: 2025.9.4@sha256:55c7db16301626265c6c8132985137ca0798303773dafa244e562353baa93a6f
             env:
               TZ: America/New_York
-              HASS_HTTP_TRUSTED_PROXY_1: 10.42.0.0/16
+              HASS_HTTP_TRUSTED_PROXY_1: 172.16.0.0/16
+              HASS_HTTP_TRUSTED_PROXY_2: 10.42.0.0/16
             probes:
               liveness: &probes
                 enabled: true

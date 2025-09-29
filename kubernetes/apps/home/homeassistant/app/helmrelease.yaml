@@ -87,6 +87,8 @@ spec:
               }]
     service:
       app:
+        forceRename: "{{ .Release.Name }}"
+        primary: true
         ports:
           http:
             port: *port
@@ -103,7 +105,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: homeassistant-app
+              - name: app
                 port: *port
       code:
         hostnames: ["hass-code.noms.tv"]
@@ -113,7 +115,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: homeassistant-code-server
+              - name: code-server
                 port: 12321
     persistence:
       config:

@@ -105,7 +105,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: app
+              - name: "{{ .Release.Name }}"
                 port: *port
       code:
         hostnames: ["hass-code.noms.tv"]
@@ -116,7 +116,7 @@ spec:
         rules:
           - backendRefs:
               - name: code-server
-                port: 12321
+                port: *code-port
     persistence:
       config:
         existingClaim: *app

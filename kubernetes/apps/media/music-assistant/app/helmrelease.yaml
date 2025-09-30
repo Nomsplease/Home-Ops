@@ -29,6 +29,12 @@ spec:
                 "namespace": "kube-system",
                 "ips": ["172.16.1.50/24"],
                 "mac": "3e:59:e4:f7:44:09"
+              },
+              {
+                "name":"iot",
+                "namespace": "kube-system",
+                "ips": ["172.16.3.15/24"],
+                "mac": "3e:59:e4:f7:44:10"
               }]
         containers:
           app:

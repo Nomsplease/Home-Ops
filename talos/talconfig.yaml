@@ -1,7 +1,7 @@
 ---
 clusterName: main
-talosVersion: v1.10.4
-kubernetesVersion: v1.33.1
+talosVersion: v1.11.2
+kubernetesVersion: v1.34.1
 endpoint: https://172.16.0.50:6443
 domain: cluster.local
 allowSchedulingOnMasters: true
@@ -57,6 +57,7 @@ nodes:
                 - siderolabs/i915
                 - siderolabs/intel-ucode
                 - siderolabs/mei
+                - siderolabs/nfsrahead
     installDiskSelector:
       model: Micron*
     networkInterfaces:
@@ -220,6 +221,7 @@ nodes:
             officialExtensions:
                 - siderolabs/i915
                 - siderolabs/mei
+                - siderolabs/nfsrahead
                 - siderolabs/nvidia-container-toolkit-lts
                 - siderolabs/nonfree-kmod-nvidia-lts
     patches:

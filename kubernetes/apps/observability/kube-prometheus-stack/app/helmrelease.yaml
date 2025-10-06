@@ -41,7 +41,8 @@ spec:
       route:
         main:
           enabled: true
-          hostnames: ["alertmanager.noms.tv"]
+          hostnames:
+            - alertmanager.noms.tv
           parentRefs:
             - name: envoy
               namespace: network
@@ -69,16 +70,19 @@ spec:
       route:
         main:
           enabled: true
-          hostnames: ["prometheus.noms.tv"]
+          hostnames:
+            - prometheus.noms.tv
           parentRefs:
             - name: envoy
               namespace: network
               sectionName: https
       prometheusSpec:
+        externalUrl: https://prometheus.noms.tv
+        version: v2.55.1 # override 'unsupported Prometheus version' error
         image:
           registry: docker.io
           repository: prompp/prompp
-          tag: 2.53.2-0.3.3
+          tag: 0.5.2
         securityContext:
           runAsNonRoot: true
           runAsUser: 64535
@@ -112,7 +116,8 @@ spec:
             - action: replace
               regex: (.*)
               replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
@@ -127,7 +132,8 @@ spec:
             - action: replace
               regex: (.*)
               replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
     grafana:
       enabled: false

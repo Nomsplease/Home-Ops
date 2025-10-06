@@ -49,29 +49,29 @@ spec:
             persistentVolumeClaim:
               claimName: lancache-prefill
           restartPolicy: OnFailure
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: lancache-prefill-epic
-spec:
-  schedule: "0 3 * * *"
-  successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 1
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-            - name: epic-prefill
-              image: tpill90/epic-lancache-prefill:v2.1.0
-              args: [ "prefill" ]
-              volumeMounts:
-              - name: pvc
-                mountPath: /Config
-                subPath: EpicPrefill/Config
-          volumes:
-          - name: pvc
-            persistentVolumeClaim:
-              claimName: lancache-prefill
-          restartPolicy: OnFailure
+# ---
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: lancache-prefill-epic
+# spec:
+#   schedule: "0 3 * * *"
+#   successfulJobsHistoryLimit: 1
+#   failedJobsHistoryLimit: 1
+#   jobTemplate:
+#     spec:
+#       template:
+#         spec:
+#           containers:
+#             - name: epic-prefill
+#               image: tpill90/epic-lancache-prefill:v2.1.0
+#               args: [ "prefill" ]
+#               volumeMounts:
+#               - name: pvc
+#                 mountPath: /Config
+#                 subPath: EpicPrefill/Config
+#           volumes:
+#           - name: pvc
+#             persistentVolumeClaim:
+#               claimName: lancache-prefill
+#           restartPolicy: OnFailure

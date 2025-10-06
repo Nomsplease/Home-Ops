@@ -31,6 +31,7 @@ spec:
               PUID: 1000
               PGID: 1000
               PORT: &port 4100
+              PUB_PORT: 443
             # probes:
             #   liveness: &probes
             #     enabled: true

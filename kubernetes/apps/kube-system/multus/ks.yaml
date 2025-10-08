@@ -29,6 +29,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: multus-networks
+  namespace: &namespace kube-system
 spec:
   dependsOn:
     - name: multus
@@ -39,4 +40,5 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: *namespace
   wait: true

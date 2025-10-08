@@ -4,6 +4,9 @@ machine:
       - interface: bond0
         bond:
           mode: active-backup
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 172.16.0.1
         vlans:
           - # VPN
             vlanId: 66

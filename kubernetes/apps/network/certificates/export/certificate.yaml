@@ -14,3 +14,4 @@ spec:
     - '*.noms.tv'
     - '*.int.noms.tv'
     - '*.iot.noms.tv'
+    - '*.puter.noms.tv'

@@ -61,10 +61,10 @@ nodes:
     installDiskSelector:
       model: Micron*
     networkInterfaces:
-      - interface: br0
+      - interface: bond0
         addresses:
           - 172.16.0.51/24
-        bridge:
+        bond:
           interfaces:
             - enp1s0
 
@@ -85,10 +85,10 @@ nodes:
     installDiskSelector:
       model: PM991*
     networkInterfaces:
-      - interface: br0
+      - interface: bond0
         addresses:
           - 172.16.0.52/24
-        bridge:
+        bond:
           interfaces:
             - enp1s0
 
@@ -110,10 +110,10 @@ nodes:
     installDiskSelector:
       model: PM991*
     networkInterfaces:
-      - interface: br0
+      - interface: bond0
         addresses:
           - 172.16.0.53/24
-        bridge:
+        bond:
           interfaces:
             - enp1s0
 
@@ -134,10 +134,10 @@ nodes:
     installDiskSelector:
       model: PM991*
     networkInterfaces:
-      - interface: br0
+      - interface: bond0
         addresses:
           - 172.16.0.54/24
-        bridge:
+        bond:
           interfaces:
             - enp1s0
 
@@ -159,10 +159,10 @@ nodes:
     installDiskSelector:
       model: PM991*
     networkInterfaces:
-      - interface: br0
+      - interface: bond0
         addresses:
           - 172.16.0.55/24
-        bridge:
+        bond:
           interfaces:
             - enp1s0
 
@@ -183,10 +183,10 @@ nodes:
     installDiskSelector:
       model: PM991*
     networkInterfaces:
-      - interface: br0
+      - interface: bond0
         addresses:
           - 172.16.0.56/24
-        bridge:
+        bond:
           interfaces:
             - enp1s0
 
@@ -229,9 +229,9 @@ nodes:
     installDiskSelector:
       model: CT500P2SSD8
     networkInterfaces:
-      - interface: br0
+      - interface: bond0
         addresses:
           - 172.16.0.57/24
-        bridge:
+        bond:
           interfaces:
             - enp133s0f1

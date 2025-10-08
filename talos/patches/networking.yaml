@@ -1,13 +1,17 @@
 machine:
   network:
-    nameservers:
-      - 172.16.0.17
     interfaces:
-      - interface: br0
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 172.16.0.1
+      - interface: bond0
+        bond:
+          mode: active-backup
         vlans:
-          - vlanId: 1001
-          - vlanId: 1003
+          - # VPN
+            vlanId: 66
+            dhcp: false
+          - # NET
+            vlanId: 1001
+            dhcp: false
+          - # IOT
+            vlanId: 1003
+            dhcp: false
             

@@ -19,19 +19,12 @@ cni:
   exclusive: false
 dashboards:
   enabled: true
-devices: br+
+devices: bond+
 enableIPv4BIGTCP: true
 endpointRoutes:
   enabled: true
 envoy:
-  rollOutPods: true
-  prometheus:
-     serviceMonitor:
-       enabled: true
-gatewayAPI:
-  enabled: true
-  enableAlpn: true
-  xffNumTrustedHops: 1
+  enabled: false
 hubble:
   enabled: false
 ipam:

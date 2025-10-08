@@ -1,5 +1,7 @@
 machine:
   network:
+    nameservers:
+      - 172.16.0.17
     interfaces:
       - interface: bond0
         bond:

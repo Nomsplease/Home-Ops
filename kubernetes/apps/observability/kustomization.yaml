@@ -9,6 +9,7 @@ resources:
   - ./namespace.yaml
   - ./blackbox-exporter/ks.yaml
   - ./grafana/ks.yaml
+  - ./keda/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./loki/ks.yaml
   - ./promtail/ks.yaml

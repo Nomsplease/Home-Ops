@@ -70,7 +70,7 @@ spec:
           #   subPath: consume
       truenas:
         type: nfs
-        server: 172.16.1.10
+        server: truenas.internal
         path: /mnt/Scratch/Kubernetes/Paperless
         globalMounts:
           - path: /usr/src/paperless/export

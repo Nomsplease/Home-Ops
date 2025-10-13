@@ -63,19 +63,19 @@ spec:
           - path: /config
       complete:
         type: nfs
-        server: 172.16.1.10
+        server: truenas.internal
         path: /mnt/BigPool/Downloads
         globalMounts:
           - path: /Downloads/Complete
       media:
         type: nfs
-        server: 172.16.1.10
+        server: truenas.internal
         path: /mnt/BigPool/Media
         globalMounts:
           - path: /PlexMedia
       incomplete:
         type: nfs
-        server: 172.16.1.10
+        server: truenas.internal
         path: /mnt/Scratch/Downloads
         globalMounts:
           - path: /Downloads/Incomplete

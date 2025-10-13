@@ -65,5 +65,5 @@ spec:
                 subPath: metadata
       data:
         type: nfs
-        server: 172.16.1.10
+        server: truenas.internal
         path: /mnt/BigPool/Media

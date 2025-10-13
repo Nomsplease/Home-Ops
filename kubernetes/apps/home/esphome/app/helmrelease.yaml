@@ -64,12 +64,7 @@ spec:
             sectionName: https
     persistence:
       config:
-        existingClaim: *app
-        advancedMounts:
-          esphome:
-            main:
-              - path: /config
-                subPath: config
+        existingClaim: "{{ .Release.Name }}"
       tmpfs:
         type: emptyDir
         advancedMounts:

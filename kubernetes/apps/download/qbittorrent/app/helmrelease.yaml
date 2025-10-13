@@ -99,7 +99,7 @@ spec:
             subPath: .qbt.toml
       media:
         type: nfs
-        server: truenas.int.noms.tv
+        server: truenas.internal
         path: /mnt/BigPool/Media
         globalMounts:
           - path: /media/Downloads/qbittorrent

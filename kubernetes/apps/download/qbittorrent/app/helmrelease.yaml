@@ -102,8 +102,15 @@ spec:
         server: truenas.internal
         path: /mnt/BigPool/Media
         globalMounts:
-          - path: /media/Downloads/qbittorrent
-            subPath: Downloads/qbittorrent
+          - path: /media/Downloads/Complete
+            subPath: Downloads
+      scratch:
+        type: nfs
+        server: truenas.internal
+        path: /mnt/Scratch/Downloads
+        globalMounts:
+          - path: /media/Downloads/Incomplete
+            subPath: QBitorrent
       qbrr:
         type: image
         image: ghcr.io/buroa/qbrr:0.1.1@sha256:fe4a1d100ba896999253a5122d9c77cc4920779d618c23f765458cb6ec7383ca

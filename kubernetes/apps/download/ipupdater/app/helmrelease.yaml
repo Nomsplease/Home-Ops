@@ -30,8 +30,8 @@ spec:
         containers:
           app:
             image:
-              repository: alpine
-              tag: 3.22.2@sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412
+              repository: alpine/curl
+              tag: 8.14.1@sha256:1a6a3181d9f633b161c930efc62ff129947e1b9e7c6ac0e374c1bf93681e23d8
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}"

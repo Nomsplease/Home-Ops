@@ -35,7 +35,7 @@ spec:
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}"
-            command: ["sh", "-c", "/config/test.sh"]
+            command: ["sh", "-c", "/config/mam.sh"]
             resources:
               requests:
                 cpu: 10m

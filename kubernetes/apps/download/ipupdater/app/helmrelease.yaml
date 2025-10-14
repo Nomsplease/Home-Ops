@@ -21,7 +21,7 @@ spec:
       ipupdater:
         type: cronjob
         cronjob:
-          schedule: */30 */1 * * *
+          schedule: '*/30 */1 * * *'
           backoffLimit: 0
           concurrencyPolicy: Forbid
           successfulJobsHistory: 1

@@ -3,12 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ipupdater
+  name: seedboxapi
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: ipupdater
+    name: seedboxapi
   install:
     remediation:
       retries: -1
@@ -18,35 +18,30 @@ spec:
       retries: 3
   values:
     controllers:
-      ipupdater:
-        type: cronjob
-        cronjob:
-          schedule: '*/30 */1 * * *'
-          backoffLimit: 0
-          concurrencyPolicy: Forbid
-          successfulJobsHistory: 1
-          failedJobsHistory: 1
-          ttlSecondsAfterFinished: 86400
+      seedboxapi:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: alpine/curl
-              tag: 8.14.1@sha256:1a6a3181d9f633b161c930efc62ff129947e1b9e7c6ac0e374c1bf93681e23d8
+              repository: myanonamouse/seedboxapi
+              tag: latest@sha256:4712ede49e8c17ca1aee4cf61a145e249ddbb9498390b469c64b0b3086628259
+            env:
+              DEBUG: 1
+              interval: 1 #Poll current IP every X Minutes
+              TZ: America/New_York
             envFrom:
               - secretRef:
-                  name: "{{ .Release.Name }}"
-            command: ["sh", "-c", "/config/mam.sh"]
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 64Mi
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
-        pod:
-          restartPolicy: Never
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 64Mi
     defaultPodOptions:
       annotations:
         k8s.v1.cni.cncf.io/networks: |-

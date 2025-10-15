@@ -60,3 +60,5 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      tmp:
+        type: emptyDir

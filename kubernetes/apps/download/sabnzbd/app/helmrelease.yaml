@@ -89,7 +89,6 @@ spec:
         path: /mnt/BigPool/Media/Downloads
         globalMounts:
           - path: /media/Downloads/Complete
-            subPath: Sabnzbd
       scratch:
         type: nfs
         server: truenas.internal

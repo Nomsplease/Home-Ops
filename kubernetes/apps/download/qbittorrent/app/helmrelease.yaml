@@ -103,7 +103,6 @@ spec:
         path: /mnt/BigPool/Media/Downloads
         globalMounts:
           - path: /media/Downloads/Complete
-            subPath: QBitorrent
       scratch:
         type: nfs
         server: truenas.internal

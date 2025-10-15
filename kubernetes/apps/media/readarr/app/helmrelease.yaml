@@ -64,9 +64,9 @@ spec:
       complete:
         type: nfs
         server: truenas.internal
-        path: /mnt/BigPool/Downloads
+        path: /mnt/BigPool/Media/Downloads
         globalMounts:
-          - path: /Downloads/Complete
+          - path: /media/Downloads/Complete
       media:
         type: nfs
         server: truenas.internal

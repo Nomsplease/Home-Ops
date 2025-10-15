@@ -86,10 +86,10 @@ spec:
       media:
         type: nfs
         server: truenas.internal
-        path: /mnt/BigPool/Media
+        path: /mnt/BigPool/Media/Downloads
         globalMounts:
           - path: /media/Downloads/Complete
-            subPath: Downloads
+            subPath: Sabnzbd
       scratch:
         type: nfs
         server: truenas.internal

@@ -60,7 +60,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cloudnative-pg-cluster
+  name: &app cloudnative-pg-main-cluster
   namespace: &namespace databases
 spec:
   commonMetadata:
@@ -70,8 +70,9 @@ spec:
     - name: external-secrets
       namespace: external-secrets
     - name: cloudnative-pg
+    - name: cloudnative-pg-plugins
   interval: 30m
-  path: ./kubernetes/apps/databases/cloudnative-pg/cluster
+  path: ./kubernetes/apps/databases/cloudnative-pg/clusters/main
   postBuild:
     substitute:
       APP: *app

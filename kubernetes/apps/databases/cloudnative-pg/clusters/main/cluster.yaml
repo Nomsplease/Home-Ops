@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: main-db
+  ## Uncomment for recovery
+  # annotations:
+  #   cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
+  ## Recovery End
+spec:
+  ## Uncomment for first deployment
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      secret:
+        name: main-cnpg-app-secret
+  ## First deployment end
+  ## Uncomment for recovery
+  # bootstrap:
+  #   recovery:
+  #     source: &db main-db
+  # externalClusters:
+  #   - name: *db
+  #     plugin:
+  #       name: barman-cloud.cloudnative-pg.io
+  #       parameters:
+  #         barmanObjectName: main-store
+  #         serverName: *db
+  ## Recovery End
+  enablePDB: false
+  enableSuperuserAccess: true
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.5@sha256:2ec17b4c713d5293cb869f8d7b8aca2a9096ad6a775a77b14c35434e598ac210
+  instances: 3
+  monitoring:
+    enablePodMonitor: true
+  plugins:
+    - enabled: true
+      isWALArchiver: true
+      name: barman-cloud.cloudnative-pg.io
+      parameters:
+        barmanObjectName: main-store
+        serverName: main-db
+  postgresql:
+    parameters:
+      autovacuum_max_workers: '3'
+      autovacuum_naptime: 20s
+      autovacuum_vacuum_cost_limit: '2000'
+      checkpoint_completion_target: '0.9'
+      checkpoint_timeout: 10min
+      effective_cache_size: 1536MB
+      log_autovacuum_min_duration: "250"
+      log_checkpoints: "on"
+      log_lock_waits: "on"
+      log_min_duration_statement: "500"
+      log_temp_files: "128MB"
+      maintenance_work_mem: 128MB
+      max_wal_size: 512MB
+      min_wal_size: 128MB
+      shared_buffers: 512MB
+      wal_buffers: 16MB
+      work_mem: 8MB
+  primaryUpdateMethod: switchover
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 20Gi
+    storageClass: ceph-block
+  superuserSecret:
+    name: main-cnpg-admin-secret

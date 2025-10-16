@@ -31,7 +31,7 @@ spec:
               PROWLARR__AUTHENTICATION__METHOD: External
               PROWLARR__AUTHENTICATION__REQUIRED: DisabledForLocalAddresses
               PROWLARR__INSTANCENAME: Prowlarr
-              PROWLARR__PORT: &port 80
+              PROWLARR__SERVER__PORT: &port 80
               PROWLARR__POSTGRES__MAINDB: "{{ .Release.Name }}"
               PROWLARR__LOG__LEVEL: info
               PROWLARR__LOG__DBENABLED: 'false'

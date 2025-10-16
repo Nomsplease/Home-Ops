@@ -31,7 +31,7 @@ spec:
               RADARR__AUTHENTICATION__METHOD: External
               RADARR__AUTHENTICATION__REQUIRED: DisabledForLocalAddresses
               RADARR__INSTANCENAME: Radarr
-              RADARR__PORT: &port 80
+              RADARR__SERVER__PORT: &port 80
               RADARR__POSTGRES__MAINDB: "{{ .Release.Name }}"
               RADARR__LOG__LEVEL: info
               RADARR__LOG__DBENABLED: 'false'

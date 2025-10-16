@@ -89,7 +89,7 @@ spec:
               - name: "/dev/disk/by-id/nvme-CT2000P3PSSD8_2423E8B70EA3"
           - name: main-2
             devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0W101854X"
+              - name: "/dev/disk/by-id/nvme-CT1000P310SSD8_25285186BDF9"
           - name: main-3
             devices:
               - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC09703D"

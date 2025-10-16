@@ -10,11 +10,12 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/cnpg/overlay/init
     - ../../../../components/volsync
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: cloudnative-pg-main-cluster
+      namespace: databases
   interval: 30m
   path: ./kubernetes/apps/media/sonarr/app
   postBuild:

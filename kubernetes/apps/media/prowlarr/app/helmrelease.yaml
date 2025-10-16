@@ -32,7 +32,9 @@ spec:
               PROWLARR__AUTHENTICATION__REQUIRED: DisabledForLocalAddresses
               PROWLARR__INSTANCENAME: Prowlarr
               PROWLARR__SERVER__PORT: &port 80
+              PROWLARR__POSTGRES__HOST: pooler-main-rw.databases
               PROWLARR__POSTGRES__MAINDB: "{{ .Release.Name }}"
+              PROWLARR__POSTGRES__PORT: "5432"
               PROWLARR__LOG__LEVEL: info
               PROWLARR__LOG__DBENABLED: 'false'
               PROWLARR__THEME: dark

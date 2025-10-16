@@ -11,8 +11,3 @@ spec:
     name: "${CNPG_CLUSTER:=main}"
   name: ${APP}
   owner: "${CNPG_DB_OWNER:=app}"
-  dropOnDelete: false
-  options:
-    encoding: UTF8
-    lcCollate: en_US.UTF-8
-    lcCtype: en_US.UTF-8

@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./authentik.yaml
   - ./gitea.yaml
+  - ./homeassistant.yaml
   - ./linkwarden.yaml
   - ./lubelogger.yaml
   - ./mealie.yaml

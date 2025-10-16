@@ -23,6 +23,9 @@ spec:
           - name: alertname
             value: SmartDeviceInterfaceSlow
             matchType: =
+          - name: alertname
+            value: NodeMemoryMajorPagesFaults
+            matchType: =
       # - receiver: heartbeat
       #   groupInterval: 5m
       #   groupWait: 0s

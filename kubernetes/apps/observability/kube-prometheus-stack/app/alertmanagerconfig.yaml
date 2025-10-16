@@ -17,6 +17,12 @@ spec:
           - name: alertname
             value: InfoInhibitor
             matchType: =
+          - name: alertname
+            value: Watchdog
+            matchType: =
+          - name: alertname
+            value: SmartDeviceInterfaceSlow
+            matchType: =
       # - receiver: heartbeat
       #   groupInterval: 5m
       #   groupWait: 0s

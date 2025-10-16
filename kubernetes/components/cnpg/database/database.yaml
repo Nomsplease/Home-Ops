@@ -7,24 +7,12 @@ metadata:
   labels:
     app: ${APP}-db
 spec:
-  # The target Cluster name this database belongs to
   cluster:
     name: "${CNPG_CLUSTER:=main}"
-
-  # The name of the database to create
   name: ${APP}
-
-  # Owner of the database (must already exist as a role/user)
   owner: "${CNPG_DB_OWNER:=app}"
-
-  # Whether to ensure the database is dropped if deleted from YAML
   dropOnDelete: false
-
-  # Optional encoding, collation, etc.
   options:
     encoding: UTF8
     lcCollate: en_US.UTF-8
     lcCtype: en_US.UTF-8
-
-  # Optional comment for the database
-  comment: "Application database for ${APP} on ${CNPG_CLUSTER:=main} cluster"

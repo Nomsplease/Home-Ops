@@ -8,6 +8,6 @@ metadata:
     app: sonarr-db
 spec:
   cluster:
-    name: main
+    name: main-db
   name: sonarr
   owner: app

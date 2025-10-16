@@ -7,4 +7,4 @@ resources:
   - ./externalsecret.yaml
   - ./objectstore.yaml
   - ./scheduled-backup.yaml
-  #- ./databases/
+  - ./databases/

@@ -34,7 +34,9 @@ spec:
               SONARR__LOG__DBENABLED: "False"
               SONARR__LOG__LEVEL: info
               SONARR__SERVER__PORT: &port 80
+              SONARR__POSTGRES__HOST: pooler-main-rw.databases
               SONARR__POSTGRES__MAINDB: "{{ .Release.Name }}"
+              SONARR__POSTGRES__PORT: "5432"
               SONARR__UPDATE__BRANCH: develop
               TZ: America/New_York
             envFrom:

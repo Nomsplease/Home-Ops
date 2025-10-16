@@ -1,9 +1,10 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.cloudnative-pg.io/database_v1.json
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/database_v1.json
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: ${APP}-db
+  namespace: "${DB_NS:=databases}"
   labels:
     app: ${APP}-db
 spec:

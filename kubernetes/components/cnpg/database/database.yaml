@@ -8,6 +8,6 @@ metadata:
     app: ${APP}-db
 spec:
   cluster:
-    name: "${CNPG_CLUSTER:=main}"
+    name: "${CNPG_CLUSTER:=main-db}"
   name: ${APP}
   owner: "${CNPG_DB_OWNER:=app}"

@@ -3,11 +3,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: sonarr
+  name: radarr
   labels:
-    app: sonarr
+    app: radarr
 spec:
   cluster:
     name: main-db
-  name: sonarr
+  name: radarr
   owner: app

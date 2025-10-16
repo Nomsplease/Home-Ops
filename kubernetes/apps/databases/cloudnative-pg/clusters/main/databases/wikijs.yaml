@@ -3,11 +3,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: sonarr
+  name: wikijs
   labels:
-    app: sonarr
+    app: wikijs
 spec:
   cluster:
     name: main-db
-  name: sonarr
+  name: wikijs
   owner: app

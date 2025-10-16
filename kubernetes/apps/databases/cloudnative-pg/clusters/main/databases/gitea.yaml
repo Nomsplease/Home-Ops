@@ -3,11 +3,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: sonarr
+  name: gitea
   labels:
-    app: sonarr
+    app: gitea
 spec:
   cluster:
     name: main-db
-  name: sonarr
+  name: gitea
   owner: app

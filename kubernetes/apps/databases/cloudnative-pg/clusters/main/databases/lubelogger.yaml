@@ -3,11 +3,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: sonarr
+  name: lubelogger
   labels:
-    app: sonarr
+    app: lubelogger
 spec:
   cluster:
     name: main-db
-  name: sonarr
+  name: lubelogger
   owner: app

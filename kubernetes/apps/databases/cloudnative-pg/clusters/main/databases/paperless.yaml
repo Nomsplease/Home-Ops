@@ -3,11 +3,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: sonarr
+  name: paperless
   labels:
-    app: sonarr
+    app: paperless
 spec:
   cluster:
     name: main-db
-  name: sonarr
+  name: paperless
   owner: app

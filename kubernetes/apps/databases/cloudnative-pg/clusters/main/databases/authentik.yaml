@@ -3,11 +3,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: sonarr
+  name: authentik
   labels:
-    app: sonarr
+    app: authentik
 spec:
   cluster:
     name: main-db
-  name: sonarr
+  name: authentik
   owner: app

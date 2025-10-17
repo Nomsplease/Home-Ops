@@ -1,15 +1,7 @@
 ---
 env:
-  DB_DATABASE_NAME:
-    valueFrom:
-      secretKeyRef:
-        key: DB_DATABASE_NAME
-        name: immich
-  DB_HOSTNAME:
-    valueFrom:
-      secretKeyRef:
-        key: DB_HOSTNAME
-        name: immich
+  DB_DATABASE_NAME: immich
+  DB_HOSTNAME: vector-db-rw.databases.svc.cluster.local
   DB_PASSWORD:
     valueFrom:
       secretKeyRef:

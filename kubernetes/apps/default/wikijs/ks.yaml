@@ -9,8 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/cnpg/overlay/init
   interval: 30m
   path: ./kubernetes/apps/default/wikijs/app
   postBuild:

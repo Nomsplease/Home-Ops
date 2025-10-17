@@ -60,7 +60,7 @@ server:
       gpu.intel.com/i915: 1000m
       memory: 8Gi
 valkey:
-  enabled: false
+  enabled: true
   persistence:
     data:
       enabled: true

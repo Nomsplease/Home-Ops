@@ -30,6 +30,58 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  valuesFrom:
-    - kind: ConfigMap
-      name: immich-values
+  values:
+    env:
+      DB_DATABASE_NAME: immich
+      DB_HOSTNAME: vector-db-rw.databases
+      DB_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            key: DB_PASSWORD
+            name: immich
+      DB_USERNAME:
+        valueFrom:
+          secretKeyRef:
+            key: DB_USERNAME
+            name: immich
+      LOG_LEVEL: verbose
+      MACHINE_LEARNING_PRELOAD__CLIP: "ViT-H-14-378-quickgelu__dfn5b"
+      TZ: America/New_York
+    image:
+      # renovate: datasource=github-releases depName=immich-app/immich
+      tag: v2.1.0
+    immich:
+      metrics:
+        enabled: true
+      persistence:
+        library:
+          existingClaim: immich
+    machine-learning:
+      enabled: true
+      env:
+        TRANSFORMERS_CACHE: /cache
+      image:
+        pullPolicy: IfNotPresent
+        repository: ghcr.io/immich-app/immich-machine-learning
+      persistence:
+        cache:
+          accessMode: ReadWriteOnce
+          enabled: true
+          size: 10Gi
+          type: emptyDir
+      resources:
+        limits:
+          gpu.intel.com/i915: 1000m
+        requests:
+          cpu: 1500m
+          memory: 2Gi
+    server:
+      ingress:
+        main:
+          enabled: false
+      resources:
+        limits:
+          gpu.intel.com/i915: 1000m
+          memory: 8Gi
+    valkey:
+      enabled: true

@@ -65,6 +65,6 @@ valkey:
     data:
       enabled: true
       size: 1Gi
-      type: pvc
+      type: persistentVolumeClaim
       accessMode: ReadWriteOnce
       storageClass: ceph-block

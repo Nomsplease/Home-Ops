@@ -10,30 +10,15 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/cnpg/overlay/init
     - ../../../../components/volsync
   dependsOn:
     - name: volsync
       namespace: volsync-system
   interval: 30m
-  patches:
-    - patch: |-
-        apiVersion: postgresql.cnpg.io/v1
-        kind: Cluster
-        metadata:
-          name: patch
-        spec:
-          postgresql:
-            shared_preload_libraries:
-              - "vchord.so"
-      target:
-        kind: Cluster
   path: ./kubernetes/apps/default/immich/app
   postBuild:
     substitute:
       APP: *app
-      CNPG_IMAGE: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.3.0
-      CNPG_CAPACITY: 20Gi
       VOLSYNC_CAPACITY: 500Gi
   prune: true 
   retryInterval: 1m

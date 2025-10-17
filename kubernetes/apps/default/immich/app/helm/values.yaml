@@ -51,18 +51,6 @@ machine-learning:
     requests:
       cpu: 1500m
       memory: 2Gi
-postgres:
-  enabled: false
-redis:
-  enabled: true
-  master:
-    persistence:
-      enabled: true
-      size: 8Gi
-  replcia:
-    persistence:
-      enabled: true
-      size: 8Gi
 server:
   ingress:
     main:
@@ -71,3 +59,12 @@ server:
     limits:
       gpu.intel.com/i915: 1000m
       memory: 8Gi
+valkey:
+  enabled: false
+  persistence:
+    data:
+      enabled: true
+      size: 1Gi
+      type: pvc
+      accessMode: ReadWriteOnce
+      storageClass: ceph-block

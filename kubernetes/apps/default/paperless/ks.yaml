@@ -41,7 +41,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/cnpg/overlay/init
     - ../../../../components/volsync
   dependsOn:
     - name: volsync

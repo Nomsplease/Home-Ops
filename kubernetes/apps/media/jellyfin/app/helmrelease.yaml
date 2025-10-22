@@ -26,17 +26,17 @@ spec:
             image:
               repository: ghcr.io/jellyfin/jellyfin
               tag: 10.11.0@sha256:519b02989eafcc4bdb558bdc7014c2395c19608e5c2d7ed99a5f3edd0c75f7ef
-            # probes:
-            #   liveness: &probes
-            #     enabled: true
-            #     custom: true
-            #     spec:
-            #       tcpSocket:
-            #         port: &port 8096
-            #       failureThreshold: 6
-            #       periodSeconds: 10
-            #   readiness: *probes
-            #   startup: *probes
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 8096
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *probes
+              startup: *probes
             resources:
               limits:
                 memory: 16Gi
@@ -55,7 +55,7 @@ spec:
       app:
         ports:
           http:
-            port: 8096 #*port
+            port: *port
     route:
       app:
         hostnames:

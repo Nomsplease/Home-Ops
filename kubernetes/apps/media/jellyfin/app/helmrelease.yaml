@@ -67,8 +67,6 @@ spec:
     persistence:
       cache:
         existingClaim: jellyfin-cache
-        globalMounts:
-          - path: /cache
       config:
         existingClaim: *app
         globalMounts:
@@ -81,9 +79,6 @@ spec:
           - path: /media
       metadata:
         existingClaim: jellyfin-metadata
-        globalMounts:
-          - path: /config/metadata
-          - path: /metadata
       tmpfs:
         type: emptyDir
         globalMounts:

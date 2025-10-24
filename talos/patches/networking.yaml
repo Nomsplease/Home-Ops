@@ -1,7 +1,7 @@
 machine:
   network:
     nameservers:
-      - 172.16.0.17
+      - 10.1.10.2
     interfaces:
       - interface: bond0
         bond:
@@ -10,6 +10,9 @@ machine:
           - network: 0.0.0.0/0
             gateway: 172.16.0.1
         vlans:
+          - # Internal
+            vlanId: 10
+            dhcp: false
           - # VPN
             vlanId: 66
             dhcp: false

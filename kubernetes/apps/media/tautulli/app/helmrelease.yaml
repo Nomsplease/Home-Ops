@@ -27,14 +27,16 @@ spec:
               repository: ghcr.io/home-operations/tautulli
               tag: 2.16.0@sha256:2a092f86a51f5718111097b0fced33eaa876b5904a543b7504f92357a4f75635
             env:
-              TAUTULLI__PORT: &port 80
+              TAUTULLI_HTTP_BASE_URL: https://tautulli.noms.tv
+              TAUTULLI_HTTP_PORT: &port 80
               TZ: America/New_York
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
-                  tcpSocket:
+                  httpGet:
+                    path: /status
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10

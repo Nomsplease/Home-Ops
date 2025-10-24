@@ -79,10 +79,11 @@ spec:
         path: /mnt/BigPool/Media
         globalMounts:
           - path: /media
-      # metadata:
-      #   existingClaim: jellyfin-metadata
-      #   globalMounts:
-      #     - path: /config/metadata
+      metadata:
+        existingClaim: jellyfin-metadata
+        globalMounts:
+          - path: /config/metadata
+          - path: /metadata
       tmpfs:
         type: emptyDir
         globalMounts:

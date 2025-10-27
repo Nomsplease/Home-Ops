@@ -38,9 +38,10 @@ spec:
               readiness: *probes
               startup: *probes
             resources:
+              claims:
+                - name: gpu
               limits:
                 memory: 16Gi
-                gpu.intel.com/i915: 1000m
         pod:
           affinity:
             nodeAffinity:
@@ -51,6 +52,16 @@ spec:
                     operator: In
                     values:
                       - A_Series
+    defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: *app
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:

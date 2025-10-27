@@ -77,11 +77,9 @@ spec:
             sectionName: https
     persistence:
       cache:
-        existingClaim: jellyfin-cache
+        existingClaim: "{{ .Release.Name }}-cache"
       config:
-        existingClaim: *app
-        globalMounts:
-          - path: /config
+        existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
         server: truenas.internal
@@ -89,7 +87,7 @@ spec:
         globalMounts:
           - path: /media
       metadata:
-        existingClaim: jellyfin-metadata
+        existingClaim: "{{ .Release.Name }}-metadata"
       tmpfs:
         type: emptyDir
         globalMounts:

@@ -31,12 +31,14 @@ spec:
                 enabled: true
                 custom: true
                 spec:
-                  tcpSocket:
+                  httpGet:
+                    path: /health
                     port: &port 8096
-                  failureThreshold: 6
+                  initialDelaySeconds: 0
                   periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
               readiness: *probes
-              startup: *probes
             resources:
               claims:
                 - name: gpu

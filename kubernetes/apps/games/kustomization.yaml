@@ -12,5 +12,5 @@ resources:
   # - ./samba/ks.yaml
   #- ./astroneer/ks.yaml
   # - ./sevendaystodie/ks.yaml
-  - ./cs2/ks.yaml
+  # - ./cs2/ks.yaml
   - ./satisfactory/ks.yaml

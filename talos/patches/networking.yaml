@@ -8,16 +8,10 @@ machine:
           mode: active-backup
         routes:
           - network: 0.0.0.0/0
-            gateway: 172.16.0.1
+            gateway: 10.1.10.1
         vlans:
-          - # Internal
-            vlanId: 10
-            dhcp: false
           - # VPN
             vlanId: 66
-            dhcp: false
-          - # NET
-            vlanId: 1001
             dhcp: false
           - # IOT
             vlanId: 1003

@@ -3,4 +3,4 @@ machine:
     interfaces:
       - interface: bond0
         vip:
-          ip: 172.16.0.50
+          ip: 10.1.10.50

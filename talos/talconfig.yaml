@@ -1,13 +1,13 @@
 ---
 clusterName: main
-talosVersion: v1.11.2
+talosVersion: v1.11.3
 kubernetesVersion: v1.34.1
-endpoint: https://172.16.0.50:6443
+endpoint: https://10.1.10.50:6443
 domain: cluster.local
 allowSchedulingOnMasters: true
 additionalMachineCertSans:
   - 127.0.0.1
-  - 172.16.0.50
+  - 10.1.10.50
 clusterPodNets:
   - 10.42.0.0/16
 clusterSvcNets:
@@ -30,7 +30,7 @@ nodes:
 ##########
 
   - hostname: Main-1
-    ipAddress: "172.16.0.51"
+    ipAddress: "10.1.10.51"
     controlPlane: true
     machineSpec:
       mode: metal
@@ -63,7 +63,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         addresses:
-          - 172.16.0.51/24
+          - 10.1.10.51/24
         bond:
           interfaces:
             - enp1s0
@@ -73,7 +73,7 @@ nodes:
 ##########
 
   - hostname: Main-2
-    ipAddress: "172.16.0.52"
+    ipAddress: "10.1.10.52"
     machineSpec:
       mode: metal
       arch: amd64
@@ -87,7 +87,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         addresses:
-          - 172.16.0.52/24
+          - 10.1.10.52/24
         bond:
           interfaces:
             - enp1s0
@@ -97,7 +97,7 @@ nodes:
 ##########
 
   - hostname: Main-3
-    ipAddress: "172.16.0.53"
+    ipAddress: "10.1.10.53"
     controlPlane: true
     machineSpec:
       mode: metal
@@ -112,7 +112,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         addresses:
-          - 172.16.0.53/24
+          - 10.1.10.53/24
         bond:
           interfaces:
             - enp1s0
@@ -122,7 +122,7 @@ nodes:
 ##########
 
   - hostname: Main-4
-    ipAddress: "172.16.0.54"
+    ipAddress: "10.1.10.54"
     machineSpec:
       mode: metal
       arch: amd64
@@ -136,7 +136,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         addresses:
-          - 172.16.0.54/24
+          - 10.1.10.54/24
         bond:
           interfaces:
             - enp1s0
@@ -147,7 +147,7 @@ nodes:
 ##########
 
   - hostname: Main-5
-    ipAddress: "172.16.0.55"
+    ipAddress: "10.1.10.55"
     machineSpec:
       mode: metal
       arch: amd64
@@ -161,7 +161,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         addresses:
-          - 172.16.0.55/24
+          - 10.1.10.55/24
         bond:
           interfaces:
             - enp1s0
@@ -171,7 +171,7 @@ nodes:
 ##########
 
   - hostname: Main-6
-    ipAddress: "172.16.0.56"
+    ipAddress: "10.1.10.56"
     machineSpec:
       mode: metal
       arch: amd64
@@ -185,53 +185,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         addresses:
-          - 172.16.0.56/24
+          - 10.1.10.56/24
         bond:
           interfaces:
             - enp1s0
-
-######################
-## Main-BiG GPU Node ##
-######################
-
-  - hostname: Main-BiG
-    ipAddress: "172.16.0.57"
-    controlPlane: true
-    machineSpec:
-      mode: metal
-      arch: amd64
-      secureboot: false
-    schematic:
-      customization:
-        extraKernelArgs:
-          - -init_on_alloc                      # Less security, faster puter
-          - -init_on_free                       # Less security, faster puter
-          - -selinux                            # Less security, faster puter
-          - apparmor=0                          # Less security, faster puter
-          # - i915.enable_guc=3                   # Meteor Lake CPU / iGPU
-          - init_on_alloc=0                     # Less security, faster puter
-          - init_on_free=0                      # Less security, faster puter
-          - amd_iommu=on                      # PCI Passthrough
-          - iommu=pt                            # PCI Passthrough
-          - mitigations=off                     # Less security, faster puter
-          - security=none                       # Less security, faster puter
-          # - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU / iGPU
-          - talos.auditd.disabled=1             # Less security, faster puter
-        systemExtensions:
-            officialExtensions:
-                - siderolabs/i915
-                - siderolabs/mei
-                - siderolabs/nfsrahead
-                - siderolabs/nvidia-container-toolkit-lts
-                - siderolabs/nonfree-kmod-nvidia-lts
-    patches:
-      - "@./patches/nvidia-kernel-modules.yaml"
-    installDiskSelector:
-      model: CT500P2SSD8
-    networkInterfaces:
-      - interface: bond0
-        addresses:
-          - 172.16.0.57/24
-        bond:
-          interfaces:
-            - enp133s0f1

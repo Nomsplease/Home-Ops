@@ -3,13 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: rook-cluster
+  name: rook-ceph-cluster
 spec:
   interval: 1h
   timeout: 15m
   chartRef:
     kind: OCIRepository
-    name: rook-cluster
+    name: rook-ceph-cluster
   install:
     remediation:
       retries: -1

@@ -42,16 +42,31 @@ tasks:
   snapshot:
     desc: Snapshot an app [CLUSTER=main] [NS=default] [APP=required]
     cmds:
-      - kubectl --namespace {{.NS}} patch replicationsources {{.APP}} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
-      - until kubectl --namespace {{.NS}} get job/{{.JOB}} &>/dev/null; do sleep 5; done
-      - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for=condition=complete --timeout=120m
+      - kubectl --namespace {{.NS}} patch replicationsources {{.APP}}-local --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
+      - until kubectl --namespace {{.NS}} get job/{{.JOB}}-local &>/dev/null; do echo waiting for job/{{.JOB}}-local; sleep 5; done
+      - kubectl --namespace {{.NS}} wait job/{{.JOB}}-local --for=condition=complete --timeout=120m
     vars:
       NS: '{{.NS | default "default"}}'
       JOB: volsync-src-{{.APP}}
     requires:
       vars: [CLUSTER, APP]
     preconditions:
-      - kubectl --namespace {{.NS}} get replicationsources {{.APP}}
+      - kubectl --namespace {{.NS}} get replicationsources {{.APP}}-local
+      - which kubectl
+
+  snapshot-namespace:
+    desc: Snapshot all apps in Namespace [CLUSTER=main] [NS=required]
+    cmds:
+      - for: { var: SOURCES, split: "\n" }
+        cmd: kubectl --namespace {{.NS}} patch replicationsources {{ .ITEM }} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
+    vars:
+      NS: '{{.NS | default "default"}}'
+      SOURCES:
+        sh: kubectl get replicationsources --namespace {{.NS}} --no-headers --output=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
+    requires:
+      vars: [CLUSTER, NS]
+    preconditions:
+      - kubectl --namespace {{.NS}} get replicationsources
       - which kubectl
 
   restore:
@@ -73,7 +88,7 @@ tasks:
       - flux --namespace {{.NS}} reconcile helmrelease {{.APP}} --force
       - kubectl --namespace {{.NS}} wait pod --for=condition=ready --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m
     vars:
-      BACKEND: '{{index .MATCH 0}}'
+      # BACKEND: '{{index .MATCH 0}}'
       NS: '{{.NS | default "default"}}'
       CONTROLLER:
         sh: kubectl --namespace {{.NS}} get deployment {{.APP}} &>/dev/null && echo deployment || echo statefulset
@@ -82,15 +97,15 @@ tasks:
       APP: '{{.APP}}'
       PREVIOUS: '{{.PREVIOUS}}'
       CLAIM:
-        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.sourcePVC}"
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}}-local --output=jsonpath="{.spec.sourcePVC}"
       ACCESS_MODES:
-        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.accessModes}"
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}}-local --output=jsonpath="{.spec.restic.accessModes}"
       STORAGE_CLASS_NAME:
-        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.storageClassName}"
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}}-local --output=jsonpath="{.spec.restic.storageClassName}"
       PUID:
-        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsUser}"
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}}-local --output=jsonpath="{.spec.restic.moverSecurityContext.runAsUser}"
       PGID:
-        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}}-local --output=jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
     requires:
       vars: [CLUSTER, APP, PREVIOUS]
     preconditions:

@@ -78,3 +78,12 @@ releases:
       - ./templates/values.yaml.gotmpl
     needs:
       - flux-system/flux-operator
+
+  - name: rook-operator
+    namespace: rook-ceph
+    chart: oci://ghcr.io/rook/rook-ceph
+    version: v1.18.5
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - flux-system/flux-instance

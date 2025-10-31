@@ -10,24 +10,24 @@ metadata:
   ## Recovery End
 spec:
   ## Uncomment for first deployment
-  bootstrap:
-    initdb:
-      database: app
-      owner: app
-      secret:
-        name: main-cnpg-app-secret
+  # bootstrap:
+  #   initdb:
+  #     database: app
+  #     owner: app
+  #     secret:
+  #       name: main-cnpg-app-secret
   ## First deployment end
   ## Uncomment for recovery
-  # bootstrap:
-  #   recovery:
-  #     source: &db main-db
-  # externalClusters:
-  #   - name: *db
-  #     plugin:
-  #       name: barman-cloud.cloudnative-pg.io
-  #       parameters:
-  #         barmanObjectName: main-store
-  #         serverName: *db
+  bootstrap:
+    recovery:
+      source: &db main-db
+  externalClusters:
+    - name: *db
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: main-store
+          serverName: *db
   ## Recovery End
   enablePDB: false
   enableSuperuserAccess: true

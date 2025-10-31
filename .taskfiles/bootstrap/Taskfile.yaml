@@ -29,39 +29,42 @@ tasks:
       - test -f talosconfig
       - which jq ls sops talosctl shuf talhelper
 
-  apps:
-    desc: Bootstrap Apps
+  namespaces:
+    desc: Create Namespaces
     cmds:
-      - until kubectl --kubeconfig kubeconfig wait nodes --for=condition=Ready --all --timeout=10m; do sleep 5; done
-      - for: { var: CRDS }
-        cmd: kubectl apply --server-side --filename {{.ITEM}}
-      - for: { var: TEMPLATES }
-        cmd: op run --env-file bootstrap/bootstrap.env --no-masking -- minijinja-cli {{.ITEM}} | kubectl apply --server-side --filename -
-      - helmfile --file bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
-      - until kubectl --kubeconfig kubeconfig wait nodes --for=condition=Ready --all --timeout=10m; do sleep 5; done
+      - for: { var: DIR }
+        cmd: >
+          kustomize build {{.ITEM}} | yq -e 'select(.kind == "Namespace")' | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -
     vars:
-      CRDS:
-        # renovate: datasource=github-releases depName=kubernetes-sigs/external-dns
-        - https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/tags/v0.19.0/config/crd/standard/dnsendpoint.yaml
-        # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
-        - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.0/experimental-install.yaml
-        # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-        - https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.85.0/stripped-down-crds.yaml
-        # renovate: depName=k8snetworkplumbingwg/network-attachment-definition-client datasource=github-releases
-        - https://raw.githubusercontent.com/k8snetworkplumbingwg/network-attachment-definition-client/refs/tags/v1.7.5/artifacts/networks-crd.yaml
-      TEMPLATES:
-        sh: ls bootstrap/apps/*.j2
-    env:
-      VAULT: '{{if eq .CLUSTER "main"}}kubernetes{{else}}{{.CLUSTER}}{{end}}' # ¯\_(ツ)_/¯
-      FLUX_GITHUB_PUBLIC_KEYS:
-        sh: curl -fsSL https://api.github.com/meta | jq --raw-output '"github.com "+.ssh_keys[]'
+      DIR:
+        sh: find "kubernetes/apps" -mindepth 1 -maxdepth 1 -type d
     preconditions:
-      - op user get --me
-      - talosctl --talosconfig talosconfig config info
-      - test -f talosconfig
-      - test -f kubeconfig
-      - test -f bootstrap/apps/helmfile.yaml
-      - which helmfile kubectl curl flux jq ls op
+      - which kubectl kustomize yq
+      - kubectl get nodes
+
+  resources:
+    desc: Apply Resources
+    cmds:
+      - op inject -i bootstrap/resources.yaml.j2 | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -
+    preconditions:
+      - which kubectl op
+      - kubectl get nodes
+     
+  crds:
+    desc: Apply Helmfile CRDs
+    cmds:
+      - helmfile -f "bootstrap/helmfile.d/00-crds.yaml" template -q | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -
+    preconditions:
+      - which kubectl helmfile
+      - kubectl get nodes
+  
+  apps:
+    desc: Apply Helmfile APPs
+    cmds:
+      - helmfile -f "bootstrap/helmfile.d/01-apps.yaml" sync --hide-notes
+    preconditions:
+      - which kubectl helmfile
+      - kubectl get nodes
 
   flux:
     desc: Bootstrap Flux

@@ -20,25 +20,25 @@ spec:
       secretAccessKey:
         name: main-cnpg-backup-secret
         key: aws-secret-access-key
-# ---
-# apiVersion: barmancloud.cnpg.io/v1
-# kind: ObjectStore
-# metadata:
-#   name: main-new-store
-# spec:
-#   retentionPolicy: 7d
-#   configuration:
-#     data:
-#       compression: bzip2
-#     wal:
-#       compression: bzip2
-#       maxParallel: 8
-#     destinationPath: s3://k3s/cnpg
-#     endpointURL: https://new-s3.noms.tv
-#     s3Credentials:
-#       accessKeyId:
-#         name: main-cnpg-backup-secret
-#         key: garage-key-id
-#       secretAccessKey:
-#         name: main-cnpg-backup-secret
-#         key: garage-secret-key
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: main-new-store
+spec:
+  retentionPolicy: 7d
+  configuration:
+    data:
+      compression: bzip2
+    wal:
+      compression: bzip2
+      maxParallel: 8
+    destinationPath: s3://k3s/cnpg
+    endpointURL: https://new-s3.noms.tv
+    s3Credentials:
+      accessKeyId:
+        name: main-cnpg-backup-secret
+        key: garage-key-id
+      secretAccessKey:
+        name: main-cnpg-backup-secret
+        key: garage-secret-key

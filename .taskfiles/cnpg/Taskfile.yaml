@@ -1,0 +1,30 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
+
+# Taskfile used to manage certain VolSync tasks for a given application, limitations are as followed.
+#   1. Fluxtomization, HelmRelease, PVC, ReplicationSource all have the same name (e.g. plex)
+#   2. ReplicationSource and ReplicationDestination are a Restic repository
+#   3. Each application only has one PVC that is being replicated
+
+vars:
+  CNPG_RESOURCES_DIR: '{{.ROOT_DIR}}/.taskfiles/cnpg/resources'
+
+tasks:
+
+  backup:
+    desc: Backup a CNPG Cluster [CLUSTER=main] [NS=databases] [DB=required]
+    cmds:
+      - minijinja-cli {{.CNPG_RESOURCES_DIR}}/backup.yaml.j2 | kubectl apply --namespace {{.NS}} --server-side --filename -
+    vars:
+      NS: '{{.NS | default "databases"}}'
+      TS: '{{now | unixEpoch}}'
+    env:
+      DB: '{{.DB}}'
+      NS: '{{.NS}}'
+      TS: '{{.TS}}'
+    requires:
+      vars: [CLUSTER, DB]
+    preconditions:
+      - kubectl --namespace {{.NS}} get cluster {{.DB}}-db
+      - which kubectl

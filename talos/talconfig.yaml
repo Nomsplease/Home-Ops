@@ -148,6 +148,7 @@ nodes:
 
   - hostname: Main-5
     ipAddress: "10.1.10.55"
+    controlPlane: true
     machineSpec:
       mode: metal
       arch: amd64

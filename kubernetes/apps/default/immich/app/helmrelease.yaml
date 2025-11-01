@@ -67,11 +67,11 @@ spec:
           containers:
             main:
               resources:
+                claims:
+                  - gpu
                 requests:
                   cpu: 500m
                   memory: 4096M
-                limits:
-                  gpu.intel.com/i915: 1000m
       env:
         TRANSFORMERS_CACHE: /cache
       persistence:
@@ -86,11 +86,12 @@ spec:
           containers:
             main:
               resources:
+                claims:
+                  - gpu
                 requests:
                   cpu: 1500m
                   memory: 2048M
                 limits:
-                  gpu.intel.com/i915: 1000m
                   memory: 8Gi
       ingress:
         main:

@@ -2,12 +2,9 @@
 clusterName: main
 talosVersion: v1.11.3
 kubernetesVersion: v1.34.1
-endpoint: https://10.1.10.50:6443
+endpoint: https://k8s.internal:6443
 domain: cluster.local
 allowSchedulingOnMasters: true
-additionalMachineCertSans:
-  - 127.0.0.1
-  - 10.1.10.50
 clusterPodNets:
   - 10.42.0.0/16
 clusterSvcNets:
@@ -23,7 +20,6 @@ controlPlane:
   patches:
    - "@./patches/cluster-cp.yaml"
    - "@./patches/features-cp.yaml"
-   - "@./patches/vip.yaml"
 nodes:
 ##########
 ## Main-1 ##

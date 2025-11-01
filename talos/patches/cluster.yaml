@@ -8,7 +8,7 @@ cluster:
     disabled: true
   apiServer:
     certSANs:
-      - 127.0.0.1
+      - k8s.internal
     disablePodSecurityPolicy: true
     auditPolicy:
       apiVersion: audit.k8s.io/v1

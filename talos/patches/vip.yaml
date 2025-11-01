@@ -1,6 +1,0 @@
-machine:
-  network:
-    interfaces:
-      - interface: bond0
-        vip:
-          ip: 10.1.10.50

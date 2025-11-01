@@ -64,8 +64,8 @@ kind: Service
 metadata:
   name: kube-api
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: bgp-k8s.noms.tv
-    lbipam.cilium.io/ips: 10.1.10.57
+    external-dns.alpha.kubernetes.io/hostname: k8s.noms.tv
+    lbipam.cilium.io/ips: 10.1.10.50
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local

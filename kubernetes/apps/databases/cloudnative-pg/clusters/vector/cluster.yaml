@@ -20,14 +20,14 @@ spec:
   ## Uncomment for recovery
   bootstrap:
     recovery:
-      source: &db vector-db
+      source: vector-db
   externalClusters:
-    - name: *db
+    - name: vector-db
       plugin:
         name: barman-cloud.cloudnative-pg.io
         parameters:
           barmanObjectName: vector-store
-          serverName: *db
+          serverName: vector-db
   ## Recovery End
   enablePDB: false
   enableSuperuserAccess: true

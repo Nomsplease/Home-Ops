@@ -1,18 +1,4 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
-metadata:
-  name: immich
-spec:
-  interval: 5m
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
-  ref:
-    tag: 0.10.1
-  url: oci://ghcr.io/immich-app/immich-charts/immich
----
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -61,15 +47,6 @@ spec:
         library:
           existingClaim: immich
     machine-learning:
-      controllers:
-        main:
-          strategy: Recreate
-          containers:
-            main:
-              resources:
-                requests:
-                  cpu: 500m
-                  memory: 4096M
       env:
         TRANSFORMERS_CACHE: /cache
       persistence:
@@ -79,16 +56,6 @@ spec:
           size: 10Gi
           type: emptyDir
     server:
-      controllers:
-        main:
-          containers:
-            main:
-              resources:
-                requests:
-                  cpu: 1500m
-                  memory: 2048M
-                limits:
-                  memory: 8Gi
       ingress:
         main:
           enabled: false

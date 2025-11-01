@@ -5,8 +5,8 @@ kind: Cluster
 metadata:
   name: vector-db
   ## Uncomment for recovery
-  # annotations:
-  #   cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
   ## Recovery End
 spec:
   ## Uncomment for first deployment

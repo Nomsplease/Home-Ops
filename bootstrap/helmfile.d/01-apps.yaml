@@ -34,6 +34,15 @@ releases:
           - postsync
         showlogs: true
 
+  - name: rook-ceph
+    namespace: rook-ceph
+    chart: oci://ghcr.io/rook/rook-ceph
+    version: v1.18.6
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - kube-system/cilium
+
   - name: coredns
     namespace: kube-system
     chart: oci://ghcr.io/coredns/charts/coredns

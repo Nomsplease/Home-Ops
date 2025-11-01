@@ -9,5 +9,5 @@ machine:
       port: 7445
     hostDNS:
       enabled: true
-      resolveMemberNames: true
       forwardKubeDNSToHost: false
+      resolveMemberNames: true

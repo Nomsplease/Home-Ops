@@ -1,19 +1,23 @@
 machine:
   network:
-    nameservers:
-      - 10.1.10.2
     interfaces:
       - interface: bond0
         bond:
           mode: active-backup
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.1.10.1
+          interfaces:
+            - enp1s0
+        dhcp: true
+        mtu: 9000
         vlans:
+          - # Internal
+            vlanId: 10
+            dhcp: false
+            mtu: 9000
           - # VPN
             vlanId: 66
             dhcp: false
+            mtu: 9000
           - # IOT
             vlanId: 1003
             dhcp: false
-            
+            mtu: 9000

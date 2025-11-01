@@ -2,13 +2,13 @@
 clusterName: main
 talosVersion: v1.11.3
 kubernetesVersion: v1.34.1
-endpoint: https://k8s.internal:6443
+endpoint: https://k8s.services:6443
 domain: cluster.local
 allowSchedulingOnMasters: true
 clusterPodNets:
-  - 10.42.0.0/16
+  - 172.20.0.0/16
 clusterSvcNets:
-  - 10.43.0.0/16
+  - 172.21.0.0/16
 patches:
   - "@./patches/cluster.yaml"
   - "@./patches/features.yaml"
@@ -26,7 +26,7 @@ nodes:
 ##########
 
   - hostname: Main-1
-    ipAddress: "10.1.10.51"
+    ipAddress: "10.1.20.11"
     controlPlane: true
     machineSpec:
       mode: metal
@@ -56,20 +56,13 @@ nodes:
                 - siderolabs/nfsrahead
     installDiskSelector:
       model: Micron*
-    networkInterfaces:
-      - interface: bond0
-        addresses:
-          - 10.1.10.51/24
-        bond:
-          interfaces:
-            - enp1s0
 
 ##########
 ## Main-2 ##
 ##########
 
   - hostname: Main-2
-    ipAddress: "10.1.10.52"
+    ipAddress: "10.1.20.12"
     machineSpec:
       mode: metal
       arch: amd64
@@ -80,20 +73,13 @@ nodes:
         systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: PM991*
-    networkInterfaces:
-      - interface: bond0
-        addresses:
-          - 10.1.10.52/24
-        bond:
-          interfaces:
-            - enp1s0
 
 ##########
 ## Main-3 ##
 ##########
 
   - hostname: Main-3
-    ipAddress: "10.1.10.53"
+    ipAddress: "10.1.20.13"
     controlPlane: true
     machineSpec:
       mode: metal
@@ -105,20 +91,13 @@ nodes:
         systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: PM991*
-    networkInterfaces:
-      - interface: bond0
-        addresses:
-          - 10.1.10.53/24
-        bond:
-          interfaces:
-            - enp1s0
 
 ##########
 ## Main-4 ##
 ##########
 
   - hostname: Main-4
-    ipAddress: "10.1.10.54"
+    ipAddress: "10.1.20.14"
     machineSpec:
       mode: metal
       arch: amd64
@@ -129,13 +108,6 @@ nodes:
         systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: PM991*
-    networkInterfaces:
-      - interface: bond0
-        addresses:
-          - 10.1.10.54/24
-        bond:
-          interfaces:
-            - enp1s0
 
 
 ##########
@@ -143,7 +115,7 @@ nodes:
 ##########
 
   - hostname: Main-5
-    ipAddress: "10.1.10.55"
+    ipAddress: "10.1.20.15"
     controlPlane: true
     machineSpec:
       mode: metal
@@ -155,20 +127,13 @@ nodes:
         systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: PM991*
-    networkInterfaces:
-      - interface: bond0
-        addresses:
-          - 10.1.10.55/24
-        bond:
-          interfaces:
-            - enp1s0
 
 ##########
 ## Main-6 ##
 ##########
 
   - hostname: Main-6
-    ipAddress: "10.1.10.56"
+    ipAddress: "10.1.20.16"
     machineSpec:
       mode: metal
       arch: amd64
@@ -179,10 +144,3 @@ nodes:
         systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: PM991*
-    networkInterfaces:
-      - interface: bond0
-        addresses:
-          - 10.1.10.56/24
-        bond:
-          interfaces:
-            - enp1s0

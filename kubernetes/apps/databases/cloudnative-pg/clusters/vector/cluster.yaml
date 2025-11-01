@@ -5,29 +5,29 @@ kind: Cluster
 metadata:
   name: vector-db
   ## Uncomment for recovery
-  annotations:
-    cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
+  # annotations:
+  #   cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
   ## Recovery End
 spec:
   ## Uncomment for first deployment
-  # bootstrap:
-  #   initdb:
-  #     database: app
-  #     owner: app
-  #     secret:
-  #       name: vector-cnpg-app-secret
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      secret:
+        name: vector-cnpg-app-secret
   ## First deployment end
   ## Uncomment for recovery
-  bootstrap:
-    recovery:
-      source: vector-db
-  externalClusters:
-    - name: vector-db
-      plugin:
-        name: barman-cloud.cloudnative-pg.io
-        parameters:
-          barmanObjectName: vector-store
-          serverName: vector-db
+  # bootstrap:
+  #   recovery:
+  #     source: vector-db
+  # externalClusters:
+  #   - name: vector-db
+  #     plugin:
+  #       name: barman-cloud.cloudnative-pg.io
+  #       parameters:
+  #         barmanObjectName: vector-store
+  #         serverName: vector-db
   ## Recovery End
   enablePDB: false
   enableSuperuserAccess: true

@@ -45,9 +45,6 @@ spec:
                   periodSeconds: 10
               readiness: *probes
               startup: *probes
-            resources:
-              limits:
-                memory: 4Gi
     service:
       app:
         ports:

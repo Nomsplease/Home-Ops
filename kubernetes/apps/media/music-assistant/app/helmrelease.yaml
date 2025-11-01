@@ -58,11 +58,6 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 8Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

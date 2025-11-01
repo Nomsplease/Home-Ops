@@ -35,9 +35,6 @@ spec:
             #   - name: RTL_MSGTYPE
             #     value: "ALL"
             ##
-            resources:
-              limits:
-                memory: 256Mi
     defaultPodOptions:
       nodeSelector:
         nesdr.feature.node.kubernetes.io/rtlamr: "true"

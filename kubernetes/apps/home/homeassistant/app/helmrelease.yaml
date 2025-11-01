@@ -57,11 +57,6 @@ spec:
                   periodSeconds: 10
               readiness: *probes
               startup: *probes
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 4Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

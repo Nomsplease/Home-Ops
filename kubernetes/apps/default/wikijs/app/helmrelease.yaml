@@ -43,12 +43,6 @@ spec:
                   periodSeconds: 10
               readiness: *probes
               startup: *probes
-            resources:
-              requests:
-                cpu: 47m
-                memory: 256Mi
-              limits:
-                memory: 1Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

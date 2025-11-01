@@ -44,9 +44,6 @@ spec:
                   periodSeconds: 10
               readiness: *probes
               startup: *probes
-            resources:
-              limits:
-                memory: 2Gi
     service:
       app:
         ports:

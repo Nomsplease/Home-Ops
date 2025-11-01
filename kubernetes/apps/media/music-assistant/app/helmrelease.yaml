@@ -25,7 +25,7 @@ spec:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
-                "name":"net",
+                "name":"internal",
                 "namespace": "kube-system",
                 "ips": ["172.16.1.50/24"],
                 "mac": "3e:59:e4:f7:44:09"

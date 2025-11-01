@@ -67,8 +67,6 @@ spec:
           containers:
             main:
               resources:
-                claims:
-                  - gpu
                 requests:
                   cpu: 500m
                   memory: 4096M
@@ -86,8 +84,6 @@ spec:
           containers:
             main:
               resources:
-                claims:
-                  - gpu
                 requests:
                   cpu: 1500m
                   memory: 2048M

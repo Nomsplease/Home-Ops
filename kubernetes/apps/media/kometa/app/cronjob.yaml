@@ -1,0 +1,40 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kometa
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  schedule: "0 */1 * * *"
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: kometa
+              image: kometateam/kometa:v2.2.2@sha256:32992226d1a505da3ed5d4e9c97bed8a6deb7aef36cd5ef8b1f519762607df45
+              args: [ "--run", "--read-only-config" ]
+              env:
+                - name: KOMETA_CONFIG
+                  value: /config/config.yml
+              volumeMounts:
+                - name: pvc
+                  mountPath: /config
+                - name: kometa-config
+                  mountPath: /config/config.yml
+                  subPath: config.yml
+                  readOnly: true
+          volumes:
+            - name: pvc
+              persistentVolumeClaim:
+                claimName: kometa
+            - name: config
+              secret:
+                secretName: kometa-config
+                items:
+                - key: config.yml
+                  path: config.yml
+          restartPolicy: OnFailure

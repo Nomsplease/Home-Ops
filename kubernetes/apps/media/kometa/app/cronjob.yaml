@@ -6,6 +6,7 @@ metadata:
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
+  concurrencyPolicy: Forbid
   schedule: "0 */1 * * *"
   successfulJobsHistoryLimit: 5
   failedJobsHistoryLimit: 5
@@ -17,7 +18,6 @@ spec:
             - name: kometa
               image: kometateam/kometa:v2.2.2@sha256:32992226d1a505da3ed5d4e9c97bed8a6deb7aef36cd5ef8b1f519762607df45
               args: [ "--run", "--read-only-config" ]
-              concurrencyPolicy: Forbid
               env:
                 - name: KOMETA_CONFIG
                   value: /config/config.yml

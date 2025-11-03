@@ -2,9 +2,9 @@
 apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
 metadata:
-  name: plex
+  name: jellyfin
   labels:
-    kubernetes.io/service-name: plex
+    kubernetes.io/service-name: jellyfin
 addressType: IPv4
 endpoints:
   - addresses:
@@ -13,24 +13,24 @@ endpoints:
       ready: true
 ports:
   - name: http
-    port: 32400
+    port: 8096
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: plex
+  name: jellyfin
 spec:
   ports:
     - name: http
       port: 80
-      targetPort: 32400
+      targetPort: 8096
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: plex
+  name: jellyfin
 spec:
-  hostnames: ["plex.noms.tv"]
+  hostnames: ["jellyfin.noms.tv"]
   parentRefs:
     - name: envoy
       namespace: network
@@ -41,5 +41,5 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: plex
+        - name: jellyfin
           port: 80

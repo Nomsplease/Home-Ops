@@ -27,7 +27,7 @@ spec:
               [{
                 "name":"internal",
                 "namespace": "kube-system",
-                "ips": ["172.16.1.50/24"],
+                "ips": ["10.1.10.19/24"],
                 "mac": "3e:59:e4:f7:44:09"
               },
               {

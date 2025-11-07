@@ -75,7 +75,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: app
+              - name: netbootxyz
                 port: *web_port
     persistence:
       config:

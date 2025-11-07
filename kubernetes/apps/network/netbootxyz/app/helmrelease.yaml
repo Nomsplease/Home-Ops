@@ -1,0 +1,83 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: netbootxyz
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: netbootxyz
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      netbootxyz:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/netbootxyz/netbootxyz
+              tag: 0.7.6-nbxyz10@sha256:e95b81cebf3af6f7223666289ff3841c607b83914a6c13a9c05fd6b7524ab190
+            env:
+              NGINX_PORT: &port 80
+              WEB_APP_PORT: &web_port 3000
+              TFTPD_OPTS: '--tftp-single-port'
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.1.20.22
+        ports:
+          http:
+            port: *port
+          tftp:
+            port: 69
+            protocol: UDP
+          assets:
+            port: *web_port
+    route:
+      app:
+        hostnames:
+          - "netboot.noms.tv"
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /config
+            subPath: config
+          - path: /assets
+            subPath: assets

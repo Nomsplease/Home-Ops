@@ -66,6 +66,17 @@ spec:
           - name: envoy
             namespace: network
             sectionName: https
+      assets:
+        hostnames:
+          - "bootfiles.noms.tv"
+        parentRefs:
+          - name: envoy
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: app
+                port: *web_port
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

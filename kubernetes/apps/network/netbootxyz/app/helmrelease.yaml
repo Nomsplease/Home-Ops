@@ -30,8 +30,6 @@ spec:
               NGINX_PORT: &port 80
               WEB_APP_PORT: &web_port 3000
               TFTPD_OPTS: '--tftp-single-port'
-              PUID: 1000
-              PGID: 1000
             probes:
               liveness: &probes
                 enabled: true
@@ -44,15 +42,8 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:

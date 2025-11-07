@@ -51,13 +51,13 @@ spec:
         annotations:
           lbipam.cilium.io/ips: 10.1.20.22
         ports:
-          http:
+          app:
+            port: *web_port
+          assets:
             port: *port
           tftp:
             port: 69
             protocol: UDP
-          assets:
-            port: *web_port
     route:
       app:
         hostnames:
@@ -76,7 +76,7 @@ spec:
         rules:
           - backendRefs:
               - name: netbootxyz
-                port: *web_port
+                port: *port
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

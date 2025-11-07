@@ -30,6 +30,8 @@ spec:
               NGINX_PORT: &port 80
               WEB_APP_PORT: &web_port 3000
               TFTPD_OPTS: '--tftp-single-port'
+              PUID: 1000
+              PGID: 1000
             probes:
               liveness: &probes
                 enabled: true

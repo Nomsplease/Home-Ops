@@ -39,7 +39,7 @@ spec:
               TZ: America/New_York
             image:
               # renovate: datasource=github-releases depName=immich-app/immich
-              tag: v2.1.0
+              tag: v2.2.3
     immich:
       metrics:
         enabled: true

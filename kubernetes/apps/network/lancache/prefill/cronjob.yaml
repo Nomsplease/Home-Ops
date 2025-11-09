@@ -12,7 +12,7 @@ spec:
         spec:
           containers:
             - name: steam-prefill
-              image: tpill90/steam-lancache-prefill:v3.3.0
+              image: tpill90/steam-lancache-prefill:v3.4.1
               args: [ "prefill", "--recent" ]
               volumeMounts:
               - name: pvc

@@ -63,4 +63,4 @@ spec:
       data:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
-          - /meili_data
+          - path: /meili_data

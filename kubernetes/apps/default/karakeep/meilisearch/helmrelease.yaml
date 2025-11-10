@@ -60,5 +60,7 @@ spec:
           http:
             port: *port
     persistence:
-      meili_data:
+      data:
         existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - /meili_data

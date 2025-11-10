@@ -11,6 +11,7 @@ resources:
   - ./gitea/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
+  - ./karakeep/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
   - ./mealie/ks.yaml

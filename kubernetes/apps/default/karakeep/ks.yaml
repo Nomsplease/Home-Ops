@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: karakeep
+spec:
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  interval: 30m
+  path: ./kubernetes/apps/default/karakeep/app
+  postBuild:
+    substitute:
+      APP: karakeep
+      VOLSYNC_CAPACITY: 10Gi
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: default
+  timeout: 5m
+  wait: false
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: karakeep-chrome
+spec:
+  dependsOn:
+    - name: karakeep
+  interval: 30m
+  path: ./kubernetes/apps/default/karakeep/chrome
+  postBuild:
+    substitute:
+      APP: karakeep-chrome
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: default
+  timeout: 5m
+  wait: false
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: karakeep-meilisearch
+spec:
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: karakeep
+    - name: volsync
+      namespace: volsync-system
+  interval: 30m
+  path: ./kubernetes/apps/default/karakeep/meilisearch
+  postBuild:
+    substitute:
+      APP: karakeep-meilisearch
+      VOLSYNC_CAPACITY: 1Gi
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: default
+  timeout: 5m
+  wait: false

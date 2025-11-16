@@ -43,7 +43,7 @@ spec:
           docker:
             image:
               repository: docker
-              tag: 28.5.1-dind@sha256:24173119fa6d1b5b4a27ab164fa7863deb66574ee5b90fef3b85dc888ef1a7e6
+              tag: 29.0.1-dind@sha256:ecac43e78380d9b9d3bd24f0ab42b370f6391a1a06a66065c10a00b9d6d57a3e
             env:
               DOCKER_TLS_CERTDIR: /certs
             resources:
@@ -104,7 +104,7 @@ spec:
           docker:
             image:
               repository: docker
-              tag: 28.5.1-dind@sha256:24173119fa6d1b5b4a27ab164fa7863deb66574ee5b90fef3b85dc888ef1a7e6
+              tag: 29.0.1-dind@sha256:ecac43e78380d9b9d3bd24f0ab42b370f6391a1a06a66065c10a00b9d6d57a3e
             env:
               DOCKER_TLS_CERTDIR: /certs
             resources:
@@ -165,7 +165,7 @@ spec:
           docker:
             image:
               repository: docker
-              tag: 28.5.1-dind@sha256:24173119fa6d1b5b4a27ab164fa7863deb66574ee5b90fef3b85dc888ef1a7e6
+              tag: 29.0.1-dind@sha256:ecac43e78380d9b9d3bd24f0ab42b370f6391a1a06a66065c10a00b9d6d57a3e
             env:
               DOCKER_TLS_CERTDIR: /certs
             resources:

@@ -86,14 +86,5 @@ spec:
         existingClaim: home-assistant-cache
         globalMounts:
           - path: /config/.venv
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          *app :
-            main:
-              - path: /config/logs
-                subPath: logs
-              - path: /config/tts
-                subPath: tts
-              - path: /tmp
-                subPath: tmp

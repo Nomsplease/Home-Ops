@@ -80,6 +80,8 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
+          - path: /media
+            subPath: media
       config-cache:
         existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:

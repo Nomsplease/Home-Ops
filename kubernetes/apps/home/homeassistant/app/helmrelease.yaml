@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app homeassistant
+  name: homeassistant
 spec:
   interval: 30m
   chartRef:
@@ -34,7 +34,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
     controllers:
-      *app :
+      homeassistant:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -77,13 +77,11 @@ spec:
             sectionName: https
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
-          - path: /media
-            subPath: media
       config-cache:
-        existingClaim: home-assistant-cache
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /config/.venv
       tmp:

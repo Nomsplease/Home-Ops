@@ -17,9 +17,6 @@ spec:
     remediation:
       retries: 3
   values:
-    defaultPodOptions:
-      annotations:
-        cni.cilium.io/mac-address: bd:ad:d6:fd:03:f0
     controllers:
       amp:
         annotations:

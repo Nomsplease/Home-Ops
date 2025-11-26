@@ -28,8 +28,6 @@ spec:
               repository: mitchtalmadge/amp-dockerized
               tag: staging@sha256:cfe84e14657b97140448c9dbf2f908347d592aa6db29d60d5477fa05892dd8b2
             env:
-              UID: "1000"
-              GID: "1000"
               TZ: America/New_York
               AMP_AUTO_UPDATE: "false"
             envFrom:
@@ -47,13 +45,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:

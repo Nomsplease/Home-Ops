@@ -257,7 +257,7 @@ spec:
         enabled: true
         hostnames: ["{{ .Release.Name }}.noms.tv"]
         parentRefs:
-          - name: envoy
+          - name: envoy-internal
             namespace: network
             sectionName: https
     persistence:

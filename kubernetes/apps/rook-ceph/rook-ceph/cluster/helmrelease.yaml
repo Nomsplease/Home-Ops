@@ -22,7 +22,7 @@ spec:
           path: /
           pathType: PathPrefix
         parentRefs:
-          - name: envoy
+          - name: envoy-internal
             namespace: network
             sectionName: https
     cephClusterSpec:

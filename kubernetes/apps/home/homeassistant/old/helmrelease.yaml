@@ -78,7 +78,7 @@ spec:
       app:
         hostnames: ["old-hass.noms.tv"]
         parentRefs:
-          - name: envoy
+          - name: envoy-internal
             namespace: network
             sectionName: https
         rules:
@@ -88,7 +88,7 @@ spec:
       code:
         hostnames: ["old-hass-code.noms.tv"]
         parentRefs:
-          - name: envoy
+          - name: envoy-internal
             namespace: network
             sectionName: https
         rules:

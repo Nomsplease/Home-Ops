@@ -63,14 +63,14 @@ spec:
         hostnames:
           - "netboot.noms.tv"
         parentRefs:
-          - name: envoy
+          - name: envoy-internal
             namespace: network
             sectionName: https
       assets:
         hostnames:
           - "bootfiles.noms.tv"
         parentRefs:
-          - name: envoy
+          - name: envoy-internal
             namespace: network
             sectionName: https
         rules:

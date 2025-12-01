@@ -5,7 +5,7 @@ metadata:
 spec:
   hostnames: ["photos.noms.tv"]
   parentRefs:
-    - name: envoy
+    - name: envoy-internal
       namespace: network
       sectionName: https
   rules:

@@ -61,6 +61,6 @@ spec:
         hostnames:
           - "wiki.noms.tv"
         parentRefs:
-          - name: envoy
+          - name: envoy-internal
             namespace: network
             sectionName: https

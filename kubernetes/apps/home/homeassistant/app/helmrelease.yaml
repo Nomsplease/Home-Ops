@@ -72,7 +72,7 @@ spec:
           - "{{ .Release.Name }}.noms.tv"
           - hass.noms.tv
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: network
             sectionName: https
     persistence:

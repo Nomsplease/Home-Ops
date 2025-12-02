@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pelican
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: pelican
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      pelican:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/pelican-dev/panel
+              tag: v1.0.0-beta28@sha256:56c2f34649d53889d8b50c83673341b6cccd04ff87b0f002ab0a3e0fc77ebc46
+            env:
+              APP_URL: https://{{ .Release.Name }}.noms.tv
+              TZ: America/New_York
+              XDG_DATA_HOME: /data
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.noms.tv"
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+    configMaps:
+      caddy:
+        data:
+          Caddyfile: |-
+            {
+                admin off
+                servers {
+                    trusted_proxies static 172.20.0.0/16
+                }
+            }
+
+            :80 {
+                root * /var/www/html/public
+                encode gzip
+
+                php_fastcgi 127.0.0.1:9000 {
+                    env PHP_VALUE "upload_max_filesize = 256M
+                                   post_max_size = 256M"
+                }
+                file_server
+            }
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+      caddy:
+        type: configMap
+        identifier: caddy
+        globalMounts:
+          - path: /etc/caddy/Caddyfile
+            subPath: Caddyfile

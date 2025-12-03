@@ -51,7 +51,7 @@ spec:
     service:
       app:
         ports:
-          http:
+          https:
             port: *port
     route:
       app:

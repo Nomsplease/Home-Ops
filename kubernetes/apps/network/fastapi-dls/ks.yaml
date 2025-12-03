@@ -5,8 +5,17 @@ kind: Kustomization
 metadata:
   name: fastapi-dls
 spec:
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/network/fastapi-dls/app
+  postBuild:
+    substitute:
+      APP: fastapi-dls
+      VOLSYNC_CAPACITY: 5Gi
   prune: true 
   retryInterval: 1m
   sourceRef:

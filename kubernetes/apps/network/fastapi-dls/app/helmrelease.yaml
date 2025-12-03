@@ -27,7 +27,7 @@ spec:
               repository: collinwebdesigns/fastapi-dls
               tag: 2.0.3@sha256:e5078363ef86548b41c998367dfa2641015c5b7ffb7b3db280332669f8b1b5f0
             env:
-              DATABASE: sqlite:////app/database/db.sqlite
+              DATABASE: sqlite:////data/db.sqlite
               DEBUG: "false"
               DLS_PORT: &port 443
               DLS_URL: "{{ .Release.Name }}.noms.tv"
@@ -62,6 +62,8 @@ spec:
             namespace: network
             sectionName: https
     persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
       certs:
         type: secret
         name: noms-tv-tls

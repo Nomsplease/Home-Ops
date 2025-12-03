@@ -58,7 +58,7 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.noms.tv"
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: network
             sectionName: https
     persistence:

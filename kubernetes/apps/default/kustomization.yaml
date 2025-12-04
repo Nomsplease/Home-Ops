@@ -8,7 +8,6 @@ components:
 resources:
   - ./namespace.yaml
   - ./actual-budget/ks.yaml
-  # - ./amp/ks.yaml
   - ./gitea/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
@@ -17,7 +16,6 @@ resources:
   - ./lubelogger/ks.yaml
   - ./mealie/ks.yaml
   - ./paperless/ks.yaml
-  # - ./pelican/ks.yaml
   - ./radicale/ks.yaml
   - ./spoolman/ks.yaml
   - ./wallos/ks.yaml

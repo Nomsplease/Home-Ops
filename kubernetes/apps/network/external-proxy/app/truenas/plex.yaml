@@ -43,3 +43,8 @@ spec:
       backendRefs:
         - name: plex
           port: 80
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            remove:
+              - Range

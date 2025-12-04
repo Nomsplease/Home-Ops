@@ -24,10 +24,18 @@ spec:
         containers:
           app:
             image:
-              repository: mozilla/syncstorage-rs
-              tag: 4d6fe26a3553c4ea11fe48b6bcf57b6611d81f7f@sha256:98aa6cb342bb1e4d9ff67fd106b2a32371358f921ea04576eaeb2fd39f817144
+              repository: ghcr.io/porelli/firefox-sync
+              tag: syncstorage-rs-mysql-0.21.1@sha256:e5888e9eb94f1c1d2218a4c9303b804fd823ec6a4104557b9260dd8c20d325b9
             env:
-              LOGLEVEL: info
+              RUST_LOG: info
+              SYNC_HOST: 0.0.0.0
+              SYNC_HUMAN_LOGS: 1
+              SYNC_TOKENSERVER__ENABLED: "true"
+              SYNC_TOKENSERVER__RUN_MIGRATIONS: "true"
+              SYNC_TOKENSERVER__NODE_TYPE: mysql
+              SYNC_TOKENSERVER__FXA_EMAIL_DOMAIN: api.accounts.firefox.com
+              SYNC_TOKENSERVER__FXA_OAUTH_SERVER_URL: https://oauth.accounts.firefox.com/v1
+              SYNC_TOKENSERVER__ADDITIONAL_BLOCKING_THREADS_FOR_FXA_REQUESTS: 2
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -36,7 +44,8 @@ spec:
                 enabled: true
                 custom: true
                 spec:
-                  tcpSocket:
+                  httpGet:
+                    path: /__heartbeat__
                     port: &port 8000
                   initialDelaySeconds: 0
                   periodSeconds: 10

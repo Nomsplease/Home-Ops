@@ -32,7 +32,7 @@ metadata:
 spec:
   hostnames: ["jellyfin.noms.tv"]
   parentRefs:
-    - name: envoy
+    - name: envoy-external
       namespace: network
       sectionName: https
   rules:

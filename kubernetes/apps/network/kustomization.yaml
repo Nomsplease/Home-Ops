@@ -17,4 +17,5 @@ resources:
   - ./external-proxy/ks.yaml
   # - ./lancache/ks.yaml
   - ./netbootxyz/ks.yaml
+  - ./syncstorage-rs/ks.yaml
   - ./unifi-dns/ks.yaml

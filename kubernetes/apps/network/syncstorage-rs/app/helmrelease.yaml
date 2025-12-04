@@ -1,0 +1,63 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: syncstorage-rs
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: syncstorage-rs
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      syncstorage-rs:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: mozilla/syncstorage-rs
+              tag: 4d6fe26a3553c4ea11fe48b6bcf57b6611d81f7f@sha256:98aa6cb342bb1e4d9ff67fd106b2a32371358f921ea04576eaeb2fd39f817144
+            env:
+              LOGLEVEL: info
+              SYNC_URL: https://sync.noms.tv
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 8000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+    defaultPodOptions:
+      securityContext:
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.noms.tv"
+          - sync.noms.tv
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https

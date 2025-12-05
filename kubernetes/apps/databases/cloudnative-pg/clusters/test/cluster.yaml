@@ -74,7 +74,5 @@ spec:
   managed:
     roles:
       - name: testapp
-        ensure: present
+        createdb: true
         login: true
-        superuser: false
-        disablePassword: true

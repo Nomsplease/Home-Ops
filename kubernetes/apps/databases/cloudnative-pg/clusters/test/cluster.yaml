@@ -15,7 +15,7 @@ spec:
       database: app
       owner: app
       secret:
-        name: test-cnpg-app-secret
+        name: cnpg-app
   ## First deployment end
   ## Uncomment for recovery
   # bootstrap:
@@ -69,4 +69,4 @@ spec:
     size: 20Gi
     storageClass: ceph-block
   superuserSecret:
-    name: test-cnpg-admin-secret
+    name: cnpg-admin

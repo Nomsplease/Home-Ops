@@ -11,14 +11,14 @@ spec:
     endpointURL: https://new-s3.noms.tv
     s3Credentials:
       accessKeyId:
-        name: test-cnpg-backup-secret
-        key: aws-access-key-id
+        name: cnpg-garage
+        key: ACCESS_KEY_ID
       secretAccessKey:
-        name: test-cnpg-backup-secret
-        key: aws-secret-access-key
+        name: cnpg-garage
+        key: ACCESS_SECRET_KEY
       region:
-        name: test-cnpg-backup-secret
-        key: region
+        name: cnpg-garage
+        key: REGION
     wal:
       compression: zstd
   retentionPolicy: "30d"

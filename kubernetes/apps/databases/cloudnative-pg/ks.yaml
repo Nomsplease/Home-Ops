@@ -115,33 +115,33 @@ spec:
   targetNamespace: *namespace
   timeout: 5m
   wait: false
-# ---
-# # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: &app cloudnative-pg-test-cluster
-#   namespace: &namespace databases
-# spec:
-#   commonMetadata:
-#     labels:
-#       app.kubernetes.io/name: *app
-#   dependsOn:
-#     - name: external-secrets
-#       namespace: external-secrets
-#     - name: cloudnative-pg
-#     - name: cloudnative-pg-plugins
-#   interval: 30m
-#   path: ./kubernetes/apps/databases/cloudnative-pg/clusters/test
-#   postBuild:
-#     substitute:
-#       APP: *app
-#   prune: true 
-#   retryInterval: 1m
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#     namespace: flux-system
-#   targetNamespace: *namespace
-#   timeout: 5m
-#   wait: false
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app cloudnative-pg-test-cluster
+  namespace: &namespace databases
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: external-secrets
+      namespace: external-secrets
+    - name: cloudnative-pg
+    - name: cloudnative-pg-plugins
+  interval: 30m
+  path: ./kubernetes/apps/databases/cloudnative-pg/clusters/test
+  postBuild:
+    substitute:
+      APP: *app
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false

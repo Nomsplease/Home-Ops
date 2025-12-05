@@ -84,3 +84,4 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /.cache
+          - path: /.local

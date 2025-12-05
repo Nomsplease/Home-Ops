@@ -80,3 +80,7 @@ spec:
             subPath: assetsbackup
           - path: /manualassets
             subPath: manualassets
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache

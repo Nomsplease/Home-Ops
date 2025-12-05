@@ -38,8 +38,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets
-      namespace: external-secrets
     - name: cloudnative-pg
   interval: 30m
   path: ./kubernetes/apps/databases/cloudnative-pg/plugins
@@ -67,8 +65,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets
-      namespace: external-secrets
     - name: cloudnative-pg
     - name: cloudnative-pg-plugins
   interval: 30m
@@ -97,8 +93,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets
-      namespace: external-secrets
     - name: cloudnative-pg
     - name: cloudnative-pg-plugins
   interval: 30m

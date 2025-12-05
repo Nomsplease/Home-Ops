@@ -71,8 +71,15 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      data:
-        existingClaim: "{{ .Release.Name }}-cache"
+        globalMounts:
+          - path: /config
+            subPath: config
+          - path: /assets
+            subPath: assets
+          - path: /assetsbackup
+            subPath: assetsbackup
+          - path: /manualassets
+            subPath: manualassets
       tmpfs:
         type: emptyDir
         globalMounts:

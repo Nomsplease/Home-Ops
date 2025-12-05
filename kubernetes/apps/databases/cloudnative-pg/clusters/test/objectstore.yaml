@@ -4,13 +4,9 @@ kind: ObjectStore
 metadata:
   name: test-store
 spec:
-  retentionPolicy: 7d
   configuration:
     data:
-      compression: bzip2
-    wal:
-      compression: bzip2
-      maxParallel: 8
+      compression: gzip
     destinationPath: s3://cnpg/main.int/
     endpointURL: https://new-s3.noms.tv
     s3Credentials:
@@ -20,5 +16,9 @@ spec:
       secretAccessKey:
         name: test-cnpg-backup-secret
         key: aws-secret-access-key
-    usePathStyle: true
-    region: garage
+      region:
+        name: test-cnpg-backup-secret
+        key: region
+    wal:
+      compression: zstd
+  retentionPolicy: "30d"

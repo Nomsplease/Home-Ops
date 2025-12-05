@@ -1,0 +1,22 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: test-store
+spec:
+  retentionPolicy: 7d
+  configuration:
+    data:
+      compression: bzip2
+    wal:
+      compression: bzip2
+      maxParallel: 8
+    destinationPath: s3://cnpg/main.int/
+    endpointURL: https://new-s3.noms.tv
+    s3Credentials:
+      accessKeyId:
+        name: test-cnpg-backup-secret
+        key: aws-access-key-id
+      secretAccessKey:
+        name: test-cnpg-backup-secret
+        key: aws-secret-access-key

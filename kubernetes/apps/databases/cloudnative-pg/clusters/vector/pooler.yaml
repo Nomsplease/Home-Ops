@@ -5,7 +5,7 @@ metadata:
 spec:
   cluster:
     name: vector-db
-  instances: 3
+  instances: 1
   type: rw
   pgbouncer:
     poolMode: session

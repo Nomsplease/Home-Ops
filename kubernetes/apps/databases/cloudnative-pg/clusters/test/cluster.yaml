@@ -70,3 +70,11 @@ spec:
     storageClass: ceph-block
   superuserSecret:
     name: cnpg-admin
+
+  managed:
+    roles:
+      - name: testapp
+        ensure: present
+        login: true
+        superuser: false
+        disablePassword: true

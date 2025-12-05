@@ -32,7 +32,7 @@ spec:
   enablePDB: false
   enableSuperuserAccess: true
   imageName: ghcr.io/cloudnative-pg/postgresql:17.6-minimal-trixie@sha256:c64a7a93d8b24e5ebface0f32645d2944a2b6c354b4fcc2a17bbecfeee8cb393
-  instances: 3
+  instances: 2
   monitoring:
     enablePodMonitor: true
   plugins:

@@ -8,7 +8,7 @@ spec:
     data:
       compression: gzip
     destinationPath: s3://cnpg/main.int/
-    endpointURL: https://new-s3.noms.tv
+    endpointURL: https://garage.noms.tv
     s3Credentials:
       accessKeyId:
         name: cnpg-garage

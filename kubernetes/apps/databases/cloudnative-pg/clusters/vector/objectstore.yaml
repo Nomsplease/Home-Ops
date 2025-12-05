@@ -8,15 +8,17 @@ spec:
   configuration:
     data:
       compression: bzip2
-    wal:
-      compression: bzip2
-      maxParallel: 8
-    destinationPath: s3://backups/cnpg
-    endpointURL: https://s3.noms.tv
+    destinationPath: s3://cnpg/main.int/
+    endpointURL: https://garage.noms.tv
     s3Credentials:
       accessKeyId:
-        name: vector-cnpg-backup-secret
-        key: aws-access-key-id
+        name: cnpg-garage
+        key: ACCESS_KEY_ID
       secretAccessKey:
-        name: vector-cnpg-backup-secret
-        key: aws-secret-access-key
+        name: cnpg-garage
+        key: ACCESS_SECRET_KEY
+      region:
+        name: cnpg-garage
+        key: REGION
+    wal:
+      compression: bzip2

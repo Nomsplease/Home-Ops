@@ -73,6 +73,6 @@ spec:
 
   managed:
     roles:
-      - name: testapp
+      - name: test
         createdb: true
         login: true

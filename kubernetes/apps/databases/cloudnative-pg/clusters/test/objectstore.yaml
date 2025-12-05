@@ -20,3 +20,5 @@ spec:
       secretAccessKey:
         name: test-cnpg-backup-secret
         key: aws-secret-access-key
+    usePathStyle: true
+    region: garage

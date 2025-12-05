@@ -13,6 +13,7 @@ resources:
   - ./jellyseerr/ks.yaml
   - ./kometa/ks.yaml
   - ./music-assistant/ks.yaml
+  - ./posterizarr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml

@@ -9,6 +9,7 @@ resources:
   - ./namespace.yaml
   - ./esphome/ks.yaml
   - ./homeassistant/ks.yaml
+  - ./matter-server/ks.yaml
   - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml
   # - ./openwakeword/ks.yaml

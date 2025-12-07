@@ -1,0 +1,56 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: matter-server
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: matter-server
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      matter-server:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"iot",
+                "namespace": "kube-system",
+                "ips": ["172.16.3.12/24"],
+                "mac": "3e:59:e4:f7:45:09"
+              }]
+        containers:
+          app:
+            image:
+              repository: ghcr.io/matter-js/python-matter-server
+              tag: 8.1.1@sha256:44d47c9ec91bf06fcb72a8df2dd2f36e90934c7b0d1d85f1ecb46fc695164746
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 5580
+                  failureThreshold: 6
+                  periodSeconds: 10
+              readiness: *probes
+              startup: *probes
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"

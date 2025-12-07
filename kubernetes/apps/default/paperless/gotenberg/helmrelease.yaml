@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: gotenberg/gotenberg
-              tag: 8.25.0
+              tag: 8.25.1
             args:
               - gotenberg
               - --chromium-disable-javascript=true

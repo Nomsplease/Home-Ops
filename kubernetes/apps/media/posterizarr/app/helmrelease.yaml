@@ -80,6 +80,17 @@ spec:
             subPath: assetsbackup
           - path: /manualassets
             subPath: manualassets
+      assets:
+        type: nfs
+        server: truenas.internal
+        path: /mnt/BigPool/Media/Posters
+        globalMounts:
+          - path: /new-assets
+            subPath: assets
+          - path: /new-assetsbackup
+            subPath: assetsbackup
+          - path: /new-manualassets
+            subPath: manualassets
       tmpfs:
         type: emptyDir
         globalMounts:

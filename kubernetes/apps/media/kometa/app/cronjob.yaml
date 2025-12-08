@@ -44,6 +44,9 @@ spec:
                 - name: posters
                   mountPath: /manualassets
                   subPath: manualassets
+                - name: posters
+                  mountPath: /missing
+                  subPath: missing
           volumes:
             - name: pvc
               persistentVolumeClaim:

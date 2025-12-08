@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/fscorrupt/posterizarr
-              tag: dev@sha256:25e2941ac8d3deec3d8bd932dcb1ac4f6f1747def09e15a7f07cfb01d0f5855f # ref https://github.com/fscorrupt/posterizarr/issues/449
+              tag: 2.2.0@sha256:cbde56f5ece0e907bd314946740ba5eae50ae8c916cdd56f1d8f1c2a0bdeb7ff
             env:
               APP_PORT: &port 80
               RUN_TIME: disabled
@@ -71,25 +71,16 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      posters:
+        type: nfs
+        server: truenas.internal
+        path: /mnt/BigPool/Media/Posters
         globalMounts:
-          - path: /config
-            subPath: config
           - path: /assets
             subPath: assets
           - path: /assetsbackup
             subPath: assetsbackup
           - path: /manualassets
-            subPath: manualassets
-      assets:
-        type: nfs
-        server: truenas.internal
-        path: /mnt/BigPool/Media/Posters
-        globalMounts:
-          - path: /new-assets
-            subPath: assets
-          - path: /new-assetsbackup
-            subPath: assetsbackup
-          - path: /new-manualassets
             subPath: manualassets
       tmpfs:
         type: emptyDir

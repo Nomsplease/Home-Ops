@@ -71,12 +71,6 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      config-file:
-        type: secret
-        name: posterizarr-secret
-        globalMounts:
-          - path: /config/config.json
-            subPath: config.json
       posters:
         type: nfs
         server: truenas.internal

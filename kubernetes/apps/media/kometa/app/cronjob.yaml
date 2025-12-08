@@ -35,6 +35,15 @@ spec:
                   mountPath: /config/config.yml
                   subPath: config.yml
                   readOnly: true
+                - name: posters
+                  mountPath: /assets
+                  subPath: assets
+                - name: posters
+                  mountPath: /assetsbackup
+                  subPath: assetsbackup
+                - name: posters
+                  mountPath: /manualassets
+                  subPath: manualassets
           volumes:
             - name: pvc
               persistentVolumeClaim:
@@ -45,4 +54,8 @@ spec:
                 items:
                 - key: config.yml
                   path: config.yml
+            - name: posters
+              nfs:
+                server: truenas.internal
+                path: /mnt/BigPool/Media/Posters
           restartPolicy: OnFailure

@@ -73,7 +73,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       config-file:
         type: secret
-        identifier: posterizarr-secret
+        name: posterizarr-secret
         globalMounts:
           - path: /config/config.json
             subPath: config.json

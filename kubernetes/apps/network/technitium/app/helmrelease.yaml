@@ -62,6 +62,7 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.noms.tv"
           - "dns.noms.tv"
+          - "dns01.noms.tv"
         parentRefs:
           - name: envoy-internal
             namespace: network

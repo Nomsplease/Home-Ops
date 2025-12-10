@@ -11,31 +11,23 @@ spec:
   interval: 1h
   values:
     fullnameOverride: *app
-    provider:
-      name: rfc2136
     env:
       - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET
         valueFrom:
           secretKeyRef:
-            name: &secret technitium-dns-secret
+            name: technitium-dns-secret
             key: TSIG_KEY
     extraArgs:
-      - --rfc2136-host=technitium
+      - --rfc2136-host=10.1.10.2
       - --rfc2136-port=53
       - --rfc2136-zone=noms.tv
       - --rfc2136-tsig-secret-alg=hmac-sha256
       - --rfc2136-tsig-keyname=external-dns
       - --rfc2136-tsig-axfr
-    triggerLoopOnEvent: true
     policy: sync
+    provider:
+      name: rfc2136
     sources:
-      - crd
       - gateway-httproute
-    txtOwnerId: external-dns
-    txtPrefix: k8s.
-    domainFilters:
-      - noms.tv
     serviceMonitor:
       enabled: true
-    podAnnotations:
-      secret.reloader.stakater.com/reload: *secret

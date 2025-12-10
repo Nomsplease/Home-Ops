@@ -36,7 +36,7 @@ spec:
               repository: technitium/dns-server
               tag: 14.2.0@sha256:b6a39621a5c6b37e6ca8c4b428a7e39531041e19be4b28285657c8c74374950b
             env:
-              DNS_SERVER_DOMAIN: noms.tv
+              DNS_SERVER_DOMAIN: dns01.noms.tv
               DNS_SERVER_WEB_SERVICE_HTTP_PORT: &port 80
               TZ: America/New_York
             probes:

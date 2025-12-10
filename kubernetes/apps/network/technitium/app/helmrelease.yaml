@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: technitium
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: technitium
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      technitium:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"internal",
+                "namespace": "kube-system",
+                "ips": ["10.1.10.2/24"],
+                "mac": "3e:59:e4:f4:44:09"
+              }]
+        containers:
+          app:
+            image:
+              repository: technitium/dns-server
+              tag: 14.2.0@sha256:b6a39621a5c6b37e6ca8c4b428a7e39531041e19be4b28285657c8c74374950b
+            env:
+              DNS_SERVER_DOMAIN: noms.tv
+              DNS_SERVER_WEB_SERVICE_HTTP_PORT: &port 80
+              TZ: America/New_York
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.noms.tv"
+          - "dns.noms.tv"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /etc/dns

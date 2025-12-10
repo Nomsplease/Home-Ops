@@ -11,7 +11,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 30m
-  path: ./kubernetes/apps/media/technitium/app
+  path: ./kubernetes/apps/network/technitium/app
   postBuild:
     substitute:
       APP: *app

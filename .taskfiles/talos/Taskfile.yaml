@@ -6,7 +6,6 @@ tasks:
 
   apply-node:
     desc: Apply Talos config to a node [CLUSTER=main] [IP=required]
-    dotenv: ['{{.CLUSTER_DIR}}/cluster.env']
     cmds:
       - task: down
       - sops exec-file --input-type yaml --output-type yaml {{.CLUSTER_DIR}}/talos/{{.IP}}.sops.yaml.j2 "minijinja-cli {}" | talosctl --nodes {{.IP}} apply-config --mode={{.MODE}} --file /dev/stdin
@@ -18,7 +17,6 @@ tasks:
       vars: [CLUSTER, IP]
     preconditions:
       - talosctl --nodes {{.IP}} get machineconfig
-      - test -f {{.CLUSTER_DIR}}/cluster.env
       - test -f {{.CLUSTER_DIR}}/talos/{{.IP}}.sops.yaml.j2
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which minijinja-cli sops talosctl
@@ -112,16 +110,17 @@ tasks:
   reset-cluster:
     desc: Reset Talos across the whole cluster [CLUSTER=main]
     prompt: Reset the Talos cluster '{{.CLUSTER}}' ... continue?
-    cmd: talosctl reset --nodes {{.IP_ADDRS}} --graceful=false
+    cmd: talosctl --talosconfig {{.CLUSTER_CONFIG}} reset --nodes {{.IP_ADDRS}} --graceful=false
     vars:
+      CLUSTER_CONFIG: "{{.TALOS_DIR}}/clusterconfig/talosconfig"
       IP_ADDRS:
-        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
+        sh: talosctl --talosconfig {{.CLUSTER_CONFIG}} config info --output json | jq --join-output '[.nodes[]] | join(",")'
     requires:
       vars: [CLUSTER]
     preconditions:
-      - talosctl --nodes {{.NODES}} get machineconfig
-      - talosctl config info
-      - test -f {{.CLUSTER_DIR}}/talosconfig
+      - talosctl --talosconfig {{.CLUSTER_CONFIG}} --nodes {{.IP_ADDRS}} get machineconfig
+      - talosctl --talosconfig {{.CLUSTER_CONFIG}} config info
+      - test -f {{.CLUSTER_CONFIG}}
       - which jq talosctl
 
   kubeconfig:
@@ -203,3 +202,12 @@ tasks:
       - until kubectl wait jobs --all --all-namespaces --for=condition=complete --timeout=5m &>/dev/null; do sleep 5; done
     preconditions:
       - which kubectl
+
+  genconfig:
+    internal: true
+    cmds:
+      - talhelper genconfig --config-file {{.TALOS_DIR}}/{{.CLUSTER}}/talconfig.yaml --secret-file {{.TALOS_DIR}}/{{.CLUSTER}}/talsecret.sops.yaml --out-dir {{.TALOS_DIR}}/{{.CLUSTER}}/clusterconfig/
+    requires:
+      vars: [CLUSTER]
+    preconditions:
+      - which talhelper

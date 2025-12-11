@@ -1,0 +1,23 @@
+machine:
+  network:
+    interfaces:
+      - interface: end0
+        dhcp: true
+        mtu: 9000
+        vlans:
+          - # Network
+            vlanId: 1
+            dhcp: false
+            mtu: 9000
+          - # Internal
+            vlanId: 10
+            dhcp: false
+            mtu: 9000
+          - # VPN
+            vlanId: 66
+            dhcp: false
+            mtu: 9000
+          - # IOT
+            vlanId: 1003
+            dhcp: false
+            mtu: 9000

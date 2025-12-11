@@ -8,6 +8,8 @@ shopt: [globstar]
 vars:
   CLUSTER: '{{.CLUSTER | default "main"}}'
   CLUSTER_DIR: '{{.ROOT_DIR}}/kubernetes/{{.CLUSTER}}'
+  BOOTSTRAP_DIR: '{{.ROOT_DIR}}/bootstrap/{{.CLUSTER}}'
+  TALOS_DIR: '{{.ROOT_DIR}}/talos/{{.CLUSTER}}'
 
 env:
   # KUBECONFIG: '$HOME/.kube/config'

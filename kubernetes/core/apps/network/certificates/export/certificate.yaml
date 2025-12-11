@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: noms-tv
+spec:
+  secretName: noms-tv-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: noms.tv
+  dnsNames:
+    - noms.tv
+    - '*.noms.tv'
+    - '*.int.noms.tv'
+    - '*.iot.noms.tv'

@@ -1,0 +1,9 @@
+machine:
+  kubelet:
+    extraConfig:
+      maxPods: 150
+    defaultRuntimeSeccompProfileEnabled: true
+    nodeIP:
+      validSubnets:
+        - 10.1.20.0/24
+    disableManifestsDirectory: true

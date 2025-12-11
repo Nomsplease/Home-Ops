@@ -4,68 +4,77 @@ version: '3'
 
 tasks:
 
-  genconfig:
-    desc: Generate cluster configurations via Talhelper
-    cmds:
-      - talhelper genconfig --config-file talos/talconfig.yaml --secret-file talos/talsecret.sops.yaml --out-dir talos/clusterconfig/
-      - cp talos/clusterconfig/talosconfig talosconfig
-
   talos:
-    desc: Bootstrap Talos
+    desc: Bootstrap Talos [CLUSTER=main]
+    deps:
+      - task: genconfig
     cmds:
       - for: { var: TALOS_NODES }
         cmd: >
-          talhelper gencommand --config-file talos/talconfig.yaml --out-dir talos/clusterconfig/ apply --node {{.ITEM}} --extra-flags --insecure | sh
-      - until talosctl --talosconfig talosconfig --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 5; done
-      - talosctl --talosconfig talosconfig kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name main "$(basename "${KUBECONFIG}")" &>/dev/null
+          talhelper gencommand --config-file {{.TALOS_DIR}}/talconfig.yaml --out-dir {{.TALOS_DIR}}/clusterconfig/ apply --node {{.ITEM}} --extra-flags --insecure | sh
+      - until talosctl --talosconfig {{.CLUSTER_CONFIG}} --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 5; done
+      - talosctl --talosconfig {{.CLUSTER_CONFIG}} kubeconfig --nodes {{.TALOS_CONTROLLER}} --force --force-context-name {{.CLUSTER}} &>/dev/null
     vars:
+      CLUSTER_CONFIG: "{{.TALOS_DIR}}/clusterconfig/talosconfig"
       TALOS_CONTROLLER:
-        sh: talosctl config info --talosconfig talosconfig --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --talosconfig {{.CLUSTER_CONFIG}} --output json | jq --raw-output '.endpoints[]' | shuf -n 1
       TALOS_NODES:
-        sh: ls talos/clusterconfig/*.yaml | sed 's|talos/clusterconfig/||; s/^{{.CLUSTER}}-//; s/\.yaml$//'
+        sh: ls {{.TALOS_DIR}}/clusterconfig/*.yaml | xargs basename | sed 's/^{{.CLUSTER}}-//; s/\.yaml$//'
+    requires:
+      vars: [CLUSTER]
     preconditions:
-      - test -f talos/clusterconfig/talosconfig
-      - talosctl config info --talosconfig talosconfig
+      - test -f {{.CLUSTER_CONFIG}}
+      - talosctl config info --talosconfig {{.CLUSTER_CONFIG}}
       - test -f talosconfig
       - which jq ls sops talosctl shuf talhelper
 
-  namespaces:
-    desc: Create Namespaces
+  kubernetes:
+    desc: Bootstrap Kubernetes Cluster [CLUSTER=main]
     cmds:
-      - for: { var: DIR }
-        cmd: >
-          kustomize build {{.ITEM}} | yq ea -e 'select(.kind == "Namespace")' | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -
-    vars:
-      DIR:
-        sh: find "kubernetes/apps" -mindepth 1 -maxdepth 1 -type d
+      - task: namespaces
+      - task: resources
+      - task: crds
+      - task: apps
+      - task: flux
+    requires:
+      vars: [CLUSTER]
     preconditions:
-      - which kubectl kustomize yq
+      - which kubectl kustomize yq op helmfile
       - kubectl get nodes
+
+  namespaces:
+    internal: true
+    cmds:
+      - for: { var: NS }
+        cmd: >
+          kubectl apply --server-side --field-manager bootstrap --force-conflicts -f {{.ITEM}}
+    vars:
+      NS:
+        sh: find "{{.CLUSTER_DIR}}/apps" -mindepth 2 -maxdepth 2 -type f -name namespace.yaml
 
   resources:
-    desc: Apply Resources
+    internal: true
     cmds:
-      - op inject -i bootstrap/resources.yaml.j2 | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -
-    preconditions:
-      - which kubectl op
-      - kubectl get nodes
-     
+      - op inject -i {{.BOOTSTRAP_DIR}}/resources.yaml.j2 | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -
+
   crds:
-    desc: Apply Helmfile CRDs
+    internal: true
     cmds:
-      - helmfile -f "bootstrap/helmfile.d/00-crds.yaml" template -q | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -
-    preconditions:
-      - which kubectl helmfile
-      - kubectl get nodes
+      - helmfile -f "{{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml" template -q | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -
   
   apps:
-    desc: Apply Helmfile APPs
+    internal: true
     cmds:
-      - helmfile -f "bootstrap/helmfile.d/01-apps.yaml" sync --hide-notes
-    preconditions:
-      - which kubectl helmfile
-      - kubectl get nodes
+      - helmfile -f "{{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml" sync --hide-notes
 
   flux:
+    internal: true
     desc: Bootstrap Flux
       - kubectl apply --server-side --kustomize flux/config
+
+  genconfig:
+    internal: true
+    cmds:
+      - talhelper genconfig --config-file {{.TALOS_DIR}}/talconfig.yaml --secret-file {{.TALOS_DIR}}/talsecret.sops.yaml --out-dir {{.TALOS_DIR}}/clusterconfig
+    requires:
+      vars: [CLUSTER]

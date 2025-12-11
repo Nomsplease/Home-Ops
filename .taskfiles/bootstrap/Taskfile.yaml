@@ -35,7 +35,6 @@ tasks:
       - task: resources
       - task: crds
       - task: apps
-      - task: flux
     requires:
       vars: [CLUSTER]
     preconditions:
@@ -66,11 +65,6 @@ tasks:
     internal: true
     cmds:
       - helmfile -f "{{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml" sync --hide-notes
-
-  flux:
-    internal: true
-    desc: Bootstrap Flux
-      - kubectl apply --server-side --kustomize flux/config
 
   genconfig:
     internal: true

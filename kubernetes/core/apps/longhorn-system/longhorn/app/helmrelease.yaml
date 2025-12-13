@@ -11,4 +11,7 @@ spec:
     name: longhorn
   values:
     defaultSettings:
-      defaultDataPath: /var/mnt/longhorn/
+      defaultReplicaCount: 3
+      backupstorePollInterval: 0
+      createDefaultDiskLabeledNodes: true
+      defaultDataPath: /var/mnt/longhorn

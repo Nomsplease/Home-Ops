@@ -6,7 +6,8 @@ metadata:
   name: technitium-dns
 spec:
   dependsOn:
-    - name: technitium
+    - name: external-secrets
+      namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/network/technitium-dns/app
   prune: true 

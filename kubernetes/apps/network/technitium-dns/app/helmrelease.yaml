@@ -11,6 +11,11 @@ spec:
   interval: 1h
   values:
     fullnameOverride: *app
+    dnsConfig:
+      nameservers:
+        - 10.1.10.2
+        - 10.1.10.3
+        - 10.1.10.4
     env:
       - name: &name TSIG_KEY
         valueFrom:

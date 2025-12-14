@@ -30,7 +30,7 @@ spec:
       - --rfc2136-tsig-keyname=$(TSIG_KEY_NAME)
       - --rfc2136-tsig-secret=$(TSIG_KEY)
       - --rfc2136-tsig-axfr
-      - --log-level=debug
+    logLevel: debug
     triggerLoopOnEvent: true
     policy: sync
     sources:

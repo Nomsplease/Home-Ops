@@ -8,5 +8,4 @@ components:
 resources:
   - ./namespace.yaml
   - ./qbittorrent/ks.yaml
-  - ./sabnzbd/ks.yaml
   - ./seedboxapi/ks.yaml

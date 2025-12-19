@@ -10,7 +10,7 @@ tasks:
   arch:
     desc: Set up tools on Arch
     cmds:
-      - paru --needed -S - < {{.WORKSTATION_RESOURCES_DIR}}/Archfile
+      - paru --needed -S --noconfirm - < {{.WORKSTATION_RESOURCES_DIR}}/Archfile
     sources:
       - '{{.WORKSTATION_RESOURCES_DIR}}/Archfile'
     generates:

@@ -1,5 +1,5 @@
 age
-cloudflared
+cloudflared-bin
 go-task
 helm
 helmfile
@@ -20,6 +20,6 @@ kubecolor
 minijinja-cli-bin
 talosctl-bin
 talhelper
-viddy
+viddy-bin
 1password
 1password-cli

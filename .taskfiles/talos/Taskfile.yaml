@@ -204,9 +204,8 @@ tasks:
       - which kubectl
 
   genconfig:
-    internal: true
     cmds:
-      - talhelper genconfig --config-file {{.TALOS_DIR}}/{{.CLUSTER}}/talconfig.yaml --secret-file {{.TALOS_DIR}}/{{.CLUSTER}}/talsecret.sops.yaml --out-dir {{.TALOS_DIR}}/{{.CLUSTER}}/clusterconfig/
+      - talhelper genconfig --config-file {{.TALOS_DIR}}/talconfig.yaml --secret-file {{.TALOS_DIR}}/talsecret.sops.yaml --out-dir {{.TALOS_DIR}}/clusterconfig
     requires:
       vars: [CLUSTER]
     preconditions:

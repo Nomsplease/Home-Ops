@@ -10,7 +10,7 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
   - ./huntarr/ks.yaml
-  - ./jellyseerr/ks.yaml
+  # - ./jellyseerr/ks.yaml
   - ./kometa/ks.yaml
   - ./music-assistant/ks.yaml
   - ./posterizarr/ks.yaml

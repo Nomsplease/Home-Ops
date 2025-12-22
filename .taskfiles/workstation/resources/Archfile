@@ -1,5 +1,6 @@
 age
 cloudflared-bin
+fluxcd
 go-task
 helm
 helmfile

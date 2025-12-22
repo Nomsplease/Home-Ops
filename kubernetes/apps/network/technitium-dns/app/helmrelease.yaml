@@ -14,8 +14,6 @@ spec:
     dnsConfig:
       nameservers:
         - 10.1.10.2
-        - 10.1.10.3
-        - 10.1.10.4
     env:
       - name: "EXTERNAL_DNS_RFC2136_TSIG_SECRET"
         valueFrom:

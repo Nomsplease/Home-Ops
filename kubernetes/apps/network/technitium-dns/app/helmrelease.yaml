@@ -22,19 +22,36 @@ spec:
             value: "8888"
           - name: RUST_LOG
             value: "external_dns_technitium_webhook=info"
-        envFrom:
-          secretRef:
-            name: &secret technitium-dns-secret
+          - name: TECHNITIUM_URL
+            valueFrom:
+              secretKeyRef:
+                name: &secret technitium-dns-secret
+                key: TECHNITIUM_URL
+          - name: TECHNITIUM_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: &secret technitium-dns-secret
+                key: TECHNITIUM_USERNAME
+          - name: TECHNITIUM_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: &secret technitium-dns-secret
+                key: TECHNITIUM_PASSWORD
+          - name: ZONE
+            valueFrom:
+              secretKeyRef:
+                name: &secret technitium-dns-secret
+                key: ZONE
         livenessProbe:
           httpGet:
             path: /health
-            port: http-webhook
+            port: &port 8888
           initialDelaySeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           httpGet:
             path: /health
-            port: http-webhook
+            port: *port
           initialDelaySeconds: 10
           timeoutSeconds: 5
         securityContext:

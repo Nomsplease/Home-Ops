@@ -18,4 +18,4 @@ resources:
   # - ./lancache/ks.yaml
   - ./netbootxyz/ks.yaml
   - ./technitium-dns/ks.yaml
-  - ./unifi-dns/ks.yaml
+  # - ./unifi-dns/ks.yaml

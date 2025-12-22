@@ -11,34 +11,42 @@ spec:
   interval: 1h
   values:
     fullnameOverride: *app
-    env:
-      - name: TSIG_KEY
-        valueFrom:
-          secretKeyRef:
-            name: &secret technitium-dns-secret
-            key: TSIG_KEY
-      - name: TSIG_KEY_NAME
-        valueFrom:
-          secretKeyRef:
-            name: *secret
-            key: TSIG_KEY_NAME
-    extraArgs:
-      - --rfc2136-host=10.1.10.2
-      - --rfc2136-port=53
-      - --rfc2136-zone=noms.tv
-      - --rfc2136-tsig-keyname=$(TSIG_KEY_NAME)
-      - --rfc2136-tsig-secret=$(TSIG_KEY)
-      - --rfc2136-tsig-secret-alg=hmac-sha256
-      - --rfc2136-tsig-axfr
     provider:
-      name: rfc2136
-    logLevel: debug
+      name: webhook
+      webhook:
+        image:
+          repository: ghcr.io/roosmaa/external-dns-technitium-webhook
+          tag: main@sha256:7987b36f5ecd701d5c43d0aa4f40f5f5af7a6f52825b82b4b9ba3cdfa90a193e
+        env:
+          - name: LISTEN_PORT
+            value: "8888"
+          - name: RUST_LOG
+            value: "external_dns_technitium_webhook=info"
+        envFrom:
+          secretRef:
+            name: &secret technitium-dns-secret
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http-webhook
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http-webhook
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
     triggerLoopOnEvent: true
     policy: sync
     sources:
       - gateway-httproute
-    txtOwnerId: default
-    txtPrefix: k8s.
+    txtOwnerId: main
+    txtPrefix: k8s.main
     domainFilters:
       - noms.tv
     serviceMonitor:

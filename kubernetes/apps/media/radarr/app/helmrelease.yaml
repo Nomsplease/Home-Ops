@@ -32,7 +32,7 @@ spec:
               RADARR__AUTHENTICATION__REQUIRED: DisabledForLocalAddresses
               RADARR__INSTANCENAME: Radarr
               RADARR__SERVER__PORT: &port 80
-              RADARR__POSTGRES__HOST: pooler-main-rw.databases
+              RADARR__POSTGRES__HOST: main-db-rw.databases
               RADARR__POSTGRES__MAINDB: "{{ .Release.Name }}"
               RADARR__POSTGRES__PORT: "5432"
               RADARR__LOG__LEVEL: info

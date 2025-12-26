@@ -7,53 +7,12 @@ metadata:
 spec:
   components:
     - ../../../../components/volsync
-  dependsOn:
-    - name: dispatcharr-celery
-    - name: dispatcharr-redis
   interval: 30m
   path: ./kubernetes/apps/media/dispatcharr/app
   postBuild:
     substitute:
       APP: dispatcharr
-      VOLSYNC_CAPACITY: 5Gi
-  prune: true 
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: media
-  timeout: 5m
-  wait: false
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: dispatcharr-celery
-spec:
-  dependsOn:
-    - name: dispatcharr-redis
-  interval: 30m
-  path: ./kubernetes/apps/media/dispatcharr/celery
-  prune: true 
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: media
-  timeout: 5m
-  wait: false
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: dispatcharr-redis
-spec:
-  interval: 30m
-  path: ./kubernetes/apps/media/dispatcharr/redis
+      VOLSYNC_CAPACITY: 20Gi
   prune: true 
   retryInterval: 1m
   sourceRef:

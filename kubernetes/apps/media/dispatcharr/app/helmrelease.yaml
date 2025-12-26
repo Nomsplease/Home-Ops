@@ -22,9 +22,10 @@ spec:
             env:
               TZ: America/New_York
               DISPATCHARR_SERVER_PORT: &port 80
-              POSTGRES_HOST: main-db-rw.databases
-              POSTGRES_DB: "{{ .Release.Name }}"
+              DISPATCHARR_ENV: aio ## Only AIO possible due to defect: https://github.com/Dispatcharr/Dispatcharr/issues/445
               DISPATCHARR_LOG_LEVEL: info
+              REDIS_HOST: localhost
+              CELERY_BROKER_URL: redis://localhost:6379/0
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -34,7 +35,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /ping
+                    path: /
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10

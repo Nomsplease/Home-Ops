@@ -20,33 +20,30 @@ spec:
               repository: ghcr.io/dispatcharr/dispatcharr
               tag: 0.15.1@sha256:660f32646a48b766b71b93b0d25608a851428872f70f1933a33c75a8bb3a189e
             env:
-              TZ: America/New_York
-              DISPATCHARR_SERVER_PORT: &port 80
               DISPATCHARR_ENV: aio ## Only AIO possible due to defect: https://github.com/Dispatcharr/Dispatcharr/issues/445
-              DISPATCHARR_LOG_LEVEL: info
-              REDIS_HOST: localhost
-              CELERY_BROKER_URL: redis://localhost:6379/0
-            envFrom:
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
+              DISPATCHARR_LOG_LEVEL: debug
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
                 spec:
-                  httpGet:
-                    path: /
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              claims:
+                - name: gpu
+    defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: dispatcharr
     service:
       app:
         ports:
           http:
-            port: *port
+            port: 9191
     route:
       app:
         hostnames:

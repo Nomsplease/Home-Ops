@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: dispatcharr
+  labels:
+    app: dispatcharr
+spec:
+  cluster:
+    name: main-db
+  name: dispatcharr
+  owner: app

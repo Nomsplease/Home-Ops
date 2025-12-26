@@ -9,6 +9,7 @@ resources:
   - ./namespace.yaml
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
+  - ./dispatcharr/ks.yaml
   - ./huntarr/ks.yaml
   - ./kometa/ks.yaml
   - ./music-assistant/ks.yaml

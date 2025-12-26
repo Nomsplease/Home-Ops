@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dispatcharr-celery
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: dispatcharr-celery
+  values:
+    controllers:
+      dispatcharr-celery:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/dispatcharr/dispatcharr
+              tag: 0.15.1@sha256:660f32646a48b766b71b93b0d25608a851428872f70f1933a33c75a8bb3a189e
+            command: ["bash"]
+            args:
+              - -c
+              - "cd /app && nice -n 5 celery -A dispatcharr worker -l info"
+            env:
+              TZ: America/New_York
+              POSTGRES_HOST: main-db-rw.databases
+              POSTGRES_DB: "{{ .Release.Name }}"
+              DISPATCHARR_LOG_LEVEL: info
+              REDIS_HOST: dispatcharr-redis
+            envFrom:
+              - secretRef:
+                  name: dispatcharr-secret

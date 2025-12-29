@@ -3,12 +3,9 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app bazarr
-  namespace: &namespace media
+  name: bazarr
+  namespace: media
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
   dependsOn:
@@ -18,7 +15,7 @@ spec:
   path: ./kubernetes/apps/media/bazarr/app
   postBuild:
     substitute:
-      APP: *app
+      APP: bazarr
       VOLSYNC_CAPACITY: 5Gi
   prune: true 
   retryInterval: 1m
@@ -26,6 +23,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: media
   timeout: 5m
   wait: false

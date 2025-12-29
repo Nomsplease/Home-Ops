@@ -8,14 +8,7 @@ spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
+    name: bazarr
   values:
     controllers:
       *app :
@@ -68,21 +61,12 @@ spec:
             sectionName: https
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
         server: truenas.internal
         path: /mnt/BigPool/Media
         globalMounts:
           - path: /PlexMedia
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          bazarr:
-            app:
-              - path: /config/cache
-                subPath: cache
-              - path: /config/log
-                subPath: log
-              - path: /tmp
-                subPath: tmp

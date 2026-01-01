@@ -2,10 +2,6 @@ machine:
   network:
     interfaces:
       - interface: bond0
-        bond:
-          mode: active-backup
-          interfaces:
-            - enp1s0
         dhcp: true
         mtu: 9000
         vlans:

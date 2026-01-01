@@ -32,6 +32,12 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    networkInterfaces: &networkInterfaces
+      - interface: bond0
+        bond:
+          interfaces:
+            - enp1s0
+          mode: active-backup
     schematic:
       customization:
         extraKernelArgs: &intel-extraKernelArgs
@@ -67,6 +73,7 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    network: *networkInterfaces
     schematic:
       customization:
         extraKernelArgs: *intel-extraKernelArgs
@@ -85,6 +92,7 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    network: *networkInterfaces
     schematic:
       customization:
         extraKernelArgs: *intel-extraKernelArgs
@@ -102,6 +110,7 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    network: *networkInterfaces
     schematic:
       customization:
         extraKernelArgs: *intel-extraKernelArgs
@@ -121,6 +130,7 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    network: *networkInterfaces
     schematic:
       customization:
         extraKernelArgs: *intel-extraKernelArgs
@@ -138,9 +148,49 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
+    network: *networkInterfaces
     schematic:
       customization:
         extraKernelArgs: *intel-extraKernelArgs
         systemExtensions: *intel-officialExtensions
     installDiskSelector:
       model: PM991*
+
+##########
+## Main-7 ##
+##########
+
+  - hostname: Main-7
+    ipAddress: "10.1.20.17"
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: false
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          interfaces:
+            - enp4s0
+          mode: active-backup
+    schematic:
+      customization:
+        extraKernelArgs: &amd-extraKernelArgs
+          - -init_on_alloc                      # Less security, faster puter
+          - -init_on_free                       # Less security, faster puter
+          - -selinux                            # Less security, faster puter
+          - apparmor=0                          # Less security, faster puter
+          - init_on_alloc=0                     # Less security, faster puter
+          - init_on_free=0                      # Less security, faster puter
+          - amd_iommu=on                        # PCI Passthrough
+          - iommu=pt                            # PCI Passthrough
+          - mitigations=off                     # Less security, faster puter
+          - security=none                       # Less security, faster puter
+          - talos.auditd.disabled=1             # Less security, faster puter
+        systemExtensions: &amd-officialExtensions
+            officialExtensions:
+                - siderolabs/amd-ucode
+                - siderolabs/i915
+                # - siderolabs/xe # For Talos 1.12
+                - siderolabs/nfsrahead
+    installDiskSelector:
+      model: 512GB*

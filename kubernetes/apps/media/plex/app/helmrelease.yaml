@@ -61,7 +61,7 @@ spec:
     defaultPodOptions:
       resourceClaims:
         - name: gpu
-          resourceClaimTemplateName: plex
+          resourceClaimTemplateName: "{{ .Release.Name }}-gpu"
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000

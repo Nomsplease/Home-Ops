@@ -9,21 +9,14 @@ spec:
   chartRef:
     kind: OCIRepository
     name: app-template
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     controllers:
       *app :
         containers:
           app:
             image:
-              repository: ghcr.io/paperless-ngx/tika
-              tag: 2.9.1-minimal
+              repository: apache/tika
+              tag: 3.2.3.0@sha256:c0154cb95587cde64be74f35ada1a2bd7892219f3f0ac3c9dc6cab34046b3573
             probes:
               liveness: &probes
                 enabled: true

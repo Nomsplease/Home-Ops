@@ -58,6 +58,15 @@ spec:
         provider: host
         connections:
           requireMsgr2: true
+      placement:
+        mgr: &placement
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: node-role.kubernetes.io/control-plane
+                      operator: Exists
+        mon: *placement
       storage:
         useAllNodes: false
         useAllDevices: false

@@ -73,7 +73,7 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
-    network: *networkInterfaces
+    networkInterfaces: *networkInterfaces
     schematic:
       customization:
         extraKernelArgs: *intel-extraKernelArgs
@@ -92,7 +92,7 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
-    network: *networkInterfaces
+    networkInterfaces: *networkInterfaces
     schematic:
       customization:
         extraKernelArgs: *intel-extraKernelArgs
@@ -110,7 +110,7 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
-    network: *networkInterfaces
+    networkInterfaces: *networkInterfaces
     schematic:
       customization:
         extraKernelArgs: *intel-extraKernelArgs
@@ -130,7 +130,7 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
-    network: *networkInterfaces
+    networkInterfaces: *networkInterfaces
     schematic:
       customization:
         extraKernelArgs: *intel-extraKernelArgs
@@ -148,7 +148,7 @@ nodes:
       mode: metal
       arch: amd64
       secureboot: false
-    network: *networkInterfaces
+    networkInterfaces: *networkInterfaces
     schematic:
       customization:
         extraKernelArgs: *intel-extraKernelArgs

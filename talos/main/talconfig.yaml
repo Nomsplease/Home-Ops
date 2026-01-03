@@ -1,7 +1,7 @@
 ---
 clusterName: main
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.11.3
+talosVersion: v1.12.0
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.34.1
 endpoint: https://k8s.services:6443
@@ -28,7 +28,7 @@ nodes:
 ##########
 
   - hostname: Main-1
-    ipAddress: "10.1.20.11"
+    ipAddress: 10.1.20.11
     controlPlane: true
     machineSpec:
       mode: metal
@@ -70,7 +70,7 @@ nodes:
 ##########
 
   - hostname: Main-2
-    ipAddress: "10.1.20.12"
+    ipAddress: 10.1.20.12
     machineSpec:
       mode: metal
       arch: amd64
@@ -88,7 +88,7 @@ nodes:
 ##########
 
   - hostname: Main-3
-    ipAddress: "10.1.20.13"
+    ipAddress: 10.1.20.13
     controlPlane: true
     machineSpec:
       mode: metal
@@ -107,7 +107,7 @@ nodes:
 ##########
 
   - hostname: Main-4
-    ipAddress: "10.1.20.14"
+    ipAddress: 10.1.20.14
     machineSpec:
       mode: metal
       arch: amd64
@@ -126,7 +126,7 @@ nodes:
 ##########
 
   - hostname: Main-5
-    ipAddress: "10.1.20.15"
+    ipAddress: 10.1.20.15
     controlPlane: true
     machineSpec:
       mode: metal
@@ -145,7 +145,7 @@ nodes:
 ##########
 
   - hostname: Main-6
-    ipAddress: "10.1.20.16"
+    ipAddress: 10.1.20.16
     machineSpec:
       mode: metal
       arch: amd64
@@ -163,7 +163,7 @@ nodes:
 ##########
 
   - hostname: Main-7
-    ipAddress: "10.1.20.17"
+    ipAddress: 10.1.20.17
     machineSpec:
       mode: metal
       arch: amd64
@@ -191,8 +191,8 @@ nodes:
         systemExtensions: &amd-officialExtensions
             officialExtensions:
                 - siderolabs/amd-ucode
-                - siderolabs/i915
-                # - siderolabs/xe # For Talos 1.12
+                - siderolabs/mei
+                - siderolabs/xe
                 - siderolabs/nfsrahead
     installDiskSelector:
       model: 512GB*

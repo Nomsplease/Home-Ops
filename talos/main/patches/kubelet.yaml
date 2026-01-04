@@ -1,6 +1,9 @@
 machine:
   kubelet:
     extraConfig:
+      featureGates:
+        ImageVolume: true
+        ResourceHealthStatus: true
       maxPods: 150
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:

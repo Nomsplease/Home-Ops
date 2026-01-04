@@ -45,23 +45,23 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
-            resources:
-              claims:
-                - name: gpu
-        pod:
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                - matchExpressions:
-                  - key: gpu.intel.com/family
-                    operator: In
-                    values:
-                      - A_Series
-    defaultPodOptions:
-      resourceClaims:
-        - name: gpu
-          resourceClaimTemplateName: plex-gpu
+    #         resources:
+    #           claims:
+    #             - name: gpu
+    #     pod:
+    #       affinity:
+    #         nodeAffinity:
+    #           requiredDuringSchedulingIgnoredDuringExecution:
+    #             nodeSelectorTerms:
+    #             - matchExpressions:
+    #               - key: gpu.intel.com/family
+    #                 operator: In
+    #                 values:
+    #                   - A_Series
+    # defaultPodOptions:
+    #   resourceClaims:
+    #     - name: gpu
+    #       resourceClaimTemplateName: plex-gpu
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000

@@ -11,6 +11,7 @@ resources:
   - ./bazarr/ks.yaml
   - ./dispatcharr/ks.yaml
   - ./huntarr/ks.yaml
+  - ./jellyfin/ks.yaml
   - ./kometa/ks.yaml
   - ./music-assistant/ks.yaml
   - ./plex/ks.yaml

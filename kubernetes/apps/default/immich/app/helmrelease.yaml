@@ -47,6 +47,24 @@ spec:
         library:
           existingClaim: immich
     machine-learning:
+      controllers:
+        main:
+          strategy: Recreate
+          containers:
+            main:
+              resources:
+                limits:
+                  gpu.intel.com/i915: 1
+          pod:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: gpu.intel.com/family
+                      operator: In
+                      values:
+                        - A_Series
       env:
         TRANSFORMERS_CACHE: /cache
       persistence:

@@ -32,6 +32,9 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
+            resources:
+              limits:
+                gpu.intel.com/i915: 1
     service:
       app:
         ports:

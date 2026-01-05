@@ -7,6 +7,11 @@ metadata:
 spec:
   components:
     - ../../../../components/volsync
+  dependsOn:
+    - name: intel-device-plugin-gpu
+      namespace: kube-system
+    - name: volsync
+      namespace: volsync-system 
   interval: 30m
   path: ./kubernetes/apps/media/dispatcharr/app
   postBuild:

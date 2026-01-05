@@ -32,13 +32,6 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
-    #         resources:
-    #           claims:
-    #             - name: gpu
-    # defaultPodOptions:
-    #   resourceClaims:
-    #     - name: gpu
-    #       resourceClaimTemplateName: dispatcharr
     service:
       app:
         ports:

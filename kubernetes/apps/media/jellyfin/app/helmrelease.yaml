@@ -22,7 +22,6 @@ spec:
             env:
               TZ: America/New_York
             probes:
-            probes:
               liveness: &probes
                 enabled: true
                 custom: true

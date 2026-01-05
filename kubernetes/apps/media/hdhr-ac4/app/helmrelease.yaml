@@ -20,9 +20,9 @@ spec:
               repository: bjsmyth/hdhr-ac4
               tag: 0.1.3@sha256:7859367504f1fcf3e39dbf7618fa175e84e44c62ea1274540077558c67630de5
             env:
-              - HDHR_IP=10.1.10.18
-              - HOST_IP=10.1.20.26
-              - DEVICEID_SWAP=1
+              HDHR_IP: "10.1.10.18"
+              HOST_IP: "10.1.20.26"
+              DEVICEID_SWAP: "1"
             probes:
               liveness:
                 enabled: true

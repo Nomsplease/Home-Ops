@@ -45,8 +45,8 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
             resources:
-              claims:
-                - name: gpu
+              limits:
+                gpu.intel.com/i915: 1
         pod:
           affinity:
             nodeAffinity:
@@ -58,9 +58,6 @@ spec:
                     values:
                       - A_Series
     defaultPodOptions:
-      resourceClaims:
-        - name: gpu
-          resourceClaimTemplateName: jellyfin-gpu
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000

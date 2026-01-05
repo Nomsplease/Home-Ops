@@ -6,11 +6,10 @@ metadata:
   name: jellyfin
 spec:
   components:
-    - ../../../../components/gpu
     # - ../../../../components/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
-    - name: intel-gpu-resource-driver
+    - name: intel-device-plugin-gpu
       namespace: kube-system
     - name: volsync
       namespace: volsync-system

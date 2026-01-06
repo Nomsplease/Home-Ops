@@ -102,5 +102,3 @@ spec:
         type: nfs
         server: truenas.internal
         path: /mnt/BigPool/Media
-        globalMounts:
-          - path: /PlexMedia

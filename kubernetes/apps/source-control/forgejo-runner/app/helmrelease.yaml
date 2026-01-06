@@ -13,7 +13,7 @@ spec:
     replicaCount: 1
     runner:
       config:
-        instance: https://forgejo.int.noms.tv
+        existingInitSecret: "forgejo-runner-secret"
     autoscaling:
       enabled: true
       minReplicas: 1

@@ -14,7 +14,7 @@ resources:
   - ./cloudflare-dns/ks.yaml
   - ./cloudflare-tunnel/ks.yaml
   - ./envoy-gateway/ks.yaml
-  - ./external-proxy/ks.yaml
+  # - ./external-proxy/ks.yaml
   # - ./lancache/ks.yaml
   - ./netbootxyz/ks.yaml
   - ./technitium-dns/ks.yaml

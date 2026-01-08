@@ -5,5 +5,4 @@ kind: Kustomization
 namespace: system-upgrade
 resources:
   - ./namespace.yaml
-  - ./forgejo-runner/ks.yaml
   - ./tuppr/ks.yaml

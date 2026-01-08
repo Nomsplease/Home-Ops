@@ -16,5 +16,4 @@ spec:
         existingInitSecret: "forgejo-runner-secret"
       file:
         runner:
-          labels:
-            - home-ops-runner
+          labels: ["home-ops-runner"]

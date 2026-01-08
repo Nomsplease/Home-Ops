@@ -14,3 +14,18 @@ spec:
     runner:
       config:
         existingInitSecret: "forgejo-runner-secret"
+        file:
+          runner:
+            envs:
+              - name: NODE
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.hostIP
+    volumeMounts:
+      - mountPath: /var/run/secrets/talos.dev
+        name: talos
+        readOnly: true
+    volumes:
+      - name: talos
+        secret:
+          secretName: forgejo-home-ops

@@ -114,34 +114,34 @@ jobs:
       - name: Install Talosctl
         run: curl -fsSL https://talos.dev/install | sh
 
-      - name: Pull images
-        run: |
-          echo '${{ steps.diff.outputs.images }}' | jq -r '.[]' | while read -r image; do
-            echo "Pulling Image: $image"
-            talosctl image pull $image --nodes $NODE
-          done
+  #     - name: Pull images
+  #       run: |
+  #         echo '${{ steps.diff.outputs.images }}' | jq -r '.[]' | while read -r image; do
+  #           echo "Pulling Image: $image"
+  #           talosctl image pull $image --nodes $NODE
+  #         done
 
 
-  ## This wont work until https://codeberg.org/forgejo/forgejo/pulls/10647 is released
-  # pull:
-  #   if: ${{ needs.diff.outputs.images != '[]' }}
-  #   needs: diff
-  #   name: Image Pull - Pull Images
-  #   runs-on: docker
-  #   container: ghcr.io/catthehacker/ubuntu:runner-latest
-  #   strategy:
-  #     matrix:
-  #       image: ${{ fromJSON(needs.diff.outputs.images) }}
-  #     max-parallel: 4
-  #     fail-fast: false
-  #   env:
-  #     IMAGE: ${{ matrix.obj.image }}
-  #   steps:
-  #     - name: Install talosctl
-  #       run: curl -fsSL https://talos.dev/install | sh
+  # ## This wont work until https://codeberg.org/forgejo/forgejo/pulls/10647 is released
+  # # pull:
+  # #   if: ${{ needs.diff.outputs.images != '[]' }}
+  # #   needs: diff
+  # #   name: Image Pull - Pull Images
+  # #   runs-on: docker
+  # #   container: ghcr.io/catthehacker/ubuntu:runner-latest
+  # #   strategy:
+  # #     matrix:
+  # #       image: ${{ fromJSON(needs.diff.outputs.images) }}
+  # #     max-parallel: 4
+  # #     fail-fast: false
+  # #   env:
+  # #     IMAGE: ${{ matrix.obj.image }}
+  # #   steps:
+  # #     - name: Install talosctl
+  # #       run: curl -fsSL https://talos.dev/install | sh
 
-  #     - name: Pull Image
-  #       run: talosctl image pull --nodes $NODE '${{ matrix.image }}'
+  # #     - name: Pull Image
+  # #       run: talosctl image pull --nodes $NODE '${{ matrix.image }}'
 
   success:
     if: ${{ !cancelled() }}

@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Labeler
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  main:
+    name: Labeler - Labeler
+    runs-on: docker
+    container: ghcr.io/catthehacker/ubuntu:act-latest
+    if: ${{ forgejo.event.pull_request.head.repo.full_name == forgejo.repository }}
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Labeler
+        uses: actions/labeler@634933edcd8ababfe52f92936142cc22ac488b1b # v6.0.1
+        with:
+          repo-token: "${{ env.FORGEJO_TOKEN }}"
+          configuration-path: .forgejo/labeler.yaml

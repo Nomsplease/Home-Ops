@@ -1,0 +1,159 @@
+---
+name: Image Pull
+
+on:
+  pull_request:
+    branches: ["main"]
+
+concurrency:
+  group: ${{ forgejo.workflow_ref }}-${{ forgejo.event.number || forgejo.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  filter:
+    name: Image Pull - Filter
+    runs-on: docker
+    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    outputs:
+      changed-files: ${{ steps.changed-files.outputs.changed_files }}
+    steps:
+      - name: Get Changed Files
+        id: changed-files
+        uses: bjw-s-labs/action-changed-files@1a5aeab1bfa64d0c4e786f501d5a3f1fad4a24da # v0.4.1
+        with:
+          patterns: kubernetes/**/*
+
+  extract-default:
+    name: Image Pull - Extract Default Images
+    runs-on: docker
+    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    outputs:
+      images: ${{ steps.extract.outputs.images }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          ref: ${{ forgejo.event.repository.default_branch }}
+
+      - name: Gather Images
+        uses: docker://ghcr.io/allenporter/flux-local:v8.0.0
+        with:
+          args: >-
+            get cluster
+            --all-namespaces
+            --path kubernetes/flux/cluster
+            --enable-images
+            --only-images
+            --output json
+            --output-file images.json
+
+      - id: extract
+        name: Extract Images
+        run: echo "images=$(jq --compact-output '.' images.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Extracted Images
+        run: echo '${{ steps.extract.outputs.images }}' | jq '.'
+
+
+  extract-pull:
+    name: Image Pull - Extract PR Images
+    runs-on: docker
+    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    outputs:
+      images: ${{ steps.extract.outputs.images }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Gather Images
+        uses: docker://ghcr.io/allenporter/flux-local:v8.0.0
+        with:
+          args: >-
+            get cluster
+            --all-namespaces
+            --path kubernetes/flux/cluster
+            --enable-images
+            --only-images
+            --output json
+            --output-file images.json
+
+      - id: extract
+        name: Extract Images
+        run: echo "images=$(jq --compact-output '.' images.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Extracted Images
+        run: echo '${{ steps.extract.outputs.images }}' | jq '.'
+
+  diff:
+    needs: [extract-default, extract-pull]
+    name: Image Pull - Diff Images and Pull
+    runs-on: docker
+    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    outputs:
+      images: ${{ steps.diff.outputs.images }}
+    steps:
+      - name: Diff Images
+        id: diff
+        run: |
+          images=$(jq --compact-output --null-input \
+              --argjson f1 '${{ needs.extract-default.outputs.images }}' \
+              --argjson f2 '${{ needs.extract-pull.outputs.images }}' \
+              '$f2 - $f1'
+          )
+          echo "images=${images}" >> $GITHUB_OUTPUT
+
+      - name: Images to be pulled
+        run: echo '${{ steps.diff.outputs.images }}' | jq '.'
+
+      - name: Install Talosctl
+        run: curl -fsSL https://talos.dev/install | sh
+
+      - name: Pull images
+        run: |
+          echo '${{ steps.diff.outputs.images }}' | jq -r '.[]' | while read -r image; do
+            echo "Pulling Image: $image"
+            talosctl image pull $image --nodes $NODE
+          done
+
+
+  ## This wont work until https://codeberg.org/forgejo/forgejo/pulls/10647 is released
+  # pull:
+  #   if: ${{ needs.diff.outputs.images != '[]' }}
+  #   needs: diff
+  #   name: Image Pull - Pull Images
+  #   runs-on: docker
+  #   container: ghcr.io/catthehacker/ubuntu:runner-latest
+  #   strategy:
+  #     matrix:
+  #       image: ${{ fromJSON(needs.diff.outputs.images) }}
+  #     max-parallel: 4
+  #     fail-fast: false
+  #   env:
+  #     IMAGE: ${{ matrix.obj.image }}
+  #   steps:
+  #     - name: Install talosctl
+  #       run: curl -fsSL https://talos.dev/install | sh
+
+  #     - name: Pull Image
+  #       run: talosctl image pull --nodes $NODE '${{ matrix.image }}'
+
+  success:
+    if: ${{ !cancelled() }}
+    needs: diff
+    name: Image Pull - Success
+    runs-on: docker
+    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    steps:
+      - name: Any jobs failed?
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
+
+      - name: All jobs passed or skipped?
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"

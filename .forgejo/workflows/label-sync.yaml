@@ -4,11 +4,11 @@ name: Label Sync
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["main"]
-    paths: [".github/labels.yaml"]
-  schedule:
-    - cron: "0 0 * * *" # Every day at midnight
+  # push:
+  #   branches: ["main"]
+  #   paths: [".forgejo/labels.yaml"]
+  # schedule:
+  #   - cron: "0 0 * * *" # Every day at midnight
 
 permissions:
   contents: read
@@ -16,19 +16,20 @@ permissions:
 jobs:
   main:
     name: Label Sync - Sync Labels
-    runs-on: ubuntu-latest
+    runs-on: docker
+    container: ghcr.io/catthehacker/ubuntu:act-latest
     permissions:
       contents: read
       issues: write
     steps:
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@v6
         with:
           persist-credentials: false
-          sparse-checkout: .github/labels.yaml
+          sparse-checkout: .forgejo/labels.yaml
 
-      - name: Sync Labels
+      - name: Sync Labels ## This wont work with Fogrejo
         uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a # v2.3.3
         with:
-          config-file: .github/labels.yaml
+          config-file: .forgejo/labels.yaml
           delete-other-labels: true

@@ -30,7 +30,7 @@ spec:
         - notification-controller
       sync:
         kind: GitRepository
-        url: https://github.com/Nomsplease/Home-Ops
+        url: https://git.noms.tv/Homelab/Home-Ops
         ref: refs/heads/main
         path: kubernetes/flux/cluster
         interval: 1h

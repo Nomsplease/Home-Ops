@@ -24,4 +24,5 @@ resources:
   - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
+  - ./tunarr/ks.yaml
   - ./watchstate/ks.yaml

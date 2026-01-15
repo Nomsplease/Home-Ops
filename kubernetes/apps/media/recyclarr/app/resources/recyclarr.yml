@@ -17,7 +17,7 @@ sonarr:
           - 85c61753df5da1fb2aab6f2a47426b09 # BR-DISK
           - 9c11cd3f07101cdba90a2d81cf0e56b4 # LQ
           - e2315f990da2e2cbfc9fa5b7a6fcfe48 # LQ (Release Title)
-          - cae4ca30163749b891686f95532519bd # AV1
+          - 15a05bc7c1a36e2b57fd628f8977e2fc # AV1
           - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
           - fbcb31d8dabd2a319072b84fc0b7249c # Extras
           - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
@@ -25,7 +25,6 @@ sonarr:
           - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
           - 06d66ab109d4d2eddb2794d21526d140 # Retags
           - 1b3994c551cbb92a2c781af061f4ab44 # Scene
-          - e6886871085226c3da1830830146846c # Generated HDR
 
           # Misc
           - ec8fa7296b64e8cd390a1600981f3923 # Repack/Proper
@@ -50,8 +49,8 @@ sonarr:
           - ae58039e1319178e6be73caab5c42166 # SHO
           - 1efe8da11bfd74fbbcd4d8117ddb9213 # STAN
           - 9623c5c9cac8e939c1b9aedd32f640bf # SYFY
+          - 218e93e5702f44a68ad9e3c6ba87d2f0 # HD Streaming Boost
           - 43b3cf48cb385cd3eac608ee6bca7f09 # UHD Streaming Boost
-          - d2d299244a92b8a52d4921ce3897a256 # UHD Streaming Cut
 
           # HQ Source Groups
           - e6258996055b9fbab7e9cb2f75819294 # WEB Tier 01
@@ -111,6 +110,19 @@ sonarr:
       - template: sonarr-v4-custom-formats-web-1080p
     custom_formats:
       - trash_ids:
+          - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
+          - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
+          - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
+          - 06d66ab109d4d2eddb2794d21526d140 # Retags
+          - 1b3994c551cbb92a2c781af061f4ab44 # Scene
+
+          # Unwanted
+          - 85c61753df5da1fb2aab6f2a47426b09 # BR-DISK
+          - 9c11cd3f07101cdba90a2d81cf0e56b4 # LQ
+          - e2315f990da2e2cbfc9fa5b7a6fcfe48 # LQ (Release Title)
+          - 15a05bc7c1a36e2b57fd628f8977e2fc # AV1
+          - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
+          - fbcb31d8dabd2a319072b84fc0b7249c # Extras
           - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
           - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
           - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated

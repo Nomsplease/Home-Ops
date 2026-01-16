@@ -15,8 +15,7 @@ permissions:
 jobs:
   filter:
     name: Image Pull - Filter
-    runs-on: docker
-    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    runs-on: ubuntu-latest
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
     steps:
@@ -28,8 +27,7 @@ jobs:
 
   extract-default:
     name: Image Pull - Extract Default Images
-    runs-on: docker
-    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    runs-on: ubuntu-latest
     outputs:
       images: ${{ steps.extract.outputs.images }}
     steps:
@@ -61,8 +59,7 @@ jobs:
 
   extract-pull:
     name: Image Pull - Extract PR Images
-    runs-on: docker
-    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    runs-on: ubuntu-latest
     outputs:
       images: ${{ steps.extract.outputs.images }}
     steps:
@@ -93,8 +90,7 @@ jobs:
   diff:
     needs: [extract-default, extract-pull]
     name: Image Pull - Diff Images and Pull
-    runs-on: docker
-    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    runs-on: ubuntu-latest
     outputs:
       images: ${{ steps.diff.outputs.images }}
     steps:
@@ -111,44 +107,30 @@ jobs:
       - name: Images to be pulled
         run: echo '${{ steps.diff.outputs.images }}' | jq '.'
 
-      - name: Install Talosctl
-        run: curl -fsSL https://talos.dev/install | sh
+  pull:
+    if: ${{ needs.diff.outputs.images != '[]' }}
+    needs: diff
+    name: Image Pull - Pull Images
+    runs-on: home-ops-runner
+    strategy:
+      matrix:
+        image: ${{ fromJSON(needs.diff.outputs.images) }}
+      max-parallel: 4
+      fail-fast: false
+    env:
+      IMAGE: ${{ matrix.obj.image }}
+    steps:
+      - name: Talosctl Info
+        run: talosctl version
 
-  #     - name: Pull images
-  #       run: |
-  #         echo '${{ steps.diff.outputs.images }}' | jq -r '.[]' | while read -r image; do
-  #           echo "Pulling Image: $image"
-  #           talosctl image pull $image --nodes $NODE
-  #         done
-
-
-  # ## This wont work until https://codeberg.org/forgejo/forgejo/pulls/10647 is released
-  # # pull:
-  # #   if: ${{ needs.diff.outputs.images != '[]' }}
-  # #   needs: diff
-  # #   name: Image Pull - Pull Images
-  # #   runs-on: docker
-  # #   container: ghcr.io/catthehacker/ubuntu:runner-latest
-  # #   strategy:
-  # #     matrix:
-  # #       image: ${{ fromJSON(needs.diff.outputs.images) }}
-  # #     max-parallel: 4
-  # #     fail-fast: false
-  # #   env:
-  # #     IMAGE: ${{ matrix.obj.image }}
-  # #   steps:
-  # #     - name: Install talosctl
-  # #       run: curl -fsSL https://talos.dev/install | sh
-
-  # #     - name: Pull Image
-  # #       run: talosctl image pull --nodes $NODE '${{ matrix.image }}'
+      - name: Pull Image
+        run: talosctl image pull --nodes $NODE '${{ matrix.image }}'
 
   success:
     if: ${{ !cancelled() }}
     needs: diff
     name: Image Pull - Success
-    runs-on: docker
-    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}

@@ -31,15 +31,8 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
-          volumes:
-            - name: talos
-              secret:
-                secretName: *name
-          volumeMounts:
-            - mountPath: /var/run/secrets/talos.dev
-              name: talos
-              readOnly: true
-        serviceAccountName: *name
+        serviceAccount:
+          name: *name
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -50,3 +43,9 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      talos:
+        type: secret
+        name: *name
+        globalMounts:
+          - path: /var/run/secrets/talos.dev
+            subPath: config

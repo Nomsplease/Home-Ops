@@ -48,4 +48,3 @@ spec:
         name: *name
         globalMounts:
           - path: /var/run/secrets/talos.dev
-            subPath: config

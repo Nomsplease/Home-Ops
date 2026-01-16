@@ -13,8 +13,7 @@ permissions:
 jobs:
   main:
     name: Labeler - Labeler
-    runs-on: docker
-    container: ghcr.io/catthehacker/ubuntu:act-latest
+    runs-on: ubuntu-latest
     if: ${{ forgejo.event.pull_request.head.repo.full_name == forgejo.repository }}
     permissions:
       contents: read

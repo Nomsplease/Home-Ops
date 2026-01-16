@@ -16,8 +16,7 @@ permissions:
 jobs:
   main:
     name: Label Sync - Sync Labels
-    runs-on: docker
-    container: ghcr.io/catthehacker/ubuntu:act-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       issues: write

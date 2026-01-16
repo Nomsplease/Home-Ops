@@ -15,8 +15,7 @@ permissions:
 jobs:
   filter:
     name: Flux Local - Filter
-    runs-on: docker
-    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    runs-on: ubuntu-latest
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
     steps:
@@ -30,8 +29,7 @@ jobs:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
     name: Flux Local - Test
-    runs-on: docker
-    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
@@ -52,8 +50,7 @@ jobs:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
     name: Flux Local - Diff
-    runs-on: docker
-    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
@@ -111,8 +108,7 @@ jobs:
     if: ${{ !cancelled() }}
     needs: ["test", "diff"]
     name: Flux Local - Success
-    runs-on: docker
-    container: ghcr.io/catthehacker/ubuntu:runner-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}

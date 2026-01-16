@@ -1,0 +1,52 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name forgejo-home-ops-runner
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: forgejo-home-ops-runner
+  values:
+    controllers:
+      sonarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: git.noms.tv/homelab/containers/forgejo-home-ops-runner
+              tag: latest@sha256:fbfed4126600c282a978121579a0339f13766c25c886b534bce9f9fa6ccfeb1d
+            env:
+              - name: NODE
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.hostIP
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+          volumes:
+            - name: talos
+              secret:
+                secretName: *name
+          volumeMounts:
+            - mountPath: /var/run/secrets/talos.dev
+              name: talos
+              readOnly: true
+        serviceAccountName: *name
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"

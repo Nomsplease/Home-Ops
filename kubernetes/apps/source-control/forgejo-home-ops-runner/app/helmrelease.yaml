@@ -24,6 +24,8 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: status.hostIP
+              - name: TALOSCONFIG
+                value: /var/run/secrets/talos.dev/config
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

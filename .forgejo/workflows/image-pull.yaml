@@ -120,15 +120,12 @@ jobs:
     env:
       IMAGE: ${{ matrix.obj.image }}
     steps:
-      - name: Talosctl Info
-        run: talosctl version
-
       - name: Pull Image
         run: talosctl image pull --nodes $NODE '${{ matrix.image }}'
 
   success:
     if: ${{ !cancelled() }}
-    needs: diff
+    needs: [diff, pull]
     name: Image Pull - Success
     runs-on: ubuntu-latest
     steps:

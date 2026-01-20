@@ -30,7 +30,6 @@ spec:
             - name: immich-server
               port: 2283
 
-
     valkey:
       enabled: true
 

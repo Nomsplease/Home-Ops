@@ -23,11 +23,11 @@ spec:
         - ReadWriteOnce
       size: 10Gi
       storageClassName: ceph-block
-    httpRoute:
-      enabled: true
-      parentRefs:
-        - name: envoy-internal
-          namespace: network
-          sectionName: https
-      hostnames:
-        - "headlamp.noms.tv"
+    # httpRoute: ## This will work after v0.40 is released. https://github.com/kubernetes-sigs/headlamp/pull/4299
+    #   enabled: true
+    #   parentRefs:
+    #     - name: envoy-internal
+    #       namespace: network
+    #       sectionName: https
+    #   hostnames:
+    #     - "headlamp.noms.tv"

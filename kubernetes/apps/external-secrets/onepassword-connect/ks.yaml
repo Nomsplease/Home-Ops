@@ -6,9 +6,6 @@ metadata:
   name: &app onepassword-connect
   namespace: &namespace external-secrets
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/external-secrets/onepassword-connect/app
   postBuild:

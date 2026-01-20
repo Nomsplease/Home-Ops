@@ -3,12 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: radarr
+  name: &app radarr
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: radarr
+    name: *app
   install:
     remediation:
       retries: -1
@@ -18,7 +18,7 @@ spec:
       retries: 3
   values:
     controllers:
-      radarr:
+      *app :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

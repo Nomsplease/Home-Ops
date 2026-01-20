@@ -6,9 +6,6 @@ metadata:
   name: &app cloudnative-pg
   namespace: &namespace databases
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets
       namespace: external-secrets
@@ -34,9 +31,6 @@ metadata:
   name: &app cloudnative-pg-plugins
   namespace: &namespace databases
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg
   interval: 30m
@@ -61,9 +55,6 @@ metadata:
   name: &app cloudnative-pg-main-cluster
   namespace: &namespace databases
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg
     - name: cloudnative-pg-plugins
@@ -89,9 +80,6 @@ metadata:
   name: &app cloudnative-pg-vector-cluster
   namespace: &namespace databases
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg
     - name: cloudnative-pg-plugins

@@ -3,8 +3,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: home
-components:
-  - ../../components/common
 resources:
   - ./namespace.yaml
   - ./esphome/ks.yaml
@@ -12,10 +10,10 @@ resources:
   - ./matter-server/ks.yaml
   - ./mosquitto/ks.yaml
   - ./node-red/ks.yaml
-  # - ./openwakeword/ks.yaml
-  # - ./piper/ks.yaml
+  - ./openwakeword/ks.yaml
+  - ./piper/ks.yaml
   - ./rtlamr2mqtt/ks.yaml
   - ./tasmoadmin/ks.yaml
-  # - ./whisper/ks.yaml
+  - ./whisper/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave-js-ui/ks.yaml

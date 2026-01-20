@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: blackbox-exporter-internal
+  name: &app blackbox-exporter-internal
 spec:
   chartRef:
     kind: OCIRepository
-    name: blackbox-exporter-internal
+    name: *app
   interval: 1h
   values:
-    fullnameOverride: blackbox-exporter-internal
+    fullnameOverride: *app
     securityContext:
       readOnlyRootFilesystem: true
       allowPrivilegeEscalation: false

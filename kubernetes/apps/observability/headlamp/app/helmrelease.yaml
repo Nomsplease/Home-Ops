@@ -19,7 +19,8 @@ spec:
       runAsGroup: 1000
     persistentVolumeClaim:
       enabled: true
-      accessModes: ReadWriteOnce
+      accessModes: 
+        - ReadWriteOnce
       size: 10Gi
       storageClassName: ceph-block
     httpRoute:

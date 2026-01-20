@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: satisfactory
+  name: node-red
 spec:
   interval: 15m
   layerSelector:

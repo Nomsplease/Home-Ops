@@ -10,36 +10,60 @@ spec:
     kind: OCIRepository
     name: immich
   values:
-    controllers:
-      main:
-        containers:
-          main:
-            env:
-              DB_DATABASE_NAME: immich
-              DB_HOSTNAME: vector-db-rw.databases
-              DB_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    key: DB_PASSWORD
-                    name: immich
-              DB_USERNAME:
-                valueFrom:
-                  secretKeyRef:
-                    key: DB_USERNAME
-                    name: immich
-              LOG_LEVEL: verbose
-              MACHINE_LEARNING_PRELOAD__CLIP: "ViT-H-14-378-quickgelu__dfn5b"
-              TZ: America/New_York
-            image:
-              # renovate: datasource=github-releases depName=immich-app/immich
-              tag: v2.4.1
     immich:
       metrics:
         enabled: true
       persistence:
         library:
           existingClaim: immich
+
+    server:
+      route:
+        main:
+          hostnames: 
+            - "photos.noms.tv"
+          parentRefs:
+            - name: envoy-external
+              namespace: network
+              sectionName: https
+          backendRefs:
+            - name: immich-server
+              port: 2283
+
+
+    valkey:
+      enabled: true
+
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              # renovate: datasource=github-releases depName=immich-app/immich
+              tag: v2.4.1
+
+            env:
+              DB_DATABASE_NAME: immich
+              DB_HOSTNAME: vector-db-rw.databases
+              LOG_LEVEL: verbose
+              MACHINE_LEARNING_PRELOAD__CLIP: "ViT-H-14-378-quickgelu__dfn5b"
+              TZ: America/New_York
+
+            envFrom:
+              - secretRef:
+                  name: immich
+
     machine-learning:
+      env:
+        TRANSFORMERS_CACHE: /cache
+
+      persistence:
+        cache:
+          enabled: true
+          type: emptyDir
+          accessMode: ReadWriteOnce
+          size: 10Gi
+
       controllers:
         main:
           strategy: Recreate
@@ -53,22 +77,8 @@ spec:
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
                   nodeSelectorTerms:
-                  - matchExpressions:
-                    - key: gpu.intel.com/family
-                      operator: In
-                      values:
-                        - A_Series
-      env:
-        TRANSFORMERS_CACHE: /cache
-      persistence:
-        cache:
-          accessMode: ReadWriteOnce
-          enabled: true
-          size: 10Gi
-          type: emptyDir
-    server:
-      ingress:
-        main:
-          enabled: false
-    valkey:
-      enabled: true
+                    - matchExpressions:
+                        - key: gpu.intel.com/family
+                          operator: In
+                          values:
+                            - A_Series

@@ -3,15 +3,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name forgejo-home-ops-runner
+  name: &app forgejo-home-ops-runner
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: forgejo-home-ops-runner
+    name: *app
   values:
     controllers:
-      sonarr:
+      *app :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -34,7 +34,7 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
         serviceAccount:
-          name: *name
+          name: *app
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -47,6 +47,6 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       talos:
         type: secret
-        name: *name
+        name: *app
         globalMounts:
           - path: /var/run/secrets/talos.dev

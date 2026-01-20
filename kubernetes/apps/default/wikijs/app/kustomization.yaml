@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - ./externalSecret.yaml
   - ./helmrelease.yaml
+  - ./ocirepository.yaml

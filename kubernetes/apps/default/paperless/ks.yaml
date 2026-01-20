@@ -6,9 +6,6 @@
 #   name: &app paperless-ai
 #   namespace: &namespace default
 # spec:
-#   commonMetadata:
-#     labels:
-#       app.kubernetes.io/name: *app
 #   components:
 #     - ../../../../components/volsync
 #   dependsOn:
@@ -37,9 +34,6 @@ metadata:
   name: &app paperless
   namespace: &namespace default
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
   dependsOn:
@@ -68,9 +62,6 @@ metadata:
   name: &app paperless-gotenberg
   namespace: &namespace default
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/default/paperless/gotenberg
   postBuild:
@@ -93,9 +84,6 @@ metadata:
   name: &app paperless-redis
   namespace: &namespace default
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
   dependsOn:
@@ -124,9 +112,6 @@ metadata:
   name: &app paperless-tika
   namespace: &namespace default
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/default/paperless/tika
   postBuild:

@@ -63,3 +63,8 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /home/appuser
+            subPath: home

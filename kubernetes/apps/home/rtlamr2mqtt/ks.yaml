@@ -6,9 +6,6 @@ metadata:
   name: &app rtlamr2mqtt
   namespace: &namespace home
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/home/rtlamr2mqtt/app
   postBuild:

@@ -28,7 +28,6 @@ spec:
               "--noise-w", "0.333",
               "--speaker", "0",
               "--voice", "en_US-lessac-medium",
-              "--max-piper-procs", "1",
               "--update-voices",
               "--debug"
             ]

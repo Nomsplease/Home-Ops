@@ -7,9 +7,13 @@ metadata:
 spec:
   module: icmp
   prober:
-    url: blackbox-exporter.observability.svc.cluster.local:9115
+    url: blackbox-exporter-iot.observability.svc.cluster.local:9115
   targets:
     staticConfig:
       static:
         - zwave-poe.iot.noms.tv
         - zigbee-poe.iot.noms.tv
+  metricRelabelings:
+    - targetLabel: service
+      replacement: blackbox-exporter-iot
+      action: replace

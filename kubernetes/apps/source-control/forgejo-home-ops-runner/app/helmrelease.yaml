@@ -17,8 +17,8 @@ spec:
         containers:
           app:
             image:
-              repository: git.noms.tv/homelab/containers/forgejo-home-ops-runner
-              tag: latest@sha256:d68a680408f09f609186783685a08a2b918ed62f3a400e962f6a2ca3bb3c79b0
+              repository: git.noms.tv/containers/forgejo-home-ops-runner:latest
+              tag: latest@sha256:6814784bd1eade00bdbc12418b2ca83c8d6beff0f4718b79742233a3b91ed3b9
             env:
               - name: NODE
                 valueFrom:

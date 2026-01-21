@@ -25,6 +25,10 @@ spec:
           - name: envoy-internal
             namespace: network
             sectionName: https
+    cephImage:
+      repository: quay.io/ceph/ceph
+      # See tags available at https://quay.io/ceph/ceph
+      tag: v19.2.3
     cephClusterSpec:
       cephConfig:
         global:

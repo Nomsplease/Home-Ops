@@ -17,8 +17,8 @@ spec:
         containers:
           app:
             image:
-              repository: git.noms.tv/containers/rtlamr2mqtt
-              tag: latest@sha256:a26626eb0ed761ebdf0c3371ea9ff747ab8689e61e0680e02f6e8ede51419b84
+              repository: allangood/rtlamr2mqtt
+              tag: 2025.6.6@sha256:9458419acca5f95d438b3a04f10291d19c37244e16c0286ee2033eb4465ad0a0
             securityContext:
               privileged: true
             ## Enable to List all devices

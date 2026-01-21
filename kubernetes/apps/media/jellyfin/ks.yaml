@@ -6,7 +6,7 @@ metadata:
   name: jellyfin
 spec:
   components:
-    # - ../../../../components/nfs-scaler
+    - ../../../../components/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
     - name: intel-device-plugins-gpu

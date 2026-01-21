@@ -23,7 +23,7 @@ spec:
           hostnames:
             - alertmanager.noms.tv
           parentRefs:
-            - name: envoy
+            - name: envoy-internal
               namespace: network
               sectionName: https
       alertmanagerSpec:
@@ -52,7 +52,7 @@ spec:
           hostnames:
             - prometheus.noms.tv
           parentRefs:
-            - name: envoy
+            - name: envoy-internal
               namespace: network
               sectionName: https
       prometheusSpec:

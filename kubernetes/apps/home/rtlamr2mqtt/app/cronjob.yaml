@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: rtlamr2mqtt-restart
 spec:
-  schedule: "*/30 * * * *"
+  schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1

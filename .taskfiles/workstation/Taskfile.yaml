@@ -34,7 +34,7 @@ tasks:
   krew:
     desc: Set up Krew tools
     cmds:
-      - kubectl krew install cert-manager cnpg browse-pvc rook-ceph view-secret modify-secret resource-capacity
+      - kubectl krew install cert-manager cnpg browse-pvc rook-ceph view-secret modify-secret resource-capacity kubetail
     preconditions:
       - kubectl krew version
       - which kubectl

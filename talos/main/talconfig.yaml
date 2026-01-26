@@ -16,8 +16,8 @@ patches:
   - "@./patches/features.yaml"
   - "@./patches/files.yaml"
   - "@./patches/kubelet.yaml"
-  - "@./patches/sysctls.yaml"
   - "@./patches/networking.yaml"
+  - "@./patches/sysctls.yaml"
 controlPlane:
   patches:
    - "@./patches/cluster-cp.yaml"

@@ -16,7 +16,7 @@ spec:
       oidc:
         externalSecret:
           enabled: true
-          name: "{{ .Release.Name }}-secret"
+          name: "headlamp-secret"
     securityContext:
       runAsNonRoot: true
       runAsUser: 1000

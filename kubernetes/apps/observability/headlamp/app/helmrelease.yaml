@@ -13,6 +13,10 @@ spec:
     config:
       clusterRoleBinding:
         clusterRoleName: headlamp
+      oidc:
+        externalSecret:
+          enabled: true
+          name: "{{ .Release.Name }}-secret"
     securityContext:
       runAsNonRoot: true
       runAsUser: 1000

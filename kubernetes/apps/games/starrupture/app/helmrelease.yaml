@@ -51,9 +51,9 @@ spec:
           lbipam.cilium.io/ips: 10.1.20.27
         ports:
           tcp:
-            port: 7777 #*port
+            port: *port
           udp:
-            port: 7777 #*port
+            port: *port
             protocol: UDP
           query:
             port: 27015

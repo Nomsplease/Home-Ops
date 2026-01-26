@@ -39,8 +39,8 @@ spec:
                 spec:
                   tcpSocket:
                     port: *port
-                  failureThreshold: 30
-                  periodSeconds: 10
+                  failureThreshold: 5
+                  periodSeconds: 60
             resources:
               limits:
                 memory: 8Gi
@@ -51,9 +51,9 @@ spec:
           lbipam.cilium.io/ips: 10.1.20.27
         ports:
           tcp:
-            port: *port
+            port: 7777 #*port
           udp:
-            port: *port
+            port: 7777 #*port
             protocol: UDP
           query:
             port: 27015

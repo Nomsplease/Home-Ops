@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: indifferentbroccoli/starrupture-server-docker
-              tag: latest@sha256:sha256:83618f2b476cf8a002f0136868208c70297ed0066e97ed01d6b63562d6453b49
+              tag: latest@sha256:83618f2b476cf8a002f0136868208c70297ed0066e97ed01d6b63562d6453b49
             env:
               PUID: "1000"
               PGID: "1000"

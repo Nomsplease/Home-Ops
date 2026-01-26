@@ -11,3 +11,4 @@ resources:
   #- ./astroneer/ks.yaml
   # - ./sevendaystodie/ks.yaml
   - ./satisfactory/ks.yaml
+  - ./starrupture/ks.yaml

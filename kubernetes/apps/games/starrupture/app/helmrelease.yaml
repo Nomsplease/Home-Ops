@@ -1,0 +1,63 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app starrupture
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  values:
+    controllers:
+      *app :
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: indifferentbroccoli/starrupture-server-docker
+              tag: latest@sha256:sha256:83618f2b476cf8a002f0136868208c70297ed0066e97ed01d6b63562d6453b49
+            env:
+              PUID: "1000"
+              PGID: "1000"
+              SERVER_NAME: NomsGalaxy
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 7777
+                  failureThreshold: 3
+                  periodSeconds: 10
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: *port
+                  failureThreshold: 30
+                  periodSeconds: 10
+            resources:
+              limits:
+                memory: 8Gi
+    service:
+      app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.1.20.27
+        ports:
+          tcp:
+            port: *port
+          udp:
+            port: *port
+            protocol: UDP
+          query:
+            port: 27015
+            protocol: UDP
+    persistence:
+      config:
+        existingClaim: *app

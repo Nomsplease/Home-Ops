@@ -10,4 +10,3 @@ resources:
   # - ./samba/ks.yaml
   #- ./astroneer/ks.yaml
   # - ./sevendaystodie/ks.yaml
-  - ./satisfactory/ks.yaml

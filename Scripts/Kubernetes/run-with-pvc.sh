@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE="ubuntu:latest"
+IMAGE="git.noms.tv/containers/kubernetes-toolbox:latest"
 COMMAND="/bin/bash"
 SUFFIX=$(date +%s | shasum | base64 | fold -w 10 | head -1 | tr '[:upper:]' '[:lower:]')
 

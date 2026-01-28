@@ -1,0 +1,62 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app unpackerr
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  interval: 1h
+  values:
+    controllers:
+      *app :
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: golift/unpackerr
+              tag: latest@sha256:a9e7eb0d7b0ca16d2bdcb5af52eb4b544053ad6d915dd9b0f8383bc83f1df5cc
+            env:
+              TZ: America/New_York
+              UN_QUIET: "false"
+              UN_DEBUG: "true"
+              UN_ERROR_STDERR: "false"
+              UN_LOG_QUEUES: "1m"
+              UN_LOG_FILES: "10"
+              UN_LOG_FILE_MB: "10"
+              UN_INTERVAL: "2m"
+              UN_START_DELAY: "1m"
+              UN_RETRY_DELAY: "5m"
+              UN_MAX_RETRIES: "3"
+              UN_PARALLEL: "1"
+              UN_FILE_MODE: "0777"
+              UN_DIR_MODE: "0777"
+              UN_ACTIVITY: "false"
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 8Gi
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      media:
+        type: nfs
+        server: truenas.internal
+        path: /mnt/BigPool/Media/Downloads
+        globalMounts:
+          - path: /media/Downloads/Complete

@@ -14,6 +14,7 @@ resources:
   - ./kometa/ks.yaml
   - ./music-assistant/ks.yaml
   - ./plex/ks.yaml
+  - ./plex-auto-languages/ks.yaml
   - ./posterizarr/ks.yaml
   - ./profilarr/ks.yaml
   - ./prowlarr/ks.yaml

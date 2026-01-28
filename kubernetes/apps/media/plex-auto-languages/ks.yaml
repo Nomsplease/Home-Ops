@@ -5,10 +5,18 @@ kind: Kustomization
 metadata:
   name: &app plex-auto-languages
 spec:
+  components:
+    - ../../../../components/volsync
   dependsOn:
     - name: plex
+    - name: volsync
+      namespace: volsync-system
   interval: 1h
   path: ./kubernetes/apps/media/plex-auto-languages/app
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository

@@ -8,7 +8,7 @@ metadata:
     app: reitti
 spec:
   cluster:
-    name: main-db
+    name: postgis
   extensions:
     - name: postgis
       ensure: present

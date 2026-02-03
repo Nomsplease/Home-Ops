@@ -8,6 +8,7 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
   - ./dispatcharr/ks.yaml
+  - ./emby/ks.yaml
   - ./hdhr-ac4/ks.yaml
   - ./huntarr/ks.yaml
   - ./jellyfin/ks.yaml

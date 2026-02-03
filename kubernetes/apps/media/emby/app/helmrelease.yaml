@@ -18,18 +18,16 @@ spec:
           app:
             image:
               repository: emby/embyserver
-              tag: latest@sha256:338a17ad65a822f18d18574459046003a84d2fee82c2e234adf8645009238d0a
+              tag: 4.9.3.0@sha256:338a17ad65a822f18d18574459046003a84d2fee82c2e234adf8645009238d0a
             env:
-              GID: 1000
               TZ: America/New_York
-              UID: 1000
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
+                    path: /web/index.html
                     port: &port 8096
                   initialDelaySeconds: 0
                   periodSeconds: 10

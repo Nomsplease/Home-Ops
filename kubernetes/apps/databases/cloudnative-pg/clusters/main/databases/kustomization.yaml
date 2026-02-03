@@ -13,5 +13,6 @@ resources:
   - ./paperless.yaml
   - ./prowlarr.yaml
   - ./radarr.yaml
+  - ./reitti.yaml
   - ./sonarr.yaml
   - ./wikijs.yaml

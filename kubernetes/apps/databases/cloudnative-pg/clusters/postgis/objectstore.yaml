@@ -1,0 +1,24 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: garage
+spec:
+  retentionPolicy: 7d
+  configuration:
+    data:
+      compression: bzip2
+    destinationPath: s3://cnpg/main.int/
+    endpointURL: https://garage.noms.tv
+    s3Credentials:
+      accessKeyId:
+        name: cnpg-garage
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: cnpg-garage
+        key: ACCESS_SECRET_KEY
+      region:
+        name: cnpg-garage
+        key: REGION
+    wal:
+      compression: bzip2

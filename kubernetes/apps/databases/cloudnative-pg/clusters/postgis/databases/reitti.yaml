@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: reitti
+  labels:
+    app: reitti
+spec:
+  cluster:
+    name: main-db
+  extensions:
+    - name: postgis
+      ensure: present
+  name: reitti
+  owner: app

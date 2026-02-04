@@ -21,7 +21,6 @@ spec:
               tag: 3.4.1@sha256:8221bfb3c65ef54b05b694a8de673e824d61173949608195d0fbe4ca22a1860f
             env:
               OIDC_ENABLED: "true"
-              OIDC_SIGN_UP_ENABLED: "true"
               PHOTON_BASE_URL: http://photon:2322
               POSTGIS_DB: "{{ .Release.Name }}"
               POSTGIS_HOST: postgis-rw.databases

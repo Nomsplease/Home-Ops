@@ -1,0 +1,81 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app reitti-tile-cache
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  values:
+    controllers:
+      *app :
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: nginx
+              tag: 1.29.4-alpine@sha256:4870c12cd2ca986de501a804b4f506ad3875a0b1874940ba0a2c7f763f1855b2
+            command:
+              - nginx
+              - -g
+              - daemon off;
+            env:
+              NGINX_CACHE_SIZE: 1g
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /0/0/0.png
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    configMaps:
+      config:
+        data:
+          nginx.conf: |-
+            events {
+              worker_connections 1024;
+            }
+            http {
+              proxy_cache_path /var/cache/nginx/tiles levels=1:2 keys_zone=tiles:10m max_size=1g inactive=30d use_temp_path=off;
+
+              server {
+                listen 80;
+                location / {
+                  proxy_pass https://tile.openstreetmap.org/;
+                  proxy_set_header Host tile.openstreetmap.org;
+                  proxy_set_header User-Agent \"Reitti/1.0 \\(+https://github.com/dedicatedcode/reitti; contact: reitti@dedicatedcode.com\\)\";
+                  proxy_cache tiles;
+                  proxy_cache_valid 200 30d;
+                  proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+                }
+              }
+            }
+    persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /var/cache/nginx/tiles
+      config-file:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /etc/nginx/nginx.conf
+            subPath: nginx.conf

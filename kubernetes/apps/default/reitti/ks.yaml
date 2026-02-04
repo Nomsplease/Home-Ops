@@ -1,0 +1,129 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app reitti
+spec:
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  interval: 30m
+  path: ./kubernetes/apps/default/reitti/app
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 10Gi
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: default
+  timeout: 5m
+  wait: false
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app reitti-photon
+spec:
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  interval: 30m
+  path: ./kubernetes/apps/default/reitti/photon
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 100Gi
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: default
+  timeout: 5m
+  wait: false
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app reitti-rabbitmq
+spec:
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  interval: 30m
+  path: ./kubernetes/apps/default/reitti/rabbitmq
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 10Gi
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: default
+  timeout: 5m
+  wait: false
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app reitti-tile-cache
+spec:
+  interval: 30m
+  path: ./kubernetes/apps/default/reitti/tile-cache
+  postBuild:
+    substitute:
+      APP: *app
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: default
+  timeout: 5m
+  wait: false
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app reitti-valkey
+spec:
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  interval: 30m
+  path: ./kubernetes/apps/default/reitti/valkey
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 10Gi
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: default
+  timeout: 5m
+  wait: false

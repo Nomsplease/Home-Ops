@@ -33,7 +33,7 @@ spec:
   enableSuperuserAccess: true
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
-    kind: ClusterImageCatalog
+    kind: ImageCatalog
     name: timescaledb
     major: 17
   instances: 2

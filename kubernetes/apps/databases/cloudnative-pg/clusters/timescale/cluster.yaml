@@ -19,7 +19,6 @@ spec:
       postInitTemplateSQL:
         - CREATE EXTENSION IF NOT EXISTS timescaledb;
         - CREATE EXTENSION IF NOT EXISTS timescaledb_toolkit;
-
   # First deployment end
   ## Uncomment for recovery
   # bootstrap:
@@ -39,7 +38,7 @@ spec:
     apiGroup: postgresql.cnpg.io
     kind: ImageCatalog
     name: timescaledb
-    major: 17
+    major: 18
   instances: 2
   monitoring:
     enablePodMonitor: true

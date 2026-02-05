@@ -16,6 +16,10 @@ spec:
       owner: app
       secret:
         name: cnpg-app
+      postInitTemplateSQL:
+        - CREATE EXTENSION IF NOT EXISTS timescaledb;
+        - CREATE EXTENSION IF NOT EXISTS timescaledb_toolkit;
+
   # First deployment end
   ## Uncomment for recovery
   # bootstrap:
@@ -65,6 +69,10 @@ spec:
       shared_buffers: 512MB
       wal_buffers: 16MB
       work_mem: 8MB
+    shared_preload_libraries:
+      - timescaledb
+  postgresGID: 1000
+  postgresUID: 1000
   primaryUpdateMethod: switchover
   primaryUpdateStrategy: unsupervised
   storage:

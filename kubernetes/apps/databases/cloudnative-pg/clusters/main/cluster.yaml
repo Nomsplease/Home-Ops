@@ -64,7 +64,7 @@ spec:
   primaryUpdateMethod: switchover
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 20Gi
+    size: 100Gi
     storageClass: ceph-block
   superuserSecret:
     name: cnpg-admin

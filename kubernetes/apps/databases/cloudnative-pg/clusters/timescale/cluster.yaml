@@ -31,7 +31,11 @@ spec:
   ## Recovery End
   enablePDB: false
   enableSuperuserAccess: true
-  imageName: timescale/timescaledb-ha:pg17.7-ts2.25.0@sha256:3c55ff3a00f8192f9076c41fe77024529b41f51dcbe59bbbaaf7106251d127c4
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: timescaledb
+    major: 17
   instances: 2
   monitoring:
     enablePodMonitor: true

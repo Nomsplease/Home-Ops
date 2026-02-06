@@ -6,4 +6,5 @@ resources:
   - ./cluster.yaml
   - ./objectstore.yaml
   - ./scheduled-backup.yaml
+  - ./service.yaml
   - ./databases/

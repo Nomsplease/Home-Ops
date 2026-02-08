@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/fscorrupt/posterizarr
-              tag: 2.2.20@sha256:8d7c8d2e0e02e325abe65da75d9f4607de428f7e8507416992b3b5663fd3c8ea
+              tag: 2.2.22@sha256:c79093437d105aa51ec6c5e590528ec8ca89135df08125ab3e70d140fa2dd423
             env:
               APP_PORT: &port 80
               RUN_TIME: disabled

@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: valkey/valkey
-              tag: 7.2-alpine@sha256:9e483e0fe4c98b631b166b41d530c7ff1b8009a44f261bff28e9d1e2e27db58d
+              tag: 9.0-alpine@sha256:68677f85c863830af7836ff07c4a13b7f085ebeff62f4dedb71499ca27d229f2
             probes:
               liveness: &probes
                 enabled: true

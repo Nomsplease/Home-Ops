@@ -26,6 +26,14 @@ spec:
       name: actions-runner-controller
       namespace: actions-runner-system
     template:
+      spec:
+        initContainers:
+        - name: kube-init
+          image: ghcr.io/actions/actions-runner:latest
+          command: ["sudo", "chown", "-R", "1001:123", "/home/runner/_work"]
+          volumeMounts:
+          - name: work
+            mountPath: /home/runner/_work
         containers:
           - name: runner
             image: ghcr.io/home-operations/actions-runner:2.331.0@sha256:17e4be4e4664067b9a5f2e43d0e66e0a249654f3783a0a3f17448844a5422be5

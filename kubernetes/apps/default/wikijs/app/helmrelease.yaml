@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: requarks/wiki
-              tag: 2.5.311
+              tag: 2.5.312
             env:
               - name: TZ
                 value: America/New_York

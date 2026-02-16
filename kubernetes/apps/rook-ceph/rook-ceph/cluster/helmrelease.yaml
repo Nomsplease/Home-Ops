@@ -31,6 +31,8 @@ spec:
           bdev_enable_discard: "true" # quote
           bdev_async_discard_threads: "1" # quote
           osd_class_update_on_start: "false" # quote
+          # Warn on 10% free space on mons
+          mon_data_avail_warn: "10"
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       crashCollector:

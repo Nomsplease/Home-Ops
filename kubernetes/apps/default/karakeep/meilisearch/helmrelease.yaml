@@ -21,6 +21,7 @@ spec:
               tag: v1.35.1@sha256:8b57fc3c7f46535ddef3828df1538465ac19d892eb57c9a10da6df0880bd5856
             env:
               MEILI_NO_ANALYTICS: "true"
+              MEILI_EXPERIMENTAL_DUMPLESS_UPGRADE: "true"
             envFrom:
               - secretRef:
                   name: karakeep

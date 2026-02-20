@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: journeyover/plex-auto-languages
-              tag: main@sha256:a30e1bd3121c8a009fb0ceef926cc78d8cd10d66181c103ba2e58d69a728cfd8
+              tag: main@sha256:52646da2678c93b8a58437d5ff0ddf0be54befc522a5f53912f779988d184525
             env:
               DEBUG: true
               PLEX_URL: http://plex.media.svc.cluster.local:32400

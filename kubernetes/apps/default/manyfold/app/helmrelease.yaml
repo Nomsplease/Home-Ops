@@ -25,6 +25,8 @@ spec:
               DATABASE_NAME: "{{ .Release.Name }}"
               DATABASE_PORT: "5432"
               REDIS_URL: redis://manyfold-valkey:6379/1
+              PUID: "1000"
+              PGID: "1000"
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

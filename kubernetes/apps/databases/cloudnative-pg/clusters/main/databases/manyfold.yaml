@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: manyfold
+  labels:
+    app: manyfold
+spec:
+  cluster:
+    name: main-db
+  name: manyfold
+  owner: app

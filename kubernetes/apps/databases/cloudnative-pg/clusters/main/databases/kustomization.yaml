@@ -10,6 +10,7 @@ resources:
   - ./homeassistant.yaml
   - ./linkwarden.yaml
   - ./lubelogger.yaml
+  - ./manyfold.yaml
   - ./mealie.yaml
   - ./paperless.yaml
   - ./prowlarr.yaml

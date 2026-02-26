@@ -11,7 +11,6 @@ resources:
   - ./karakeep/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
-  - ./manyfold/ks.yaml
   - ./mealie/ks.yaml
   - ./paperless/ks.yaml
   - ./radicale/ks.yaml

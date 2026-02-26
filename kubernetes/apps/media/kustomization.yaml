@@ -10,7 +10,6 @@ resources:
   - ./dispatcharr/ks.yaml
   - ./emby/ks.yaml
   - ./hdhr-ac4/ks.yaml
-  - ./huntarr/ks.yaml
   - ./jellyfin/ks.yaml
   - ./kometa/ks.yaml
   - ./music-assistant/ks.yaml

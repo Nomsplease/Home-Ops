@@ -66,3 +66,8 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp

@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/chrisbenincasa/tunarr
-              tag: 1.1.14@sha256:7a2689eada000052ed4b41051ab7eaff2a6b4f9c6a3b3a37d805f62da0ed4602
+              tag: 1.1.18@sha256:ad9635417a6876c710eaef449df0bb434a87982e9f7b9249b5329cdb7937bbf2
             env:
               TUNARR_SERVER_PORT: &port 80
             probes:

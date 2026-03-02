@@ -12,6 +12,7 @@ resources:
   - ./hdhr-ac4/ks.yaml
   - ./jellyfin/ks.yaml
   - ./kometa/ks.yaml
+  - ./maintainarr/ks.yaml
   - ./music-assistant/ks.yaml
   - ./plex/ks.yaml
   - ./plex-auto-languages/ks.yaml

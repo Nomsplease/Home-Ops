@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: golift/unpackerr
-              tag: latest@sha256:a9e7eb0d7b0ca16d2bdcb5af52eb4b544053ad6d915dd9b0f8383bc83f1df5cc
+              tag: latest@sha256:311ee8f2f992dcd725412c37e491a8ebde84a6750c2c26d53b2c5560027bd8fa
             env:
               TZ: America/New_York
               UN_QUIET: "false"

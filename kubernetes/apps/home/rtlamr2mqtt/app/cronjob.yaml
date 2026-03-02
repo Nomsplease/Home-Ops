@@ -17,7 +17,7 @@ spec:
           containers:
             - name: kubectl
               # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-              image: registry.k8s.io/kubectl:v1.35.1
+              image: registry.k8s.io/kubectl:v1.35.2
               args:
                 - rollout
                 - restart

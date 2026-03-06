@@ -9,8 +9,6 @@ resources:
   - ./bazarr/ks.yaml
   - ./dispatcharr/ks.yaml
   - ./emby/ks.yaml
-  - ./hdhr-ac4/ks.yaml
-  - ./jellyfin/ks.yaml
   - ./kometa/ks.yaml
   - ./maintainarr/ks.yaml
   - ./music-assistant/ks.yaml

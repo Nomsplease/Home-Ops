@@ -41,12 +41,16 @@ spec:
           timeoutSeconds: 5
     extraArgs:
       - --ignore-ingress-tls-spec
+      - --gateway-name=envoy-internal
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["gateway-httproute", "service"]
+    sources: 
+      - gateway-httproute
+      - service
     txtOwnerId: default
-    txtPrefix: k8s.main.
-    domainFilters: ["noms.tv"]
+    txtPrefix: k8s.
+    domainFilters:
+      - noms.tv
     serviceMonitor:
       enabled: true
     podAnnotations:

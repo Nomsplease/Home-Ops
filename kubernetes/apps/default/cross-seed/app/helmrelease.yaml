@@ -78,10 +78,8 @@ spec:
         path: /mnt/BigPool/Media/Downloads
         globalMounts:
           - path: /media/Downloads/Complete
-      scratch:
-        type: nfs
-        server: truenas.internal
-        path: /mnt/Scratch/Downloads
+      downloads:
+        existingClaim: "downloads"
         globalMounts:
           - path: /media/Downloads/Incomplete
             subPath: QBittorrent

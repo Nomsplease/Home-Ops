@@ -6,6 +6,7 @@ metadata:
   name: &app unpackerr
 spec:
   components:
+    - ../../../../components/app-template
     - ../../../../components/nfs-scaler
   dependsOn:
     - name: sonarr
@@ -15,7 +16,7 @@ spec:
     - name: readarr
       namespace: media
   interval: 1h
-  path: ./kubernetes/apps/download/unpackerr/app
+  path: ./kubernetes/apps/default/unpackerr/app
   postBuild:
     substitute:
       APP: *app
@@ -24,5 +25,5 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: download
+  targetNamespace: default
   wait: false

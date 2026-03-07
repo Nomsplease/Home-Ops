@@ -8,6 +8,8 @@ resources:
   - ./namespace.yaml
   ## Deployments
   - ./actual-budget/ks.yaml
+  - ./cleanuparr/ks.yaml
+  - ./cross-seed/ks.yaml
   - ./downloads/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
@@ -19,6 +21,8 @@ resources:
   - ./qbittorrent/ks.yaml
   - ./radicale/ks.yaml
   - ./reitti/ks.yaml
+  - ./seedboxapi/ks.yaml
   - ./spoolman/ks.yaml
+  - ./unpackerr/ks.yaml
   - ./wallos/ks.yaml
   - ./wikijs/ks.yaml

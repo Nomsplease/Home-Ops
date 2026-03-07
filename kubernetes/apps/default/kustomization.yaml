@@ -6,7 +6,7 @@ namespace: default
 resources:
   ## Requisites
   - ./namespace.yaml
-  - ../../components/app-template/
+  - ../../components/app-template/kustomization.yaml
   ## Deployments
   - ./actual-budget/ks.yaml
   - ./downloads/ks.yaml

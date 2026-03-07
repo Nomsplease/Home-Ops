@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: download
-  labels:
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: enabled
-    volsync.backube/privileged-movers: "true"

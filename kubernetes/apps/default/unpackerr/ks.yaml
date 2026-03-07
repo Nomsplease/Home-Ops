@@ -8,13 +8,6 @@ spec:
   components:
     - ../../../../components/app-template
     - ../../../../components/nfs-scaler
-  dependsOn:
-    - name: sonarr
-      namespace: media
-    - name: radarr
-      namespace: media
-    - name: readarr
-      namespace: media
   interval: 1h
   path: ./kubernetes/apps/default/unpackerr/app
   postBuild:

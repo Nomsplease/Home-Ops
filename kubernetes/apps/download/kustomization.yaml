@@ -7,6 +7,5 @@ resources:
   - ./namespace.yaml
   - ./cleanuparr/ks.yaml
   - ./cross-seed/ks.yaml
-  - ./qbittorrent/ks.yaml
   - ./seedboxapi/ks.yaml
   - ./unpackerr/ks.yaml

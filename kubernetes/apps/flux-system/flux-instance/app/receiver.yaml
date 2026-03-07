@@ -5,8 +5,10 @@ kind: Receiver
 metadata:
   name: webhook
 spec:
-  type: github
-  events: ["ping", "push"]
+  type: gitlab
+  events:
+    - "Push Hook"
+    - "Tag Push Hook"
   secretRef:
     name: webhook-token
   resources:

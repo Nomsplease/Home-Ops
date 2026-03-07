@@ -1,0 +1,64 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kometa
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 */1 * * *"
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: kometa
+              image: kometateam/kometa:v2.3.0@sha256:340e4176e1d75f04d2b55ce177326710f28770b5f56537fd539a034b143fe66d
+              args: [ "--run", "--read-only-config" ]
+              env:
+                - name: KOMETA_CONFIG
+                  value: /config/config.yml
+              defaultPodOptions:
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 1000
+                  runAsGroup: 1000
+                  fsGroup: 1000
+                  fsGroupChangePolicy: OnRootMismatch
+              volumeMounts:
+                - name: pvc
+                  mountPath: /config
+                - name: config
+                  mountPath: /config/config.yml
+                  subPath: config.yml
+                  readOnly: true
+                - name: posters
+                  mountPath: /assets
+                  subPath: assets
+                - name: posters
+                  mountPath: /assetsbackup
+                  subPath: assetsbackup
+                - name: posters
+                  mountPath: /manualassets
+                  subPath: manualassets
+                - name: posters
+                  mountPath: /missing
+                  subPath: missing
+          volumes:
+            - name: pvc
+              persistentVolumeClaim:
+                claimName: kometa
+            - name: config
+              secret:
+                secretName: kometa-config
+                items:
+                - key: config.yml
+                  path: config.yml
+            - name: posters
+              nfs:
+                server: truenas.internal
+                path: /mnt/BigPool/Media/Posters
+          restartPolicy: OnFailure

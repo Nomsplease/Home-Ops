@@ -8,21 +8,37 @@ resources:
   - ./namespace.yaml
   ## Deployments
   - ./actual-budget/ks.yaml
+  - ./audiobookshelf/ks.yaml
   - ./cleanuparr/ks.yaml
   - ./cross-seed/ks.yaml
+  - ./dispatcharr/ks.yaml
   - ./downloads/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
   - ./karakeep/ks.yaml
+  - ./kometa/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
+  - ./maintainarr/ks.yaml
   - ./mealie/ks.yaml
+  - ./music-assistant/ks.yaml
   - ./paperless/ks.yaml
+  - ./plex/ks.yaml
+  - ./plex-auto-languages/ks.yaml
+  - ./posterizarr/ks.yaml
+  - ./profilarr/ks.yaml
+  - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
+  - ./radarr/ks.yaml
   - ./radicale/ks.yaml
+  - ./readarr/ks.yaml
   - ./reitti/ks.yaml
   - ./seedboxapi/ks.yaml
+  - ./seerr/ks.yaml
+  - ./sonarr/ks.yaml
   - ./spoolman/ks.yaml
+  - ./tracearr/ks.yaml
   - ./unpackerr/ks.yaml
   - ./wallos/ks.yaml
+  - ./watchstate/ks.yaml
   - ./wikijs/ks.yaml

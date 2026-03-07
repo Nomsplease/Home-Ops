@@ -6,6 +6,7 @@ namespace: default
 resources:
   - ./namespace.yaml
   - ./actual-budget/ks.yaml
+  - ./downloads/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
   - ./karakeep/ks.yaml

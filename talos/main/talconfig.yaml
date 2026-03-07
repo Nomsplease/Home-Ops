@@ -197,4 +197,4 @@ nodes:
                 - siderolabs/mei
                 - siderolabs/nfsrahead
     installDiskSelector:
-      model: 512GB*
+      model: SPCC*

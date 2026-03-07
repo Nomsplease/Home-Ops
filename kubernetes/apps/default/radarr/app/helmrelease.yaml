@@ -92,12 +92,6 @@ spec:
         path: /mnt/BigPool/Media/Downloads
         globalMounts:
           - path: /media/Downloads/Complete
-      incomplete:
-        type: nfs
-        server: truenas.internal
-        path: /mnt/Scratch/Downloads
-        globalMounts:
-          - path: /Downloads/Incomplete
       media:
         type: nfs
         server: truenas.internal

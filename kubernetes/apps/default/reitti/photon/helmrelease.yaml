@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: rtuszik/photon-docker
-              tag: 2.0@sha256:662b867e99bff395a84a176f0adb1379b7c48c7ea4a45f2e906888daef01a10f
+              tag: 2.1@sha256:9087481cd7ba5e5de78013f70913e454a45dbd77fb2dfb980de69114dd7caeb5
             env:
               UPDATE_STRATEGY: PARALLEL
               REGION: us

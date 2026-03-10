@@ -36,6 +36,7 @@ metadata:
 spec:
   components:
     - ../../../../components/volsync
+    - ../../../../components/volsync-rwx
   dependsOn:
     - name: volsync
       namespace: volsync-system
@@ -45,6 +46,7 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 50Gi
+      VOLSYNC_RWX_CAPACITY: 50Gi
   prune: true 
   retryInterval: 1m
   sourceRef:

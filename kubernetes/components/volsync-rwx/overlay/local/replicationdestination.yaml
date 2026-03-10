@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "${APP}-shared-dst"
+  labels:
+    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: "${APP}-shared-volsync-local-secret"
+    copyMethod: Snapshot
+    volumeSnapshotClassName: "${VOLSYNC_RWX_SNAPSHOTCLASS:=csi-ceph-filesystem}"
+    cacheStorageClassName: "${VOLSYNC_RWX_CACHE_SNAPSHOTCLASS:=ceph-filesystem}"
+    cacheAccessModes: ["${VOLSYNC_RWX_CACHE_ACCESSMODES:=ReadWriteMany}"]
+    cacheCapacity: "${VOLSYNC_RWX_CACHE_CAPACITY:=5Gi}"
+    storageClassName: "${VOLSYNC_RWX_STORAGECLASS:=ceph-filesystem}"
+    accessModes: ["${VOLSYNC_RWX_ACCESSMODES:=ReadWriteMany}"]
+    capacity: "${VOLSYNC_RWX_CAPACITY:=5Gi}"
+    moverSecurityContext:
+      runAsUser: ${VOLSYNC_RWX_PUID:=1000}
+      runAsGroup: ${VOLSYNC_RWX_PGID:=1000}
+      fsGroup: ${VOLSYNC_RWX_PGID:=1000}
+    enableFileDeletion: true
+    cleanupCachePVC: true
+    cleanupTempPVC: true

@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "${APP}-shared"
+spec:
+  accessModes: ["${VOLSYNC_RWX_ACCESSMODES:-ReadWriteMany}"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: "${APP}-shared-dst"
+  resources:
+    requests:
+      storage: "${VOLSYNC_RWX_CAPACITY:-5Gi}"
+  storageClassName: "${VOLSYNC_RWX_STORAGECLASS:-ceph-filesystem}"

@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: "${APP}-shared-local"
+spec:
+  sourcePVC: "${APP}-shared"
+  trigger:
+    schedule: "30 * * * *"
+  restic:
+    copyMethod: "${VOLSYNC_RWX_COPYMETHOD:=Snapshot}"
+    pruneIntervalDays: 7
+    repository: "${APP}-shared-volsync-local-secret"
+    volumeSnapshotClassName: "${VOLSYNC_RWX_SNAPSHOTCLASS:=csi-ceph-filesystem}"
+    cacheCapacity: "${VOLSYNC_RWX_CACHE_CAPACITY:=50Gi}"
+    cacheStorageClassName: "${VOLSYNC_RWX_CACHE_SNAPSHOTCLASS:=ceph-filesystem}"
+    cacheAccessModes: ["${VOLSYNC_RWX_CACHE_ACCESSMODES:=ReadWriteMany}"]
+    storageClassName: "${VOLSYNC_RWX_STORAGECLASS:=ceph-filesystem}"
+    accessModes: ["${VOLSYNC_RWX_SNAP_ACCESSMODES:=ReadWriteMany}"]
+    moverSecurityContext:
+      runAsUser: ${VOLSYNC_RWX_PUID:=1000}
+      runAsGroup: ${VOLSYNC_RWX_PGID:=1000}
+      fsGroup: ${VOLSYNC_RWX_PGID:=1000}
+    retain:
+      hourly: 24
+      daily: 7

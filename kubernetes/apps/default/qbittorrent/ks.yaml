@@ -12,7 +12,6 @@ spec:
     - ../../../../components/volsync
     - ../../../../components/volsync-rwx
   dependsOn:
-    - name: downloads
     - name: multus-networks
       namespace: kube-system
     - name: volsync

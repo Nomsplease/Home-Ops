@@ -104,7 +104,7 @@ spec:
         globalMounts:
           - path: /media/Downloads/Complete
       downloads:
-        existingClaim: "downloads"
+        existingClaim: "{{ .Release.Name }}-shared"
         globalMounts:
           - path: /media/Downloads/Incomplete
             subPath: QBittorrent

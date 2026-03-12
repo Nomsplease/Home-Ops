@@ -21,7 +21,9 @@ resources:
   - ./maintainarr/ks.yaml
   - ./mealie/ks.yaml
   - ./music-assistant/ks.yaml
+  # - ./openwakeword/ks.yaml
   - ./paperless/ks.yaml
+  # - ./piper/ks.yaml
   - ./plex/ks.yaml
   - ./plex-auto-languages/ks.yaml
   - ./posterizarr/ks.yaml
@@ -40,4 +42,5 @@ resources:
   - ./unpackerr/ks.yaml
   - ./wallos/ks.yaml
   - ./watchstate/ks.yaml
+  # - ./whisper/ks.yaml
   - ./wikijs/ks.yaml

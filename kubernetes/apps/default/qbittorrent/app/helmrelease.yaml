@@ -55,23 +55,23 @@ spec:
               repository: ghcr.io/cross-seed/cross-seed
               tag: 6.13.6@sha256:e2bf5b593e4e7d699e6242423ad7966190cd52ba8eefafdfdbb0cb5b0b609b96
             env:
-              CROSS_SEED_PORT: &port 80
+              CROSS_SEED_PORT: &cross-seed-port 81
               TZ: America/New_York
             args:
               - daemon
             probes:
-              liveness: &probes
+              liveness: &cross-seed-probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /api/ping
-                    port: *port
+                    port: *cross-seed-port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
-              readiness: *probes
+              readiness: *cross-seed-probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -101,6 +101,10 @@ spec:
         ports:
           http:
             port: *port
+      cross-seed:
+        ports:
+          http:
+            port: *cross-seed-port
     route:
       app:
         hostnames:

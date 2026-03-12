@@ -10,7 +10,6 @@ spec:
     - ../../../../components/app-template
     - ../../../../components/nfs-scaler
     - ../../../../components/volsync
-    - ../../../../components/volsync-rwx
   dependsOn:
     - name: multus-networks
       namespace: kube-system
@@ -21,8 +20,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 2Gi
-      VOLSYNC_RWX_CAPACITY: 500Gi
+      VOLSYNC_CAPACITY: 500Gi
   prune: true
   sourceRef:
     kind: GitRepository

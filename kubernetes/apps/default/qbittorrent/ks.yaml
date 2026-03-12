@@ -10,6 +10,7 @@ spec:
     - ../../../../components/app-template
     - ../../../../components/nfs-scaler
     - ../../../../components/volsync
+    - ../../../../components/volsync-rwx
   dependsOn:
     - name: downloads
     - name: multus-networks
@@ -22,6 +23,7 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 2Gi
+      VOLSYNC_RWX_CAPACITY: 500Gi
   prune: true
   sourceRef:
     kind: GitRepository

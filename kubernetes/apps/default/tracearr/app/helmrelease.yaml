@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/connorgallopo/tracearr
-              tag: 1.4.19@sha256:147992fbf9b5431a60e165e66d567e2a67ae05d3e0c70dc3ad7ae38c9c79811b
+              tag: 1.4.22@sha256:6c0027b6923c5c050a2519caef5b211ba8b87f729893d9aa4b42560504daa479
             env:
               LOG_LEVEL: info
               REDIS_URL: redis://tracearr-valkey:6379

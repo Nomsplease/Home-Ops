@@ -47,6 +47,9 @@ spec:
                   fieldPath: metadata.name
             - name: TALOSCONFIG
               value: /var/run/secrets/talos.dev/config
+          envFrom:
+            - secretRef:
+                name: forgejo-runner-home-ops-secret
           resources:
             limits:
               cpu: '1'

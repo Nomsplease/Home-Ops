@@ -21,7 +21,7 @@ spec:
               tag: main@sha256:6314a7626a5cbe1499b23b2c3002023e56f98f0670a23962e0bfb6bb9f09189d
             env:
               DEBUG: true
-              PLEX_URL: http://plex.media.svc.cluster.local:32400
+              PLEX_URL: http://truenas.internal:32400/
               TZ: America/New_York
               UPDATE_LEVEL: show
               UPDATE_STRATEGY: all

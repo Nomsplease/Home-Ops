@@ -19,7 +19,7 @@ spec:
             image:
               repository: git.noms.tv/containers/forgejo-home-ops-runner
               # renovate: datasource=forgejo-releases depName=containers/forgejo-home-ops-runner
-              tag: latest@sha256:0f9fd83c05bb30af265a1fbaa797f7231de45fbc8429e94798e4e0fabc654b13
+              tag: latest@sha256:6fd602dee5faa1ec6e334e60c2c5b393588e8bef2772afadadaa8da2180d263b
             env:
               - name: NODE
                 valueFrom:

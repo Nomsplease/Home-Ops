@@ -2,11 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: &app forgejo-runner
+  labels:
+    app: *app
+    app.kubernetes.io/component: *app
+    app.kubernetes.io/instance: *app
+    app.kubernetes.io/managed-by: Kustomize
+    app.kubernetes.io/name: *app
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: *app
   template:
     metadata:
       name: *app
+      labels:
+        app: *app
+        app.kubernetes.io/component: *app
+        app.kubernetes.io/instance: *app
+        app.kubernetes.io/managed-by: Kustomize
+        app.kubernetes.io/name: *app
     spec:
       automountServiceAccountToken: false
       restartPolicy: Always

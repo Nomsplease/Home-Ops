@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: Kustomize
     app.kubernetes.io/name: *app
 spec:
-  replicas: 1
+  replicas: 7
   selector:
     matchLabels:
       app: *app

@@ -12,10 +12,8 @@ spec:
       restartPolicy: Always
       initContainers:
         - name: runner-register
-          image:
-            repository: code.forgejo.org/forgejo/runner
-            # renovate: datasource=forgejo-releases depName=forgejo/runner
-            tag: 12.7.2@sha256:5be962a66390e54f0e56c89aafee48f521538d996df7c4e61af77915a4c2bd86
+          # renovate: datasource=forgejo-releases depName=forgejo/runner
+          image: code.forgejo.org/forgejo/runner:12.7.2@sha256:5be962a66390e54f0e56c89aafee48f521538d996df7c4e61af77915a4c2bd86
           command:
             - /bin/bash
             - -c
@@ -62,10 +60,8 @@ spec:
               type: RuntimeDefault
       containers:
         - name: runner
-          image:
-            repository: code.forgejo.org/forgejo/runner
-            # renovate: datasource=forgejo-releases depName=forgejo/runner
-            tag: 12.7.2@sha256:5be962a66390e54f0e56c89aafee48f521538d996df7c4e61af77915a4c2bd86
+          # renovate: datasource=forgejo-releases depName=forgejo/runner
+          image: code.forgejo.org/forgejo/runner:12.7.2@sha256:5be962a66390e54f0e56c89aafee48f521538d996df7c4e61af77915a4c2bd86
           command:
             - /bin/bash
             - -c
@@ -110,10 +106,8 @@ spec:
             seccompProfile:
               type: RuntimeDefault
         - name: daemon
-          image:
-            repository: docker.io/docker
-            # renovate: datasource=docker depName=docker.io/docker
-            tag: 29.3.0-dind@sha256:1ba18449911d01f477a3fc104123c85d677addc60701b14b3fcb5381f9c4a537
+          # renovate: datasource=docker depName=docker.io/docker
+          image: docker.io/docker:29.3.0-dind@sha256:1ba18449911d01f477a3fc104123c85d677addc60701b14b3fcb5381f9c4a537
           env:
             - name: DOCKER_TLS_CERTDIR
               value: /certs

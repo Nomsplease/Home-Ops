@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &app forgejo-runner-home-ops
+  labels:
+    app: *app
+    app.kubernetes.io/component: *app
+    app.kubernetes.io/instance: *app
+    app.kubernetes.io/managed-by: Kustomize
+    app.kubernetes.io/name: *app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: *app
+  template:
+    metadata:
+      name: *app
+      labels:
+        app: *app
+        app.kubernetes.io/component: *app
+        app.kubernetes.io/instance: *app
+        app.kubernetes.io/managed-by: Kustomize
+        app.kubernetes.io/name: *app
+    spec:
+      automountServiceAccountToken: false
+      restartPolicy: Always
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: *app
+      containers:
+        - name: runner
+          # renovate: datasource=forgejo-releases depName=containers/forgejo-home-ops-runner
+          image: git.noms.tv/containers/forgejo-home-ops-runner:latest@sha256:6fd602dee5faa1ec6e334e60c2c5b393588e8bef2772afadadaa8da2180d263b
+          env:
+            - name: NODE
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: FORGEJO_RUNNER_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: TALOSCONFIG
+              value: /var/run/secrets/talos.dev/config
+          resources:
+            limits:
+              cpu: '1'
+              ephemeral-storage: 3Gi
+              memory: 4Gi
+            requests:
+              cpu: 100m
+              ephemeral-storage: '0'
+              memory: 64Mi
+          volumeMounts:
+            - name: runner-data
+              mountPath: /data
+            - name: tmp
+              mountPath: /tmp
+            - name: talos
+              mountPath: /var/run/secrets/talos.dev
+              readOnly: true
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {drop: ["ALL"]}
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+      volumes:
+        - name: runner-data
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+        - name: talos
+          secret:
+            secretName: *app

@@ -17,7 +17,8 @@ spec:
         containers:
           app:
             image:
-              repository: git.noms.tv/containers/forgejo-home-ops-runner:latest
+              repository: git.noms.tv/containers/forgejo-home-ops-runner
+              # renovate: datasource=forgejo-releases depName=containers/forgejo-home-ops-runner
               tag: latest@sha256:0f9fd83c05bb30af265a1fbaa797f7231de45fbc8429e94798e4e0fabc654b13
             env:
               - name: NODE

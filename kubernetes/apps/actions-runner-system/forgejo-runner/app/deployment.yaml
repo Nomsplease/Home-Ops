@@ -50,7 +50,7 @@ spec:
                   fieldPath: metadata.name
           envFrom:
             - secretRef:
-                name: *app
+                name: forgejo-runner-secret
           resources:
             limits:
               cpu: '0.5'

@@ -35,7 +35,7 @@ spec:
           args:
             - |
               while : ; do
-                forgejo-runner register --no-interactive --token $(RUNNER_TOKEN) --name $(RUNNER_NAME) --instance $(FORGEJO_INSTANCE_URL) && break ;
+                forgejo-runner register --no-interactive --token $(RUNNER_TOKEN) --name $(RUNNER_NAME) --instance $(FORGEJO_INSTANCE_URL) --labels nixos-latest:docker://nixos/nix,ubunntu-latest:docker://ghcr.io/catthehacker/ubuntu:runner-latest && break ;
                 sleep 1 ;
               done ;
               forgejo-runner generate-config > /data/config.yml ;

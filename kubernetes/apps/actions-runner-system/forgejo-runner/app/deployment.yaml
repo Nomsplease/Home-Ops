@@ -35,7 +35,7 @@ spec:
                   fieldPath: metadata.name
           envFrom:
             - secretRef:
-                name: "{{ .Release.Name }}"
+                name: *app
           resources:
             limits:
               cpu: '0.5'

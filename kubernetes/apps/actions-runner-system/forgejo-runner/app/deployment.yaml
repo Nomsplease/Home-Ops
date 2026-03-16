@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: Kustomize
     app.kubernetes.io/name: *app
 spec:
-  replicas: 1
+  replicas: 7
   selector:
     matchLabels:
       app: *app
@@ -25,6 +25,13 @@ spec:
     spec:
       automountServiceAccountToken: false
       restartPolicy: Always
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: *app
       initContainers:
         - name: runner-register
           # renovate: datasource=forgejo-releases depName=forgejo/runner

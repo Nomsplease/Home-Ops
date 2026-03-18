@@ -58,13 +58,15 @@ tasks:
     desc: Snapshot all apps in Cluster [CLUSTER=main]
     cmds:
       - for: { var: SOURCES, split: "\n" }
-        cmd: kubectl patch replicationsources {{ .ITEM }} -A --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
+        cmd: |
+          NS=$(echo {{ .ITEM }} | awk '{print $1}')
+          RS=$(echo {{ .ITEM }} | awk '{print $2}')
+          kubectl patch replicationsources "$RS" -n "$NS" --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
     vars:
-      NS: '{{.NS | default "default"}}'
       SOURCES:
-        sh: kubectl get replicationsources -A --no-headers --output=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
+        sh: kubectl get replicationsources -A --no-headers -o custom-columns='NAMESPACE:.metadata.namespace,NAME:.metadata.name'
     requires:
-      vars: [CLUSTER, NS]
+      vars: [CLUSTER]
     preconditions:
       - kubectl get replicationsources -A 
       - which kubectl

@@ -54,6 +54,21 @@ tasks:
       - kubectl --namespace {{.NS}} get replicationsources {{.APP}}-local
       - which kubectl
 
+  snapshot-all:
+    desc: Snapshot all apps in Cluster [CLUSTER=main]
+    cmds:
+      - for: { var: SOURCES, split: "\n" }
+        cmd: kubectl patch replicationsources {{ .ITEM }} -A --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
+    vars:
+      NS: '{{.NS | default "default"}}'
+      SOURCES:
+        sh: kubectl get replicationsources -A --no-headers --output=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
+    requires:
+      vars: [CLUSTER, NS]
+    preconditions:
+      - kubectl get replicationsources -A 
+      - which kubectl
+
   snapshot-namespace:
     desc: Snapshot all apps in Namespace [CLUSTER=main] [NS=required]
     cmds:

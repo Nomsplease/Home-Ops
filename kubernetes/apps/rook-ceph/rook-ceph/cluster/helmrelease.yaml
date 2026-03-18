@@ -46,6 +46,7 @@ spec:
         ssl: false
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       mgr:
+        count: 3
         modules:
           - name: insights
             enabled: true
@@ -53,6 +54,25 @@ spec:
             enabled: true
           - name: rook
             enabled: true
+      resources:
+        mgr:
+          limits:
+            memory: "4Gi"
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+        mon:
+          limits:
+            memory: "2Gi"
+          requests:
+            cpu: "1000m"
+            memory: "1Gi"
+        osd:
+          limits:
+            memory: "4Gi"
+          requests:
+            cpu: "1000m"
+            memory: "4Gi"
       network:
         provider: host
         connections:

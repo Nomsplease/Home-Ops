@@ -8,8 +8,6 @@ metadata:
 spec:
   components:
     - ../../../../components/app-template
-  dependsOn:
-    - name: cloudnative-pg-main-cluster
   interval: 30m
   path: ./kubernetes/apps/databases/pgbackweb
   postBuild:

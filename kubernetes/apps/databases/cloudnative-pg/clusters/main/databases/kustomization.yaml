@@ -12,6 +12,7 @@ resources:
   - ./lubelogger.yaml
   - ./mealie.yaml
   - ./paperless.yaml
+  - ./pgbackweb.yaml
   - ./prowlarr.yaml
   - ./radarr.yaml
   - ./sonarr.yaml

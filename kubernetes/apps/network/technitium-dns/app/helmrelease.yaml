@@ -16,7 +16,7 @@ spec:
       webhook:
         image:
           repository: ghcr.io/roosmaa/external-dns-technitium-webhook
-          tag: main@sha256:b0305b9a2ecfb75c408b1124a882a23eb40952d065be55d93c09ea7a44e3afa3
+          tag: main@sha256:c47c7a3498f13fe64540d54db1af8e863f4f7962f3aae1af04f9bac09f29c169
         env:
           - name: LISTEN_PORT
             value: "8888"

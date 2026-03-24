@@ -37,7 +37,7 @@ releases:
   - name: rook-ceph
     namespace: rook-ceph
     chart: oci://ghcr.io/rook/rook-ceph
-    version: v1.19.2
+    version: v1.19.3
     values:
       - ./templates/values.yaml.gotmpl
     needs:

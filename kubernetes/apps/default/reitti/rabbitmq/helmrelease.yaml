@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: rabbitmq
-              tag: 4.2.5-management-alpine@sha256:a19caec26fc6bd8c95b1baeae11a4d321a13c598d696a523f49a9ac085e9d564
+              tag: 4.2.5-management-alpine@sha256:b618738ea52cb6d0073ee9f0412ede133411ecacd7afa40f17be748a6d9a9ee1
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

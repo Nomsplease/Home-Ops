@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: favonia/cloudflare-ddns
-              tag: 1.15.1@sha256:a4e2089b3531eec8c9328c7a9a586f80e8d67dcd94856e0b596b7896e1de3f62
+              tag: 1.16.1@sha256:d9eb06b9ddb1ef121334095645e2b55ac208ea1ef1f363a201a255aa8a9798cc
             env:
               PROXIED: "false"
               IP6_PROVIDER: "none"

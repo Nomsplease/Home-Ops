@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: journeyover/plex-auto-languages
-              tag: main@sha256:cbd5eeca70f8199d76b74048919ee2c57fd95dab74299a5cadfab48b991ebd13
+              tag: main@sha256:9edb4041548785afefab7a9b72fe38e6d56125a8acdf730cddb783ff2f4be3e8
             env:
               DEBUG: true
               PLEX_URL: http://truenas.internal:32400/

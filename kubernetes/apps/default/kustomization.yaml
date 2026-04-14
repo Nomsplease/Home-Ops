@@ -38,6 +38,6 @@ resources:
   - ./tracearr/ks.yaml
   - ./unpackerr/ks.yaml
   - ./wallos/ks.yaml
-  # - ./watchstate/ks.yaml
+  - ./watchstate/ks.yaml
   # - ./whisper/ks.yaml
   - ./wikijs/ks.yaml

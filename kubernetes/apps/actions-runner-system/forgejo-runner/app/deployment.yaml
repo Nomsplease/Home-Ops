@@ -35,7 +35,7 @@ spec:
       initContainers:
         - name: runner-register
           # renovate: datasource=forgejo-releases depName=forgejo/runner registryUrl=https://code.forgejo.org packageName=forgejo/runner
-          image: code.forgejo.org/forgejo/runner:12.7.3@sha256:48b0539854bfc769fbf629725e089e35cfa1227ddedc7e45436b83bb9502ae27
+          image: code.forgejo.org/forgejo/runner:12.8.2@sha256:afeaf4c2bd52d9cc2c42090ce559c1f4b7061ded7afd7023c089a5b3b7109025
           command:
             - /bin/bash
             - -c
@@ -83,7 +83,7 @@ spec:
       containers:
         - name: runner
           # renovate: datasource=forgejo-releases depName=forgejo/runner registryUrl=https://code.forgejo.org packageName=forgejo/runner
-          image: code.forgejo.org/forgejo/runner:12.7.3@sha256:48b0539854bfc769fbf629725e089e35cfa1227ddedc7e45436b83bb9502ae27
+          image: code.forgejo.org/forgejo/runner:12.8.2@sha256:afeaf4c2bd52d9cc2c42090ce559c1f4b7061ded7afd7023c089a5b3b7109025
           command:
             - /bin/bash
             - -c

@@ -18,13 +18,12 @@ spec:
           app:
             image:
               repository: dedicatedcode/reitti
-              tag: 3.4.1@sha256:8221bfb3c65ef54b05b694a8de673e824d61173949608195d0fbe4ca22a1860f
+              tag: 4.0.0@sha256:f96f85958b5d913be1100b5008f330c2c6ce4d1e866d3c34cf47ea8a291dd1f1
             env:
               OIDC_ENABLED: "true"
               PHOTON_BASE_URL: http://photon:2322
               POSTGIS_DB: "{{ .Release.Name }}"
               POSTGIS_HOST: postgis-rw.databases
-              RABBITMQ_HOST: reitti-rabbitmq
               REDIS_HOST: reitti-valkey
               SERVER_PORT: &port 80
               TILES_CACHE: http://reitti-tile-cache

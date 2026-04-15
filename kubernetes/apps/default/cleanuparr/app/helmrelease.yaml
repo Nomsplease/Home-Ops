@@ -66,6 +66,10 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      media:
+        type: nfs
+        server: truenas.internal
+        path: /mnt/BigPool/Media
       tmpfs:
         type: emptyDir
         globalMounts:

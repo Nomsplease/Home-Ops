@@ -47,12 +47,6 @@ spec:
     persistence:
       config:
         existingClaim: *app
-      complete:
-        type: nfs
-        server: truenas.internal
-        path: /mnt/BigPool/Media/Downloads
-        globalMounts:
-          - path: /media/Downloads/Complete
       media:
         type: nfs
         server: truenas.internal

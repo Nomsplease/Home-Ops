@@ -79,12 +79,6 @@ spec:
         existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /config/MediaCover
-      complete:
-        type: nfs
-        server: truenas.internal
-        path: /mnt/BigPool/Media/Downloads
-        globalMounts:
-          - path: /media/Downloads/Complete
       media:
         type: nfs
         server: truenas.internal

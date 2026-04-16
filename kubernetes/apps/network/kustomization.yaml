@@ -14,5 +14,5 @@ resources:
   - ./envoy-gateway/ks.yaml
   - ./external-proxy/ks.yaml
   - ./netbootxyz/ks.yaml
-  # - ./technitium-dns/ks.yaml
+  - ./technitium-dns/ks.yaml
   - ./unifi-dns/ks.yaml

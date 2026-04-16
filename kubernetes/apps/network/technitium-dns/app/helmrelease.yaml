@@ -13,7 +13,7 @@ spec:
     fullnameOverride: *app
     dnsConfig:
       nameservers:
-        - 10.1.10.2
+        - 10.1.10.3
     env:
       - name: "EXTERNAL_DNS_RFC2136_TSIG_SECRET"
         valueFrom:
@@ -26,7 +26,7 @@ spec:
             name: *secret
             key: TSIG_KEY_NAME
     extraArgs:
-      - --rfc2136-host=10.1.10.2
+      - --rfc2136-host=dns02.internal
       - --rfc2136-port=53
       - --rfc2136-zone=noms.tv
       - --rfc2136-tsig-secret-alg=hmac-sha256

@@ -7,64 +7,39 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: technitium-dns
   interval: 1h
   values:
     fullnameOverride: *app
+    dnsConfig:
+      nameservers:
+        - 10.1.10.2
+    env:
+      - name: "EXTERNAL_DNS_RFC2136_TSIG_SECRET"
+        valueFrom:
+          secretKeyRef:
+            name: &secret technitium-dns-secret
+            key: TSIG_KEY
+      - name: "EXTERNAL_DNS_RFC2136_TSIG_KEYNAME"
+        valueFrom:
+          secretKeyRef:
+            name: *secret
+            key: TSIG_KEY_NAME
+    extraArgs:
+      - --rfc2136-host=10.1.10.2
+      - --rfc2136-port=53
+      - --rfc2136-zone=noms.tv
+      - --rfc2136-tsig-secret-alg=hmac-sha256
+      - --rfc2136-tsig-axfr
     provider:
-      name: webhook
-      webhook:
-        image:
-          repository: ghcr.io/roosmaa/external-dns-technitium-webhook
-          tag: main@sha256:2d99f9d4790e2cf65b4b3f9b479bde888db9e72eba6fbe0ae94877aab34a5151
-        env:
-          - name: LISTEN_PORT
-            value: "8888"
-          - name: RUST_LOG
-            value: "external_dns_technitium_webhook=info"
-          - name: TECHNITIUM_URL
-            valueFrom:
-              secretKeyRef:
-                name: &secret technitium-dns-secret
-                key: TECHNITIUM_URL
-          - name: TECHNITIUM_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: &secret technitium-dns-secret
-                key: TECHNITIUM_USERNAME
-          - name: TECHNITIUM_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: &secret technitium-dns-secret
-                key: TECHNITIUM_PASSWORD
-          - name: ZONE
-            valueFrom:
-              secretKeyRef:
-                name: &secret technitium-dns-secret
-                key: ZONE
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: &port 8888
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: *port
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
-          runAsGroup: 1000
+      name: rfc2136
+    logLevel: debug
     triggerLoopOnEvent: true
     policy: sync
     sources:
-      - service
       - gateway-httproute
-    txtOwnerId: main
-    txtPrefix: k8s.main
+    txtOwnerId: default
+    txtPrefix: k8s.
     domainFilters:
       - noms.tv
     serviceMonitor:

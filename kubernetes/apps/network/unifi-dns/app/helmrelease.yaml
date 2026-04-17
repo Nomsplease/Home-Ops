@@ -44,7 +44,7 @@ spec:
     triggerLoopOnEvent: true
     policy: sync
     sources: 
-      - ingress
+      - service
     txtOwnerId: default
     txtPrefix: k8s.
     domainFilters:

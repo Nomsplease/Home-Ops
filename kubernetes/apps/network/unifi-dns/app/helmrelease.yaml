@@ -41,12 +41,10 @@ spec:
           timeoutSeconds: 5
     extraArgs:
       - --ignore-ingress-tls-spec
-      - --gateway-name=envoy-internal
     triggerLoopOnEvent: true
     policy: sync
     sources: 
-      - gateway-httproute
-      - service
+      - ingress
     txtOwnerId: default
     txtPrefix: k8s.
     domainFilters:

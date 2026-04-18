@@ -13,7 +13,8 @@ spec:
     fullnameOverride: *app
     dnsConfig:
       nameservers:
-        - 10.1.10.3
+        - 10.1.10.253
+        - 10.1.10.254
     env:
       - name: "EXTERNAL_DNS_RFC2136_TSIG_SECRET"
         valueFrom:

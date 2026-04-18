@@ -28,7 +28,7 @@ spec:
             key: TSIG_KEY_NAME
     extraArgs:
       - --ignore-ingress-tls-spec
-      - --rfc2136-host=dns01.internal
+      - --rfc2136-host=10.1.10.253
       - --rfc2136-port=53
       - --rfc2136-zone=noms.tv
       - --rfc2136-tsig-secret-alg=hmac-sha256

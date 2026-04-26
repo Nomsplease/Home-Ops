@@ -50,37 +50,37 @@ spec:
                 cpu: 100m
               limits:
                 memory: 16Gi
-          cross-seed:
-            image:
-              repository: ghcr.io/cross-seed/cross-seed
-              tag: 6.13.6@sha256:e2bf5b593e4e7d699e6242423ad7966190cd52ba8eefafdfdbb0cb5b0b609b96
-            env:
-              CROSS_SEED_PORT: &cross-seed-port 81
-              TZ: America/New_York
-            args:
-              - daemon
-            probes:
-              liveness: &cross-seed-probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/ping
-                    port: *cross-seed-port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *cross-seed-probes
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 512Mi
+          # cross-seed:
+          #   image:
+          #     repository: ghcr.io/cross-seed/cross-seed
+          #     tag: 6.13.6@sha256:e2bf5b593e4e7d699e6242423ad7966190cd52ba8eefafdfdbb0cb5b0b609b96
+          #   env:
+          #     CROSS_SEED_PORT: &cross-seed-port 81
+          #     TZ: America/New_York
+          #   args:
+          #     - daemon
+          #   probes:
+          #     liveness: &cross-seed-probes
+          #       enabled: true
+          #       custom: true
+          #       spec:
+          #         httpGet:
+          #           path: /api/ping
+          #           port: *cross-seed-port
+          #         initialDelaySeconds: 0
+          #         periodSeconds: 10
+          #         timeoutSeconds: 1
+          #         failureThreshold: 3
+          #     readiness: *cross-seed-probes
+          #   securityContext:
+          #     allowPrivilegeEscalation: false
+          #     readOnlyRootFilesystem: true
+          #     capabilities: {drop: ["ALL"]}
+          #   resources:
+          #     requests:
+          #       cpu: 10m
+          #     limits:
+          #       memory: 512Mi
     defaultPodOptions:
       annotations:
         k8s.v1.cni.cncf.io/networks: |-
@@ -101,10 +101,10 @@ spec:
         ports:
           http:
             port: *port
-      cross-seed:
-        ports:
-          http:
-            port: *cross-seed-port
+      # cross-seed:
+      #   ports:
+      #     http:
+      #       port: *cross-seed-port
     route:
       app:
         hostnames:

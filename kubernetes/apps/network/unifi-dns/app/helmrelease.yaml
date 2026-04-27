@@ -43,7 +43,8 @@ spec:
       - --ignore-ingress-tls-spec
     triggerLoopOnEvent: true
     policy: sync
-    sources: 
+    sources:
+      - gateway-httproute
       - service
     txtOwnerId: default
     txtPrefix: k8s.

@@ -36,6 +36,7 @@ resources:
   - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
   - ./spoolman/ks.yaml
+  - ./thelounge/ks.yaml
   - ./tracearr/ks.yaml
   - ./unpackerr/ks.yaml
   - ./wallos/ks.yaml

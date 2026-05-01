@@ -23,7 +23,7 @@ spec:
               TZ: America/New_York
               # Logging
               ENABLE_LOGGING: true
-              LOG_LEVEL: info
+              LOG_LEVEL: debug
               PORT: &port 80
               CORS_ORIGIN: "https://{{ .Release.Name }}.noms.tv"
               # Rate limiting

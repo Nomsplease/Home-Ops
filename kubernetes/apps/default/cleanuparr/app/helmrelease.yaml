@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/cleanuparr/cleanuparr
-              tag: 2.9.6@sha256:be51a6a382072dfa98480a01a111d3ff7a8a032ab0e91421b627c11fc14e9eb3
+              tag: 2.9.9@sha256:4dc51e05385778a43daee44f1ed481392f10fbf94fcba0db0e7ad04a97d3a8b8
             env:
               PORT: &port 80
               TZ: America/New_York

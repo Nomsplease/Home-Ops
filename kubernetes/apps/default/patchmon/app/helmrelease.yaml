@@ -36,6 +36,7 @@ spec:
               dbConnectTimeout: "10"
               dbIdleTimeout: "300"
               dbMaxLifetime: "1800"
+              DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}"
               # Rate limiting
               rateLimitWindowMs: "900000"
               rateLimitMax: "5000"

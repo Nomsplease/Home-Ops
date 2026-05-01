@@ -22,6 +22,7 @@ resources:
   - ./music-assistant/ks.yaml
   # - ./openwakeword/ks.yaml
   - ./paperless/ks.yaml
+  - ./patchmon/ks.yaml
   # - ./piper/ks.yaml
   - ./posterizarr/ks.yaml
   - ./profilarr/ks.yaml

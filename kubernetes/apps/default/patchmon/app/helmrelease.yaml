@@ -1,0 +1,112 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app patchmon
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  values:
+    controllers:
+      *app :
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/patchmon/patchmon-server
+              tag: 2.0.2@sha256:eaa1bcce290c7003cff01a96cfc893a64cb144e582e9b797875e6381f56b297a
+            env:
+              TZ: America/New_York
+              # Logging
+              enableLogging: true
+              logLevel: info
+              logToConsole: true
+              # Server configuration
+              serverProtocol: http # http or https (if https, configure ingress accordingly)
+              serverHost: "{{ .Release.Name }}.noms.tv"
+              serverPort: &port 80
+              corsOrigin: "https://{{ .Release.Name }}.noms.tv"
+              # Database connection pool
+              dbConnectionLimit: "30"
+              dbPoolTimeout: "20"
+              dbConnectTimeout: "10"
+              dbIdleTimeout: "300"
+              dbMaxLifetime: "1800"
+              # Rate limiting
+              rateLimitWindowMs: "900000"
+              rateLimitMax: "5000"
+              authRateLimitWindowMs: "600000"
+              authRateLimitMax: "500"
+              agentRateLimitWindowMs: "60000"
+              agentRateLimitMax: "1000"
+              # Redis configuration
+              redisHost: patchmon-valkey
+              redisPort: "6379"
+              redisDb: "0"
+              # Security
+              # Trust proxy headers from ingress controller and internal cluster networks
+              trustProxy: "true"
+              enableHsts: false
+              # User management
+              defaultUserRole: "user"
+              autoCreateRolePermissions: false
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: *port
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.noms.tv"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network

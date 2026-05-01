@@ -25,7 +25,7 @@ spec:
               ENABLE_LOGGING: true
               LOG_LEVEL: debug
               PORT: &port 80
-              CORS_ORIGIN: "https://{{ .Release.Name }}.noms.tv"
+              CORS_ORIGIN: "https://{{ .Release.Name }}.noms.tv,http://patchmon,http://localhost,http://[::1]"
               # Rate limiting
               RATE_LIMIT_WINDOW_MS: "900000"
               RATE_LIMIT_MAX: "5000"

@@ -6,6 +6,8 @@ metadata:
   name: &app patchmon
   namespace: &namespace default
 spec:
+  components:
+    - ../../../../components/app-template
   dependsOn:
     - name: patchmon-valkey
   interval: 30m

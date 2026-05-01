@@ -25,7 +25,7 @@ spec:
               ENABLE_LOGGING: true
               LOG_LEVEL: debug
               PORT: &port 80
-              CORS_ORIGIN: "https://{{ .Release.Name }}.noms.tv,http://patchmon,http://localhost,http://[::1]"
+              CORS_ORIGIN: "https://{{ .Release.Name }}.noms.tv"
               # Rate limiting
               RATE_LIMIT_WINDOW_MS: "900000"
               RATE_LIMIT_MAX: "5000"
@@ -47,7 +47,7 @@ spec:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
                 custom: true
                 spec:
@@ -56,21 +56,8 @@ spec:
                   periodSeconds: 30
                   timeoutSeconds: 5
                   failureThreshold: 5
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /health
-                    port: *port
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 5
-              startup:
-                enabled: true
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 10
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

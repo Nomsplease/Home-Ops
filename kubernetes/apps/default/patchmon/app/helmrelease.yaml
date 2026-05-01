@@ -22,38 +22,27 @@ spec:
             env:
               TZ: America/New_York
               # Logging
-              enableLogging: true
-              logLevel: info
-              logToConsole: true
-              # Server configuration
-              serverProtocol: http # http or https (if https, configure ingress accordingly)
-              serverHost: "{{ .Release.Name }}.noms.tv"
-              serverPort: &port 80
-              corsOrigin: "https://{{ .Release.Name }}.noms.tv"
-              # Database connection pool
-              dbConnectionLimit: "30"
-              dbPoolTimeout: "20"
-              dbConnectTimeout: "10"
-              dbIdleTimeout: "300"
-              dbMaxLifetime: "1800"
+              ENABLE_LOGGING: true
+              LOG_LEVEL: info
+              PORT: &port 80
+              CORS_ORIGIN: "https://{{ .Release.Name }}.noms.tv"
               # Rate limiting
-              rateLimitWindowMs: "900000"
-              rateLimitMax: "5000"
-              authRateLimitWindowMs: "600000"
-              authRateLimitMax: "500"
-              agentRateLimitWindowMs: "60000"
-              agentRateLimitMax: "1000"
+              RATE_LIMIT_WINDOW_MS: "900000"
+              RATE_LIMIT_MAX: "5000"
+              AUTH_RATE_LIMIT_WINDOW_MS: "600000"
+              AUTH_RATE_LIMIT_MAX: "500"
+              AGENT_RATE_LIMIT_WINDOW_MS: "60000"
+              AGENT_RATE_LIMIT_MAX: "1000"
               # Redis configuration
-              redisHost: patchmon-valkey
-              redisPort: "6379"
-              redisDb: "0"
+              REDIS_HOST: patchmon-valkey
+              REDIS_PORT: "6379"
+              REDIS_DB: "0"
               # Security
               # Trust proxy headers from ingress controller and internal cluster networks
-              trustProxy: "true"
-              enableHsts: false
+              TRUST_PROXY: "true"
+              ENABLE_HSTS: false
               # User management
-              defaultUserRole: "user"
-              autoCreateRolePermissions: false
+              DEFAULT_USER_ROLE: "user"
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

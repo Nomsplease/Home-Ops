@@ -8,6 +8,7 @@ resources:
   - ./dispatcharr.yaml
   - ./gitea.yaml
   - ./homeassistant.yaml
+  - ./lidarr.yaml
   - ./linkwarden.yaml
   - ./lubelogger.yaml
   - ./mealie.yaml

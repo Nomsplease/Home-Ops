@@ -15,6 +15,7 @@ resources:
   - ./immich/ks.yaml
   - ./karakeep/ks.yaml
   - ./kometa/ks.yaml
+  - ./lidarr/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
   - ./maintainarr/ks.yaml

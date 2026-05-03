@@ -35,7 +35,7 @@ spec:
       containers:
         - name: runner
           # renovate: datasource=forgejo-releases depName=containers/forgejo-home-ops-runner registryUrl=https://git.noms.tv packageName=containers/forgejo-home-ops-runner
-          image: git.noms.tv/containers/forgejo-home-ops-runner:12.9.0@sha256:57ac732d5f0a72d1888ff3e86ff7b6ce028b85b3f09eda40f352c478e15ae2b1
+          image: git.noms.tv/containers/forgejo-home-ops-runner:12.10.0@sha256:c948c762a5c443efc326c3fa54f7b5088c647785b22513b990f47cbdb035422e
           env:
             - name: NODE
               valueFrom:

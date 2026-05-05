@@ -27,6 +27,9 @@ spec:
               repository: ghcr.io/lumepart/explo@sha256:9a6e40fb07f79dad7e852c65f265cebd99bae1fc382ca4ae09e4ffbaa5e2e2b4
             env:
               TZ: America/New_York
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
@@ -66,9 +69,6 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /opt/explo/config
-            subPath: config
-          - path: /opt/explo/
-            subPath: opt
       media:
         type: nfs
         server: truenas.internal

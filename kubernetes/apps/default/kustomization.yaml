@@ -11,6 +11,7 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./autobrr/ks.yaml
   - ./cleanuparr/ks.yaml
+  - ./explo/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
   - ./karakeep/ks.yaml

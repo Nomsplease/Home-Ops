@@ -30,7 +30,7 @@ resources:
   - ./posterizarr/ks.yaml
   - ./profilarr/ks.yaml
   - ./prowlarr/ks.yaml
-  - ./qbittorrent/ks.yaml
+  - ./qui/ks.yaml
   - ./radarr/ks.yaml
   - ./radicale/ks.yaml
   - ./readarr/ks.yaml

@@ -36,7 +36,6 @@ resources:
   - ./readarr/ks.yaml
   - ./reitti/ks.yaml
   - ./seasonpackerr/ks.yaml
-  - ./seedboxapi/ks.yaml
   - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
   - ./spoolman/ks.yaml

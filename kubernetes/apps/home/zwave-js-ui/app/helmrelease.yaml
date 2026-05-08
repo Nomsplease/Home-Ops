@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: zwavejs/zwave-js-ui
-              tag: 11.16.1@sha256:7e9310af641165c85826465908b3219f88943dbf662d462beed7d4d05112b542
+              tag: 11.17.0@sha256:79827886d44929105b625b07ce9870e739502d8b421bff5b11a4c17f811fb577
             env:
               TZ: America/New_York
               PORT: &port 80

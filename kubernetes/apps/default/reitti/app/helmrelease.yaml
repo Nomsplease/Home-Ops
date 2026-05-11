@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: dedicatedcode/reitti
-              tag: 4.0.4@sha256:051bfcd1c17112051702f7cf54e7edabea0ffd400995967e9945a4dbc02a8747
+              tag: 4.0.5@sha256:03ab9c781552f89f8c5f4b39fec5397566f873010c2fd013ff7a8ce1414a3bca
             env:
               OIDC_ENABLED: "true"
               POSTGIS_DB: "{{ .Release.Name }}"

@@ -21,4 +21,4 @@ spec:
         grafanaOperator:
           enabled: true
           matchLabels:
-            dashboards: grafana
+            grafana.internal/instance: grafana

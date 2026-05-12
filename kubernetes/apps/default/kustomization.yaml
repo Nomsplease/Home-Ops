@@ -19,7 +19,7 @@ resources:
   - ./lidarr/ks.yaml
   - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
-  - ./maintainarr/ks.yaml
+  - ./maintainerr/ks.yaml
   - ./mealie/ks.yaml
   - ./music-assistant/ks.yaml
   # - ./openwakeword/ks.yaml

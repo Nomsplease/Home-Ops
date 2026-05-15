@@ -9,6 +9,7 @@ resources:
   ## Deployments
   - ./actual-budget/ks.yaml
   - ./audiobookshelf/ks.yaml
+  - ./auditorr/ks.yaml
   - ./autobrr/ks.yaml
   - ./cleanuparr/ks.yaml
   - ./explo/ks.yaml

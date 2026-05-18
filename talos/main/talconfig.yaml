@@ -158,43 +158,43 @@ nodes:
     installDiskSelector:
       model: PM991*
 
-##########
-## Main-7 ##
-##########
+# ##########
+# ## Main-7 ##
+# ##########
 
-  - hostname: Main-7
-    ipAddress: 10.1.20.17
-    machineSpec:
-      mode: metal
-      arch: amd64
-      secureboot: false
-    networkInterfaces:
-      - interface: bond0
-        bond:
-          interfaces:
-            - enp4s0
-          mode: active-backup
-    schematic:
-      customization:
-        extraKernelArgs: &amd-extraKernelArgs
-          - -init_on_alloc                      # Less security, faster puter
-          - -init_on_free                       # Less security, faster puter
-          - -selinux                            # Less security, faster puter
-          - apparmor=0                          # Less security, faster puter
-          - i915.enable_guc=3                   # Intel A-Series GPU
-          - init_on_alloc=0                     # Less security, faster puter
-          - init_on_free=0                      # Less security, faster puter
-          - amd_iommu=on                        # PCI Passthrough
-          - iommu=pt                            # PCI Passthrough
-          - mitigations=off                     # Less security, faster puter
-          - security=none                       # Less security, faster puter
-          - sysctl.kernel.kexec_load_disabled=1 # Intel A-Series GPU
-          - talos.auditd.disabled=1             # Less security, faster puter
-        systemExtensions: &amd-officialExtensions
-            officialExtensions:
-                - siderolabs/amd-ucode
-                - siderolabs/i915
-                - siderolabs/mei
-                - siderolabs/nfsrahead
-    installDiskSelector:
-      model: SPCC*
+#   - hostname: Main-7
+#     ipAddress: 10.1.20.17
+#     machineSpec:
+#       mode: metal
+#       arch: amd64
+#       secureboot: false
+#     networkInterfaces:
+#       - interface: bond0
+#         bond:
+#           interfaces:
+#             - enp4s0
+#           mode: active-backup
+#     schematic:
+#       customization:
+#         extraKernelArgs: &amd-extraKernelArgs
+#           - -init_on_alloc                      # Less security, faster puter
+#           - -init_on_free                       # Less security, faster puter
+#           - -selinux                            # Less security, faster puter
+#           - apparmor=0                          # Less security, faster puter
+#           - i915.enable_guc=3                   # Intel A-Series GPU
+#           - init_on_alloc=0                     # Less security, faster puter
+#           - init_on_free=0                      # Less security, faster puter
+#           - amd_iommu=on                        # PCI Passthrough
+#           - iommu=pt                            # PCI Passthrough
+#           - mitigations=off                     # Less security, faster puter
+#           - security=none                       # Less security, faster puter
+#           - sysctl.kernel.kexec_load_disabled=1 # Intel A-Series GPU
+#           - talos.auditd.disabled=1             # Less security, faster puter
+#         systemExtensions: &amd-officialExtensions
+#             officialExtensions:
+#                 - siderolabs/amd-ucode
+#                 - siderolabs/i915
+#                 - siderolabs/mei
+#                 - siderolabs/nfsrahead
+#     installDiskSelector:
+#       model: SPCC*

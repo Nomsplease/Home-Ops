@@ -45,7 +45,7 @@ spec:
               DB_DATABASE_NAME: immich
               DB_HOSTNAME: vector-db-rw.databases
               LOG_LEVEL: verbose
-              MACHINE_LEARNING_PRELOAD__CLIP: "ViT-H-14-378-quickgelu__dfn5b"
+              # MACHINE_LEARNING_PRELOAD__CLIP: "ViT-H-14-378-quickgelu__dfn5b"
               TZ: America/New_York
 
             envFrom:
@@ -61,7 +61,7 @@ spec:
           enabled: true
           type: persistentVolumeClaim
           accessMode: ReadWriteOnce
-          size: 10Gi
+          size: 15Gi
           storageClass: ceph-block
 
       controllers:

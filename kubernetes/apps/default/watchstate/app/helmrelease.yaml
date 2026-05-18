@@ -31,6 +31,12 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                memory: 2Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

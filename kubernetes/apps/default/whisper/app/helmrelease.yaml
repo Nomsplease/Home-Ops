@@ -37,6 +37,12 @@ spec:
                   periodSeconds: 10
               readiness: *probes
               startup: *probes
+            resources:
+              requests:
+                cpu: 250m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
     service:
       app:
         ports:

@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/maintainerr/maintainerr
-              tag: pr-2911@sha256:bdc9beeae501a1adee8bfa913eb8d8f6b1d63103bf24f8322a74fa2230d639d2
+              tag: pr-2911@sha256:25cd07d37b03774b09f87f910b29ae11a4c4cf910282932d85d937673d39b202
             env:
               TZ: America/New_York
               UI_PORT: &port 80
@@ -46,6 +46,13 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
               capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                cpu: 200m
+                memory: 512Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

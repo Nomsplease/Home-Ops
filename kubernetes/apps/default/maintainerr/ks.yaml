@@ -36,7 +36,6 @@ metadata:
   namespace: &namespace default
 spec:
   components:
-    - ../../../../components/app-template
     - ../../../../components/volsync
   dependsOn:
     - name: volsync

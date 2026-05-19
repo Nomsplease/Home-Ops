@@ -17,7 +17,9 @@ patches:
   - "@./patches/files.yaml"
   - "@./patches/kubelet.yaml"
   - "@./patches/networking.yaml"
+  - "@./patches/oomconfig.yaml"
   - "@./patches/sysctls.yaml"
+  - "@./patches/watchdog.yaml"
 controlPlane:
   patches:
    - "@./patches/cluster-cp.yaml"

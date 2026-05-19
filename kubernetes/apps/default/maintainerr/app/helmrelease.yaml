@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/maintainerr/maintainerr
-              tag: pr-2911@sha256:25cd07d37b03774b09f87f910b29ae11a4c4cf910282932d85d937673d39b202
+              tag: pr-2911@sha256:c639b63b05f339fbcd9a0564fe53a32e944ae22bc2ec7235d3b3871bfa933e11
             env:
               TZ: America/New_York
               UI_PORT: &port 80

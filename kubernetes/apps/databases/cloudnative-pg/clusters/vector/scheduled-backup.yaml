@@ -9,7 +9,7 @@ spec:
   immediate: true
   backupOwnerReference: self
   cluster:
-    name: vector-db
+    name: vector
   method: plugin
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io

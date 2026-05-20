@@ -32,7 +32,7 @@ spec:
               LIDARR__AUTHENTICATION__REQUIRED: DisabledForLocalAddresses
               LIDARR__INSTANCENAME: Lidarr
               LIDARR__SERVER__PORT: &port 80
-              LIDARR__POSTGRES__HOST: main-db-rw.databases
+              LIDARR__POSTGRES__HOST: main-rw.databases
               LIDARR__POSTGRES__MAINDB: "{{ .Release.Name }}"
               LIDARR__POSTGRES__PORT: "5432"
               LIDARR__LOG__LEVEL: info

@@ -6,7 +6,6 @@ metadata:
   name: &app unpackerr
 spec:
   components:
-    - ../../../../components/app-template
     - ../../../../components/nfs-scaler
   interval: 1h
   path: ./kubernetes/apps/default/unpackerr/app

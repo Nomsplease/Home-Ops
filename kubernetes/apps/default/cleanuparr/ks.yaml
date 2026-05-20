@@ -6,7 +6,6 @@ metadata:
   name: &app cleanuparr
 spec:
   components:
-    - ../../../../components/app-template
     - ../../../../components/nfs-scaler
     - ../../../../components/volsync
   dependsOn:

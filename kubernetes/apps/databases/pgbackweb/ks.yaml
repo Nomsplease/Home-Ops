@@ -6,10 +6,8 @@ metadata:
   name: &app pgbackweb
   namespace: &namespace databases
 spec:
-  components:
-    - ../../../components/app-template
   interval: 30m
-  path: ./kubernetes/apps/databases/pgbackweb
+  path: ./kubernetes/apps/databases/pgbackweb/app
   postBuild:
     substitute:
       APP: *app

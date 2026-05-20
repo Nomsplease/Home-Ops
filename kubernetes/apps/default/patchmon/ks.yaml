@@ -6,8 +6,6 @@ metadata:
   name: &app patchmon
   namespace: &namespace default
 spec:
-  components:
-    - ../../../../components/app-template
   dependsOn:
     - name: patchmon-valkey
   interval: 30m
@@ -32,7 +30,6 @@ metadata:
   name: &app patchmon-valkey
 spec:
   components:
-    - ../../../../components/app-template
     - ../../../../components/volsync
   dependsOn:
     - name: volsync
@@ -58,8 +55,6 @@ kind: Kustomization
 metadata:
   name: &app patchmon-guacd
 spec:
-  components:
-    - ../../../../components/app-template
   interval: 30m
   path: ./kubernetes/apps/default/patchmon/guacd
   postBuild:

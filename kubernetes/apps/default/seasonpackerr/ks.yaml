@@ -6,8 +6,6 @@ metadata:
   name: &app seasonpackerr
   namespace: &namespace default
 spec:
-  components:
-    - ../../../../components/app-template
   interval: 30m
   path: ./kubernetes/apps/default/seasonpackerr/app
   postBuild:

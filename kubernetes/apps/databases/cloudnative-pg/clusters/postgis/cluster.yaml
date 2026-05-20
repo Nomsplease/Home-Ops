@@ -20,14 +20,14 @@ spec:
   # Uncomment for recovery
   bootstrap:
     recovery:
-      source: &db postgis
+      source: postgis
   externalClusters:
-    - name: *db
+    - name: postgis
       plugin:
         name: barman-cloud.cloudnative-pg.io
         parameters:
-          barmanObjectName: *store
-          serverName: *db
+          barmanObjectName: garage
+          serverName: postgis
   # Recovery End
   enablePDB: false
   enableSuperuserAccess: true
@@ -40,7 +40,7 @@ spec:
       isWALArchiver: true
       name: barman-cloud.cloudnative-pg.io
       parameters:
-        barmanObjectName: &store garage
+        barmanObjectName: garage
         serverName: postgis
   postgresql:
     parameters:

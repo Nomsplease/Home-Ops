@@ -36,7 +36,6 @@ metadata:
 spec:
   components:
     - ../../../../components/volsync
-    # - ../../../../components/volsync-rwx
   dependsOn:
     - name: volsync
       namespace: volsync-system

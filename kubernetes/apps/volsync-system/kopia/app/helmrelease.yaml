@@ -95,8 +95,8 @@ spec:
             subPath: repository.config
       repository:
         type: nfs
-        server: expanse.internal
-        path: /mnt/ceres/Kopia
+        server: truenas.internal
+        path: /mnt/BigPool/Backups/Kopia/main
         globalMounts:
           - path: /repository
       tmpfs:

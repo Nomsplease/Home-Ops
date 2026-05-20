@@ -26,4 +26,4 @@ log lvl msg *args:
 
 [private]
 template file *args:
-    minijinja-cli --env "{{ file }}" {{ args }} | op inject
+    minijinja-cli --env --autoescape=none "{{ file }}" {{ args }} | op inject

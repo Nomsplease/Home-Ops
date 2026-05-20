@@ -8,6 +8,6 @@ metadata:
     app: immich
 spec:
   cluster:
-    name: vector-db
+    name: vector
   name: immich
   owner: app

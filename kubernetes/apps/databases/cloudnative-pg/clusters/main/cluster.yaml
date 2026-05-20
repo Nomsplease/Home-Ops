@@ -27,7 +27,7 @@ spec:
         name: barman-cloud.cloudnative-pg.io
         parameters:
           barmanObjectName: garage
-          serverName: main
+          serverName: main-db
   ## Recovery End
   enablePDB: false
   enableSuperuserAccess: true

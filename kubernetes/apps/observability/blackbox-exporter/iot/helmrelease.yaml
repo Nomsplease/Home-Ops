@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app blackbox-exporter-iot
+  name: blackbox-exporter-iot
 spec:
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: blackbox-exporter-iot
   interval: 1h
   values:
-    fullnameOverride: *app
+    fullnameOverride: blackbox-exporter-iot
     securityContext:
       readOnlyRootFilesystem: true
       allowPrivilegeEscalation: false

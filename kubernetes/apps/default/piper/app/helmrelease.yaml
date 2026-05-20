@@ -3,15 +3,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app piper
+  name: piper
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: piper
   values:
     controllers:
-      *app :
+      piper :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -55,7 +55,7 @@ spec:
             port: *port
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data
             subPath: data

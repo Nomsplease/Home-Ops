@@ -3,12 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app node-feature-discovery
+  name: node-feature-discovery
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: node-feature-discovery
   values:
     worker:
       config:

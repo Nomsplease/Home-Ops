@@ -3,12 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app homeassistant
+  name: homeassistant
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: homeassistant
   values:
     defaultPodOptions:
       annotations:
@@ -27,7 +27,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
     controllers:
-      *app :
+      homeassistant :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

@@ -3,15 +3,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app mosquitto
+  name: mosquitto
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: mosquitto
   values:
     controllers:
-      *app :
+      mosquitto :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -50,7 +50,7 @@ spec:
             subPath: pwfile
             readOnly: true
       data:
-        existingClaim: mosquitto
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           mosquitto:
             app:

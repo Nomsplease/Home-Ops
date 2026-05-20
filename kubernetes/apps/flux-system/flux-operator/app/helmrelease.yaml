@@ -3,12 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app flux-operator
+  name: flux-operator
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: flux-operator
   install:
     remediation:
       retries: -1

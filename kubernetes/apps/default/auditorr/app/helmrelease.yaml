@@ -3,12 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app auditorr
+  name: auditorr
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: auditorr
   install:
     remediation:
       retries: -1
@@ -18,7 +18,7 @@ spec:
       retries: 3
   values:
     controllers:
-      *app :
+      auditorr :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

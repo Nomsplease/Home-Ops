@@ -3,12 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app wikijs
+  name: wikijs
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: wikijs
   values:
     controllers:
       wikijs:
@@ -24,7 +24,7 @@ spec:
                 value: America/New_York
             envFrom:
               - secretRef:
-                  name: *app
+                  name: wikijs
             probes:
               liveness: &probes
                 enabled: true

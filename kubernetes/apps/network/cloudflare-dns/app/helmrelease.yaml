@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app cloudflare-dns
+  name: cloudflare-dns
 spec:
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: cloudflare-dns
   interval: 1h
   values:
-    fullnameOverride: *app
+    fullnameOverride: cloudflare-dns
     provider:
       name: cloudflare
     env:

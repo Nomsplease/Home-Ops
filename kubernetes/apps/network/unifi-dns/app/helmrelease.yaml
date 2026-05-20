@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app unifi-dns
+  name: unifi-dns
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: unifi-dns
   values:
-    fullnameOverride: *app
+    fullnameOverride: unifi-dns
     provider:
       name: webhook
       webhook:

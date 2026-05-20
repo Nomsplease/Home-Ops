@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app paperless-redis
+  name: paperless-redis
 spec:
   interval: 30m
   chartRef:
@@ -11,7 +11,7 @@ spec:
     name: paperless
   values:
     controllers:
-      *app :
+      paperless-redis :
         containers:
           app:
             image:
@@ -35,6 +35,6 @@ spec:
             port: *port
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data

@@ -3,15 +3,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app seerr
+  name: seerr
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: seerr
   values:
     controllers:
-      *app :
+      seerr :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

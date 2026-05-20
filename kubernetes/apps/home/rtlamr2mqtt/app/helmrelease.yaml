@@ -3,15 +3,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app rtlamr2mqtt
+  name: rtlamr2mqtt
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: rtlamr2mqtt
   values:
     controllers:
-      *app :
+      rtlamr2mqtt :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

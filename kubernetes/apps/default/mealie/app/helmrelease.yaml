@@ -3,15 +3,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app mealie
+  name: mealie
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: mealie
   values:
     controllers:
-      *app :
+      mealie :
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -21,7 +21,7 @@ spec:
               tag: v3.17.0@sha256:d570139f1891346131d02f8e4d1853100ae4846474958ca6c68cfe1648058467
             envFrom:
               - secretRef:
-                  name: *app
+                  name: mealie
             probes:
               liveness: &probes
                 enabled: true
@@ -55,6 +55,6 @@ spec:
             sectionName: https
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/data/

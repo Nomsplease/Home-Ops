@@ -3,15 +3,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app music-assistant
+  name: music-assistant
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: music-assistant
   values:
     controllers:
-      *app :
+      music-assistant :
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -73,6 +73,6 @@ spec:
             sectionName: https
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data/

@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: vector-db
+  name: vector
   ## Uncomment for recovery
   # annotations:
   #   cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
@@ -41,7 +41,7 @@ spec:
       name: barman-cloud.cloudnative-pg.io
       parameters:
         barmanObjectName: vector-store
-        serverName: vector-db
+        serverName: vector
   postgresql:
     parameters:
       autovacuum_max_workers: '3'

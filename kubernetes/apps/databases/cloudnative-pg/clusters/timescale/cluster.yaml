@@ -10,28 +10,28 @@ metadata:
   ## Recovery End
 spec:
   ## Uncomment for first deployment
-  bootstrap:
-    initdb:
-      database: app
-      owner: app
-      secret:
-        name: cnpg-app
-      postInitTemplateSQL:
-        - CREATE EXTENSION IF NOT EXISTS timescaledb;
-        - CREATE EXTENSION IF NOT EXISTS timescaledb_toolkit;
-  # First deployment end
-  ## Uncomment for recovery
   # bootstrap:
-  #   recovery:
-  #     source: &db timescale
-  # externalClusters:
-  #   - name: *db
-  #     plugin:
-  #       name: barman-cloud.cloudnative-pg.io
-  #       parameters:
-  #         barmanObjectName: *store
-  #         serverName: *db
-  ## Recovery End
+  #   initdb:
+  #     database: app
+  #     owner: app
+  #     secret:
+  #       name: cnpg-app
+  #     postInitTemplateSQL:
+  #       - CREATE EXTENSION IF NOT EXISTS timescaledb;
+  #       - CREATE EXTENSION IF NOT EXISTS timescaledb_toolkit;
+  # First deployment end
+  # Uncomment for recovery
+  bootstrap:
+    recovery:
+      source: &db timescale
+  externalClusters:
+    - name: *db
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: *store
+          serverName: *db
+  # Recovery End
   enablePDB: false
   enableSuperuserAccess: true
   imageCatalogRef:

@@ -9,26 +9,26 @@ metadata:
   #   cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
   ## Recovery End
 spec:
-  ## Uncomment for first deployment
-  bootstrap:
-    initdb:
-      database: app
-      owner: app
-      secret:
-        name: cnpg-app
-  # First deployment end
-  ## Uncomment for recovery
+  # ## Uncomment for first deployment
   # bootstrap:
-  #   recovery:
-  #     source: &db postgis
-  # externalClusters:
-  #   - name: *db
-  #     plugin:
-  #       name: barman-cloud.cloudnative-pg.io
-  #       parameters:
-  #         barmanObjectName: *store
-  #         serverName: *db
-  ## Recovery End
+  #   initdb:
+  #     database: app
+  #     owner: app
+  #     secret:
+  #       name: cnpg-app
+  # # First deployment end
+  # Uncomment for recovery
+  bootstrap:
+    recovery:
+      source: &db postgis
+  externalClusters:
+    - name: *db
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: *store
+          serverName: *db
+  # Recovery End
   enablePDB: false
   enableSuperuserAccess: true
   imageName: ghcr.io/cloudnative-pg/postgis:17.7-3.6.1-system-trixie@sha256:2e9c5acfaa33e8555095a81f2a9120126f55292a9952ddcec29a2e133117b9a8

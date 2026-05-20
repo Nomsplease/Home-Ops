@@ -10,25 +10,25 @@ metadata:
   ## Recovery End
 spec:
   ## Uncomment for first deployment
-  bootstrap:
-    initdb:
-      database: app
-      owner: app
-      secret:
-        name: cnpg-app
-  ## First deployment end
-  ## Uncomment for recovery
   # bootstrap:
-  #   recovery:
-  #     source: vector-db
-  # externalClusters:
-  #   - name: vector-db
-  #     plugin:
-  #       name: barman-cloud.cloudnative-pg.io
-  #       parameters:
-  #         barmanObjectName: vector-store
-  #         serverName: vector-db
-  ## Recovery End
+  #   initdb:
+  #     database: app
+  #     owner: app
+  #     secret:
+  #       name: cnpg-app
+  ## First deployment end
+  # Uncomment for recovery
+  bootstrap:
+    recovery:
+      source: vector-db
+  externalClusters:
+    - name: vector-db
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: vector-store
+          serverName: vector-db
+  # Recovery End
   enablePDB: false
   enableSuperuserAccess: true
   imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.3.0@sha256:2b397c7080ae712d407e925cc087ad7061dee7fbeb7ec6f55c6bc8482ef6b4f2

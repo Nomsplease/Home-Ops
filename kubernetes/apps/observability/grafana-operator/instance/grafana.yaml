@@ -5,7 +5,7 @@ kind: Grafana
 metadata:
   name: grafana
   labels:
-    grafana.internal/instance: grafana
+    dashboards: grafana
 spec:
   config:
     analytics:
@@ -80,6 +80,6 @@ spec:
         - ReadWriteOnce
       resources:
         requests:
-          storage: 10Gi
+          storage: 5Gi
       storageClassName: ceph-block
   disableDefaultSecurityContext: All

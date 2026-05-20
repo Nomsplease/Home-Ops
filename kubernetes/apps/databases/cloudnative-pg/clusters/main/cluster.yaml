@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: main-db
+  name: main
   ## Uncomment for recovery
   annotations:
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
@@ -40,7 +40,7 @@ spec:
       isWALArchiver: true
       name: barman-cloud.cloudnative-pg.io
       parameters:
-        barmanObjectName: main-store
+        barmanObjectName: garage
         serverName: main
   postgresql:
     parameters:

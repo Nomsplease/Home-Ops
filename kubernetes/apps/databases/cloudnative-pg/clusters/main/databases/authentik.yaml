@@ -8,6 +8,6 @@ metadata:
     app: authentik
 spec:
   cluster:
-    name: main-db
+    name: main
   name: authentik
   owner: app

@@ -8,6 +8,6 @@ metadata:
     app: linkwarden
 spec:
   cluster:
-    name: main-db
+    name: main
   name: linkwarden
   owner: app

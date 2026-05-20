@@ -8,6 +8,6 @@ metadata:
     app: radarr
 spec:
   cluster:
-    name: main-db
+    name: main
   name: radarr
   owner: app

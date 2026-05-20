@@ -8,6 +8,6 @@ metadata:
     app: davinci
 spec:
   cluster:
-    name: main-db
+    name: main
   name: davinci
   owner: app

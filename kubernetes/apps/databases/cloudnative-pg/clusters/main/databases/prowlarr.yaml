@@ -8,6 +8,6 @@ metadata:
     app: prowlarr
 spec:
   cluster:
-    name: main-db
+    name: main
   name: prowlarr
   owner: app

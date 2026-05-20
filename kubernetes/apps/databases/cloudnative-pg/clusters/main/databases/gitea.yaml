@@ -8,6 +8,6 @@ metadata:
     app: gitea
 spec:
   cluster:
-    name: main-db
+    name: main
   name: gitea
   owner: app

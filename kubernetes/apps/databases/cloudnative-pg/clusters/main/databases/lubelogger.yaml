@@ -8,6 +8,6 @@ metadata:
     app: lubelogger
 spec:
   cluster:
-    name: main-db
+    name: main
   name: lubelogger
   owner: app

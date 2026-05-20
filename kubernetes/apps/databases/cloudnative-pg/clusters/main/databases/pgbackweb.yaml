@@ -8,6 +8,6 @@ metadata:
     app: pgbackweb
 spec:
   cluster:
-    name: main-db
+    name: main
   name: pgbackweb
   owner: app

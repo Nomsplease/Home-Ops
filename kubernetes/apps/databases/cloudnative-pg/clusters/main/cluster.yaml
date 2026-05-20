@@ -20,14 +20,14 @@ spec:
   ## Uncomment for recovery
   bootstrap:
     recovery:
-      source: &db main-db
+      source: main-db
   externalClusters:
-    - name: *db
+    - name: main-db
       plugin:
         name: barman-cloud.cloudnative-pg.io
         parameters:
-          barmanObjectName: main-store
-          serverName: *db
+          barmanObjectName: garage
+          serverName: main
   ## Recovery End
   enablePDB: false
   enableSuperuserAccess: true
@@ -41,7 +41,7 @@ spec:
       name: barman-cloud.cloudnative-pg.io
       parameters:
         barmanObjectName: main-store
-        serverName: main-db
+        serverName: main
   postgresql:
     parameters:
       autovacuum_max_workers: '3'

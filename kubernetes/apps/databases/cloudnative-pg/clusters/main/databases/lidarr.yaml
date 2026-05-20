@@ -8,6 +8,6 @@ metadata:
     app: lidarr
 spec:
   cluster:
-    name: main-db
+    name: main
   name: lidarr
   owner: app

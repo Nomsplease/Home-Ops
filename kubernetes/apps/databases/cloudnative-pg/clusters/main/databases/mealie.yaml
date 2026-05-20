@@ -8,6 +8,6 @@ metadata:
     app: mealie
 spec:
   cluster:
-    name: main-db
+    name: main
   name: mealie
   owner: app

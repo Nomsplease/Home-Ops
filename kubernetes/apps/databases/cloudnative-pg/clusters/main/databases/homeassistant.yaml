@@ -8,6 +8,6 @@ metadata:
     app: homeassistant
 spec:
   cluster:
-    name: main-db
+    name: main
   name: homeassistant
   owner: app

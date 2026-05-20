@@ -8,6 +8,6 @@ metadata:
     app: paperless
 spec:
   cluster:
-    name: main-db
+    name: main
   name: paperless
   owner: app

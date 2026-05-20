@@ -8,6 +8,6 @@ metadata:
     app: dispatcharr
 spec:
   cluster:
-    name: main-db
+    name: main
   name: dispatcharr
   owner: app

@@ -9,7 +9,7 @@ spec:
   immediate: true
   backupOwnerReference: self
   cluster:
-    name: main-db
+    name: main
   method: plugin
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io

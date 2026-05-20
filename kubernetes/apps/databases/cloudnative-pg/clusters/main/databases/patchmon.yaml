@@ -8,6 +8,6 @@ metadata:
     app: patchmon
 spec:
   cluster:
-    name: main-db
+    name: main
   name: patchmon
   owner: app

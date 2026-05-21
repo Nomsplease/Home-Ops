@@ -11,6 +11,17 @@ default:
 apply-node node *args:
     just talos render-config "{{ node }}" | talosctl -n "{{ node }}" apply-config -f /dev/stdin {{ args }}
 
+[confirm('Apply Talos config to all nodes [y|N] ?')]
+[doc('Apply Talos config to all nodes')]
+apply-all-nodes *args:
+    #!/usr/bin/env bash
+    nodes=$(talosctl config info -o yaml | yq -e '.nodes | join (" ")')
+    for n in $nodes; do
+        if ! op=$(just --yes talos apply-node "$n" {{ args }} 2>&1); then
+            just log fatal "Failed to apply Talos configuration" "stage" "$(basename "$0")" "node" "$n" "output" "$op"
+        fi
+    done
+
 [doc('Download Talos machine image')]
 [script]
 download-image version:

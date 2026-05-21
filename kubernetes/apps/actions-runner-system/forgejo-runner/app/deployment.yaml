@@ -60,7 +60,6 @@ spec:
                 name: forgejo-runner-secret
           resources:
             limits:
-              cpu: '0.5'
               ephemeral-storage: 100Mi
               memory: 64Mi
             requests:
@@ -103,7 +102,6 @@ spec:
               value: '1'
           resources:
             limits:
-              cpu: '1'
               ephemeral-storage: 3Gi
               memory: 4Gi
             requests:
@@ -135,7 +133,6 @@ spec:
               value: /certs
           resources:
             limits:
-              cpu: '1'
               ephemeral-storage: 3Gi
               memory: 4Gi
             requests:

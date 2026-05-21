@@ -1,0 +1,13 @@
+---
+machine:
+  type: worker
+  nodeLabels:
+    topology.kubernetes.io/zone: m
+  install:
+      diskSelector:
+          model: "SAMSUNG MZ7TE128"
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+auto: "off"
+hostname: main-7

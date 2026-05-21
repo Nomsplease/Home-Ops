@@ -12,9 +12,11 @@ apply-ks ns ks:
 
 [doc('Browse a PVC')]
 browse-pvc ns claim:
+    kubectl scale deployment -n {{ ns }} {{ claim }} --replicas 0
     kubectl run -n {{ ns }} browse-pvc-{{ claim }} -it --rm --restart=Never \
         --image=git.noms.tv/containers/kubernetes-toolbox:latest \
         --overrides='{"spec":{"containers":[{"name":"browse-pvc-{{ claim }}","image":"mirror.gcr.io/alpine:latest","stdin":true,"tty":true,"command":["/bin/sh"],"workingDir":"/mnt","volumeMounts":[{"mountPath":"/mnt","name":"data"}]}],"volumes":[{"name":"data","persistentVolumeClaim":{"claimName":"{{ claim }}"}}]}}'
+    kubectl scale deployment -n {{ ns }} {{ claim }} --replicas 1
 
 [doc('Debug a node')]
 [script]

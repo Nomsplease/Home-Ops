@@ -96,3 +96,8 @@ spec:
         type: nfs
         server: truenas.internal
         path: /mnt/BigPool/Media
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp

@@ -18,7 +18,7 @@ spec:
   postBuild:
     substitute:
       APP: plex
-      VOLSYNC_CAPACITY: 50Gi
+      VOLSYNC_CAPACITY: 250Gi
   prune: true 
   retryInterval: 1m
   sourceRef:

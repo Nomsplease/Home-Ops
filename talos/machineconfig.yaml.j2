@@ -129,11 +129,25 @@ cluster:
       feature-gates: MutatingAdmissionPolicy=true,HPAScaleToZero=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
     image: registry.k8s.io/kube-apiserver:v1.35.5
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
       feature-gates: HPAScaleToZero=true
     image: registry.k8s.io/kube-controller-manager:v1.35.5
+    resources:
+      requests:
+        cpu: 500m
+        memory: 384Mi
+      limits:
+        cpu: 500m
+        memory: 768Mi
   coreDNS:
     disabled: true
   etcd:
@@ -168,6 +182,13 @@ cluster:
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.35.5
+    resources:
+      requests:
+        cpu: 200m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
   secretboxEncryptionSecret: op://Kubernetes/talos-main/CLUSTER_SECRETBOXENCRYPTIONSECRET
   serviceAccount:
     key: op://Kubernetes/talos-main/CLUSTER_SERVICEACCOUNT_KEY

@@ -69,9 +69,7 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-    persistence:
-      config:
-        existingClaim: "{{ .Release.Name }}"
+    # persistence:
       # media:
       #   type: nfs
       #   server: truenas.internal

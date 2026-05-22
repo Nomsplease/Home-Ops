@@ -6,17 +6,8 @@ metadata:
   name: aurral
   namespace: media
 spec:
-  components:
-    - ../../../../components/volsync
-  dependsOn:
-    - name: volsync
-      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/media/aurral/app
-  postBuild:
-    substitute:
-      APP: aurral
-      VOLSYNC_CAPACITY: 5Gi
   prune: true 
   retryInterval: 1m
   sourceRef:

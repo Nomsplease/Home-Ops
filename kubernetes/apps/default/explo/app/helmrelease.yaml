@@ -27,6 +27,15 @@ spec:
               repository: ghcr.io/lumepart/explo
               digest: sha256:9a6e40fb07f79dad7e852c65f265cebd99bae1fc382ca4ae09e4ffbaa5e2e2b4
             env:
+              DISCOVERY_SERVICE: listenbrainz
+              LISTENBRAINZ_DISCOVERY: playlist
+              EXPLO_SYSTEM: subsonic
+              SYSTEM_URL: http://navidrome.media
+              DOWNLOAD_DIR: /media/Music/Explo
+              USE_SUBDIRECTORY: true
+              DOWNLOAD_SERVICES: slskd
+              SLSKD_URL: http://slskd.media
+              MIGRATE_DOWNLOADS: true
               TZ: America/New_York
             envFrom:
               - secretRef:

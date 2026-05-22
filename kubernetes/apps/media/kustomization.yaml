@@ -8,6 +8,7 @@ resources:
   - ./namespace.yaml
   ## Deployments
   - ./aurral/ks.yaml
+  - ./explo/ks.yaml
   - ./lidarr/ks.yaml
   - ./navidrome/ks.yaml
   - ./plex/ks.yaml

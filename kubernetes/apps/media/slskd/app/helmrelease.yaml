@@ -23,6 +23,9 @@ spec:
               SLSKD_SLSK_DIAG_LEVEL: debug
               APP_DIR: /config
               SLSKD_DOWNLOADS_DIR: /media/Downloads/music
+              SLSKD_SHARE_CACHE_STORAGE_MODE: disk
+              SLSKD_SHARE_CACHE_WORKERS: 2
+              SLSKD_SHARE_CACHE_RETENTION: 10080
               SLSKD_INCOMPLETE_DIR: /cache
               SLSKD_SLSK_LISTEN_PORT: 25827
               SLSKD_HTTP_PORT: &port 80

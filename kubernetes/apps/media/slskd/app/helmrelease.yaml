@@ -22,6 +22,8 @@ spec:
             env:
               SLSKD_REMOTE_CONFIGURATION: true
               APP_DIR: /config
+              SLSKD_DOWNLOADS_DIR: /media/Downloads/music
+              SLSKD_INCOMPLETE_DIR: /cache
               SLSKD_SLSK_LISTEN_PORT: 25827
               SLSKD_HTTP_PORT: &port 80
               SLSKD_NO_AUTH: true
@@ -80,9 +82,11 @@ spec:
           - name: envoy-internal
             namespace: network
     persistence:
+      cache:
+        existingClaim: "{{ .Release.Name }}-cache"
       config:
         existingClaim: "{{ .Release.Name }}"
-      # media:
-      #   type: nfs
-      #   server: truenas.internal
-      #   path: /mnt/BigPool/Media
+      media:
+        type: nfs
+        server: truenas.internal
+        path: /mnt/BigPool/Media

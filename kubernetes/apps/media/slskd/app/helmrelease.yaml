@@ -23,7 +23,6 @@ spec:
               SLSKD_SLSK_DIAG_LEVEL: debug
               APP_DIR: /config
               SLSKD_DOWNLOADS_DIR: /media/Downloads/music
-              SLSKD_NO_SHARE_SCAN: true
               SLSKD_INCOMPLETE_DIR: /cache
               SLSKD_SLSK_LISTEN_PORT: 25827
               SLSKD_HTTP_PORT: &port 80
@@ -47,6 +46,17 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 50
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false

@@ -24,6 +24,7 @@ spec:
               APP_DIR: /config
               SLSKD_SLSK_LISTEN_PORT: 25827
               SLSKD_HTTP_PORT: &port 80
+              SLSKD_NO_AUTH: true
               TZ: America/New_York
             envFrom:
               - secretRef:

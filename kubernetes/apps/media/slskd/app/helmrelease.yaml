@@ -43,7 +43,7 @@ spec:
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: {drop: ["ALL"]}
             resources:
               requests:
@@ -81,11 +81,6 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      tmpfs:
-        type: emptyDir
-        globalMounts:
-          - path: /.net
-            subPath: net
       # media:
       #   type: nfs
       #   server: truenas.internal

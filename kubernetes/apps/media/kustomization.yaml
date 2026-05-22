@@ -7,4 +7,5 @@ resources:
   ## Requisites
   - ./namespace.yaml
   ## Deployments
+  - ./lidarr/ks.yaml
   - ./slskd/ks.yaml

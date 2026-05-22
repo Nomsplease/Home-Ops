@@ -22,6 +22,7 @@ spec:
             env:
               APP_DIR: /config
               SLSKD_HTTP_PORT: &port 80
+              SLSKD_NO_AUTH: true
               TZ: America/New_York
             probes:
               liveness: &probes

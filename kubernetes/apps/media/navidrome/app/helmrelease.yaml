@@ -24,6 +24,7 @@ spec:
               ND_DATAFOLDER: /data
               ND_CACHEFOLDER: /cache
               ND_PORT: &port 80
+              ND_EXTAUTH_TRUSTEDSOURCES: 172.20.0.0/16,172.21.0.0/16
               TZ: America/New_York
             probes:
               liveness: &probes

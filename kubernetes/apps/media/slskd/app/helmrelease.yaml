@@ -27,7 +27,7 @@ spec:
               SLSKD_SLSK_LISTEN_PORT: 25827
               SLSKD_HTTP_PORT: &port 80
               SLSKD_SHARED_DIR: /media/Music
-              SLSKD_SHARE_FILTER: |-
+              SLSKD_SHARE_FILTER:
                 - \.ini$
                 - Thumbs.db$
                 - \.DS_Store$

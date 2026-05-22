@@ -20,10 +20,22 @@ spec:
               repository: ghcr.io/slskd/slskd
               tag: 0.25.1@sha256:ab9ed50e028b524cefdb7c1dd8ebca368a076e18441ee8ac2326473eb850b4c3
             env:
+              SLSKD_REMOTE_CONFIGURATION: true
               APP_DIR: /config
+              SLSKD_DOWNLOADS_DIR: /media/Downloads/music
+              SLSKD_INCOMPLETE_DIR: /cache
+              SLSKD_SLSK_LISTEN_PORT: 25827
               SLSKD_HTTP_PORT: &port 80
+              SLSKD_SHARED_DIR: /media/Music
+              SLSKD_SHARE_FILTER: |
+                - \.ini$
+                - Thumbs.db$
+                - \.DS_Store$
               SLSKD_NO_AUTH: true
               TZ: America/New_York
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
@@ -79,13 +91,6 @@ spec:
         existingClaim: "{{ .Release.Name }}-cache"
       config:
         existingClaim: "{{ .Release.Name }}"
-      config-file:
-        type: secret
-        name: "{{ .Release.Name }}-secret"
-        globalMounts:
-          - path: /config/slskd.yaml
-            subPath: slskd.yaml
-            readOnly: true
       media:
         type: nfs
         server: truenas.internal

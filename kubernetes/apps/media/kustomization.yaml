@@ -10,4 +10,5 @@ resources:
   - ./aurral/ks.yaml
   - ./lidarr/ks.yaml
   - ./navidrome/ks.yaml
+  - ./plex/ks.yaml
   - ./slskd/ks.yaml

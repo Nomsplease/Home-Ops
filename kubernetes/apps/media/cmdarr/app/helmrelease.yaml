@@ -36,6 +36,9 @@ spec:
               PLEX_URL: http://plex:32400
               SCHEDULER_TIMEZONE: America/New_York
               WEB_PORT: &port 80
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             # probes:
             #   liveness:
             #     enabled: true

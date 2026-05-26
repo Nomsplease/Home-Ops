@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: getmeili/meilisearch
-              tag: v1.43.0@sha256:5d4e1353927785744486fe317d263f442710ab5b27b1983aa1b719dfe2c665b6
+              tag: v1.45.0@sha256:7fde2b22e9a7ccfe7551613a521fc1b3abdbec20fedbd9aa0fb8ff133cd83c5d
             env:
               MEILI_NO_ANALYTICS: "true"
               MEILI_EXPERIMENTAL_DUMPLESS_UPGRADE: "true"

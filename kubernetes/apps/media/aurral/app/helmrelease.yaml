@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/lklynet/aurral
-              tag: 1.76.17@sha256:b29d22dd3190c4a67d4f1e1ababa7e1158d170b682c81e81ed2e071a46c6d3b8
+              tag: 1.76.31@sha256:8b464287fd0ae141c625fdf0351cb04fe92543af2ffa9e2059afb845c26f3c20
             env:
               DOWNLOAD_FOLDER: /media/Downloads/music
               PORT: &port 80

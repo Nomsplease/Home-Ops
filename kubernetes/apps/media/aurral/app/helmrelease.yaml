@@ -20,7 +20,7 @@ spec:
               repository: ghcr.io/lklynet/aurral
               tag: 1.76.34@sha256:82e0d9017851a16d6f1bfdc295ad4a917ca0848c74f209ff353abf5907e0e3b4
             env:
-              DOWNLOAD_FOLDER: /media/Downloads/music
+              # DOWNLOAD_FOLDER: /media/Downloads/music
               PORT: &port 80
               PUID: 1000
               PGID: 1000
@@ -75,6 +75,12 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/backend/data
+      downloads:
+        type: nfs
+        server: truenas.internal
+        path: /mnt/BigPool/Media/Downloads/music
+        globalMounts:
+          - path: /app/downloads
       media:
         type: nfs
         server: truenas.internal

@@ -8,5 +8,6 @@ resources:
   - ./namespace.yaml
   ## Deployments
   - ./cdi/ks.yaml
+  - ./images/ks.yaml
   - ./kubevirt/ks.yaml
   - ./ubuntu-test/ks.yaml

@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: images
+  namespace: virtualization
+spec:
+  dependsOn:
+    - name: cdi
+  interval: 1h
+  path: ./kubernetes/apps/virtualization/images/app
+  prune: false
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: virtualization
+  timeout: 5m
+  wait: false

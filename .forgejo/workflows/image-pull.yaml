@@ -122,17 +122,3 @@ jobs:
     steps:
       - name: Pull Image
         run: talosctl image pull --nodes $NODE '${{ matrix.image }}'
-
-  success:
-    if: always()
-    needs: [diff, pull]
-    name: Image Pull - Success
-    runs-on: ubuntu-latest
-    steps:
-      - name: Any jobs failed?
-        if: ${{ contains(needs.*.result, 'failure') }}
-        run: exit 1
-
-      - name: All jobs passed or skipped?
-        if: ${{ !(contains(needs.*.result, 'failure')) }}
-        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"

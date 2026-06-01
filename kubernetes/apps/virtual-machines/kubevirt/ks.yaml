@@ -11,10 +11,6 @@ spec:
       namespace: kube-system
   interval: 30m
   path: ./kubernetes/apps/virtual-machines/kubevirt/app
-  postBuild:
-    substitute:
-      # renovate: datasource=custom.kubevirt depName=kubevirt
-      VERSION: v1.8.2
   prune: false 
   retryInterval: 1m
   sourceRef:

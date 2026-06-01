@@ -6,7 +6,7 @@ metadata:
 spec:
   source:
     http:
-      url: "https://releases.ubuntu.com/24.04.3/ubuntu-24.04.3-desktop-amd64.iso"
+      url: "http://releases.ubuntu.com/26.04/ubuntu-26.04-desktop-amd64.iso"
   storage:
     accessModes:
       - ReadWriteMany

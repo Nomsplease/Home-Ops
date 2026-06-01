@@ -124,7 +124,7 @@ jobs:
         run: talosctl image pull --nodes $NODE '${{ matrix.image }}'
 
   success:
-    if: ${{ !cancelled() }}
+    if: always()
     needs: [diff, pull]
     name: Image Pull - Success
     runs-on: ubuntu-latest

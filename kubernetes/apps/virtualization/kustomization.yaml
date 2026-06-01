@@ -9,3 +9,4 @@ resources:
   ## Deployments
   - ./cdi/ks.yaml
   - ./kubevirt/ks.yaml
+  - ./ubuntu-test/ks.yaml

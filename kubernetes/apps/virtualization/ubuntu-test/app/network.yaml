@@ -12,8 +12,9 @@ spec:
       "name": "network",
       "plugins": [
         {
-          "type": "bridge",
-          "bridge": "bond0.10"
+          "type": "macvlan",
+          "master": "bond0.10",
+          "mode": "bridge"
         }
       ]
     }

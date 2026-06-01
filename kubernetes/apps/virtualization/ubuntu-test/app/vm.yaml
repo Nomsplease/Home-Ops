@@ -21,18 +21,18 @@ spec:
       evictionStrategy: LiveMigrateIfPossible
       domain:
         cpu:
-          cores: 4
+          cores: 2
         resources:
           requests:
-            memory: 8G
+            memory: 4G
         devices:
           disks:
+            - name: cdromiso
+              cdrom:
+                bus: sata
             - name: ubuntu-test
               disk:
                 bus: virtio
-            # - name: ubuntu-os
-            #   disk:
-            #     bus: virtio
           interfaces:
           - name: default
             masquerade: {}
@@ -50,6 +50,6 @@ spec:
         - name: ubuntu-test
           persistentVolumeClaim:
             claimName: ubuntu-test
-        # - name: ubuntu-os
-        #   dataVolume:
-        #     name: ubuntu-24-04-desktop
+        - name: cdromiso
+          persistentVolumeClaim:
+            claimName: ubuntu-26-04-desktop

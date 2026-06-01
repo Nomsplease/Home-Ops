@@ -1,0 +1,54 @@
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: ubuntu-test
+spec:
+  runStrategy: RerunOnFailure
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: ubuntu-test
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [
+            {
+              "name": "internal",
+              "namespace": "kube-system"
+            }
+          ]
+    spec:
+      evictionStrategy: LiveMigrateIfPossible
+      domain:
+        cpu:
+          cores: 4
+        resources:
+          requests:
+            memory: 8G
+        devices:
+          disks:
+            - name: ubuntu-test
+              disk:
+                bus: virtio
+            # - name: ubuntu-os
+            #   disk:
+            #     bus: virtio
+          interfaces:
+          - name: default
+            masquerade: {}
+            macAddress: "02:00:00:00:00:01"
+          - name: internal
+            bridge: {}
+      networks:
+        - name: default
+          pod: {}
+        - name: internal
+          multus:
+            networkName: internal
+      volumes:
+        - name: ubuntu-test
+          persistentVolumeClaim:
+            claimName: ubuntu-test
+        # - name: ubuntu-os
+        #   dataVolume:
+        #     name: ubuntu-24-04-desktop

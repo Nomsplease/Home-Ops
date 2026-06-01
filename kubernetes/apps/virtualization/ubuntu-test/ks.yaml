@@ -1,0 +1,35 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ubuntu-test
+  namespace: virtualization
+spec:
+  dependsOn:
+    - name: kubevirt
+    - name: cdi
+    - name: multus
+      namespace: kube-system
+  interval: 1h
+  path: ./kubernetes/apps/virtualization/ubuntu-test/app
+  components:
+    - ../../../../components/volsync
+  postBuild:
+    substitute:
+      APP: ubuntu-test
+      VOLSYNC_CAPACITY: 75Gi
+      VOLSYNC_CACHE_CAPACITY: 75Gi
+      VOLSYNC_ACCESSMODES: ReadWriteMany
+      VOLSYNC_STORAGECLASS: ceph-filesystem
+      VOLSYNC_SCHEDULE: "0 0/12 * * *"
+      VOLSYNC_HOURLY: "4"
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: virtualization
+  timeout: 5m
+  wait: false

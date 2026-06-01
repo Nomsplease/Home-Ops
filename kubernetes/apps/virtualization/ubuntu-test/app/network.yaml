@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/k8s.cni.cncf.io/networkattachmentdefinition_v1.json
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: network
+  namespace: virtualization
+spec:
+  config: |-
+    {
+      "cniVersion": "1.0.0",
+      "name": "network",
+      "plugins": [
+        {
+          "type": "bridge",
+          "bridge": "bond0.10"
+        }
+      ]
+    }

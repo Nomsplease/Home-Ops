@@ -13,8 +13,8 @@ spec:
         k8s.v1.cni.cncf.io/networks: |
           [
             {
-              "name": "internal",
-              "namespace": "kube-system"
+              "name": "network",
+              "namespace": "virtualization"
             }
           ]
     spec:
@@ -37,14 +37,15 @@ spec:
           - name: default
             masquerade: {}
             macAddress: "02:00:00:00:00:01"
-          - name: internal
+          - name: network
             bridge: {}
       networks:
         - name: default
           pod: {}
-        - name: internal
+        - name: network
           multus:
-            networkName: internal
+            default: true
+            networkName: network
       volumes:
         - name: ubuntu-test
           persistentVolumeClaim:

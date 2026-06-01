@@ -19,21 +19,25 @@ patches:
     target:
       kind: Deployment
       name: virt-operator
-  # v1.8.2 install strategy grants backup.kubevirt.io and evacuate/cancel permissions
-  # to kubevirt.io:admin, but the operator's own ClusterRole is missing them — add them
-  # so the operator can grant what it holds (RBAC escalation prevention).
+  # v1.8.2 install strategy grants backup.kubevirt.io and new subresource permissions
+  # that the operator's own ClusterRole doesn't hold — RBAC escalation prevention blocks
+  # it from granting permissions it doesn't have. Patch adds the missing rules.
   - patch: |-
       - op: add
         path: /rules/-
         value:
           apiGroups: ["backup.kubevirt.io"]
-          resources: ["virtualmachinebackups", "virtualmachinebackuptrackers"]
-          verbs: ["get", "delete", "create", "update", "patch", "list", "watch", "deletecollection"]
+          resources: ["*"]
+          verbs: ["*"]
       - op: add
         path: /rules/-
         value:
           apiGroups: ["subresources.kubevirt.io"]
-          resources: ["virtualmachineinstances/evacuate/cancel", "virtualmachines/evacuate/cancel"]
+          resources:
+            - "virtualmachineinstances/evacuate/cancel"
+            - "virtualmachines/evacuate/cancel"
+            - "virtualmachineinstances/backup"
+            - "virtualmachineinstances/redefine-checkpoint"
           verbs: ["update"]
     target:
       kind: ClusterRole

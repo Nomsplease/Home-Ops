@@ -32,4 +32,4 @@ spec:
             value: /
       backendRefs:
         - name: cdi-uploadproxy
-          port: 443
+          port: 8443

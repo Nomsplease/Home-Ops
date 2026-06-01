@@ -1,5 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customDatasources": {
+    "kubevirt": {
+      "defaultRegistryUrlTemplate": "https://storage.googleapis.com/kubevirt-prow/release/kubevirt/kubevirt/stable.txt",
+      "format": "plain"
+    }
+  },
   "customManagers": [
     {
       "customType": "regex",

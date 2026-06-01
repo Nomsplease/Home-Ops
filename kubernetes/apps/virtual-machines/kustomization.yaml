@@ -7,5 +7,5 @@ resources:
   ## Requisites
   - ./namespace.yaml
   ## Deployments
-  - ./kubevirt/ks.yaml
+  # - ./kubevirt/ks.yaml
 

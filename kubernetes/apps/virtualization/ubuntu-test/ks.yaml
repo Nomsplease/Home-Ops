@@ -21,7 +21,11 @@ spec:
       VOLSYNC_CAPACITY: 75Gi
       VOLSYNC_CACHE_CAPACITY: 75Gi
       VOLSYNC_ACCESSMODES: ReadWriteMany
+      VOLSYNC_CACHE_ACCESSMODES: ReadWriteMany
       VOLSYNC_STORAGECLASS: ceph-filesystem
+      VOLSYNC_CACHE_STORAGECLASS: ceph-filesystem
+      VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
+      VOLSYNC_SNAP_ACCESSMODES: ReadOnlyMany
       VOLSYNC_SCHEDULE: "0 0/12 * * *"
       VOLSYNC_HOURLY: "4"
   prune: true

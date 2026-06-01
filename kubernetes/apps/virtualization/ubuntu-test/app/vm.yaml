@@ -44,7 +44,7 @@ spec:
           pod: {}
         - name: network
           multus:
-            default: true
+            # default: true
             networkName: network
       volumes:
         - name: ubuntu-test

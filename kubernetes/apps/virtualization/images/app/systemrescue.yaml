@@ -9,7 +9,7 @@ spec:
       url: "https://fastly-cdn.system-rescue.org/releases/13.00/systemrescue-13.00-amd64.iso"
   storage:
     accessModes:
-      - ReadOnlyMany
+      - ReadWriteMany
     resources:
       requests:
         storage: 2Gi

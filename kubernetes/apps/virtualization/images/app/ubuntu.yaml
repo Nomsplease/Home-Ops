@@ -9,7 +9,7 @@ spec:
       url: "http://releases.ubuntu.com/26.04/ubuntu-26.04-desktop-amd64.iso"
   storage:
     accessModes:
-      - ReadOnlyMany
+      - ReadWriteMany
     resources:
       requests:
         storage: 10Gi

@@ -3,9 +3,6 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: multus-dhcp-ds
-  labels:
-    tier: node
-    app: dhcp
 spec:
   template:
     spec:

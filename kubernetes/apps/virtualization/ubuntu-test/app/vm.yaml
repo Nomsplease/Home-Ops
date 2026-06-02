@@ -9,14 +9,6 @@ spec:
     metadata:
       labels:
         kubevirt.io/vm: ubuntu-test
-      annotations:
-        k8s.v1.cni.cncf.io/networks: |
-          [{
-            "name": "internal",
-            "namespace": "kube-system",
-            "ips": ["10.1.10.28/24"],
-            "mac": "10:00:00:00:00:28"
-          }]
     spec:
       evictionStrategy: LiveMigrateIfPossible
       domain:
@@ -46,12 +38,13 @@ spec:
             macAddress: "02:00:00:00:00:01"
           - name: network
             bridge: {}
+            macAddress: "10:00:00:00:00:28"
       networks:
         - name: default
           pod: {}
         - name: network
           multus:
-            networkName: kube-system/internal
+            networkName: ubuntu-test
       volumes:
         - name: ubuntu-test
           persistentVolumeClaim:

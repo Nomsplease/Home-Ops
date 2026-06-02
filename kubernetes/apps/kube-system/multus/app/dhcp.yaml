@@ -4,6 +4,9 @@ kind: DaemonSet
 metadata:
   name: multus-dhcp-ds
 spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/controller: multus
   template:
     spec:
       hostNetwork: true

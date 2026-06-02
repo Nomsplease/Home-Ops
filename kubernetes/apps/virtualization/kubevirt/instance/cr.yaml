@@ -10,7 +10,7 @@ spec:
       featureGates:
         - LiveMigration
         - VMExport
-        - Passt
+        - PasstBinding
     smbios:
       sku: "TalosCloud"
       version: "1.0.0"

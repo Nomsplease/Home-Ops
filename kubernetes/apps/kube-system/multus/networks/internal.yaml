@@ -10,8 +10,9 @@ spec:
       "name": "internal",
       "plugins": [
         {
-          "type": "bridge",
-          "bridge": "br10",
+          "type": "macvlan",
+          "master": "bond0.10",
+          "mode": "bridge",
           "ipam": {
             "type": "dhcp"
           }

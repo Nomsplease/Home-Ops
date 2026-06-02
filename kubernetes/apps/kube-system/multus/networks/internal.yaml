@@ -12,7 +12,7 @@ spec:
         {
           "type": "bridge",
           "bridge": "br10",
-          "ipam": {}
+          "type": "dhcp"
         },
         {
           "type": "sbr"

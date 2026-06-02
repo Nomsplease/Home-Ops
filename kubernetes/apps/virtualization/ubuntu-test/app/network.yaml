@@ -8,23 +8,8 @@ spec:
     {
       "cniVersion": "0.3.1",
       "name": "ubuntu-test",
-      "plugins": [
-        {
-          "type": "macvlan",
-          "master": "bond0.10",
-          "mode": "bridge",
-          "ipam": {
-            "type": "static",
-            "addresses": [
-              {
-                "address": "10.1.10.28/24",
-                "gateway": "10.1.10.1"
-              }
-            ],
-            "routes": [
-              { "dst": "0.0.0.0/0", "gw": "10.1.10.1" }
-            ]
-          }
-        }
-      ]
+      "type": "macvlan",
+      "master": "bond0.10",
+      "mode": "bridge",
+      "ipam": {}
     }

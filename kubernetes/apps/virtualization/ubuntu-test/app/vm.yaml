@@ -13,16 +13,12 @@ spec:
         k8s.v1.cni.cncf.io/networks: |
           [
             {
-              "name": "internal-dhcp",
+              "name": "internal",
               "namespace": "kube-system"
             }
           ]
     spec:
       evictionStrategy: LiveMigrateIfPossible
-      dnsPolicy: None
-      dnsConfig:
-        nameservers:
-          - 10.1.10.1
       domain:
         clock:
           utc: {}
@@ -45,18 +41,17 @@ spec:
               disk:
                 bus: virtio
           interfaces:
-          # - name: default
-          #   masquerade: {}
-          #   macAddress: "02:00:00:00:00:01"
+          - name: default
+            masquerade: {}
+            macAddress: "02:00:00:00:00:01"
           - name: network
             bridge: {}
       networks:
-        # - name: default
-        #   pod: {}
+        - name: default
+          pod: {}
         - name: network
           multus:
-            default: true
-            networkName: kube-system/internal-dhcp
+            networkName: kube-system/internal
       volumes:
         - name: ubuntu-test
           persistentVolumeClaim:

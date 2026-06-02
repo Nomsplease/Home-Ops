@@ -11,12 +11,12 @@ spec:
         kubevirt.io/vm: ubuntu-test
       annotations:
         k8s.v1.cni.cncf.io/networks: |
-          [
-            {
-              "name": "internal",
-              "namespace": "kube-system"
-            }
-          ]
+          [{
+            "name": "internal",
+            "namespace": "kube-system",
+            "ips": ["10.1.10.28/24"],
+            "mac": "10:00:00:00:00:28"
+          }]
     spec:
       evictionStrategy: LiveMigrateIfPossible
       domain:

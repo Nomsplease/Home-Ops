@@ -5,6 +5,7 @@ metadata:
   name: kubevirt
 spec:
   configuration:
+    cpuModel: "host-passthrough"
     developerConfiguration:
       featureGates:
         - LiveMigration

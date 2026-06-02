@@ -13,7 +13,7 @@ spec:
         k8s.v1.cni.cncf.io/networks: |
           [
             {
-              "name": "internal",
+              "name": "internal-dhcp",
               "namespace": "kube-system"
             }
           ]
@@ -52,7 +52,7 @@ spec:
         - name: network
           multus:
             # default: true
-            networkName: kube-system/internal
+            networkName: kube-system/internal-dhcp
       volumes:
         - name: ubuntu-test
           persistentVolumeClaim:

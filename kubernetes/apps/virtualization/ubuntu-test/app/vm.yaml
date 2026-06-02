@@ -27,7 +27,8 @@ spec:
             memory: 4G
         devices:
           disks:
-            - name: cdromiso
+            - bootOrder: 1
+              name: cdromiso
               cdrom:
                 bus: sata
             - name: ubuntu-test

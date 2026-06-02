@@ -213,6 +213,13 @@ parent: bond0
 mtu: 9000
 ---
 apiVersion: v1alpha1
+kind: BridgeConfig
+name: br10
+links:
+  - bond0.10
+mtu: 9000
+---
+apiVersion: v1alpha1
 kind: VLANConfig
 name: bond0.66
 vlanID: 66
@@ -220,10 +227,24 @@ parent: bond0
 mtu: 9000
 ---
 apiVersion: v1alpha1
+kind: BridgeConfig
+name: br66
+links:
+  - bond0.66
+mtu: 9000
+---
+apiVersion: v1alpha1
 kind: VLANConfig
 name: bond0.1003
 vlanID: 1003
 parent: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: BridgeConfig
+name: br1003
+links:
+  - bond0.1003
 mtu: 9000
 ---
 apiVersion: v1alpha1

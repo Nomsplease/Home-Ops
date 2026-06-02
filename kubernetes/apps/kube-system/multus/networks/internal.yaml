@@ -11,8 +11,7 @@ spec:
       "plugins": [
         {
           "type": "bridge",
-          "bridge": "bond0",
-          "vlan": 10,
+          "bridge": "br10",
           "ipam": {}
         },
         {

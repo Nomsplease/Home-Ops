@@ -20,17 +20,23 @@ spec:
     spec:
       evictionStrategy: LiveMigrateIfPossible
       domain:
+        clock:
+          utc: {}
         cpu:
           cores: 2
         resources:
           requests:
             memory: 4G
         devices:
+          inputs:
+            - type: tablet
+              bus: usb
+              name: tablet
           disks:
-            - bootOrder: 1
-              name: cdromiso
-              cdrom:
-                bus: sata
+            # - bootOrder: 1 ##Force ISO Boot
+            #   name: cdromiso ##Installer ISO
+            #   cdrom:
+            #     bus: sata
             - name: ubuntu-test
               disk:
                 bus: virtio
@@ -51,6 +57,6 @@ spec:
         - name: ubuntu-test
           persistentVolumeClaim:
             claimName: ubuntu-test
-        - name: cdromiso
-          persistentVolumeClaim:
-            claimName: ubuntu-26-04-desktop
+        # - name: cdromiso ##Installer ISO
+        #   persistentVolumeClaim:
+        #     claimName: ubuntu-26-04-desktop

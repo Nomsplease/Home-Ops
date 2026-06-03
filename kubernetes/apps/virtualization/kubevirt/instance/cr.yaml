@@ -10,6 +10,7 @@ spec:
       featureGates:
         - VMExport
         - PasstBinding
+        - HostDevices
     permittedHostDevices:
       pciHostDevices:
         - pciVendorSelector: "10de:1c30"

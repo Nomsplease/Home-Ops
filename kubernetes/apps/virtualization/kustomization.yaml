@@ -10,4 +10,4 @@ resources:
   - ./cdi/ks.yaml
   - ./images/ks.yaml
   - ./kubevirt/ks.yaml
-  - ./ubuntu-test/ks.yaml
+  # - ./ubuntu-test/ks.yaml

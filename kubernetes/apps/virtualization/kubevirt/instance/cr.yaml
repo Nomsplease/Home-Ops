@@ -8,15 +8,17 @@ spec:
     cpuModel: "host-passthrough"
     developerConfiguration:
       featureGates:
-        - LiveMigration
         - VMExport
         - PasstBinding
+    permittedHostDevices:
+      pciHostDevices:
+        - pciVendorSelector: "10de:1c30"
+          resourceName: "nvidia.com/p2000"
+        - pciVendorSelector: "10de:10f1"
+          resourceName: "nvidia.com/p2000-audio"
     smbios:
       sku: "TalosCloud"
       version: "1.0.0"
       manufacturer: "Talos Virtualization"
       product: "talosvm"
       family: "ccio"
-  workloadUpdateStrategy:
-    workloadUpdateMethods:
-    - LiveMigrate

@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: vfio-pci-bind
+  namespace: virtualization
+spec:
+  selector:
+    matchLabels:
+      app: vfio-pci-bind
+  template:
+    metadata:
+      labels:
+        app: vfio-pci-bind
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: main-8
+      hostPID: true
+      initContainers:
+        - name: bind
+          image: busybox:latest
+          securityContext:
+            privileged: true
+          command:
+            - sh
+            - -c
+            - |
+              # Bind Nvidia P2000 GPU and audio to vfio-pci
+              for id in "10de 1c30" "10de 10f1"; do
+                echo "$id" > /sys/bus/pci/drivers/vfio-pci/new_id || true
+              done
+          volumeMounts:
+            - name: sys
+              mountPath: /sys
+      containers:
+        - name: pause
+          image: gcr.io/google_containers/pause:3.1
+      volumes:
+        - name: sys
+          hostPath:
+            path: /sys

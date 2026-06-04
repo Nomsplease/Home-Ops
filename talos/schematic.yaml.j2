@@ -1,19 +1,16 @@
 ---
 customization:
   extraKernelArgs:
-    - -init_on_alloc                      # Less security, faster puter
-    - -init_on_free                       # Less security, faster puter
-    - -selinux                            # Less security, faster puter
-    - apparmor=0                          # Less security, faster puter
-    - init_on_alloc=0                     # Less security, faster puter
-    - init_on_free=0                      # Less security, faster puter
+    - i915.enable_guc=3                   # Meteor Lake CPU & Intel iGPU
+    - i915.force_probe=!56a5              # Let xe driver own Arc A380
+    - xe.force_probe=56a5                 # xe driver claims Arc A380
     - intel_iommu=on                      # PCI Passthrough
+    - amd_iommu=on                        # PCI Passthrough
     - iommu=pt                            # PCI Passthrough
-    - mitigations=off                     # Less security, faster puter
-    - security=none                       # Less security, faster puter
-    - talos.auditd.disabled=1             # Less security, faster puter
+    - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU & Intel iGPU
   systemExtensions:
     officialExtensions:
-      - siderolabs/i915 # Intel iGPU
-      - siderolabs/intel-ucode # Intel iGPU
-      - siderolabs/mei # Intel iGPU
+      - siderolabs/i915                   # Intel iGPU
+      - siderolabs/xe                     # Intel Gen12+/Arc GPU
+      - siderolabs/intel-ucode            # Intel iGPU
+      - siderolabs/mei                    # Intel iGPU

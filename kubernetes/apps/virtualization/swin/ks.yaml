@@ -12,7 +12,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/virtualization/swin/app
   components:
-    - ../../../../components/volsync
+    - ../../../../components/volsync-fast
   postBuild:
     substitute:
       APP: swin

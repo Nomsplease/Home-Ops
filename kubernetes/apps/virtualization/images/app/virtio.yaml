@@ -5,7 +5,7 @@ metadata:
   name: virtio-drivers
 spec:
   source:
-    http:
+    registry:
       url: "docker://quay.io/kubevirt/virtio-container-disk:v1.8.3"
   storage:
     accessModes:

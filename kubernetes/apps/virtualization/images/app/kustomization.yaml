@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./systemrescue.yaml
   - ./ubuntu.yaml
+  - ./virtio.yaml

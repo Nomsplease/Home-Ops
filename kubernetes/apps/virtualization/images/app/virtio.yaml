@@ -1,0 +1,16 @@
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: virtio-drivers
+spec:
+  source:
+    http:
+      url: "docker://quay.io/kubevirt/virtio-container-disk:v1.8.3"
+  storage:
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: ceph-filesystem

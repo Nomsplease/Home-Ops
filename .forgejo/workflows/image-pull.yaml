@@ -45,6 +45,7 @@ jobs:
           cache: false
           tool_versions: |
             github:home-operations/flate 0.2.12
+          token: ""
 
       - name: Extract Images
         id: extract

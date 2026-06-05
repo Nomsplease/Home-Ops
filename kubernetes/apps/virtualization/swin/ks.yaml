@@ -12,11 +12,11 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/virtualization/swin/app
   components:
-    - ../../../../components/volsync-fast
+    - ../../../../components/volsync
   postBuild:
     substitute:
       APP: swin
-      VOLSYNC_CAPACITY: 275Gi
+      VOLSYNC_CAPACITY: 300Gi
       VOLSYNC_SCHEDULE: "0 0/12 * * *"
       VOLSYNC_HOURLY: "4"
   prune: true

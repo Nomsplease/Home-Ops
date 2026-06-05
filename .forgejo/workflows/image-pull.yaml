@@ -25,100 +25,69 @@ jobs:
         with:
           patterns: kubernetes/**/*
 
-  extract-default:
-    name: Image Pull - Extract Default Images
+  extract:
+    if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    needs: filter
+    name: Image Pull - Extract Images
     runs-on: ubuntu-latest
     outputs:
       images: ${{ steps.extract.outputs.images }}
     steps:
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
-          persist-credentials: false
-          ref: ${{ forgejo.event.repository.default_branch }}
-
-      - name: Gather Images
-        uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
-        with:
-          args: >-
-            get cluster
-            --all-namespaces
-            --path kubernetes/flux/cluster
-            --enable-images
-            --only-images
-            --output json
-            --output-file images.json
-
-      - id: extract
-        name: Extract Images
-        run: echo "images=$(jq --compact-output '.' images.json)" >> "$GITHUB_OUTPUT"
-
-      - name: Extracted Images
-        run: echo '${{ steps.extract.outputs.images }}' | jq '.'
-
-
-  extract-pull:
-    name: Image Pull - Extract PR Images
-    runs-on: ubuntu-latest
-    outputs:
-      images: ${{ steps.extract.outputs.images }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
-        with:
+          fetch-depth: 0
           persist-credentials: false
 
-      - name: Gather Images
-        uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
+      - name: Setup Mise
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
         with:
-          args: >-
-            get cluster
-            --all-namespaces
-            --path kubernetes/flux/cluster
-            --enable-images
-            --only-images
-            --output json
-            --output-file images.json
+          cache: false
+          tool_versions: |
+            github:home-operations/flate 0.2.12
 
-      - id: extract
-        name: Extract Images
-        run: echo "images=$(jq --compact-output '.' images.json)" >> "$GITHUB_OUTPUT"
-
-      - name: Extracted Images
-        run: echo '${{ steps.extract.outputs.images }}' | jq '.'
-
-  diff:
-    needs: [extract-default, extract-pull]
-    name: Image Pull - Diff Images and Pull
-    runs-on: ubuntu-latest
-    outputs:
-      images: ${{ steps.diff.outputs.images }}
-    steps:
-      - name: Diff Images
-        id: diff
+      - name: Extract Images
+        id: extract
         run: |
-          images=$(jq --compact-output --null-input \
-              --argjson f1 '${{ needs.extract-default.outputs.images }}' \
-              --argjson f2 '${{ needs.extract-pull.outputs.images }}' \
-              '$f2 - $f1'
-          )
-          echo "images=${images}" >> $GITHUB_OUTPUT
-
-      - name: Images to be pulled
-        run: echo '${{ steps.diff.outputs.images }}' | jq '.'
+          echo 'images<<EOF' >> $GITHUB_OUTPUT
+          flate diff images -p ./kubernetes/flux/cluster -o json >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
-    if: ${{ needs.diff.outputs.images != '[]' }}
-    needs: diff
+    if: ${{ needs.extract.outputs.images != '[]' }}
+    needs: extract
     name: Image Pull - Pull Images
-    runs-on: home-ops-runner
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ${{ fromJSON(needs.diff.outputs.images) }}
+        image: ${{ fromJSON(needs.extract.outputs.images) }}
       max-parallel: 4
       fail-fast: false
-    env:
-      IMAGE: ${{ matrix.obj.image }}
     steps:
+      - name: Setup Mise
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+        with:
+          cache: false
+          tool_versions: |
+            talosctl latest
+
       - name: Pull Image
-        run: talosctl image pull --nodes $NODE '${{ matrix.image }}'
+        env:
+          IMAGE: ${{ matrix.image }}
+        run: talosctl --nodes "$NODE" image pull "$IMAGE"
+
+  success:
+    if: ${{ !cancelled() }}
+    needs: pull
+    name: Image Pull - Success
+    runs-on: ubuntu-latest
+    steps:
+      - name: Any jobs failed?
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
+
+      - name: All jobs passed or skipped?
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: echo "All jobs passed or skipped" && echo "$RESULTS"

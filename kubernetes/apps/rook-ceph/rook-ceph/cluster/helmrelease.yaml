@@ -115,7 +115,7 @@ spec:
               - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708745J"
           - name: main-8
             devices:
-              - name: "/dev/disk/by-id/nvme-CT1000P5PSSD8_22503D27B04"
+              - name: "/dev/disk/by-id/nvme-CT1000P5PSSD8_22503D27B049"
     cephBlockPools:
       - name: ceph-blockpool
         spec:

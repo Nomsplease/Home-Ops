@@ -46,14 +46,14 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC }}:v1.12.7
+    image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC }}:v1.13.4
     wipe: false
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
       serializeImagePulls: false
-    image: ghcr.io/siderolabs/kubelet:v1.35.5
+    image: ghcr.io/siderolabs/kubelet:v1.36.2
     nodeIP:
       validSubnets:
         - 10.1.20.0/24
@@ -129,7 +129,7 @@ cluster:
       enable-aggregator-routing: "true"
       feature-gates: MutatingAdmissionPolicy=true,HPAScaleToZero=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
-    image: registry.k8s.io/kube-apiserver:v1.35.5
+    image: registry.k8s.io/kube-apiserver:v1.36.2
     resources:
       requests:
         cpu: 1000m
@@ -141,7 +141,7 @@ cluster:
     extraArgs:
       bind-address: 0.0.0.0
       feature-gates: HPAScaleToZero=true
-    image: registry.k8s.io/kube-controller-manager:v1.35.5
+    image: registry.k8s.io/kube-controller-manager:v1.36.2
     resources:
       requests:
         cpu: 500m
@@ -161,7 +161,7 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:v1.35.5
+    image: registry.k8s.io/kube-proxy:v1.36.2
   scheduler:
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
@@ -182,7 +182,7 @@ cluster:
                     whenUnsatisfiable: ScheduleAnyway
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-scheduler:v1.35.5
+    image: registry.k8s.io/kube-scheduler:v1.36.2
     resources:
       requests:
         cpu: 200m

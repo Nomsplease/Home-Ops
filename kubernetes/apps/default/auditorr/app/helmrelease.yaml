@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/thrill-burn/auditorr
-              tag: 1.5.0@sha256:0441c0351003d106eeb33898136ee1b65c35f50ee7114e76f2c5740d495c5d36
+              tag: 1.6.1@sha256:37cb7e00de12825ea0cc5ceb769f8a008e81ec4f698adf6d4457b1c50260f280
             env:
               TZ: America/New_York
               AUDITORR_PORT: &port 80

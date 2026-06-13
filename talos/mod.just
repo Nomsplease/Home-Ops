@@ -59,6 +59,18 @@ shutdown-node node *args:
 upgrade-k8s version:
     talosctl -n "$(talosctl config info -o yaml | yq -e '.endpoints[0]')" upgrade-k8s --to {{ version }}
 
+[confirm('Upgrade all nodes [y|N] ?')]
+[doc('Upgrade Talos version on all nodes')]
+upgrade-all-nodes *args:
+    #!/usr/bin/env bash
+    nodes=$(talosctl config info -o yaml | yq -e '.nodes | join (" ")')
+    for n in $nodes; do
+        just log info "Upgrading node" "$n"
+        if ! op=$(just --yes talos upgrade-node "$n" {{ args }} 2>&1); then
+            just log fatal "Failed to upgrade Talos node" "stage" "$(basename "$0")" "node" "$n" "output" "$op"
+        fi
+    done
+
 [confirm('Upgrade node ' + node + ' [y|N] ?')]
 [doc('Upgrade Talos version on a node')]
 upgrade-node node *args:

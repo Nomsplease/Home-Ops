@@ -53,7 +53,7 @@ spec:
     tls: starttls
     skipCertVerify: false
     from: "pocketid@${SECRET_DOMAIN}"
-    user: "${smtpUsername}"
+    user: "admin@${SECRET_DOMAIN}"
     password:
       valueFrom:
         secretKeyRef:

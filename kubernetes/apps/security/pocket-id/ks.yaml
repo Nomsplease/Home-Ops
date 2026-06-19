@@ -27,8 +27,6 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-      - name: pocket-id-secret
-        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository

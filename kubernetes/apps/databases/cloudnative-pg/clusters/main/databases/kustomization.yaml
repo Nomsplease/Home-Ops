@@ -16,6 +16,7 @@ resources:
   - ./paperless.yaml
   - ./patchmon.yaml
   - ./pgbackweb.yaml
+  - ./pocket-id.yaml
   - ./prowlarr.yaml
   - ./radarr.yaml
   - ./sonarr.yaml

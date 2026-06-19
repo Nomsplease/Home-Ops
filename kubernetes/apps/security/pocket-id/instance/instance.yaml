@@ -53,11 +53,7 @@ spec:
     tls: starttls
     skipCertVerify: false
     from: "pocketid@${SECRET_DOMAIN}"
-    user:
-      valueFrom:
-        secretKeyRef:
-          name: pocket-id-secret
-          key: smtpUsername
+    user: "${smtpUsername}"
     password:
       valueFrom:
         secretKeyRef:

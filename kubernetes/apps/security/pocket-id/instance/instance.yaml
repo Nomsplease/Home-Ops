@@ -52,8 +52,8 @@ spec:
     port: 587
     tls: starttls
     skipCertVerify: false
-    from: "pocketid@${SECRET_DOMAIN}"
-    user: "admin@${SECRET_DOMAIN}"
+    from: &from "admin@${SECRET_DOMAIN}"
+    user: *from
     password:
       valueFrom:
         secretKeyRef:

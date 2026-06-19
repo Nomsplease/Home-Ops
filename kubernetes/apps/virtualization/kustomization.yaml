@@ -10,4 +10,3 @@ resources:
   - ./cdi/ks.yaml
   - ./images/ks.yaml
   - ./kubevirt/ks.yaml
-  - ./swin/ks.yaml

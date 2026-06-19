@@ -12,6 +12,7 @@ resources:
   - ./linkwarden.yaml
   - ./lubelogger.yaml
   - ./mealie.yaml
+  - ./n8n.yaml
   - ./paperless.yaml
   - ./patchmon.yaml
   - ./pgbackweb.yaml

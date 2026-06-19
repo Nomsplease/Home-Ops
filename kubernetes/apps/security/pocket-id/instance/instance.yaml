@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aclerici38/pocket-id-operator/refs/heads/main/dist/schemas/pocketidinstance_v1alpha1.json
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDInstance
+metadata:
+  name: pocket-id
+spec:
+  annotations:
+    reloader.stakater.com/auto: "true"
+  image: ghcr.io/pocket-id/pocket-id:v2.9.0-distroless@sha256:968866bdb73c67ce7d75baf2b992b9b33db385668822e936625dc5116f372d2c
+  versionCheckDisabled: true
+  env:
+    - name: TZ
+      value: America/New_York
+
+  analyticsDisabled: true
+
+  encryptionKey:
+    valueFrom:
+      secretKeyRef:
+        name: pocket-id-secret
+        key: encryptionKey
+  databaseUrl:
+    valueFrom:
+      secretKeyRef:
+        name: pocket-id-secret
+        key: databaseUrl
+  hostUsers: true
+  fileBackend: database
+
+  persistence:
+    enabled: false
+
+  logging:
+    level: info
+    json: false
+  # todo: service monitor for this
+  metrics:
+    enabled: true
+
+  auditLogRetentionDays: 180
+
+  appUrl: "https://pocket-id.${SECRET_DOMAIN}"
+  route:
+    enabled: true
+    parentRefs:
+      - name: envoy-external
+        namespace: network
+    hostnames: ["pocket-id.${SECRET_DOMAIN}"]
+
+  smtp:
+    host: smtp.protonmail.ch
+    port: 587
+    tls: starttls
+    skipCertVerify: false
+    from: "pocketid@${SECRET_DOMAIN}"
+    user:
+      valueFrom:
+        secretKeyRef:
+          name: pocket-id-secret
+          key: smtpUsername
+    password:
+      valueFrom:
+        secretKeyRef:
+          name: pocket-id-secret
+          key: smtpToken
+
+  emailNotifications:
+    apiKeyExpiration: true
+    loginNotification: true
+    oneTimeAccessAsAdmin: true
+    oneTimeAccessAsUnauthenticated: false
+    verification: true

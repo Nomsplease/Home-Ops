@@ -11,8 +11,6 @@ spec:
   env:
     - name: TZ
       value: America/New_York
-    - name: UI_CONFIG_DISABLED
-      value: "false"
 
   analyticsDisabled: true
 
@@ -68,3 +66,12 @@ spec:
     oneTimeAccessAsAdmin: true
     oneTimeAccessAsUnauthenticated: false
     verification: true
+
+  ui:
+    appName: "Pocket ID"
+    sessionDuration: 60
+    homePageUrl: "/settings/apps"
+    disableAnimations: false
+
+  userManagement:
+    allowUserSignups: "withToken"

@@ -75,3 +75,10 @@ spec:
 
   userManagement:
     allowUserSignups: "withToken"
+
+  geoip:
+    maxmindLicenseKey:
+      valueFrom:
+        secretKeyRef:
+          name: pocket-id-secret
+          key: maxmindLicenseKey

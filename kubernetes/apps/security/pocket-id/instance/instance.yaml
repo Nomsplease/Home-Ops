@@ -11,6 +11,8 @@ spec:
   env:
     - name: TZ
       value: America/New_York
+    - name: UI_CONFIG_DISABLED
+      value: false
 
   analyticsDisabled: true
 

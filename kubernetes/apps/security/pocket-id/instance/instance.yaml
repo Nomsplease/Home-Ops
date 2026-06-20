@@ -12,7 +12,7 @@ spec:
     - name: TZ
       value: America/New_York
     - name: UI_CONFIG_DISABLED
-      value: false
+      value: "false"
 
   analyticsDisabled: true
 

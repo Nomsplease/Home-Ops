@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ark-survival-evolved
+  annotations:
+    lbipam.cilium.io/ips: 10.1.20.31
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+    - name: game
+      port: 7777
+      targetPort: 7777
+      protocol: UDP
+    - name: raw-udp
+      port: 7778
+      targetPort: 7778
+      protocol: UDP
+    - name: query
+      port: 27015
+      targetPort: 27015
+      protocol: UDP
+    - name: rcon
+      port: 27020
+      targetPort: 27020
+      protocol: TCP
+  selector:
+    agones.dev/gameserver: ark-survival-evolved

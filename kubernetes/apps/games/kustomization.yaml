@@ -8,3 +8,4 @@ resources:
   - ./namespace.yaml
   ## Deployments
   - ./agones/ks.yaml
+  - ./ark-survival-evolved/ks.yaml

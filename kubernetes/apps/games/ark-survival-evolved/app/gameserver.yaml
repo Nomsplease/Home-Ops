@@ -1,0 +1,58 @@
+---
+apiVersion: agones.dev/v1
+kind: GameServer
+metadata:
+  name: ark-survival-evolved
+  labels:
+    game: ark-survival-evolved
+spec:
+  ports:
+    - name: game
+      portPolicy: Passthrough
+      containerPort: 7777
+      protocol: UDP
+    - name: raw-udp
+      portPolicy: Passthrough
+      containerPort: 7778
+      protocol: UDP
+    - name: query
+      portPolicy: Passthrough
+      containerPort: 27015
+      protocol: UDP
+    - name: rcon
+      portPolicy: Passthrough
+      containerPort: 27020
+      protocol: TCP
+  health:
+    disabled: true
+  template:
+    spec:
+      containers:
+        - name: ark-server
+          image: cm2network/steamcmd:steam-bookworm
+          command:
+            - /bin/bash
+            - -c
+            - |
+              /home/steam/steamcmd/steamcmd.sh \
+                +force_install_dir /ark-data/server \
+                +login anonymous \
+                +app_update 376030 validate \
+                +quit
+              cd /ark-data/server
+              ./ShooterGame/Binaries/Linux/ShooterGameServer \
+                "TheIsland?listen?SessionName=ArkServer?MaxPlayers=20?RCONEnabled=True?RCONPort=27020?QueryPort=27015" \
+                -server -log -NoBattlEye -crossplay
+          resources:
+            requests:
+              cpu: "2"
+              memory: 8Gi
+            limits:
+              memory: 12Gi
+          volumeMounts:
+            - name: ark-data
+              mountPath: /ark-data
+      volumes:
+        - name: ark-data
+          persistentVolumeClaim:
+            claimName: ark-survival-evolved

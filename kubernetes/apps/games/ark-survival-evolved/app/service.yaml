@@ -26,4 +26,4 @@ spec:
       targetPort: 27020
       protocol: TCP
   selector:
-    agones.dev/gameserver: ark-survival-evolved
+    game: ark-survival-evolved

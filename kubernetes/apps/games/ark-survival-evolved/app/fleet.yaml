@@ -43,13 +43,24 @@ spec:
           containers:
             - name: ark-server
               image: cm2network/steamcmd:steam-bookworm
+              env:
+                - name: STEAM_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: steam-credentials
+                      key: username
+                - name: STEAM_PASS
+                  valueFrom:
+                    secretKeyRef:
+                      name: steam-credentials
+                      key: password
               command:
                 - /bin/bash
                 - -c
                 - |
                   /home/steam/steamcmd/steamcmd.sh \
                     +force_install_dir /ark-data/server \
-                    +login anonymous \
+                    +login "$STEAM_USER" "$STEAM_PASS" \
                     +app_update 376030 -beta preaquatica validate \
                     +quit
                   cd /ark-data/server

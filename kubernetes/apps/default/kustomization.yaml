@@ -18,7 +18,6 @@ resources:
   - ./immich/ks.yaml
   - ./karakeep/ks.yaml
   - ./kometa/ks.yaml
-  - ./linkwarden/ks.yaml
   - ./lubelogger/ks.yaml
   - ./maintainerr/ks.yaml
   - ./mealie/ks.yaml

@@ -3,12 +3,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app sonarr
-  namespace: &namespace default
+  name: sonarr
+  namespace: default
 spec:
   components:
+    - ../../../../components/oidc/envoy
     - ../../../../components/volsync
   dependsOn:
+    - name: pocket-id
+      namespace: security
     - name: volsync
       namespace: volsync-system
     - name: cloudnative-pg-main-cluster
@@ -17,15 +20,20 @@ spec:
   path: ./kubernetes/apps/default/sonarr/app
   postBuild:
     substitute:
-      APP: *app
+      APP: sonarr
+      APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/sonarr.svg"
+      OIDC_APP_NAME: Sonarr
       VOLSYNC_CAPACITY: 5Gi
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true 
   retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: default
   timeout: 5m
   wait: false
 ---
@@ -33,26 +41,34 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app sonarr-kids
-  namespace: &namespace default
+  name: sonarr-kids
+  namespace: default
 spec:
   components:
+    - ../../../../components/oidc/envoy
     - ../../../../components/volsync
   dependsOn:
+    - name: pocket-id
+      namespace: security
     - name: volsync
       namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/default/sonarr/kids
   postBuild:
     substitute:
-      APP: *app
+      APP: sonarr-kids
+      APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/sonarr.svg"
+      OIDC_APP_NAME: Sonarr-Kids
       VOLSYNC_CAPACITY: 5Gi
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true 
   retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: default
   timeout: 5m
   wait: false

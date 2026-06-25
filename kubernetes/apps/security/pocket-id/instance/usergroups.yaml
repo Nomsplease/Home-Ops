@@ -5,4 +5,10 @@ metadata:
 spec:
   friendlyName: Media Service Users
   allowedOIDCClients:
+    - name: navidrome
+    - name: prowlarr
     - name: radarr
+    - name: readarr
+    - name: sonarr
+    - name: sonarr-kids
+

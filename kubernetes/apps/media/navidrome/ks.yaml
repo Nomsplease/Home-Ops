@@ -7,11 +7,8 @@ metadata:
   namespace: media
 spec:
   components:
-    - ../../../../components/oidc/envoy
     - ../../../../components/volsync
   dependsOn:
-    - name: pocket-id
-      namespace: security
     - name: volsync
       namespace: volsync-system
   interval: 30m
@@ -19,8 +16,6 @@ spec:
   postBuild:
     substitute:
       APP: navidrome
-      APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/navidrome.svg"
-      OIDC_APP_NAME: Music (Navidrome)
       VOLSYNC_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets

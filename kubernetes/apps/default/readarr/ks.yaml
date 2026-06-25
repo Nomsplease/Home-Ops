@@ -20,7 +20,7 @@ spec:
     substitute:
       APP: readarr
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/readarr.svg"
-      OIDC_APP_NAME: Readarr
+      OIDC_APP_NAME: Book Requests (Readarr)
       VOLSYNC_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets

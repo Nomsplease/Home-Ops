@@ -22,7 +22,7 @@ spec:
     substitute:
       APP: sonarr
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/sonarr.svg"
-      OIDC_APP_NAME: Sonarr
+      OIDC_APP_NAME: TV Shows (Sonarr)
       VOLSYNC_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets
@@ -58,7 +58,7 @@ spec:
     substitute:
       APP: sonarr-kids
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/sonarr.svg"
-      OIDC_APP_NAME: Sonarr-Kids
+      OIDC_APP_NAME: Kids TV Shows (Sonarr-Kids)
       VOLSYNC_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets

@@ -20,7 +20,7 @@ spec:
     substitute:
       APP: navidrome
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/navidrome.svg"
-      OIDC_APP_NAME: Navidrome
+      OIDC_APP_NAME: Music (Navidrome)
       VOLSYNC_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets

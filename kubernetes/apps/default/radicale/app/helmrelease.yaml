@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/kozea/radicale
-              tag: stable@sha256:23fe7101fc0a629fcf336f5674bf0aae0e4f02092359dbcebd39e7d9a5a31ca8
+              tag: stable@sha256:bad5238ac8425c1adf46fc8fc85dca0da4a817ee13e08cd7a68b1fd4997f7cfb
             env:
               TZ: America/New_York
             probes:

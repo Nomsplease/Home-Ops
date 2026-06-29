@@ -27,35 +27,26 @@ spec:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
             probes:
-              liveness:
-                enabled: true
-                spec:
-                  periodSeconds: 30
-                  timeoutSeconds: 5
-                  failureThreshold: 5
-              readiness:
+              liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   tcpSocket:
                     port: &port 25
                   periodSeconds: 10
-                  timeoutSeconds: 5
+                  timeoutSeconds: 2
                   failureThreshold: 5
-              startup:
-                enabled: true
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 10
+              readiness: *probes
+              startup: *probes
             resources:
               requests:
                 cpu: 10m
-                memory: 256Mi
+                memory: 64Mi
               limits:
-                memory: 2Gi
+                memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: {drop: ["ALL"]}
     defaultPodOptions:
       securityContext:

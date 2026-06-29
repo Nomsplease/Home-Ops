@@ -20,7 +20,7 @@ spec:
     substitute:
       APP: watchstate
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/webp/watchstate.webp"
-      OIDC_APP_NAME: Movies (Radarr)
+      OIDC_APP_NAME: Watch Sync (Watchstate)
       VOLSYNC_CAPACITY: 10Gi
     substituteFrom:
       - name: cluster-secrets

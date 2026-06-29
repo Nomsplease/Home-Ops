@@ -19,6 +19,9 @@ spec:
             image:
               repository: ghcr.io/arabcoders/watchstate
               tag: v1.9.1@sha256:69de0c1fd519155122f1d2db970a8dee5a6a473c27e2a6e3bbe7a6be2e6dea15
+            env:
+              WS_TRUST_PROXY: "true"
+              WS_TRUST_LOCAL: "true"
             probes:
               liveness: &probes
                 enabled: true
@@ -52,7 +55,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.noms.tv"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network

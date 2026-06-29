@@ -11,4 +11,5 @@ spec:
     - name: readarr
     - name: sonarr
     - name: sonarr-kids
+    - name: watchstate
 

@@ -1,3 +1,13 @@
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: financal-services
+spec:
+  friendlyName: Financal Services
+  allowedOIDCClients:
+    - name: wallos
+---
 apiVersion: pocketid.internal/v1alpha1
 kind: PocketIDUserGroup
 metadata:
@@ -12,4 +22,3 @@ spec:
     - name: sonarr
     - name: sonarr-kids
     - name: watchstate
-

@@ -11,6 +11,9 @@ spec:
   postBuild:
     substitute:
       APP: smtp-relay
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository

@@ -11,7 +11,7 @@ spec:
     name: wallos
   values:
     controllers:
-      wallos :
+      wallos:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -53,10 +53,8 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-        advancedMounts:
-          wallos :
-            main:
-              - path: /var/www/html/db
-                subPath: db
-              - path: /var/www/html/images/uploads/logos
-                subPath: logos
+        globalMounts:
+          - path: /var/www/html/db
+            subPath: db
+          - path: /var/www/html/images/uploads/logos
+            subPath: logos

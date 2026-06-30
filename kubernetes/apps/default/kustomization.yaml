@@ -22,7 +22,6 @@ resources:
   - ./paperless/ks.yaml
   - ./patchmon/ks.yaml
   # - ./piper/ks.yaml
-  - ./profilarr/ks.yaml
   - ./qui/ks.yaml
   - ./radicale/ks.yaml
   - ./reitti/ks.yaml

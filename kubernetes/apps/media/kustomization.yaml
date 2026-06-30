@@ -20,6 +20,7 @@ resources:
   - ./navidrome/ks.yaml
   - ./plex/ks.yaml
   - ./posterizarr/ks.yaml
+  - ./profilarr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
   - ./readarr/ks.yaml

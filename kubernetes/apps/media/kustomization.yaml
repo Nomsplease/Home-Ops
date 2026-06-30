@@ -9,9 +9,23 @@ resources:
   ## Requisites
   - ./namespace.yaml
   ## Deployments
+  - ./auditorr/ks.yaml
   - ./aurral/ks.yaml
+  - ./autobrr/ks.yaml
+  - ./cleanuparr/ks.yaml
   - ./cmdarr/ks.yaml
+  - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
+  - ./maintainerr/ks.yaml
   - ./navidrome/ks.yaml
   - ./plex/ks.yaml
+  - ./posterizarr/ks.yaml
+  - ./prowlarr/ks.yaml
+  - ./radarr/ks.yaml
+  - ./readarr/ks.yaml
+  - ./seerr/ks.yaml
   - ./slskd/ks.yaml
+  - ./sonarr/ks.yaml
+  - ./tracearr/ks.yaml
+  - ./unpackerr/ks.yaml
+  - ./watchstate/ks.yaml

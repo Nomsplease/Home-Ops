@@ -11,15 +11,10 @@ resources:
   ## Deployments
   - ./actual-budget/ks.yaml
   - ./audiobookshelf/ks.yaml
-  - ./auditorr/ks.yaml
-  - ./autobrr/ks.yaml
-  - ./cleanuparr/ks.yaml
   - ./homepage/ks.yaml
   - ./immich/ks.yaml
   - ./karakeep/ks.yaml
-  - ./kometa/ks.yaml
   - ./lubelogger/ks.yaml
-  - ./maintainerr/ks.yaml
   - ./mealie/ks.yaml
   - ./music-assistant/ks.yaml
   - ./ntfy/ks.yaml
@@ -27,22 +22,13 @@ resources:
   - ./paperless/ks.yaml
   - ./patchmon/ks.yaml
   # - ./piper/ks.yaml
-  - ./posterizarr/ks.yaml
   - ./profilarr/ks.yaml
-  - ./prowlarr/ks.yaml
   - ./qui/ks.yaml
-  - ./radarr/ks.yaml
   - ./radicale/ks.yaml
-  - ./readarr/ks.yaml
   - ./reitti/ks.yaml
   - ./seasonpackerr/ks.yaml
-  - ./seerr/ks.yaml
-  - ./sonarr/ks.yaml
   - ./spoolman/ks.yaml
   - ./thelounge/ks.yaml
-  - ./tracearr/ks.yaml
-  - ./unpackerr/ks.yaml
   - ./wallos/ks.yaml
-  - ./watchstate/ks.yaml
   # - ./whisper/ks.yaml
   - ./wikijs/ks.yaml

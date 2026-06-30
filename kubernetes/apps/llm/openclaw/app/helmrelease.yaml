@@ -37,8 +37,10 @@ spec:
             probes:
               liveness:
                 enabled: true
+                port: 8080
               readiness:
                 enabled: true
+                port: 8080
             resources:
               requests:
                 cpu: 10m
@@ -59,6 +61,10 @@ spec:
               OPENCLAW_GATEWAY_PORT: 8080
               PIP_BREAK_SYSTEM_PACKAGES: "1"
               HTTP_PORT: 8081
+              # opencode tries to auto-launch a browser via `xdg-open` on startup; that binary
+              # doesn't exist in this image and the failed spawn crashes the process, so a no-op
+              # stub is written to /opt/stubs by the browser-stub initContainer and put first on PATH.
+              PATH: /opt/stubs:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
             envFrom:
               - secretRef:
                   name: openclaw-secret
@@ -70,8 +76,10 @@ spec:
             probes:
               liveness:
                 enabled: true
+                port: 8081
               readiness:
                 enabled: true
+                port: 8081
             resources:
               requests:
                 cpu: 10m
@@ -79,6 +87,22 @@ spec:
               limits:
                 memory: 1Gi
         initContainers:
+          browser-stub:
+            # Writes a no-op `xdg-open` to /opt/stubs so opencode's auto-launch-browser
+            # spawn call succeeds instead of crashing the container (see opencode's PATH env).
+            image:
+              repository: ghcr.io/home-operations/busybox
+              tag: 1.38.0@sha256:7e2c04dd50ede647bf4a7a4c8dbd629dd4971cd139b9b88fb22bfc3c7a6c13df
+            command:
+              - "sh"
+              - "-c"
+              - |
+                printf '#!/bin/sh\nexit 0\n' > /opt/stubs/xdg-open
+                chmod +x /opt/stubs/xdg-open
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
           setup:
             # `setup` blocks startup until you `kubectl exec` into this initContainer and run `openclaw setup`,
             # which writes $(HOME)/.openclaw/openclaw.json so the main containers can start.
@@ -189,3 +213,8 @@ spec:
         medium: Memory
         globalMounts:
           - path: /tmp
+      scripts:
+        type: emptyDir
+        medium: Memory
+        globalMounts:
+          - path: /opt/stubs

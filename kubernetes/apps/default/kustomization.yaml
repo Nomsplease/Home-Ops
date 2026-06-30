@@ -22,6 +22,7 @@ resources:
   - ./maintainerr/ks.yaml
   - ./mealie/ks.yaml
   - ./music-assistant/ks.yaml
+  - ./ntfy/ks.yaml
   # - ./openwakeword/ks.yaml
   - ./paperless/ks.yaml
   - ./patchmon/ks.yaml

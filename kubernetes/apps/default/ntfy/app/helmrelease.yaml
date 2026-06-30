@@ -1,0 +1,86 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ntfy
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: ntfy
+  values:
+    controllers:
+      ntfy:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: binwiederhier/ntfy
+              tag: v2.23.0@sha256:b32b4221a64ec2e7c000f0782b2feef24022e1a09a24e531640f4cbba6cfa1e6
+            env:
+              TZ: America/New_York
+              NTFY_BASE_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+              NTFY_BEHIND_PROXY: "true"
+              NTFY_PROXY_TRUSTED_HOSTS: 172.20.0.0/16,172.21.0.0/16
+              NTFY_UPSTREAM_BASE_URL: "https://ntfy.sh"
+              NTFY_CACHE_DURATION: "24h"
+              NTFY_CACHE_FILE: "/data/cache.db"
+              NTFY_AUTH_FILE: "/data/authfile.db"
+              NTFY_WEB_PUSH_FILE: "/data/webpush.db"
+              NTFY_ATTACHMENT_CACHE_DIR: "/data/attachments"
+              NTFY_AUTH_DEFAULT_ACCESS: "deny-all"
+              NTFY_SMTP_SERVER_LISTEN: ":25"
+              NTFY_SMTP_SERVER_DOMAIN: "${SECRET_DOMAIN}"
+              NTFY_SMTP_SERVER_ADDR_PREFIX: "ntfy-"
+            envFrom:
+              - secretRef:
+                  name: ntfy
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 128Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+          smtp:
+            port: 25
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"

@@ -1,0 +1,1 @@
+- [No YAML anchors](feedback_yaml_anchors.md) — user dislikes &anchor/*alias in manifests, write values out literally

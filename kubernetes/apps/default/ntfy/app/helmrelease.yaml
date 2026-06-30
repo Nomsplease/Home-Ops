@@ -35,6 +35,7 @@ spec:
               NTFY_SMTP_SERVER_LISTEN: ":25"
               NTFY_SMTP_SERVER_DOMAIN: "${SECRET_DOMAIN}"
               NTFY_SMTP_SERVER_ADDR_PREFIX: "ntfy-"
+              NTFY_LOG_LEVEL: debug
             envFrom:
               - secretRef:
                   name: ntfy

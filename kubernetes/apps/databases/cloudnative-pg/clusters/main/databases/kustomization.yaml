@@ -19,5 +19,6 @@ resources:
   - ./pocket-id.yaml
   - ./prowlarr.yaml
   - ./radarr.yaml
+  - ./seerr.yaml
   - ./sonarr.yaml
   - ./wikijs.yaml

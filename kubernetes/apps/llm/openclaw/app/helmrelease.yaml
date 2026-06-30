@@ -1,0 +1,191 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: openclaw
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: openclaw
+  values:
+    controllers:
+      openclaw:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/openclaw/openclaw
+              tag: 2026.6.11@sha256:3814fb1f62f9cfc5944de088c5817c68c88b5d721feebe36420b666a90a61ce7
+            env:
+              TZ: America/New_York
+              OPENCLAW_LOG_LEVEL: info
+              HOME: /home/openclaw
+              OPENCLAW_HOME: /home/openclaw
+              OPENCLAW_GATEWAY_PORT: 8080
+              PIP_BREAK_SYSTEM_PACKAGES: "1"
+            envFrom:
+              - secretRef:
+                  name: openclaw-secret
+            # workingDir is intentionally unset: the openclaw entrypoint relies on a relative path
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 2Gi
+          opencode:
+            image:
+              repository: ghcr.io/anomalyco/opencode
+              tag: 1.17.11@sha256:c38a7cb4449f342166c43ff4a69e1b02f12ef1959bbfdd83993cdff8cea698a7
+            command: ["/usr/local/bin/opencode"]
+            args: ["web", "--hostname", "0.0.0.0", "--port", "$(HTTP_PORT)", "--cors", "opencode.${SECRET_DOMAIN}"]
+            env:
+              TZ: America/New_York
+              OPENCLAW_LOG_LEVEL: info
+              HOME: /home/openclaw
+              OPENCLAW_HOME: /home/openclaw
+              OPENCLAW_GATEWAY_PORT: 8080
+              PIP_BREAK_SYSTEM_PACKAGES: "1"
+              HTTP_PORT: 8081
+            envFrom:
+              - secretRef:
+                  name: openclaw-secret
+            workingDir: /home/openclaw
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 1Gi
+        initContainers:
+          setup:
+            # `setup` blocks startup until you `kubectl exec` into this initContainer and run `openclaw setup`,
+            # which writes $(HOME)/.openclaw/openclaw.json so the main containers can start.
+            image:
+              repository: ghcr.io/openclaw/openclaw
+              tag: 2026.6.11@sha256:3814fb1f62f9cfc5944de088c5817c68c88b5d721feebe36420b666a90a61ce7
+            command:
+              - "sh"
+              - "-c"
+              - |
+                while [ ! -s $(HOME)/.openclaw/openclaw.json ]; do
+                  echo 'OpenClaw has not been setup, please exec to this container and run `openclaw setup` for the app to startup!';
+                  sleep 60;
+                done;
+            env:
+              TZ: America/New_York
+              OPENCLAW_LOG_LEVEL: info
+              HOME: /home/openclaw
+              OPENCLAW_HOME: /home/openclaw
+              OPENCLAW_GATEWAY_PORT: 8080
+              PIP_BREAK_SYSTEM_PACKAGES: "1"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+        serviceAccount:
+          identifier: openclaw
+    serviceAccount:
+      openclaw: {}
+    rbac:
+      roles:
+        openclaw:
+          type: Role
+          rules:
+            - apiGroups: [""]
+              resources: ["pods/exec"]
+              verbs: ["create"]
+            - apiGroups: ["apps"]
+              resources: ["deployments"]
+              verbs: ["patch", "update"]
+      bindings:
+        openclaw:
+          type: RoleBinding
+          roleRef:
+            identifier: openclaw
+          subjects:
+            - identifier: openclaw
+        openclaw-view:
+          type: ClusterRoleBinding
+          roleRef:
+            kind: ClusterRole
+            name: view
+          subjects:
+            - identifier: openclaw
+    defaultPodOptions:
+      automountServiceAccountToken: true
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        controller: openclaw
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
+      opencode:
+        controller: openclaw
+        ports:
+          http:
+            port: 80
+            targetPort: 8081
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: http
+      opencode:
+        hostnames:
+          - "opencode.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: opencode
+                port: http
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - subPath: data
+            path: /home/openclaw
+      tmp:
+        type: emptyDir
+        medium: Memory
+        globalMounts:
+          - path: /tmp

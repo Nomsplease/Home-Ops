@@ -9,7 +9,6 @@ resources:
   ## Requisites
   - ./namespace.yaml
   ## Deployments
-  - ./auditorr/ks.yaml
   - ./aurral/ks.yaml
   - ./autobrr/ks.yaml
   - ./cleanuparr/ks.yaml

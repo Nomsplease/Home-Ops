@@ -27,7 +27,10 @@ spec:
               OPENCLAW_GATEWAY_PORT: 8080
               # bind is `lan` (non-loopback), so the gateway enforces browser-origin checks on the
               # Control UI. This allowlists the reverse-proxied hostname it's actually reached at.
-              OPENCLAW_GATEWAY_CONTROLUI_ALLOWEDORIGINS: '["{{ .Release.Name }}.${SECRET_DOMAIN}"]'
+              OPENCLAW_GATEWAY_CONTROLUI_ALLOWEDORIGINS: '["https://{{ .Release.Name }}.${SECRET_DOMAIN}"]'
+              # Envoy reaches the gateway from a pod IP (172.20.0.0/16), so forwarded headers are
+              # rejected as untrusted and clients aren't detected as local. Trust the pod CIDR.
+              OPENCLAW_GATEWAY_TRUSTEDPROXIES: '["172.20.0.0/16"]'
               PIP_BREAK_SYSTEM_PACKAGES: "1"
             envFrom:
               - secretRef:

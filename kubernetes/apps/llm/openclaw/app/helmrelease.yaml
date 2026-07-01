@@ -25,12 +25,10 @@ spec:
               HOME: /home/openclaw
               OPENCLAW_HOME: /home/openclaw
               OPENCLAW_GATEWAY_PORT: 8080
-              # bind is `lan` (non-loopback), so the gateway enforces browser-origin checks on the
-              # Control UI. This allowlists the reverse-proxied hostname it's actually reached at.
-              OPENCLAW_GATEWAY_CONTROLUI_ALLOWEDORIGINS: '["https://{{ .Release.Name }}.${SECRET_DOMAIN}"]'
-              # Envoy reaches the gateway from a pod IP (172.20.0.0/16), so forwarded headers are
-              # rejected as untrusted and clients aren't detected as local. Trust the pod CIDR.
-              OPENCLAW_GATEWAY_TRUSTEDPROXIES: '["172.20.0.0/16"]'
+              # NOTE: openclaw reads gateway config only from ~/.openclaw/openclaw.json (via
+              # `openclaw config set`); OPENCLAW_GATEWAY_* env vars are NOT honored for these
+              # settings. The Control UI origin allowlist, trusted-proxy CIDR, and auth mode are
+              # applied by the `setup` initContainer below.
               PIP_BREAK_SYSTEM_PACKAGES: "1"
             envFrom:
               - secretRef:
@@ -111,7 +109,17 @@ spec:
               capabilities: {drop: ["ALL"]}
           setup:
             # `setup` blocks startup until you `kubectl exec` into this initContainer and run `openclaw setup`,
-            # which writes $(HOME)/.openclaw/openclaw.json so the main containers can start.
+            # which writes $(HOME)/.openclaw/openclaw.json so the main containers can start. Once the file
+            # exists, it idempotently applies the reverse-proxy config the gateway needs:
+            #   - controlUi.allowedOrigins: bind is `lan`, so the gateway enforces browser-origin checks;
+            #     the browser Origin header is the full scheme+host it's reached at.
+            #   - trustedProxies: Envoy reaches the gateway from a pod IP (172.20.0.0/16), so forwarded
+            #     headers are otherwise rejected as untrusted and clients aren't detected as local.
+            #   - auth.mode=trusted-proxy: pocket-id (via the oidc SecurityPolicy on this route) is the
+            #     real login gate, so per-device pairing is not needed. Envoy injects a fixed
+            #     `X-Openclaw-User: operator` header (see route.app filter) that openclaw trusts as the
+            #     operator identity. The header is `set` (overwritten) by Envoy so clients can't spoof it,
+            #     and is only trusted from the trustedProxies CIDR above.
             image:
               repository: ghcr.io/openclaw/openclaw
               tag: 2026.6.11@sha256:3814fb1f62f9cfc5944de088c5817c68c88b5d721feebe36420b666a90a61ce7
@@ -123,6 +131,14 @@ spec:
                   echo 'OpenClaw has not been setup, please exec to this container and run `openclaw setup` for the app to startup!';
                   sleep 60;
                 done;
+                openclaw config set gateway.controlUi.allowedOrigins '["https://openclaw.${SECRET_DOMAIN}"]' --strict-json;
+                openclaw config set gateway.trustedProxies '["172.20.0.0/16"]' --strict-json;
+                openclaw config set gateway.auth.mode trusted-proxy;
+                # userHeader must be set before the --strict-json calls below: it's required whenever
+                # the trustedProxy object is schema-validated, and array/bool values need --strict-json.
+                openclaw config set gateway.auth.trustedProxy.userHeader X-Openclaw-User;
+                openclaw config set gateway.auth.trustedProxy.allowUsers '["operator"]' --strict-json;
+                openclaw config set gateway.auth.trustedProxy.allowLoopback true --strict-json;
             env:
               TZ: America/New_York
               OPENCLAW_LOG_LEVEL: info
@@ -197,6 +213,16 @@ spec:
           - backendRefs:
               - identifier: app
                 port: http
+            # Envoy asserts the operator identity for openclaw's trusted-proxy auth mode. `set`
+            # (not `add`) overwrites any client-supplied value, so this header can't be spoofed;
+            # openclaw only honors it because the source is in gateway.trustedProxies. Access is
+            # gated upstream by the pocket-id oidc SecurityPolicy attached to this route.
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  set:
+                    - name: X-Openclaw-User
+                      value: operator
       opencode:
         hostnames:
           - "opencode.${SECRET_DOMAIN}"

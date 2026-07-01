@@ -7,8 +7,11 @@ metadata:
   namespace: llm
 spec:
   components:
+    - ../../../../components/oidc/envoy
     - ../../../../components/volsync
   dependsOn:
+    - name: pocket-id
+      namespace: security
     - name: volsync
       namespace: volsync-system
   interval: 30m
@@ -16,6 +19,12 @@ spec:
   postBuild:
     substitute:
       APP: openclaw
+      # openclaw defines two routes, so the app's HTTPRoute is `openclaw-app`, not `openclaw`.
+      # The oidc component defaults its SecurityPolicy targetRef to ${APP}, so pin it explicitly
+      # or the policy attaches to a non-existent route and the SSO gate never applies.
+      HTTPROUTE_NAME: openclaw-app
+      APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/openclaw.svg"
+      OIDC_APP_NAME: ChatBot (Openclaw)
       VOLSYNC_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets

@@ -11,6 +11,15 @@ spec:
 apiVersion: pocketid.internal/v1alpha1
 kind: PocketIDUserGroup
 metadata:
+  name: llm-users
+spec:
+  friendlyName: LLM Users
+  allowedOIDCClients:
+    - name: openclaw
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
   name: media-users
 spec:
   friendlyName: Media Service Users

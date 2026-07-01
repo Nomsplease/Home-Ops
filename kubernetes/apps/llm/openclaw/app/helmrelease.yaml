@@ -25,6 +25,9 @@ spec:
               HOME: /home/openclaw
               OPENCLAW_HOME: /home/openclaw
               OPENCLAW_GATEWAY_PORT: 8080
+              # bind is `lan` (non-loopback), so the gateway enforces browser-origin checks on the
+              # Control UI. This allowlists the reverse-proxied hostname it's actually reached at.
+              OPENCLAW_GATEWAY_CONTROLUI_ALLOWEDORIGINS: '["{{ .Release.Name }}.${SECRET_DOMAIN}"]'
               PIP_BREAK_SYSTEM_PACKAGES: "1"
             envFrom:
               - secretRef:

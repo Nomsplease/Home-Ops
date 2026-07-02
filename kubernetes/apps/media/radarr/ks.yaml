@@ -21,7 +21,7 @@ spec:
   postBuild:
     substitute:
       APP: radarr
-      APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/png/radarr.svg"
+      APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/radarr.svg"
       OIDC_APP_NAME: Movies (Radarr)
       VOLSYNC_CAPACITY: 5Gi
     substituteFrom:

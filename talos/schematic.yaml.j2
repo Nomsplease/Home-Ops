@@ -10,8 +10,10 @@ customization:
     - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU & Intel iGPU
   systemExtensions:
     officialExtensions:
+      - siderolabs/binfmt-misc
       - siderolabs/i915                   # Intel iGPU
       - siderolabs/xe                     # Intel Gen12+/Arc GPU
       - siderolabs/intel-ucode            # Intel iGPU
       - siderolabs/mei                    # Intel iGPU
+      - siderolabs/nonfree-kmod-nvidia-lts # Nvidia P40
       - siderolabs/nvidia-container-toolkit-lts # Nvidia P40

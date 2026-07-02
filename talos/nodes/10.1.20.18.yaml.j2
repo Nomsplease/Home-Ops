@@ -3,12 +3,6 @@ machine:
   type: worker
   nodeLabels:
     topology.kubernetes.io/zone: m
-    intel.com/gpu-sriov: "true"
-  kernel:
-    modules:
-      - name: vfio
-      - name: vfio_iommu_type1
-      - name: vfio_pci
   install:
       diskSelector:
           model: '*MZVLB256*'

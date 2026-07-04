@@ -5,7 +5,7 @@ metadata:
     kubevirt.io/vm: ubuntu-test
   name: ubuntu-test
   annotations:
-    lbipam.cilium.io/ips: 10.1.20.30
+    lbipam.cilium.io/ips: 10.1.20.XX
 spec:
   ipFamilyPolicy: PreferDualStack
   ports:

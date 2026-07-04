@@ -1,0 +1,57 @@
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: sendspin-bt-bridge
+spec:
+  runStrategy: RerunOnFailure
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: sendspin-bt-bridge
+    spec:
+      evictionStrategy: None
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - main-8
+      domain:
+        clock:
+          utc: {}
+        cpu:
+          cores: 2
+        resources:
+          requests:
+            memory: 2G
+        devices:
+          inputs:
+            - type: tablet
+              bus: usb
+              name: tablet
+          disks:
+            - bootOrder: 1 ##Force ISO Boot
+              name: cdromiso ##Installer ISO
+              cdrom:
+                bus: sata
+            - name: sendspin-bt-bridge
+              disk:
+                bus: virtio
+          interfaces:
+          - name: default
+            masquerade: {}
+            macAddress: "02:00:00:00:00:01"
+      networks:
+        - name: default
+          pod: {}
+      volumes:
+        - name: sendspin-bt-bridge
+          persistentVolumeClaim:
+            claimName: sendspin-bt-bridge
+        - name: cdromiso ##Installer ISO
+          persistentVolumeClaim:
+            claimName: ubuntu-26-04-server

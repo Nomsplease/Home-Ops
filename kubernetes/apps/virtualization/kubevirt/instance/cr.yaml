@@ -17,6 +17,11 @@ spec:
           resourceName: "nvidia.com/p2000"
         - pciVendorSelector: "10de:10f1"
           resourceName: "nvidia.com/p2000-audio"
+      usbHostDevices: #TP-Link UB500 Bluetooth adapter
+        - resourceName: "tp-link.com/ub500-bt"
+          selectors:
+            - vendor: "2357"
+              product: "0604"
     smbios:
       sku: "TalosCloud"
       version: "1.0.0"

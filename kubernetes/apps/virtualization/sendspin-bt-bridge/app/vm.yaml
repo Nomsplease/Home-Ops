@@ -29,6 +29,9 @@ spec:
           requests:
             memory: 2G
         devices:
+          hostDevices:
+            - name: tplink-ub500-bt
+              deviceName: tp-link.com/ub500-bt
           inputs:
             - type: tablet
               bus: usb

@@ -50,6 +50,17 @@ spec:
           - name: default
             masquerade: {}
             macAddress: "02:00:00:00:00:01"
+            ## TODO: Fix Cluster DNS/Cilium
+            ## Workaround in netplan to bypass DNS routing issue in cluster
+            # network:
+            #   version: 2
+            #   ethernets:
+            #     enp1s0:
+            #       dhcp4: true
+            #       dhcp4-overrides:
+            #         use-dns: false
+            #       nameservers:
+            #         addresses: [10.1.20.1]
       networks:
         - name: default
           pod: {}

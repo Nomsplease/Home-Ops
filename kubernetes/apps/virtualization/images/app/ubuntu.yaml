@@ -14,3 +14,19 @@ spec:
       requests:
         storage: 10Gi
     storageClassName: ceph-filesystem
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: ubuntu-26-04-server
+spec:
+  source:
+    http:
+      url: "https://releases.ubuntu.com/26.04/ubuntu-26.04-live-server-amd64.iso"
+  storage:
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: 3Gi
+    storageClassName: ceph-filesystem

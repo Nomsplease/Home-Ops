@@ -34,10 +34,10 @@ spec:
               bus: usb
               name: tablet
           disks:
-            - bootOrder: 1 ##Force ISO Boot
-              name: cdromiso ##Installer ISO
-              cdrom:
-                bus: sata
+            # - bootOrder: 1 ##Force ISO Boot
+            #   name: cdromiso ##Installer ISO
+            #   cdrom:
+            #     bus: sata
             - name: sendspin-bt-bridge
               disk:
                 bus: virtio
@@ -52,6 +52,6 @@ spec:
         - name: sendspin-bt-bridge
           persistentVolumeClaim:
             claimName: sendspin-bt-bridge
-        - name: cdromiso ##Installer ISO
-          persistentVolumeClaim:
-            claimName: ubuntu-26-04-server
+        # - name: cdromiso ##Installer ISO
+        #   persistentVolumeClaim:
+        #     claimName: ubuntu-26-04-server

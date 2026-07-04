@@ -6,6 +6,12 @@ machine:
   install:
       diskSelector:
           model: '*MZVLB256*'
+  kernel:
+    modules:
+      - name: nvidia
+      - name: nvidia_uvm
+      - name: nvidia_modeset
+      - name: nvidia_drm
 ---
 apiVersion: v1alpha1
 kind: HostnameConfig

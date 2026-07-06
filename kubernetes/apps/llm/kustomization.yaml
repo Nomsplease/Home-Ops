@@ -9,4 +9,5 @@ resources:
   ## Requisites
   - ./namespace.yaml
   ## Deployments
+  - ./llama-cpp/ks.yaml
   - ./openclaw/ks.yaml

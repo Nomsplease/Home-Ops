@@ -1,0 +1,165 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: llama-cpp
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: llama-cpp
+  values:
+    x-models:
+      qwen3.6-27b-q4-k-m:
+        model: &qwen3_6-27b-q4-k-m
+          HF_MODEL: bartowski/Qwen_Qwen3.6-27B-GGUF
+          HF_HASH: 79e01f7f051cbc34d10c79e37068d17827f83b9f
+          HF_FILE: Qwen_Qwen3.6-27B-Q4_K_M.gguf
+        env: &qwen3_6-27b-q4-k-m-env
+          # Model Params
+          LLAMA_ARG_ALIAS: &alias qwen3.6-27b-q4-k-m
+          LLAMA_ARG_MODEL_ALIAS: "$(LLAMA_ARG_ALIAS)"
+          LLAMA_ARG_CTX_SIZE: 131072
+          LLAMA_ARG_TEMPERATURE: "0.4"
+          LLAMA_ARG_TOP_K: 40
+          LLAMA_ARG_TOP_P: "0.92"
+          LLAMA_ARG_MIN_P: "0.0"
+          LLAMA_ARG_BATCH: 4096
+          LLAMA_ARG_UBATCH: 2048
+          LLAMA_ARG_PRESENCE_PENALTY: "0.0"
+          LLAMA_ARG_REPEAT_PENALTY: "1.0"
+          # Cache quants / VRAM fitting
+          LLAMA_ARG_CACHE_TYPE_K: q8_0
+          LLAMA_ARG_CACHE_TYPE_V: q8_0
+          # LLAMA_ARG_CPU_MOE: "enabled"
+          # LLAMA_ARG_N_CPU_MOE: 32
+          # Others
+          LLAMA_ARG_CACHE_RAM: 6144
+          LLAMA_ARG_CTX_CHECKPOINTS: 6
+          LLAMA_ARG_CHECKPOINT_MIN_SPACING_NT: 16384
+          LLAMA_ARG_IMAGE_MIN_TOKENS: 1120
+          LLAMA_ARG_IMAGE_MAX_TOKENS: 1120
+    controllers:
+      llama-cpp:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ggml-org/llama.cpp
+              tag: server-cuda@sha256:62a1d4e144789aa3dd6948d350388fd4b9ac4d12744f33213a89c4e5a9af25df
+            args: &args
+            - -hf
+            - bartowski/Qwen_Qwen3.6-27B-GGUF:Q4_K_M
+            - -sps
+            - "0.90"
+            - --temp
+            - "$(LLAMA_ARG_TEMPERATURE)"
+            - --top-p
+            - "$(LLAMA_ARG_TOP_P)"
+            - --min-p
+            - "$(LLAMA_ARG_MIN_P)"
+            - --presence-penalty
+            - "$(LLAMA_ARG_PRESENCE_PENALTY)"
+            - --repeat-penalty
+            - "$(LLAMA_ARG_REPEAT_PENALTY)"
+            - --prompt-cache-all
+            - --prompt-cache
+            - "/data/llama/prompt-cache/$(HF_HASH)-$(HF_FILE).cache"
+            - --slot-save-path
+            - "/data/llama/slot-save-path/"
+            - --spec-type
+            - draft-mtp
+            - --metrics
+            - --no-context-shift
+            - --color
+            - --jinja
+            - --k-cache-hadamard
+            - --v-cache-hadamard
+            - -smgs
+            - -mea
+            - "256"
+            - --split-mode-f32
+            - --cpu-moe
+            - --merge-up-gate-experts
+            - --flash-attn
+            - "on"
+            - --mlock
+            - --run-time-repack
+            - --no-kv-offload
+            - -cram
+            - "$(LLAMA_ARG_CACHE_RAM)"
+            - -crs
+            - "0.75"
+            - --ctx-checkpoints
+            - "$(LLAMA_ARG_CTX_CHECKPOINTS)"
+            - --ctx-checkpoints-interval
+            - "$(LLAMA_ARG_CHECKPOINT_MIN_SPACING_NT)"
+            env:
+              <<: [ *qwen3_6-27b-q4-k-m, *qwen3_6-27b-q4-k-m-env ]
+              LLAMA_ARG_THREADS: 8
+              LLAMA_CACHE: /models
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: ["ALL"]
+                add: ["IPC_LOCK"]
+            probes:
+              liveness:
+                enabled: true
+                type: HTTP
+                path: /health
+                port: 8080
+              readiness:
+                enabled: true
+                type: HTTP
+                path: /health
+                port: 8080
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                nvidia.com/gpu: 1
+                memory: 32Gi
+    defaultPodOptions:
+      automountServiceAccountToken: true
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        controller: llama-cpp
+        ports:
+          http:
+            port: 80
+            targetPort: 8080
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: http
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - subPath: "prompt-cache"
+            path: "/data/llama/prompt-cache"
+          - subPath: "slot-save-path"
+            path: "/data/llama/slot-save-path"
+      models:
+        existingClaim: llama-cpp-models
+

@@ -31,7 +31,7 @@ spec:
               AUTOBRR__POSTGRES_PORT: 5432
               AUTOBRR__POSTGRES_SSLMODE: disable
               AUTOBRR__POSTGRES_DATABASE: "{{ .Release.Name }}"
-              # AUTOBRR__LOG_LEVEL: debug
+              AUTOBRR__LOG_LEVEL: info
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

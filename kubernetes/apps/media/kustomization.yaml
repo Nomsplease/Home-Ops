@@ -11,7 +11,6 @@ resources:
   ## Deployments
   - ./aurral/ks.yaml
   - ./autobrr/ks.yaml
-  - ./cleanuparr/ks.yaml
   - ./cmdarr/ks.yaml
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml

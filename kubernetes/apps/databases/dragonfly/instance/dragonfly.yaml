@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/dragonflydb.io/dragonfly_v1alpha1.json
+apiVersion: dragonflydb.io/v1alpha1
+kind: Dragonfly
+metadata:
+  name: dragonfly
+spec:
+  replicas: 1
+  # Persist to a PVC so cache/session state (incl. vmcp OAuth client
+  # registrations under thv:vmcp:session:) survives pod restarts/reschedules.
+  # Dragonfly snapshots on the cron and on graceful shutdown, and reloads on start.
+  snapshot:
+    cron: "*/10 * * * *"
+    persistentVolumeClaimSpec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: ceph-block
+  args:
+    - "--admin_bind=::"
+    - --dbfilename=dump
+    - --maxmemory=$(MAX_MEMORY)Mi
+    - --proactor_threads=2
+    - --cluster_mode=emulated
+    - --lock_on_hashtags
+    - --default_lua_flags=allow-undeclared-keys
+  networkPolicyEnabled: false
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 512Mi
+
+  labels:
+    role: master
+
+  env:
+    - name: MAX_MEMORY
+      valueFrom:
+        resourceFieldRef:
+          resource: limits.memory
+          divisor: 1Mi

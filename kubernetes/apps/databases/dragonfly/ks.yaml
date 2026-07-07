@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: dragonfly-operator
+  namespace: databases
+spec:
+  dependsOn:
+    - name: external-secrets
+      namespace: external-secrets
+  interval: 30m
+  path: ./kubernetes/apps/databases/dragonfly/operator
+  postBuild:
+    substitute:
+      APP: dragonfly-operator
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: databases
+  timeout: 5m
+  wait: false
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: dragonfly
+  namespace: databases
+spec:
+  dependsOn:
+    - name: dragonfly-operator
+  interval: 30m
+  path: ./kubernetes/apps/databases/dragonfly/instance
+  postBuild:
+    substitute:
+      APP: dragonfly
+  prune: true 
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: databases
+  timeout: 5m
+  wait: false

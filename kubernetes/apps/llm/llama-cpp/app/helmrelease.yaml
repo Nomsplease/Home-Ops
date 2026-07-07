@@ -103,6 +103,14 @@ spec:
                 type: HTTP
                 path: /health
                 port: 8080
+              startup:
+                enabled: true
+                type: HTTP
+                path: /health
+                port: 8080
+                spec:
+                  failureThreshold: 120
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 10m

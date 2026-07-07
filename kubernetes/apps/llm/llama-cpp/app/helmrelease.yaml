@@ -119,6 +119,7 @@ spec:
                 nvidia.com/gpu: 1
                 memory: 32Gi
     defaultPodOptions:
+      runtimeClassName: nvidia
       automountServiceAccountToken: true
       securityContext:
         runAsNonRoot: true

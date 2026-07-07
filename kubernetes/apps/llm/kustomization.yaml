@@ -10,4 +10,5 @@ resources:
   - ./namespace.yaml
   ## Deployments
   - ./llama-cpp/ks.yaml
+  - ./open-webui/ks.yaml
   - ./openclaw/ks.yaml

@@ -1,0 +1,88 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: open-webui
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: open-webui
+  interval: 30m
+  values:
+    controllers:
+      open-webui:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/open-webui/open-webui
+              tag: v0.10.2@sha256:9fcea9c6e32ab60b0498f3986c6cdf651ddbe61db48d2213a3d28048ddd673d4
+            env:
+              # OAuth
+              ENABLE_OAUTH_SIGNUP: "true"
+              ENABLE_OAUTH_PERSISTENT_CONFIG: "false"
+              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: "true"
+              OAUTH_PROVIDER_NAME: PocketID
+              OAUTH_SCOPES: openid email profile groups
+              OAUTH_CODE_CHALLENGE_METHOD: S256
+              # Role + group sync
+              ENABLE_OAUTH_ROLE_MANAGEMENT: "true"
+              OAUTH_ROLES_CLAIM: groups
+              OAUTH_ALLOWED_ROLES: llm-users, admins
+              OAUTH_ADMIN_ROLES: admins
+              ENABLE_OAUTH_GROUP_MANAGEMENT: "true"
+              OAUTH_GROUP_CLAIM: groups
+              # Features
+              ENABLE_LOGIN_FORM: false
+              ENABLE_OLLAMA_API: true
+              ENABLE_OPENAI_API: false
+              ENABLE_RAG_WEB_SEARCH: true
+              ENABLE_SEARCH_QUERY: true
+              ENABLE_SIGNUP: false
+              # Search
+              RAG_WEB_SEARCH_ENGINE: searxng
+              SEARXNG_QUERY_URL: http://searxng.llm.svc.cluster.local:8080/search?q=<query>
+              # Websockets
+              ENABLE_WEBSOCKET_SUPPORT: true
+              WEBSOCKET_MANAGER: redis
+              WEBSOCKET_REDIS_URL: redis://dragonfly.database:6379
+            envFrom:
+              - secretRef:
+                  name: open-webui-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    port: &port 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 2Gi
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /app/backend/data
+    route:
+      app:
+        hostnames:
+          - "chat.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+    service:
+      app:
+        ports:
+          http:
+            port: *port

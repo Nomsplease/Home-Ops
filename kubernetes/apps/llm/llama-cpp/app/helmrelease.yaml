@@ -97,17 +97,17 @@ spec:
                 enabled: true
                 type: HTTP
                 path: /health
-                port: 8080
+                port: &port 8080
               readiness:
                 enabled: true
                 type: HTTP
                 path: /health
-                port: 8080
+                port: *port
               startup:
                 enabled: true
                 type: HTTP
                 path: /health
-                port: 8080
+                port: *port
                 spec:
                   failureThreshold: 120
                   periodSeconds: 10
@@ -132,8 +132,7 @@ spec:
         controller: llama-cpp
         ports:
           http:
-            port: 80
-            targetPort: 8080
+            port: *port
     route:
       app:
         hostnames:

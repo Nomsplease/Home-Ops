@@ -16,7 +16,7 @@ spec:
   postBuild:
     substitute:
       APP: llama-cpp
-      VOLSYNC_CAPACITY: 10Gi
+      VOLSYNC_CAPACITY: 20Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

@@ -64,37 +64,23 @@ spec:
             - "$(LLAMA_ARG_PRESENCE_PENALTY)"
             - --repeat-penalty
             - "$(LLAMA_ARG_REPEAT_PENALTY)"
-            - --prompt-cache-all
-            - --prompt-cache
-            - "/data/llama/prompt-cache/$(HF_HASH)-$(HF_FILE).cache"
             - --slot-save-path
             - "/data/llama/slot-save-path/"
             - --spec-type
             - draft-mtp
             - --metrics
             - --no-context-shift
-            - --color
             - --jinja
-            - --k-cache-hadamard
-            - --v-cache-hadamard
-            - -smgs
-            - -mea
-            - "256"
-            - --split-mode-f32
             - --cpu-moe
-            - --merge-up-gate-experts
             - --flash-attn
             - "on"
             - --mlock
-            - --run-time-repack
             - --no-kv-offload
-            - -cram
+            - --cache-ram
             - "$(LLAMA_ARG_CACHE_RAM)"
-            - -crs
-            - "0.75"
             - --ctx-checkpoints
             - "$(LLAMA_ARG_CTX_CHECKPOINTS)"
-            - --ctx-checkpoints-interval
+            - --checkpoint-min-step
             - "$(LLAMA_ARG_CHECKPOINT_MIN_SPACING_NT)"
             env:
               <<: [ *qwen3_6-27b-q4-k-m, *qwen3_6-27b-q4-k-m-env ]
@@ -156,8 +142,6 @@ spec:
       data:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
-          - subPath: "prompt-cache"
-            path: "/data/llama/prompt-cache"
           - subPath: "slot-save-path"
             path: "/data/llama/slot-save-path"
       models:

@@ -47,7 +47,7 @@ spec:
               # Websockets
               ENABLE_WEBSOCKET_SUPPORT: true
               WEBSOCKET_MANAGER: redis
-              WEBSOCKET_REDIS_URL: redis://dragonfly.database:6379
+              WEBSOCKET_REDIS_URL: redis://dragonfly.databases:6379
             envFrom:
               - secretRef:
                   name: open-webui-secret

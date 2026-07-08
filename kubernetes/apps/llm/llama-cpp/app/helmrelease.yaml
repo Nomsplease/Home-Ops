@@ -1,123 +1,121 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: llama-cpp
 spec:
-  interval: 30m
   chartRef:
     kind: OCIRepository
     name: llama-cpp
+  interval: 1h
+  timeout: 30m
   values:
-    x-models:
-      qwen3.6-35b-a3b-q4-k-m:
-        model: &qwen3_6-35b-a3b-q4-k-m
-          HF_MODEL: bartowski/Qwen_Qwen3.6-35B-A3B-GGUF:Q4_K_M
-        env: &qwen3_6-35b-a3b-q4-k-m-env
-          # Model Params
-          LLAMA_ARG_ALIAS: &alias qwen3.6-35b-a3b-q4-k-m
-          LLAMA_ARG_MODEL_ALIAS: "$(LLAMA_ARG_ALIAS)"
-          LLAMA_ARG_CTX_SIZE: 131072
-          LLAMA_ARG_TEMPERATURE: "0.4"
-          LLAMA_ARG_TOP_K: 40
-          LLAMA_ARG_TOP_P: "0.92"
-          LLAMA_ARG_MIN_P: "0.0"
-          LLAMA_ARG_BATCH: 4096
-          LLAMA_ARG_UBATCH: 2048
-          LLAMA_ARG_PRESENCE_PENALTY: "0.0"
-          LLAMA_ARG_REPEAT_PENALTY: "1.0"
-          # Cache quants / VRAM fitting
-          LLAMA_ARG_CACHE_TYPE_K: q8_0
-          LLAMA_ARG_CACHE_TYPE_V: q8_0
-          # LLAMA_ARG_CPU_MOE: "enabled"
-          # LLAMA_ARG_N_CPU_MOE: 32
-          # Others
-          LLAMA_ARG_CACHE_RAM: 6144
-          LLAMA_ARG_CTX_CHECKPOINTS: 6
-          LLAMA_ARG_CHECKPOINT_MIN_SPACING_NT: 16384
-          LLAMA_ARG_IMAGE_MIN_TOKENS: 1120
-          LLAMA_ARG_IMAGE_MAX_TOKENS: 1120
     controllers:
       llama-cpp:
+        pod:
+          nodeSelector:
+            kubernetes.io/hostname: main-8
         annotations:
           reloader.stakater.com/auto: "true"
+        replicas: 1
+        strategy: Recreate
+        type: deployment
+        initContainers:
+          download-qwen:
+            image:
+              repository: ghcr.io/astral-sh/uv
+              tag: python3.14-alpine
+            command:
+              - /bin/sh
+              - -ec
+              - |
+                uv pip install --system --no-cache huggingface_hub
+                download-model bartowski/Qwen_Qwen3.6-35B-A3B-GGUF:Q4_K_M
+            env:
+              HUGGINGFACE_HUB_CACHE: /models
+              HF_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: llama-cpp-secret
+                    key: HF_TOKEN
         containers:
           app:
             image:
               repository: ghcr.io/ggml-org/llama.cpp
               tag: server-cuda@sha256:62a1d4e144789aa3dd6948d350388fd4b9ac4d12744f33213a89c4e5a9af25df
-            args: &args
-            - -hf
-            - "$(HF_MODEL)"
-            - -sps
-            - "0.90"
-            - --temp
-            - "$(LLAMA_ARG_TEMPERATURE)"
-            - --top-p
-            - "$(LLAMA_ARG_TOP_P)"
-            - --min-p
-            - "$(LLAMA_ARG_MIN_P)"
-            - --presence-penalty
-            - "$(LLAMA_ARG_PRESENCE_PENALTY)"
-            - --repeat-penalty
-            - "$(LLAMA_ARG_REPEAT_PENALTY)"
-            - --slot-save-path
-            - "/data/llama/slot-save-path/"
-            - --spec-type
-            - draft-mtp
-            - --spec-draft-n-max
-            - "2"
-            - --metrics
-            - --no-context-shift
-            - --jinja
-            - --cpu-moe
-            - --flash-attn
-            - "on"
-            - --mlock
-            - --no-kv-offload
-            - --cache-ram
-            - "$(LLAMA_ARG_CACHE_RAM)"
-            - --ctx-checkpoints
-            - "$(LLAMA_ARG_CTX_CHECKPOINTS)"
-            - --checkpoint-min-step
-            - "$(LLAMA_ARG_CHECKPOINT_MIN_SPACING_NT)"
+            args:
+              - --metrics
+              - --model
+              - /models/models--bartowski--Qwen_Qwen3.6-35B-A3B-GGUF/model.gguf
+              - --mmproj
+              - /models/models--bartowski--Qwen_Qwen3.6-35B-A3B-GGUF/mmproj.gguf
+              - --ctx-size
+              - "131072"
+              - --no-mmap
+              - --flash-attn
+              - on
+              - --sleep-idle-seconds
+              - "60"
+              - --spec-type
+              - draft-mtp
+              - --spec-draft-n-max
+              - "2"
+              - --temp
+              - "1.0"
+              - --top-k
+              - "64"
+              - --top-p
+              - "0.95"
+              - --alias
+              - Qwen3.6
             env:
-              <<: [ *qwen3_6-35b-a3b-q4-k-m, *qwen3_6-35b-a3b-q4-k-m-env ]
-              LLAMA_ARG_THREADS: 8
-              LLAMA_CACHE: /models
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop: ["ALL"]
-                add: ["IPC_LOCK"]
+              LLAMA_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: llama-cpp-secret
+                    key: LLAMA_API_KEY
+              LLAMA_ARG_HOST: 0.0.0.0
+              LLAMA_ARG_PORT: "8080"
+              LLAMA_OFFLINE: "1"
             probes:
               liveness:
                 enabled: true
-                type: HTTP
-                path: /health
-                port: &port 8080
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 8080
+                  failureThreshold: 3
+                  periodSeconds: 30
+                  timeoutSeconds: 5
               readiness:
                 enabled: true
-                type: HTTP
-                path: /health
-                port: *port
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 8080
+                  failureThreshold: 3
+                  periodSeconds: 10
+                  timeoutSeconds: 5
               startup:
                 enabled: true
-                type: HTTP
-                path: /health
-                port: *port
+                custom: true
                 spec:
-                  failureThreshold: 120
+                  httpGet:
+                    path: /health
+                    port: 8080
+                  failureThreshold: 60
                   periodSeconds: 10
+                  timeoutSeconds: 5
             resources:
               requests:
-                cpu: 10m
-                memory: 256Mi
+                cpu: 100m
+                memory: 4Gi
               limits:
+                memory: 48Gi
                 nvidia.com/gpu: 1
-                memory: 32Gi
     defaultPodOptions:
       runtimeClassName: nvidia
       automountServiceAccountToken: true
@@ -134,24 +132,31 @@ spec:
         ports:
           http:
             port: *port
-    route:
-      app:
-        hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: http
     persistence:
-      data:
-        existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - subPath: "slot-save-path"
-            path: "/data/llama/slot-save-path"
+      download-script:
+        type: configMap
+        name: llama-cpp-download-script
+        defaultMode: 0o755
+        advancedMounts:
+          llama-cpp:
+            download-qwen:
+              - path: /usr/bin/download-model
+                subPath: download-model.sh
+                readOnly: true
       models:
-        existingClaim: llama-cpp-models
-
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 100Gi
+        storageClass: ceph-block
+        advancedMounts:
+          llama-cpp:
+            gemma:
+              - path: /models
+                readOnly: true
+            download-qwen:
+              - path: /models
+                readOnly: false
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

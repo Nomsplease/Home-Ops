@@ -76,7 +76,7 @@ spec:
                     name: llama-cpp-secret
                     key: LLAMA_API_KEY
               LLAMA_ARG_HOST: 0.0.0.0
-              LLAMA_ARG_PORT: "8080"
+              LLAMA_ARG_PORT: &port 8080
               LLAMA_OFFLINE: "1"
             probes:
               liveness:
@@ -85,7 +85,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: 8080
+                    port: *port
                   failureThreshold: 3
                   periodSeconds: 30
                   timeoutSeconds: 5
@@ -95,7 +95,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: 8080
+                    port: *port
                   failureThreshold: 3
                   periodSeconds: 10
                   timeoutSeconds: 5
@@ -105,7 +105,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: 8080
+                    port: *port
                   failureThreshold: 60
                   periodSeconds: 10
                   timeoutSeconds: 5

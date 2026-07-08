@@ -11,14 +11,12 @@ spec:
     name: llama-cpp
   values:
     x-models:
-      qwen3.6-27b-q4-k-m:
-        model: &qwen3_6-27b-q4-k-m
-          HF_MODEL: bartowski/Qwen_Qwen3.6-27B-GGUF
-          HF_HASH: 79e01f7f051cbc34d10c79e37068d17827f83b9f
-          HF_FILE: Qwen_Qwen3.6-27B-Q4_K_M.gguf
-        env: &qwen3_6-27b-q4-k-m-env
+      qwen3.6-35b-a3b-q4-k-m:
+        model: &qwen3_6-35b-a3b-q4-k-m
+          HF_MODEL: bartowski/Qwen_Qwen3.6-35B-A3B-GGUF:Q4_K_M
+        env: &qwen3_6-35b-a3b-q4-k-m-env
           # Model Params
-          LLAMA_ARG_ALIAS: &alias qwen3.6-27b-q4-k-m
+          LLAMA_ARG_ALIAS: &alias qwen3.6-35b-a3b-q4-k-m
           LLAMA_ARG_MODEL_ALIAS: "$(LLAMA_ARG_ALIAS)"
           LLAMA_ARG_CTX_SIZE: 131072
           LLAMA_ARG_TEMPERATURE: "0.4"
@@ -51,7 +49,7 @@ spec:
               tag: server-cuda@sha256:62a1d4e144789aa3dd6948d350388fd4b9ac4d12744f33213a89c4e5a9af25df
             args: &args
             - -hf
-            - bartowski/Qwen_Qwen3.6-27B-GGUF:Q4_K_M
+            - "$(HF_MODEL)"
             - -sps
             - "0.90"
             - --temp
@@ -85,7 +83,7 @@ spec:
             - --checkpoint-min-step
             - "$(LLAMA_ARG_CHECKPOINT_MIN_SPACING_NT)"
             env:
-              <<: [ *qwen3_6-27b-q4-k-m, *qwen3_6-27b-q4-k-m-env ]
+              <<: [ *qwen3_6-35b-a3b-q4-k-m, *qwen3_6-35b-a3b-q4-k-m-env ]
               LLAMA_ARG_THREADS: 8
               LLAMA_CACHE: /models
             securityContext:

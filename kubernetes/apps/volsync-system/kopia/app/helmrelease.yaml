@@ -96,7 +96,7 @@ spec:
       repository:
         type: nfs
         server: truenas.services
-        path: /mnt/BigPool/Backups/Kopia/main
+        path: /mnt/BigPool/Kopia/K8S
         globalMounts:
           - path: /repository
       tmpfs:

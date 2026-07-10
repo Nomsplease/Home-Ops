@@ -21,7 +21,7 @@ spec:
               tag: 1.4.28@sha256:ca93988326c26597e0d9c91d69c0f97e7ed23c517cf327c22bc7f188002af998
             env:
               LOG_LEVEL: info
-              REDIS_URL: redis://tracearr-valkey:6379
+              REDIS_URL: redis://dragonfly.databases:6379/2
               TZ: America/New_York
             envFrom:
               - secretRef:

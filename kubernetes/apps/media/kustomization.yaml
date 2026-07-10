@@ -12,6 +12,7 @@ resources:
   - ./aurral/ks.yaml
   - ./autobrr/ks.yaml
   - ./cmdarr/ks.yaml
+  - ./emby/ks.yaml
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
   - ./maintainerr/ks.yaml

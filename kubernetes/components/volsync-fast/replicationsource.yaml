@@ -26,7 +26,7 @@ spec:
         volumeSource:
           nfs:
             path: /mnt/SmallPool/Backups/kopia-main
-            server: truenas.internal
+            server: truenas.services
     parallelism: 2
     repository: ${APP}-volsync-secret
     retain:

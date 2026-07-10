@@ -30,7 +30,7 @@ spec:
         volumeSource:
           nfs:
             path: /mnt/SmallPool/Backups/kopia-main
-            server: truenas.internal
+            server: truenas.services
     repository: ${APP}-volsync-secret
     sourceIdentity:
       sourceName: ${APP}

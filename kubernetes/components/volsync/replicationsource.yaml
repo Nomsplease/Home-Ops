@@ -25,7 +25,7 @@ spec:
       - mountPath: repository
         volumeSource:
           nfs:
-            path: /mnt/BigPool/Backups/Kopia/main
+            path: /mnt/BigPool/Kopia/K8S
             server: truenas.services
     parallelism: 2
     repository: ${APP}-volsync-secret

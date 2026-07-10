@@ -50,6 +50,7 @@ spec:
       checkpoint_completion_target: '0.9'
       checkpoint_timeout: 10min
       effective_cache_size: 1536MB
+      idle_session_timeout: 10min
       log_autovacuum_min_duration: "250"
       log_checkpoints: "on"
       log_lock_waits: "on"

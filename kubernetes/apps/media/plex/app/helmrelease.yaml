@@ -107,7 +107,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
-        server: truenas.internal
+        server: truenas.services
         path: /mnt/BigPool/Media
       tmp:
         type: emptyDir

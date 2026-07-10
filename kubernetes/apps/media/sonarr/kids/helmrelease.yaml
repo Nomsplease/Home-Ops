@@ -91,5 +91,5 @@ spec:
           - path: /config/MediaCover
       media:
         type: nfs
-        server: truenas.internal
+        server: truenas.services
         path: /mnt/BigPool/Media

@@ -59,6 +59,6 @@ spec:
                   path: config.yml
             - name: posters
               nfs:
-                server: truenas.internal
+                server: truenas.services
                 path: /mnt/BigPool/Media/Posters
           restartPolicy: OnFailure

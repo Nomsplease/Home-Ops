@@ -77,11 +77,11 @@ spec:
           - path: /app/backend/data
       downloads:
         type: nfs
-        server: truenas.internal
+        server: truenas.services
         path: /mnt/BigPool/Media/Downloads/music
         globalMounts:
           - path: /app/downloads
       media:
         type: nfs
-        server: truenas.internal
+        server: truenas.services
         path: /mnt/BigPool/Media

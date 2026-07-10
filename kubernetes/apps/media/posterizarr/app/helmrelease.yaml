@@ -83,7 +83,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       posters:
         type: nfs
-        server: truenas.internal
+        server: truenas.services
         path: /mnt/BigPool/Media/Posters
         globalMounts:
           - path: /assets

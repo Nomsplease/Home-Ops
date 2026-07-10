@@ -13,7 +13,7 @@ spec:
       volumeSource:
         nfs:
           path: /mnt/BigPool/Backups/Kopia/main
-          server: truenas.internal
+          server: truenas.services
   repository:
     repository: volsync-maintenance-secret
 ---
@@ -31,6 +31,6 @@ spec:
       volumeSource:
         nfs:
           path: /mnt/SmallPool/Backups/kopia-main
-          server: truenas.internal
+          server: truenas.services
   repository:
     repository: volsync-maintenance-secret

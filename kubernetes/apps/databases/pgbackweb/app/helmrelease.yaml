@@ -56,5 +56,5 @@ spec:
     persistence:
       backups:
         type: nfs
-        server: truenas.internal
+        server: truenas.services
         path: /mnt/BigPool/Backups/Databases/CNPG/main

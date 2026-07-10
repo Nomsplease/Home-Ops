@@ -33,7 +33,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
+                    path: /System/Ping
                     port: &port 8096
                   periodSeconds: 10
                   timeoutSeconds: 5

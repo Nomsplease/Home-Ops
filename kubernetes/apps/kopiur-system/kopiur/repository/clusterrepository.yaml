@@ -14,14 +14,8 @@ spec:
           name: kopiur-repository-secret
           namespace: kopiur-system
       bucket: kopiur
-      endpoint: https://garage.${SECRET_DOMAIN}
-      region: 
-        secretRef:
-          name: kopiur-repository-secret
-          namespace: kopiur-system
-          key: AWS_REGION
-      tls:
-        disableTls: true
+      endpoint: "${GARAGE_URL}"
+      region: "${GARAGE_REGION}"
   encryption:
     passwordSecretRef:
       name: kopiur-repository-secret

@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: llm
 components:
   - ../../components/cluster-secrets
+  - ../../components/kopiur/secret
 resources:
   ## Requisites
   - ./namespace.yaml

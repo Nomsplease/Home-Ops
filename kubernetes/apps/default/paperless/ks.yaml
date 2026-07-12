@@ -99,7 +99,8 @@ spec:
       APP: *app
       VOLSYNC_CAPACITY: 5Gi
       KOPIUR_CAPACITY: 5Gi
-  prune: true 
+      KOPIUR_FSGROUPCHANGEPOLICY: Always
+  prune: true
   retryInterval: 1m
   sourceRef:
     kind: GitRepository

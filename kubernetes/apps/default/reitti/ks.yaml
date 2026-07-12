@@ -68,6 +68,7 @@ spec:
       APP: *app
       VOLSYNC_CAPACITY: 10Gi
       KOPIUR_CAPACITY: 10Gi
+      KOPIUR_FSGROUPCHANGEPOLICY: Always
   prune: true 
   retryInterval: 1m
   sourceRef:

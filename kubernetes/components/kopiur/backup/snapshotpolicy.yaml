@@ -12,6 +12,8 @@ spec:
       capacity: ${KOPIUR_CAPACITY:=5Gi}
       mode: Persistent
       storageClassName: ceph-block
+    podSecurityContext:
+      fsGroup: ${KOPIUR_PGID:=1000}
     securityContext:
       runAsUser: ${KOPIUR_PUID:=1000}
       runAsGroup: ${KOPIUR_PGID:=1000}

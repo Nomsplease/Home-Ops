@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: databases
 components:
   - ../../components/cluster-secrets
+  - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
   - ./cloudnative-pg/ks.yaml

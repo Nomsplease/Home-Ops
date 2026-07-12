@@ -9,6 +9,7 @@ spec:
   components:
     - ../../../../components/oidc/envoy
     - ../../../../components/volsync
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: pocket-id
       namespace: security
@@ -24,6 +25,7 @@ spec:
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/prowlarr.svg"
       OIDC_APP_NAME: Prowlarr
       VOLSYNC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

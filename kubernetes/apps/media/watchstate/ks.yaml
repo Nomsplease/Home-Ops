@@ -9,6 +9,7 @@ spec:
   components:
     - ../../../../components/oidc/envoy
     - ../../../../components/volsync
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: pocket-id
       namespace: security
@@ -22,6 +23,7 @@ spec:
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/webp/watchstate.webp"
       OIDC_APP_NAME: Watch Sync (Watchstate)
       VOLSYNC_CAPACITY: 10Gi
+      KOPIUR_CAPACITY: 10Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

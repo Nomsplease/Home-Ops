@@ -7,6 +7,7 @@ metadata:
 spec:
   components:
     - ../../../../components/volsync
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: volsync
       namespace: volsync-system
@@ -16,6 +17,7 @@ spec:
     substitute:
       APP: karakeep
       VOLSYNC_CAPACITY: 10Gi
+      KOPIUR_CAPACITY: 10Gi
   prune: true 
   retryInterval: 1m
   sourceRef:
@@ -57,6 +59,7 @@ metadata:
 spec:
   components:
     - ../../../../components/volsync
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: karakeep
     - name: volsync
@@ -67,6 +70,7 @@ spec:
     substitute:
       APP: karakeep-meilisearch
       VOLSYNC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi
   prune: true 
   retryInterval: 1m
   sourceRef:

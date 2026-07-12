@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: home
 components:
   - ../../components/cluster-secrets
+  - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
   - ./esphome/ks.yaml

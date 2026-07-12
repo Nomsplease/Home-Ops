@@ -9,7 +9,7 @@ spec:
   components:
     - ../../../../components/oidc/envoy
     - ../../../../components/volsync
-    - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/backup-privileged
   dependsOn:
     - name: pocket-id
       namespace: security
@@ -24,7 +24,6 @@ spec:
       OIDC_APP_NAME: Book Requests (Readarr)
       VOLSYNC_CAPACITY: 5Gi
       KOPIUR_CAPACITY: 5Gi
-      KOPIUR_FSGROUPCHANGEPOLICY: Always
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

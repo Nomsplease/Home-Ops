@@ -14,9 +14,14 @@ spec:
       storageClassName: ceph-block
     podSecurityContext:
       fsGroup: ${KOPIUR_PGID:=1000}
+    privilegedMode: true
     securityContext:
-      runAsUser: ${KOPIUR_PUID:=1000}
-      runAsGroup: ${KOPIUR_PGID:=1000}
+      runAsUser: 0
+      runAsNonRoot: false
+      capabilities:
+        add:
+          - DAC_OVERRIDE
+          - DAC_READ_SEARCH
   repository:
     kind: ClusterRepository
     name: garage

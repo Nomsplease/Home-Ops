@@ -31,7 +31,7 @@ metadata:
 spec:
   components:
     - ../../../../components/volsync
-    - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/backup-privileged
   dependsOn:
     - name: volsync
       namespace: volsync-system
@@ -41,7 +41,6 @@ spec:
     substitute:
       APP: *app
       KOPIUR_CAPACITY: 5Gi
-      KOPIUR_FSGROUPCHANGEPOLICY: Always
   prune: true 
   retryInterval: 1m
   sourceRef:

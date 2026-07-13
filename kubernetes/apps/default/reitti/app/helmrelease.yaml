@@ -63,7 +63,7 @@ spec:
           http:
             port: *port
       tile-cache:
-        port:
+        ports:
           http:
             port: 80
     route:

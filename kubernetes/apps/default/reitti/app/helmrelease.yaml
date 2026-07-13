@@ -52,7 +52,7 @@ spec:
           tile-cache:
             image:
               repository: ghcr.io/dedicatedcode/reitti-tile-cache
-              tag: 5.0.2@sha256:5fde90772a1fe5d330bdae3e47db425b977730f953039ada473d62531b60fbdf
+              tag: 5.1.0@sha256:98a96e6df5948a80e731193f4e5e4f0d5c4263beee13ea5980561db0ef7030b9
             resources:
               requests:
                 cpu: 50m

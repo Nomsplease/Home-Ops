@@ -23,3 +23,9 @@ spec:
       key: KOPIA_PASSWORD
   scheduleDefaults:
     timezone: America/New_York
+  server:
+    auth:
+      secretRef:
+        name: kopiur-ui
+        usernameKey: KOPIUR_USERNAME
+        passwordKey: KOPIUR_PASSWORD

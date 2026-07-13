@@ -20,6 +20,9 @@ spec:
   storage:
     size: 20Gi
     storageClass: ceph-block
+  
+  superuserSecret:
+    name: cnpg-admin
 
   bootstrap:
     recovery:

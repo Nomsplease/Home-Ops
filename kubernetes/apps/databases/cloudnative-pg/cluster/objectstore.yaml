@@ -3,17 +3,17 @@
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
-  name: garage-store
+  name: homelab-store
 spec:
   configuration:
     destinationPath: s3://homelab/cnpg
     endpointURL: https://${GARAGE_URL}
     s3Credentials:
       accessKeyId:
-        name: barman-garage
+        name: garage
         key: ACCESS_KEY_ID
       secretAccessKey:
-        name: barman-garage
+        name: garage
         key: SECRET_ACCESS_KEY
     wal:
       compression: zstd

@@ -38,9 +38,12 @@ spec:
           existingClaim: immich
 
     server:
+      controllers:
+        main:
+          strategy: Recreate
       route:
         main:
-          hostnames: 
+          hostnames:
             - "photos.${SECRET_DOMAIN}"
           parentRefs:
             - name: envoy-external

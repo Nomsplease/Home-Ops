@@ -6,7 +6,7 @@ metadata:
   name: garage-store
 spec:
   configuration:
-    destinationPath: s3://cnpg/
+    destinationPath: s3://homelab/cnpg
     endpointURL: https://${GARAGE_URL}
     s3Credentials:
       accessKeyId:

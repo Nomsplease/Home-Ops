@@ -25,7 +25,7 @@ spec:
               POSTGIS_HOST: postgis-rw.databases
               REDIS_HOST: dragonfly.databases
               REDIS_DATABASE: "6"
-              SERVER_PORT: &port 80
+              SERVER_PORT: &port 8080
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

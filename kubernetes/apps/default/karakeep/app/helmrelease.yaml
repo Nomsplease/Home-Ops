@@ -30,7 +30,6 @@ spec:
               MEILI_ADDR: http://karakeep-meilisearch:7700
               DISABLE_NEW_RELEASE_CHECK: true
               COREPACK_INTEGRITY_KEYS: 0
-              S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: "true"
             envFrom:
               - secretRef:
                   name: karakeep

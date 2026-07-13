@@ -11,14 +11,14 @@ spec:
     name: reitti
   values:
     controllers:
-      reitti :
+      reitti:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: dedicatedcode/reitti
-              tag: 4.0.5@sha256:03ab9c781552f89f8c5f4b39fec5397566f873010c2fd013ff7a8ce1414a3bca
+              repository: ghcr.io/dedicatedcode/reitti
+              tag: 5.0.2@sha256:75bc2f165d4dd14605e181539d9e8759d1c5fb6d655fa90950ad721dfafaf504
             env:
               OIDC_ENABLED: "true"
               POSTGIS_DB: "{{ .Release.Name }}"
@@ -26,7 +26,6 @@ spec:
               REDIS_HOST: dragonfly.databases
               REDIS_DATABASE: "6"
               SERVER_PORT: &port 80
-              TILES_CACHE: http://reitti-tile-cache
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -48,11 +47,25 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 1Gi
+          tile-cache:
+            image:
+              repository: ghcr.io/dedicatedcode/reitti-tile-cache
+              tag: 5.0.2@sha256:5fde90772a1fe5d330bdae3e47db425b977730f953039ada473d62531b60fbdf
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
     service:
       app:
         ports:
           http:
             port: *port
+      tile-cache:
+        port:
+          http:
+            port: 80
     route:
       app:
         hostnames:
@@ -64,3 +77,12 @@ spec:
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
+      tile-cache:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        storageClass: ceph-block
+        advancedMounts:
+          reitti:
+            tile-cache:
+              - path: /var/cache/nginx

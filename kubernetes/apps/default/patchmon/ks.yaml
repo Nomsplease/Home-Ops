@@ -6,8 +6,6 @@ metadata:
   name: patchmon
   namespace: default
 spec:
-  dependsOn:
-    - name: patchmon-valkey
   interval: 30m
   path: ./kubernetes/apps/default/patchmon/app
   postBuild:

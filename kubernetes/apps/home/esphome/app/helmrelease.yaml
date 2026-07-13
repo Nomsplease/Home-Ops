@@ -73,10 +73,11 @@ spec:
       config:
         existingClaim: "{{ .Release.Name }}"
       cache:
-        type: persistentVolumeClaim
         accessMode: ReadWriteOnce
+        name: "{{ .Release.Name }}-cache"
         size: 10Gi
         storageClass: ceph-block
+        type: persistentVolumeClaim
         advancedMounts:
           esphome:
             main:

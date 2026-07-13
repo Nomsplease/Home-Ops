@@ -41,7 +41,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.noms.tv"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network

@@ -3,8 +3,8 @@
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
-#   name: &app paperless-ai
-#   namespace: &namespace default
+#   name: paperless-ai
+#   namespace: default
 # spec:
 #   components:
 #     - ../../../../components/volsync
@@ -15,15 +15,18 @@
 #   path: ./kubernetes/apps/default/paperless/ai
 #   postBuild:
 #     substitute:
-#       APP: *app
+#       APP: paperless-ai
 #       VOLSYNC_CAPACITY: 10Gi
+#     substituteFrom:
+#       - name: cluster-secrets
+#         kind: Secret
 #   prune: true 
 #   retryInterval: 1m
 #   sourceRef:
 #     kind: GitRepository
 #     name: flux-system
 #     namespace: flux-system
-#   targetNamespace: *namespace
+#   targetNamespace: default
 #   timeout: 5m
 #   wait: false
 ---
@@ -31,8 +34,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app paperless
-  namespace: &namespace default
+  name: paperless
+  namespace: default
 spec:
   components:
     - ../../../../components/volsync
@@ -44,16 +47,19 @@ spec:
   path: ./kubernetes/apps/default/paperless/app
   postBuild:
     substitute:
-      APP: *app
+      APP: paperless
       VOLSYNC_CAPACITY: 100Gi
       KOPIUR_CAPACITY: 100Gi
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true 
   retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: default
   timeout: 5m
   wait: false
 ---
@@ -61,21 +67,21 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app paperless-gotenberg
-  namespace: &namespace default
+  name: paperless-gotenberg
+  namespace: default
 spec:
   interval: 30m
   path: ./kubernetes/apps/default/paperless/gotenberg
   postBuild:
     substitute:
-      APP: *app
+      APP: paperless-gotenberg
   prune: true 
   retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: default
   timeout: 5m
   wait: false
 ---
@@ -83,50 +89,20 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app paperless-redis
-  namespace: &namespace default
-spec:
-  components:
-    - ../../../../components/volsync
-    - ../../../../components/kopiur/backup-privileged
-  dependsOn:
-    - name: volsync
-      namespace: volsync-system
-  path: ./kubernetes/apps/default/paperless/redis
-  interval: 30m
-  postBuild:
-    substitute:
-      APP: *app
-      VOLSYNC_CAPACITY: 5Gi
-      KOPIUR_CAPACITY: 5Gi
-  prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: *namespace
-  timeout: 5m
-  wait: false
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app paperless-tika
-  namespace: &namespace default
+  name: paperless-tika
+  namespace: default
 spec:
   interval: 30m
   path: ./kubernetes/apps/default/paperless/tika
   postBuild:
     substitute:
-      APP: *app
+      APP: paperless-tika
   prune: true 
   retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: default
   timeout: 5m
   wait: false

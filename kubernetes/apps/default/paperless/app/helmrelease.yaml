@@ -47,7 +47,7 @@ spec:
     route:
       app:
         hostnames:
-          - "archive.noms.tv"
+          - "archive.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network

@@ -21,6 +21,7 @@ spec:
     size: 20Gi
     storageClass: ceph-block
   
+  enableSuperuserAccess: true
   superuserSecret:
     name: cnpg-admin
 

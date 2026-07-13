@@ -24,6 +24,9 @@ spec:
   scheduleDefaults:
     timezone: America/New_York
   server:
+    namespace: kopiur-system
     auth:
-      insecure:
-        acknowledgeInsecure: true
+      secretRef:
+        name: kopiur-ui
+        usernameKey: KOPIUR_USERNAME
+        passwordKey: KOPIUR_PASSWORD

@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
+spec:
+  instances: 2
+
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.4-standard-trixie@sha256:1534cac00fa02114adfd28d1ab11f73bc9821f2d19dd8e87ea166c14a637b8f4
+
+  storage:
+    size: 20Gi
+    storageClass: ceph-block
+
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+    # recovery:
+    #   source: &src source
+
+  plugins:
+    - name: &plugin barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: &store garage-store
+
+  # externalClusters:
+  #   - name: *src
+  #     plugin:
+  #       name: *plugin
+  #       parameters:
+  #         barmanObjectName: *store
+  #         serverName: postgres
+
+  monitoring:
+    enablePodMonitor: true
+
+  postgresql:
+    shared_preload_libraries:
+      - "vchord"
+      - "timescaledb"
+    parameters:
+      timescaledb.telemetry_level: "off"
+      max_locks_per_transaction: "128"
+
+    extensions:
+      - name: postgis
+        ld_library_path:
+          - system
+        image:
+          reference: ghcr.io/cloudnative-pg/postgis-extension-testing:3.6.4-18-trixie@sha256:ba44d1641a7dbf3e6938fb1259fee29b7a7b2d64b17bf1a001eb2d9113d7c6f8
+      - name: vchord
+        image:
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.1@sha256:bdea43bed2a414e21bbf71767bf6f0739747ac480b267b51772dc214ac28dcb3
+        dynamic_library_path:
+          - /usr/lib/postgresql/18/lib/
+        extension_control_path:
+          - /usr/share/postgresql/18/
+      - name: timescaledb
+        image:
+          reference: ghcr.io/shusaan/timescaledb-testing:2.24.0-18-trixie@sha256:dae25c2dde06455214ac5553b51d3ef2d48fe84795c2cfa48c51c6e15877044e

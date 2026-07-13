@@ -25,7 +25,7 @@ spec:
               ENABLE_LOGGING: true
               LOG_LEVEL: debug
               PORT: &port 80
-              CORS_ORIGIN: "https://{{ .Release.Name }}.noms.tv"
+              CORS_ORIGIN: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
               # Rate limiting
               RATE_LIMIT_WINDOW_MS: "900000"
               RATE_LIMIT_MAX: "5000"
@@ -34,9 +34,9 @@ spec:
               AGENT_RATE_LIMIT_WINDOW_MS: "60000"
               AGENT_RATE_LIMIT_MAX: "1000"
               # Redis configuration
-              REDIS_HOST: patchmon-valkey
+              REDIS_HOST: dragonfly.databases
               REDIS_PORT: "6379"
-              REDIS_DB: "0"
+              REDIS_DB: "5"
               # Security
               # Trust proxy headers from ingress controller and internal cluster networks
               TRUST_PROXY: "true"
@@ -83,7 +83,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.noms.tv"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network

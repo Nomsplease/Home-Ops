@@ -3,8 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app patchmon
-  namespace: &namespace default
+  name: patchmon
+  namespace: default
 spec:
   dependsOn:
     - name: patchmon-valkey
@@ -12,35 +12,10 @@ spec:
   path: ./kubernetes/apps/default/patchmon/app
   postBuild:
     substitute:
-      APP: *app
-  prune: true 
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: *namespace
-  timeout: 5m
-  wait: false
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app patchmon-valkey
-spec:
-  components:
-    - ../../../../components/volsync
-    - ../../../../components/kopiur/backup-privileged
-  dependsOn:
-    - name: volsync
-      namespace: volsync-system
-  interval: 30m
-  path: ./kubernetes/apps/default/patchmon/valkey
-  postBuild:
-    substitute:
-      APP: *app
-      KOPIUR_CAPACITY: 5Gi
+      APP: patchmon
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true 
   retryInterval: 1m
   sourceRef:
@@ -55,13 +30,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app patchmon-guacd
+  name: patchmon-guacd
+  namespace: default
 spec:
   interval: 30m
   path: ./kubernetes/apps/default/patchmon/guacd
   postBuild:
     substitute:
-      APP: *app
+      APP: patchmon-guacd
   prune: true 
   retryInterval: 1m
   sourceRef:

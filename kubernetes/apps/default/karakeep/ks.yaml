@@ -18,6 +18,9 @@ spec:
       APP: karakeep
       VOLSYNC_CAPACITY: 10Gi
       KOPIUR_CAPACITY: 10Gi
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true 
   retryInterval: 1m
   sourceRef:

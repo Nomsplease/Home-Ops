@@ -23,7 +23,8 @@ spec:
               OIDC_ENABLED: "true"
               POSTGIS_DB: "{{ .Release.Name }}"
               POSTGIS_HOST: postgis-rw.databases
-              REDIS_HOST: reitti-valkey
+              REDIS_HOST: dragonfly.databases
+              REDIS_DATABASE: "6"
               SERVER_PORT: &port 80
               TILES_CACHE: http://reitti-tile-cache
             envFrom:
@@ -31,7 +32,7 @@ spec:
                   name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
-                enabled: true
+                enabled: false
                 custom: true
                 spec:
                   tcpSocket:
@@ -55,7 +56,7 @@ spec:
     route:
       app:
         hostnames:
-          - "location.noms.tv"
+          - "location.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: network

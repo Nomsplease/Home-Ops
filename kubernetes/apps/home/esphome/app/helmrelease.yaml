@@ -74,7 +74,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       cache:
         accessMode: ReadWriteOnce
-        name: "{{ .Release.Name }}-cache"
+        forceRename: "{{ .Release.Name }}-cache"
         size: 10Gi
         storageClass: ceph-block
         type: persistentVolumeClaim

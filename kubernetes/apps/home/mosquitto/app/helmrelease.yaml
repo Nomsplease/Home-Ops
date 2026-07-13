@@ -11,33 +11,35 @@ spec:
     name: mosquitto
   values:
     controllers:
-      mosquitto :
+      mosquitto:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
               repository: eclipse-mosquitto
-              tag: 2.0.22
+              tag: 2.0.22@sha256:212f89e1eaeb2c322d6441b64396e3346026674db8fa9c27beac293405c32b3c
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
-                spec:
-                  tcpSocket:
-                    port: &port 1883
-                  failureThreshold: 6
-                  periodSeconds: 10
-              readiness: *probes
-              startup: *probes
-    service:
-      app:
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 10.1.20.21
-        ports:
-          mqtt:
-            port: *port
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+
     persistence:
       config:
         type: secret
@@ -49,6 +51,7 @@ spec:
           - path: /mosquitto/config/pwfile
             subPath: pwfile
             readOnly: true
+
       data:
         existingClaim: "{{ .Release.Name }}"
         advancedMounts:
@@ -58,3 +61,12 @@ spec:
                 subPath: data
               - path: /mosquitto/log
                 subPath: log
+
+    service:
+      app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.1.20.21
+        ports:
+          mqtt:
+            port: 1883

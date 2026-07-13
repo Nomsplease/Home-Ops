@@ -7,7 +7,7 @@ metadata:
 spec:
   configuration:
     destinationPath: s3://cnpg/
-    endpointURL: ${GARAGE_URL}
+    endpointURL: https://${GARAGE_URL}
     s3Credentials:
       accessKeyId:
         name: barman-garage

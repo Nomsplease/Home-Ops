@@ -27,5 +27,6 @@ spec:
     auth:
       secretRef:
         name: kopiur-ui
+        namespace: kopiur-system
         usernameKey: KOPIUR_USERNAME
         passwordKey: KOPIUR_PASSWORD

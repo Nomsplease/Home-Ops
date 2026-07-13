@@ -3,15 +3,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: esphome
+  name: &app esphome
 spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: esphome
+    name: *app
   values:
     controllers:
-      esphome :
+      esphome:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -39,6 +39,23 @@ spec:
                   periodSeconds: 10
               readiness: *probes
               startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 4Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
@@ -47,7 +64,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.noms.tv"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network
@@ -55,9 +72,12 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      tmpfs:
-        type: emptyDir
+      cache:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        storageClass: ceph-block
         advancedMounts:
           esphome:
             main:
-              - path: /config/.esphome/platformio
+              - path: /config/.esphome

@@ -12,8 +12,8 @@ spec:
   dependsOn:
     - name: pocket-id
       namespace: security
-    - name: volsync
-      namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 30m
   path: ./kubernetes/apps/llm/openclaw/app
   postBuild:

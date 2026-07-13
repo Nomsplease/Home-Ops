@@ -51,62 +51,7 @@ spec:
                 memory: 256Mi
               limits:
                 memory: 2Gi
-          opencode:
-            image:
-              repository: ghcr.io/anomalyco/opencode
-              tag: 1.17.11@sha256:c38a7cb4449f342166c43ff4a69e1b02f12ef1959bbfdd83993cdff8cea698a7
-            command: ["/usr/local/bin/opencode"]
-            args: ["web", "--hostname", "0.0.0.0", "--port", "$(HTTP_PORT)", "--cors", "opencode.${SECRET_DOMAIN}"]
-            env:
-              TZ: America/New_York
-              OPENCLAW_LOG_LEVEL: info
-              HOME: /home/openclaw
-              OPENCLAW_HOME: /home/openclaw
-              OPENCLAW_GATEWAY_PORT: 8080
-              PIP_BREAK_SYSTEM_PACKAGES: "1"
-              HTTP_PORT: 8081
-              # opencode tries to auto-launch a browser via `xdg-open` on startup; that binary
-              # doesn't exist in this image and the failed spawn crashes the process, so a no-op
-              # stub is written to /opt/stubs by the browser-stub initContainer and put first on PATH.
-              PATH: /opt/stubs:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-            envFrom:
-              - secretRef:
-                  name: openclaw-secret
-            workingDir: /home/openclaw
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
-            probes:
-              liveness:
-                enabled: true
-                port: 8081
-              readiness:
-                enabled: true
-                port: 8081
-            resources:
-              requests:
-                cpu: 10m
-                memory: 128Mi
-              limits:
-                memory: 1Gi
         initContainers:
-          browser-stub:
-            # Writes a no-op `xdg-open` to /opt/stubs so opencode's auto-launch-browser
-            # spawn call succeeds instead of crashing the container (see opencode's PATH env).
-            image:
-              repository: ghcr.io/home-operations/busybox
-              tag: 1.38.0@sha256:7e2c04dd50ede647bf4a7a4c8dbd629dd4971cd139b9b88fb22bfc3c7a6c13df
-            command:
-              - "sh"
-              - "-c"
-              - |
-                printf '#!/bin/sh\nexit 0\n' > /opt/stubs/xdg-open
-                chmod +x /opt/stubs/xdg-open
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
           setup:
             # `setup` blocks startup until you `kubectl exec` into this initContainer and run `openclaw setup`,
             # which writes $(HOME)/.openclaw/openclaw.json so the main containers can start. Once the file
@@ -195,12 +140,6 @@ spec:
           http:
             port: 80
             targetPort: 8080
-      opencode:
-        controller: openclaw
-        ports:
-          http:
-            port: 80
-            targetPort: 8081
     route:
       app:
         hostnames:
@@ -223,17 +162,6 @@ spec:
                   set:
                     - name: X-Openclaw-User
                       value: operator
-      opencode:
-        hostnames:
-          - "opencode.${SECRET_DOMAIN}"
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: opencode
-                port: http
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
@@ -245,8 +173,3 @@ spec:
         medium: Memory
         globalMounts:
           - path: /tmp
-      scripts:
-        type: emptyDir
-        medium: Memory
-        globalMounts:
-          - path: /opt/stubs

@@ -111,8 +111,8 @@ spec:
               MEILI_MASTER_KEY:
                 valueFrom:
                   secretKeyRef:
-                    name: karakeep-secret
-                    key: meilisearch_master_key
+                    name: karakeep
+                    key: MEILI_MASTER_KEY
             resources:
               requests:
                 cpu: 10m

@@ -16,11 +16,8 @@ spec:
     storageClass: ceph-block
 
   bootstrap:
-    initdb:
-      database: app
-      owner: app
-    # recovery:
-    #   source: &src source
+    recovery:
+      source: &src source
 
   plugins:
     - name: &plugin barman-cloud.cloudnative-pg.io
@@ -28,13 +25,13 @@ spec:
       parameters:
         barmanObjectName: &store homelab-cnpg
 
-  # externalClusters:
-  #   - name: *src
-  #     plugin:
-  #       name: *plugin
-  #       parameters:
-  #         barmanObjectName: *store
-  #         serverName: postgres
+  externalClusters:
+    - name: *src
+      plugin:
+        name: *plugin
+        parameters:
+          barmanObjectName: *store
+          serverName: postgres
 
   monitoring:
     enablePodMonitor: true

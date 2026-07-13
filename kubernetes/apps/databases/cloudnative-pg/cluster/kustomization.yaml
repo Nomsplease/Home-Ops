@@ -9,3 +9,4 @@ resources:
   - ./objectstore.yaml
   - ./pooler.yaml
   - ./scheduledbackup.yaml
+  - ./service.yaml

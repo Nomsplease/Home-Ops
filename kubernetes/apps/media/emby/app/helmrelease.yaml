@@ -21,8 +21,8 @@ spec:
               tag: 4.9.5.0@sha256:137b8d2de08dc5c82799318c9c4d876c80ad8c9b4733a9bc0db18b26f2943dc0
             env:
               TZ: America/New_York
-            probes: &probes
-              liveness:
+            probes:
+              liveness: &probes
                 enabled: true
                 custom: true
                 spec:

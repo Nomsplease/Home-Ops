@@ -20,28 +20,33 @@ spec:
               repository: lscr.io/linuxserver/readarr
               tag: develop-version-0.4.17.2801@sha256:f3978bd06611493011137d82ebdd5e49b3ebb17ad921dbd05017d40b7f2000e3
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
-                spec:
-                  tcpSocket:
-                    port: &port 8787
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
             resources:
               requests:
                 cpu: 100m
                 memory: 256Mi
               limits:
                 memory: 1Gi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
     service:
       app:
         ports:
           http:
-            port: *port
+            port: 8787
+
     route:
       app:
         hostnames:
@@ -50,6 +55,7 @@ spec:
           - name: envoy-internal
             namespace: network
             sectionName: https
+
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

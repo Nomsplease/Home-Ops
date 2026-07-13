@@ -9,7 +9,7 @@ spec:
   components:
     - ../../../../components/oidc/envoy
     - ../../../../components/volsync
-    - ../../../../components/kopiur/backup-privileged
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: pocket-id
       namespace: security

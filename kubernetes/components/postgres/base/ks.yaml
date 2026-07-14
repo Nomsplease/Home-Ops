@@ -8,7 +8,7 @@ metadata:
 spec:
   dependsOn:
     - name: cloudnative-pg
-      namespace: cnpg-system
+      namespace: databases
   healthChecks:
     - apiVersion: postgresql.cnpg.io/v1
       kind: Database

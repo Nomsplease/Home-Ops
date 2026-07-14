@@ -24,8 +24,8 @@ apply-all-nodes *args:
 
 [doc('Download Talos machine image')]
 [script]
-download-image version:
-    export SCHEMATIC="$(just talos schematic-id)"
+download-image node version:
+    export SCHEMATIC="$(just talos schematic-id "{{ node }}")"
     curl -fL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors --progress-bar \
         -o "{{ source_directory() }}/talos-{{ version }}-${SCHEMATIC:0:8}.iso" \
         "https://factory.talos.dev/image/${SCHEMATIC}/{{ version }}/metal-amd64.iso"
@@ -39,8 +39,8 @@ reboot-node node:
 [doc('Render Talos config for a node')]
 [script]
 render-config node:
-    export CONTROLPLANE="$(just talos machine-controller {{ node }})"
-    export SCHEMATIC="$(just talos schematic-id)"
+    export CONTROLPLANE="$(just talos machine-controller "{{ node }}")"
+    export SCHEMATIC="$(just talos schematic-id "{{ node }}")"
     talosctl machineconfig patch <(just template "{{ source_directory() }}/machineconfig.yaml.j2") \
         -p @<(just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2")
 
@@ -74,11 +74,11 @@ upgrade-all-nodes *args:
 [confirm('Upgrade node ' + node + ' [y|N] ?')]
 [doc('Upgrade Talos version on a node')]
 upgrade-node node *args:
-    talosctl -n "{{ node }}" upgrade -i "$(just talos machine-image)" -m powercycle --timeout=10m {{ args }}
+    talosctl -n "{{ node }}" upgrade -i "$(just talos machine-image "{{ node }}")" -m powercycle --timeout=10m {{ args }}
 
 [private]
-schematic-id:
-    curl -sX POST --data-binary @<(just template "{{ source_directory() }}/schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'
+schematic-id node:
+    curl -sX POST --data-binary @<(just template "{{ source_directory() }}/nodes/{{ node }}-schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'
 
 [private]
 machine-controller node:
@@ -86,6 +86,6 @@ machine-controller node:
 
 [private]
 [script]
-machine-image:
-    export SCHEMATIC="$(just talos schematic-id)"
+machine-image node:
+    export SCHEMATIC="$(just talos schematic-id "{{ node }}")"
     just template "{{ source_directory() }}/machineconfig.yaml.j2" | yq -e 'select(.machine) | .machine.install.image'

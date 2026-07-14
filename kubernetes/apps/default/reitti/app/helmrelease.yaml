@@ -93,6 +93,7 @@ spec:
       tile-cache:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
+        forceRename: "{{ .Release.Name }}-cache"
         size: 10Gi
         storageClass: ceph-block
         advancedMounts:

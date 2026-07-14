@@ -7,6 +7,8 @@ metadata:
   namespace: virtualization
 spec:
   dependsOn:
+    - name: kopiur
+      namespace: kopiur-system
     - name: kubevirt
     - name: cdi
     - name: multus
@@ -14,20 +16,11 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/virtualization/ubuntu-test/app
   components:
-    - ../../../../components/volsync
+    - ../../../../components/kopiur/backup
   postBuild:
     substitute:
       APP: ubuntu-test
-      VOLSYNC_CAPACITY: 75Gi
-      VOLSYNC_CACHE_CAPACITY: 75Gi
-      VOLSYNC_ACCESSMODES: ReadWriteMany
-      VOLSYNC_CACHE_ACCESSMODES: ReadWriteMany
-      VOLSYNC_STORAGECLASS: ceph-filesystem
-      VOLSYNC_CACHE_STORAGECLASS: ceph-filesystem
-      VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
-      VOLSYNC_SNAP_ACCESSMODES: ReadOnlyMany
-      VOLSYNC_SCHEDULE: "0 0/12 * * *"
-      VOLSYNC_HOURLY: "4"
+      KOPIUR_CAPACITY: 50Gi
   prune: true
   retryInterval: 2m
   sourceRef:

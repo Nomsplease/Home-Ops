@@ -7,14 +7,13 @@ metadata:
   namespace: default
 spec:
   components:
-    - ../../../../components/oidc/envoy
-    - ../../../../components/volsync
     - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/migrate
   dependsOn:
     - name: pocket-id
       namespace: security
-    - name: volsync
-      namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 30m
   path: ./kubernetes/apps/default/wallos/app
   postBuild:
@@ -22,7 +21,6 @@ spec:
       APP: wallos
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/webp/wallos.webp"
       OIDC_APP_NAME: Subscription Tracker (Wallos)
-      VOLSYNC_CAPACITY: 5Gi
       KOPIUR_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets

@@ -49,10 +49,6 @@ spec:
                   periodSeconds: 10
               readiness: *probes
               startup: *probes
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
     service:
       app:
         ports:

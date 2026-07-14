@@ -34,10 +34,6 @@ spec:
               - secretRef:
                   name: openclaw-secret
             # workingDir is intentionally unset: the openclaw entrypoint relies on a relative path
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
             probes:
               liveness:
                 enabled: true
@@ -91,10 +87,6 @@ spec:
               OPENCLAW_HOME: /home/openclaw
               OPENCLAW_GATEWAY_PORT: 8080
               PIP_BREAK_SYSTEM_PACKAGES: "1"
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
         serviceAccount:
           identifier: openclaw
     serviceAccount:

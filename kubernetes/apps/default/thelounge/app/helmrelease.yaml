@@ -21,10 +21,6 @@ spec:
               tag: 4.5.2@sha256:c764151188d2c805932856ece9673917c868be38e22486d4fd9c5c376c663790
             env:
               THELOUNGE_HOME: /config/thelounge
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
             probes:
               liveness:
                 enabled: true

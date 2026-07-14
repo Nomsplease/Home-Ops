@@ -8,13 +8,13 @@ metadata:
 spec:
   components:
     - ../../../../components/oidc/envoy
-    - ../../../../components/volsync
     - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/migrate
   dependsOn:
     - name: pocket-id
       namespace: security
-    - name: volsync
-      namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
     - name: cloudnative-pg-main-cluster
       namespace: databases
   interval: 30m
@@ -24,7 +24,6 @@ spec:
       APP: radarr
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/radarr.svg"
       OIDC_APP_NAME: Movies (Radarr)
-      VOLSYNC_CAPACITY: 5Gi
       KOPIUR_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets

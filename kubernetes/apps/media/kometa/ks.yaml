@@ -3,23 +3,22 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kometa
+  name: &app kometa
   namespace: media
 spec:
   components:
-    - ../../../../components/volsync
     - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/migrate
   dependsOn:
-    - name: volsync
-      namespace: volsync-system
     - name: external-secrets
       namespace: external-secrets
+    - name: kopiur
+      namespace: kopiur-system
   interval: 30m
   path: ./kubernetes/apps/media/kometa/app
   postBuild:
     substitute:
-      APP: kometa
-      VOLSYNC_CAPACITY: 50Gi
+      APP: *app
       KOPIUR_CAPACITY: 50Gi
   prune: true 
   retryInterval: 1m

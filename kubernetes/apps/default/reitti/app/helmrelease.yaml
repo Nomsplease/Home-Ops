@@ -100,3 +100,16 @@ spec:
           reitti:
             tile-cache:
               - path: /var/cache/nginx
+      nginx-conf:
+        type: emptyDir
+        advancedMounts:
+          reitti:
+            tile-cache:
+              - path: /etc/nginx/nginx.conf
+                subPath: nginx.conf
+      nginx-run:
+        type: emptyDir
+        advancedMounts:
+          reitti:
+            tile-cache:
+              - path: /run

@@ -78,7 +78,5 @@ spec:
         size: 10Gi
         storageClass: ceph-block
         type: persistentVolumeClaim
-        advancedMounts:
-          esphome:
-            main:
-              - path: /config/.esphome
+        globalMounts:
+          - path: /config/.esphome

@@ -49,9 +49,10 @@ spec:
             - name: envoy-external
               namespace: network
               sectionName: https
-          backendRefs:
-            - name: immich-server
-              port: 2283
+          rules:
+            - backendRefs:
+                - name: immich-server
+                  port: 2283
 
     machine-learning:
       persistence:

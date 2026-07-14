@@ -17,8 +17,6 @@ spec:
       prefix: kopiur/
       endpoint: "${GARAGE_URL}"
       region: "${GARAGE_REGION}"
-  create:
-    enabled: true
   encryption:
     passwordSecretRef:
       name: kopiur-repository-secret

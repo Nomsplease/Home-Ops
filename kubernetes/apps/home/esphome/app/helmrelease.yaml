@@ -70,13 +70,9 @@ spec:
             namespace: network
             sectionName: https
     persistence:
+      build:
+        type: emptyDir
+      cache:
+        type: emptyDir
       config:
         existingClaim: "{{ .Release.Name }}"
-      cache:
-        accessMode: ReadWriteOnce
-        forceRename: "{{ .Release.Name }}-cache"
-        size: 10Gi
-        storageClass: ceph-block
-        type: persistentVolumeClaim
-        globalMounts:
-          - path: /config/.esphome

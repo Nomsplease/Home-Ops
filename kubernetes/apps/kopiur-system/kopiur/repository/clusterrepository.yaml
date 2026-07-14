@@ -27,7 +27,5 @@ spec:
   server:
     namespace: kopiur-system
     auth:
-      secretRef:
-        name: kopiur-ui
-        usernameKey: KOPIUR_USERNAME
-        passwordKey: KOPIUR_PASSWORD
+      insecure:
+        acknowledgeInsecure: true

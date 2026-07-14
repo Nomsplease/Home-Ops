@@ -48,7 +48,7 @@ spec:
                 cpu: 50m
                 memory: 128Mi
               limits:
-                memory: 1Gi
+                memory: 2Gi
           tile-cache:
             image:
               repository: ghcr.io/dedicatedcode/reitti-tile-cache

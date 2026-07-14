@@ -140,7 +140,7 @@ spec:
           runner:
             image:
               repository: git.erwanleboucher.dev/eleboucher/runner
-              tag: 12.10.2
+              tag: 12.13.0
             command:
               - sh
               - -ec

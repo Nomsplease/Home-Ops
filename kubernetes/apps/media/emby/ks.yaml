@@ -6,19 +6,18 @@ metadata:
   name: emby
 spec:
   components:
-    - ../../../../components/volsync
     - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/migrate
   dependsOn:
     - name: intel-device-plugins-gpu
       namespace: kube-system
-    - name: volsync
-      namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 30m
   path: ./kubernetes/apps/media/emby/app
   postBuild:
     substitute:
       APP: emby
-      VOLSYNC_CAPACITY: 100Gi
       KOPIUR_CAPACITY: 100Gi
     substituteFrom:
       - name: cluster-secrets

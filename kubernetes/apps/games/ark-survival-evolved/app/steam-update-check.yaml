@@ -51,39 +51,39 @@ spec:
                   BRANCH="preaquatica"
                   STEAM_APP_ID="376030"
                   FLEET_NAME="ark-survival-evolved"
-                  KUBE_TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+                  KUBE_TOKEN=$$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
                   KUBE_CA=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
                   KUBE_API="https://kubernetes.default.svc"
-                  NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+                  NAMESPACE=$$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
 
-                  STEAM_INFO=$(curl -sf "https://api.steamcmd.net/v1/info/${STEAM_APP_ID}")
-                  LATEST_BUILDID=$(echo "$STEAM_INFO" | jq -r ".data.\"${STEAM_APP_ID}\".depots.branches.\"${BRANCH}\".buildid")
+                  STEAM_INFO=$$(curl -sf "https://api.steamcmd.net/v1/info/$${STEAM_APP_ID}")
+                  LATEST_BUILDID=$$(echo "$$STEAM_INFO" | jq -r ".data.\"$${STEAM_APP_ID}\".depots.branches.\"$${BRANCH}\".buildid")
 
-                  if [ -z "$LATEST_BUILDID" ] || [ "$LATEST_BUILDID" = "null" ]; then
+                  if [ -z "$$LATEST_BUILDID" ] || [ "$$LATEST_BUILDID" = "null" ]; then
                     echo "ERROR: Failed to get latest buildid from Steam API"
                     exit 1
                   fi
 
-                  echo "Latest Steam buildid: ${LATEST_BUILDID}"
+                  echo "Latest Steam buildid: $${LATEST_BUILDID}"
 
-                  FLEET_JSON=$(curl -sf \
-                    --cacert "$KUBE_CA" \
-                    -H "Authorization: Bearer $KUBE_TOKEN" \
-                    "${KUBE_API}/apis/agones.dev/v1/namespaces/${NAMESPACE}/fleets/${FLEET_NAME}")
+                  FLEET_JSON=$$(curl -sf \
+                    --cacert "$$KUBE_CA" \
+                    -H "Authorization: Bearer $$KUBE_TOKEN" \
+                    "$${KUBE_API}/apis/agones.dev/v1/namespaces/$${NAMESPACE}/fleets/$${FLEET_NAME}")
 
-                  CURRENT_BUILDID=$(echo "$FLEET_JSON" | jq -r '.spec.template.metadata.annotations["steam-buildid"] // ""')
+                  CURRENT_BUILDID=$$(echo "$$FLEET_JSON" | jq -r '.spec.template.metadata.annotations["steam-buildid"] // ""')
 
-                  echo "Current buildid: ${CURRENT_BUILDID:-none}"
+                  echo "Current buildid: $${CURRENT_BUILDID:-none}"
 
-                  if [ "$LATEST_BUILDID" != "$CURRENT_BUILDID" ]; then
+                  if [ "$$LATEST_BUILDID" != "$$CURRENT_BUILDID" ]; then
                     echo "Update detected! Patching Fleet..."
                     curl -sf \
-                      --cacert "$KUBE_CA" \
-                      -H "Authorization: Bearer $KUBE_TOKEN" \
+                      --cacert "$$KUBE_CA" \
+                      -H "Authorization: Bearer $$KUBE_TOKEN" \
                       -H "Content-Type: application/merge-patch+json" \
                       -X PATCH \
-                      -d "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"steam-buildid\":\"${LATEST_BUILDID}\"}}}}}" \
-                      "${KUBE_API}/apis/agones.dev/v1/namespaces/${NAMESPACE}/fleets/${FLEET_NAME}" > /dev/null
+                      -d "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"steam-buildid\":\"$${LATEST_BUILDID}\"}}}}}" \
+                      "$${KUBE_API}/apis/agones.dev/v1/namespaces/$${NAMESPACE}/fleets/$${FLEET_NAME}" > /dev/null
                     echo "Fleet patched. Agones will recreate the GameServer with the new build."
                   else
                     echo "No update available."

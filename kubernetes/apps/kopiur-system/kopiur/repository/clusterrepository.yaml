@@ -13,7 +13,8 @@ spec:
         secretRef:
           name: kopiur-repository-secret
           namespace: kopiur-system
-      bucket: kopiur
+      bucket: homelab
+      prefix: kopiur/
       endpoint: "${GARAGE_URL}"
       region: "${GARAGE_REGION}"
   encryption:

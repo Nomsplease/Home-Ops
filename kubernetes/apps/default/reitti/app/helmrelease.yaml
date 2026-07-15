@@ -22,7 +22,7 @@ spec:
             command:
               - sh
               - -c
-              - cp -a /etc/nginx/. /config/
+              - cp -r /etc/nginx/. /config/
         containers:
           app:
             image:

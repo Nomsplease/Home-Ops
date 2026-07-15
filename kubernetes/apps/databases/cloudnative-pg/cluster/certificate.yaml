@@ -18,7 +18,7 @@ spec:
     - postgres-r.databases.svc.cluster.local
   subject:
     countries:
-      - FR
+      - US
     organizations:
       - homelab
   usages:
@@ -68,7 +68,7 @@ spec:
     - pooler-rw.databases.svc.cluster.local
   subject:
     countries:
-      - FR
+      - US
     organizations:
       - homelab
   usages:

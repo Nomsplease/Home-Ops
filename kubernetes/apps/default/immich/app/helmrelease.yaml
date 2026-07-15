@@ -40,9 +40,6 @@ spec:
           existingClaim: immich
 
     server:
-      controllers:
-        main:
-          strategy: Recreate
       route:
         main:
           hostnames:

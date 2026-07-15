@@ -18,14 +18,16 @@ spec:
               # renovate: datasource=github-releases depName=immich-app/immich
               tag: v3.0.2
             env:
-              DB_DATABASE_NAME: immich
-              DB_HOSTNAME: vector-rw.databases
+              DB_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
               LOG_LEVEL: verbose
-              # MACHINE_LEARNING_PRELOAD__CLIP: "ViT-H-14-378-quickgelu__dfn5b"
               REDIS_DBINDEX: "3"
               REDIS_HOSTNAME: dragonfly.databases
               REDIS_PORT: "6379"
-              TZ: America/New_York
+              TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: immich

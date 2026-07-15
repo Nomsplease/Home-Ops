@@ -9,7 +9,10 @@ spec:
   components:
     - ../../../../components/kopiur/backup
     - ../../../../components/kopiur/migrate
+    - ../../../../components/postgres/cert
   dependsOn:
+    - name: cloudnative-pg-cluster
+      namespace: databases
     - name: intel-device-plugins-gpu
       namespace: kube-system
     - name: kopiur
@@ -19,6 +22,13 @@ spec:
   postBuild:
     substitute:
       APP: immich
+      DATABASE_EXTENSIONS: |
+        [
+          { name: vector },
+          { name: vchord },
+          { name: cube },
+          { name: earthdistance }
+        ]
       KOPIUR_CAPACITY: 500Gi
     substituteFrom:
       - name: cluster-secrets

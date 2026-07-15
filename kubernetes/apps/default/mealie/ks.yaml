@@ -21,7 +21,10 @@ spec:
     substitute:
       APP: *app
       KOPIUR_CAPACITY: 10Gi
-  prune: true 
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
   retryInterval: 1m
   sourceRef:
     kind: GitRepository

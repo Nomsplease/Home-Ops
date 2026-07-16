@@ -8,7 +8,6 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-    - ../../../../components/kopiur/migrate
   dependsOn:
     - name: pocket-id
       namespace: security

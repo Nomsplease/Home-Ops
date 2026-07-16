@@ -15,7 +15,6 @@ spec:
   path: ./kubernetes/apps/games/ark-survival-evolved/app
   components:
     - ../../../../components/kopiur/backup
-    - ../../../../components/kopiur/migrate
   postBuild:
     substitute:
       APP: ark-survival-evolved

@@ -7,7 +7,6 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-    - ../../../../components/kopiur/migrate
   dependsOn:
     - name: intel-device-plugins-gpu
       namespace: kube-system

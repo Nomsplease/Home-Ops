@@ -39,7 +39,6 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-    - ../../../../components/kopiur/migrate
   dependsOn:
     - name: kopiur
       namespace: kopiur-system

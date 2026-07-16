@@ -17,7 +17,6 @@ spec:
   path: ./kubernetes/apps/virtualization/sendspin-bt-bridge/app
   components:
     - ../../../../components/kopiur/backup
-    - ../../../../components/kopiur/migrate
   postBuild:
     substitute:
       APP: sendspin-bt-bridge

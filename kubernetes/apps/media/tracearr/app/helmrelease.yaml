@@ -27,6 +27,10 @@ spec:
                     name: "{{ .Release.Name }}-postgres"
                     key: url
               LOG_LEVEL: info
+              PGSSLMODE: verify-full
+              PGSSLCERT: /var/run/secrets/postgresql/tls.crt
+              PGSSLKEY: /var/run/secrets/postgresql/tls.key
+              PGSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
               REDIS_URL: redis://dragonfly.databases:6379/2
               TZ: America/New_York
             envFrom:

@@ -23,7 +23,7 @@ spec:
         [
           { name: timescaledb }
         ]
-    KOPIUR_CAPACITY: 10Gi
+      KOPIUR_CAPACITY: 10Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

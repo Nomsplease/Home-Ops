@@ -20,6 +20,7 @@ spec:
               repository: ghcr.io/connorgallopo/tracearr
               tag: 1.5.0@sha256:2b6aca8d86126bb57211f54f1a34e9d8292ad0d783dbc48015452b2af1b9fe3c
             env:
+              BACKUP_DIR: /backups
               LOG_LEVEL: info
               REDIS_URL: redis://dragonfly.databases:6379/2
               TZ: America/New_York
@@ -66,3 +67,6 @@ spec:
           - name: envoy-internal
             namespace: network
             sectionName: https
+    persistence:
+      backups:
+        existingClaim: "{{ .Release.Name }}"

@@ -8,7 +8,10 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
+    - ../../../../components/postgres/cert
   dependsOn:
+    - name: cloudnative-pg-cluster
+      namespace: databases
     - name: kopiur
       namespace: kopiur-system
   interval: 30m

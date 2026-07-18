@@ -26,11 +26,11 @@ spec:
               AUTOBRR__METRICS_HOST: 0.0.0.0
               AUTOBRR__METRICS_PORT: &metricsPort 9094
               AUTOBRR__CHECK_FOR_UPDATES: false
-              AUTOBRR__DATABASE_TYPE: postgres
-              AUTOBRR__POSTGRES_HOST: "main-rw.databases"
-              AUTOBRR__POSTGRES_PORT: 5432
-              AUTOBRR__POSTGRES_SSLMODE: disable
-              AUTOBRR__POSTGRES_DATABASE: "{{ .Release.Name }}"
+              AUTOBRR__DATABASE_DSN:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
               AUTOBRR__LOG_LEVEL: info
             envFrom:
               - secretRef:

@@ -10,6 +10,31 @@ spec:
     kind: OCIRepository
     name: wikijs
   values:
+    configMaps:
+      config:
+        suffix: config
+        data:
+          config.yml: |-
+            port: 80
+            bindIP: 0.0.0.0
+            db:
+              type: postgres
+              host: pooler-rw.databases.svc
+              port: 5432
+              user: wikijs
+              db: wikijs
+              ssl: true
+              sslOptions:
+                auto: false
+                rejectUnauthorized: true
+                ca: /var/run/secrets/root-ca/ca.crt
+                cert: /var/run/secrets/postgresql/tls.crt
+                key: /var/run/secrets/postgresql/tls.key
+            ssl:
+              enabled: false
+            logLevel: info
+            logFormat: default
+            ha: false
     controllers:
       wikijs:
         annotations:
@@ -20,15 +45,7 @@ spec:
               repository: requarks/wiki
               tag: 2.5.314
             env:
-              DB_TYPE: postgres
-              DB_HOST: pooler-rw.databases.svc
-              DB_PORT: "5432"
-              DB_NAME: "{{ .Release.Name }}"
-              DB_USER: "{{ .Release.Name }}"
-              DB_SSL: "true"
-              DB_SSLOPTIONS_CA: /var/run/secrets/root-ca/ca.crt
-              DB_SSLOPTIONS_CERT: /var/run/secrets/postgresql/tls.crt
-              DB_SSLOPTIONS_KEY: /var/run/secrets/postgresql/tls.key
+              CONFIG_FILE: /config/config.yml
               TZ: ${TIMEZONE}
             probes:
               liveness: &probes
@@ -36,7 +53,7 @@ spec:
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &port 3000
+                    port: &port 80
                   failureThreshold: 6
                   periodSeconds: 10
               readiness: *probes
@@ -47,6 +64,13 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 512Mi
+    persistence:
+      config:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /config
+            readOnly: true
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

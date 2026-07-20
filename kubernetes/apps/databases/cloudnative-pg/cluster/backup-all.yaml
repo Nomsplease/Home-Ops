@@ -21,7 +21,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - pg_dumpall --host=postgres-rw.databases.svc --username="${PGUSER}" | gzip > "/dumps/postgres-$(date +%Y-%m-%d).sql.gz"
+                - pg_dumpall --host=postgres-rw.databases.svc --username="$PGUSER" | gzip > "/dumps/postgres-$(date +%Y-%m-%d).sql.gz"
               env:
                 - name: PGSSLMODE
                   value: disable
@@ -46,7 +46,7 @@ spec:
                 - /bin/sh
                 - -c
                 - |
-                  mc alias set garage "https://${GARAGE_URL}" "${ACCESS_KEY_ID}" "${SECRET_ACCESS_KEY}"
+                  mc alias set garage "https://${GARAGE_URL}" "$ACCESS_KEY_ID" "$SECRET_ACCESS_KEY"
                   mc cp /dumps/*.sql.gz garage/homelab/cnpg/nightly/
                   mc rm --recursive --force --older-than 14d garage/homelab/cnpg/nightly/
               env:

@@ -21,13 +21,17 @@ spec:
               tag: v3.3.0@sha256:c92d2dc117f62185e7bcb88cd56efd374ea79210eaf433275449e8d5988eb5a8
             env:
               DB_TYPE: postgres
-              DB_HOST: main-rw.databases
+              DB_HOST: pooler-rw.databases.svc
+              DB_PORT: "5432"
+              DB_NAME: "{{ .Release.Name }}"
+              DB_USER: "{{ .Release.Name }}"
+              DB_USE_SSL: "true"
+              DB_SSL_CA_FILE: /var/run/secrets/root-ca/ca.crt
+              DB_SSL_CERT_FILE: /var/run/secrets/postgresql/tls.crt
+              DB_SSL_KEY_FILE: /var/run/secrets/postgresql/tls.key
               LOG_LEVEL: "info"
               PORT: &port 80
               TZ: America/New_York
-            envFrom:
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true

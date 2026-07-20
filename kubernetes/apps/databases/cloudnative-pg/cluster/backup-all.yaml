@@ -17,7 +17,7 @@ spec:
           restartPolicy: Never
           initContainers:
             - name: dump
-              image: ghcr.io/cloudnative-pg/postgresql:18.4-standard-trixie@sha256:1534cac00fa02114adfd28d1ab11f73bc9821f2d19dd8e87ea166c14a637b8f4
+              image: ghcr.io/cloudnative-pg/postgresql:18.4-standard-trixie@sha256:4e4ac3fb2c914cfb44f80f0b8be8aa550e83b80bf5220df49c3a8780c1f79bc8
               command:
                 - /bin/sh
                 - -c

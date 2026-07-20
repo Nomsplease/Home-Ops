@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/batch/v1/cronjob_v1.json
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres-backup-all
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 3 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          restartPolicy: Never
+          initContainers:
+            - name: dump
+              image: ghcr.io/cloudnative-pg/postgresql:18.4-standard-trixie@sha256:1534cac00fa02114adfd28d1ab11f73bc9821f2d19dd8e87ea166c14a637b8f4
+              command:
+                - /bin/sh
+                - -c
+                - pg_dumpall --host=postgres-rw.databases.svc --username="${PGUSER}" | gzip > "/dumps/postgres-$(date +%Y-%m-%d).sql.gz"
+              env:
+                - name: PGSSLMODE
+                  value: disable
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: cnpg-admin
+                      key: username
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: cnpg-admin
+                      key: password
+              volumeMounts:
+                - name: dumps
+                  mountPath: /dumps
+          containers:
+            - name: upload
+              # renovate: datasource=docker depName=minio/mc
+              image: minio/mc:RELEASE.2025-08-13T08-35-41Z-cpuv1@sha256:95b5f3f7969a5c5a9f3a700ba72d5c84172819e13385aaf916e237cf111ab868
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  mc alias set garage "https://${GARAGE_URL}" "${ACCESS_KEY_ID}" "${SECRET_ACCESS_KEY}"
+                  mc cp /dumps/*.sql.gz garage/homelab/cnpg/nightly/
+                  mc rm --recursive --force --older-than 14d garage/homelab/cnpg/nightly/
+              env:
+                - name: GARAGE_URL
+                  value: ${GARAGE_URL}
+                - name: ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-s3
+                      key: ACCESS_KEY_ID
+                - name: SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-s3
+                      key: SECRET_ACCESS_KEY
+              volumeMounts:
+                - name: dumps
+                  mountPath: /dumps
+          volumes:
+            - name: dumps
+              emptyDir: {}

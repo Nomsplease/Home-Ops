@@ -31,3 +31,12 @@ spec:
     - name: sonarr
     - name: sonarr-kids
     - name: watchstate
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: emby-users
+spec:
+  friendlyName: Emby Users
+  allowedOIDCClients:
+    - name: emby

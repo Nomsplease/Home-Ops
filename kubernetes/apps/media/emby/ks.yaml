@@ -6,17 +6,25 @@ metadata:
   name: emby
 spec:
   components:
+    - ../../../../components/oidc/envoy
     - ../../../../components/kopiur/backup
   dependsOn:
     - name: intel-device-plugins-gpu
       namespace: kube-system
     - name: kopiur
       namespace: kopiur-system
+    - name: pocket-id
+      namespace: security
   interval: 30m
   path: ./kubernetes/apps/media/emby/app
   postBuild:
     substitute:
       APP: emby
+      # Only the "protected" rule in emby's HTTPRoute is gated by OIDC (the component's
+      # default); the "bypass" rule (native client/API paths) is untouched so Emby
+      # apps/TVs keep working.
+      APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/emby.svg"
+      OIDC_APP_NAME: Emby
       KOPIUR_CAPACITY: 100Gi
     substituteFrom:
       - name: cluster-secrets

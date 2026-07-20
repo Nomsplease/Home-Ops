@@ -63,6 +63,37 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+        rules:
+          # Native Emby clients (apps, TVs, casting) can't complete a browser OIDC
+          # redirect, so these paths skip forward auth. The oidc/envoy-partial
+          # component only targets the "protected" rule below via sectionName.
+          - name: bypass
+            matches:
+              - path:
+                  type: RegularExpression
+                  value: ^/emby($|/.*)
+              - path:
+                  type: RegularExpression
+                  value: ^/embywebsocket($|/.*)
+              - path:
+                  type: RegularExpression
+                  value: ^/websocket($|/.*)
+              - path:
+                  type: RegularExpression
+                  value: ^/emby/Sessions($|/.*)
+              - path:
+                  type: RegularExpression
+                  value: ^/emby/Users($|/.*)
+              - path:
+                  type: RegularExpression
+                  value: ^/emby/System/Info
+            backendRefs:
+              - identifier: app
+                port: *port
+          - name: protected
+            backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

@@ -29,6 +29,25 @@ spec:
 
   persistence:
     enabled: false
+    extraVolumeMounts:
+      - name: postgres-certs
+        mountPath: /var/run/secrets/postgresql
+        readOnly: true
+      - name: root-ca
+        mountPath: /var/run/secrets/root-ca
+        readOnly: true
+
+  podTemplate:
+    spec:
+      volumes:
+        - name: postgres-certs
+          secret:
+            secretName: postgres-${APP}-cert
+            defaultMode: 0600
+        - name: root-ca
+          secret:
+            secretName: root-ca
+            defaultMode: 0440
 
   logging:
     level: info

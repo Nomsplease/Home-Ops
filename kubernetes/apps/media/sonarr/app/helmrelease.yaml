@@ -33,7 +33,7 @@ spec:
                   secretKeyRef:
                     name: "{{ .Release.Name }}-postgres"
                     key: password
-              SONARR__POSTGRES__HOST: pooler-rw.databases.svc
+              SONARR__POSTGRES__HOST: postgres-rw.databases.svc
               SONARR__POSTGRES__MAINDB: "{{ .Release.Name }}"
               SONARR__POSTGRES__PORT: "5432"
               SONARR__UPDATE__BRANCH: develop

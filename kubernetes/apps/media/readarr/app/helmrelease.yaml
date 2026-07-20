@@ -55,6 +55,11 @@ spec:
           - name: envoy-internal
             namespace: network
             sectionName: https
+        rules:
+          - name: protected
+            backendRefs:
+              - identifier: app
+                port: http
 
     persistence:
       config:

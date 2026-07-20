@@ -87,6 +87,11 @@ spec:
           - name: envoy-internal
             namespace: network
             sectionName: https
+        rules:
+          - name: protected
+            backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

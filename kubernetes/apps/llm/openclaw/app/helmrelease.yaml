@@ -141,7 +141,8 @@ spec:
             namespace: network
             sectionName: https
         rules:
-          - backendRefs:
+          - name: protected
+            backendRefs:
               - identifier: app
                 port: http
             # Envoy asserts the operator identity for openclaw's trusted-proxy auth mode. `set`

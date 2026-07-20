@@ -19,6 +19,27 @@ spec:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 2.20.15@sha256:6c86cad803970ea782683a8e80e7403444c5bf3cf70de63b4d3c8e87500db92f
+            env:
+              PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
+              PAPERLESS_BIND_ADDR: 0.0.0.0
+              PAPERLESS_CONSUMER_POLLING: "5"
+              PAPERLESS_DBHOST: pooler-rw.databases.svc
+              PAPERLESS_DBNAME: paperless
+              PAPERLESS_DBPORT: "5432"
+              PAPERLESS_DBSSLCERT: /var/run/secrets/postgresql/tls.crt
+              PAPERLESS_DBSSLKEY: /var/run/secrets/postgresql/tls.key
+              PAPERLESS_DBSSLMODE: verify-full
+              PAPERLESS_DBSSLROOTCERT: /var/run/secrets/root-ca/ca.crt
+              PAPERLESS_DBUSER: paperless
+              PAPERLESS_OCR_LANGUAGE: eng
+              PAPERLESS_PORT: "8000"
+              PAPERLESS_REDIS: redis://dragonfly.databases:6379/4
+              PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "true"
+              PAPERLESS_SOCIAL_AUTO_SIGNUP: "true"
+              PAPERLESS_TIKA_ENABLED: "1"
+              PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
+              PAPERLESS_TIME_ZONE: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: paperless

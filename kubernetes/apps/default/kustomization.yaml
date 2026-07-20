@@ -31,4 +31,3 @@ resources:
   - ./thelounge/ks.yaml
   - ./wallos/ks.yaml
   # - ./whisper/ks.yaml
-  - ./wikijs/ks.yaml

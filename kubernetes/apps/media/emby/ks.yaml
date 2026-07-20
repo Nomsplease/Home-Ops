@@ -6,7 +6,7 @@ metadata:
   name: emby
 spec:
   components:
-    - ../../../../components/oidc/envoy
+    # - ../../../../components/oidc/envoy
     - ../../../../components/kopiur/backup
   dependsOn:
     - name: intel-device-plugins-gpu

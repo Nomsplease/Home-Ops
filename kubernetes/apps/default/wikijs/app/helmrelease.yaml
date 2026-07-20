@@ -20,11 +20,16 @@ spec:
               repository: requarks/wiki
               tag: 2.5.314
             env:
-              - name: TZ
-                value: America/New_York
-            envFrom:
-              - secretRef:
-                  name: wikijs
+              DB_TYPE: postgres
+              DB_HOST: pooler-rw.databases.svc
+              DB_PORT: "5432"
+              DB_NAME: "{{ .Release.Name }}"
+              DB_USER: "{{ .Release.Name }}"
+              DB_SSL: "true"
+              DB_SSLOPTIONS_CA: /var/run/secrets/root-ca/ca.crt
+              DB_SSLOPTIONS_CERT: /var/run/secrets/postgresql/tls.crt
+              DB_SSLOPTIONS_KEY: /var/run/secrets/postgresql/tls.key
+              TZ: ${TIMEZONE}
             probes:
               liveness: &probes
                 enabled: true
@@ -58,7 +63,7 @@ spec:
     route:
       app:
         hostnames:
-          - "wiki.noms.tv"
+          - "wiki.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network

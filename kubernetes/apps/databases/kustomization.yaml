@@ -10,4 +10,3 @@ resources:
   - ./namespace.yaml
   - ./cloudnative-pg/ks.yaml
   - ./dragonfly/ks.yaml
-  - ./pgbackweb/ks.yaml

@@ -21,6 +21,11 @@ spec:
               tag: 1.5.0@sha256:2b6aca8d86126bb57211f54f1a34e9d8292ad0d783dbc48015452b2af1b9fe3c
             env:
               BACKUP_DIR: /backups
+              DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
               LOG_LEVEL: info
               REDIS_URL: redis://dragonfly.databases:6379/2
               TZ: America/New_York

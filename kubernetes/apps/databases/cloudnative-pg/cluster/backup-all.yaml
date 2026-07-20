@@ -21,7 +21,11 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - pg_dumpall --host=postgres-rw.databases.svc --username="$PGUSER" | gzip > "/dumps/postgres-$(date +%Y-%m-%d).sql.gz"
+                - |
+                  set -e
+                  FILE="/dumps/postgres-$(date +%Y-%m-%d).sql"
+                  pg_dumpall --host=postgres-rw.databases.svc --username="$PGUSER" --file="$FILE"
+                  gzip "$FILE"
               env:
                 - name: PGSSLMODE
                   value: disable

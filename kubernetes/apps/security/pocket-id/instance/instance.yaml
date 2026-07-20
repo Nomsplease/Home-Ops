@@ -22,8 +22,8 @@ spec:
   databaseUrl:
     valueFrom:
       secretKeyRef:
-        name: pocket-id-secret
-        key: databaseUrl
+        name: pocket-id-postgres
+        key: url
   hostUsers: true
   fileBackend: database
 

@@ -22,9 +22,15 @@ spec:
               repository: ghcr.io/n8n-io/n8n
               tag: 2.31.0@sha256:886d431a020c355a35b21e377edb14949e50afbce1e0c60e44a8cbb54ffeccbc
             env:
-              DB_POSTGRESDB_HOST: main-rw.databases
-              DB_POSTGRESDB_DATABASE: "{{ .Release.Name }}"
+              DB_TYPE: postgresdb
+              DB_POSTGRESDB_HOST: pooler-rw.databases.svc
               DB_POSTGRESDB_PORT: "5432"
+              DB_POSTGRESDB_DATABASE: "{{ .Release.Name }}"
+              DB_POSTGRESDB_USER: "{{ .Release.Name }}"
+              DB_POSTGRESDB_SSL_ENABLED: "true"
+              DB_POSTGRESDB_SSL_CA_FILE: /var/run/secrets/root-ca/ca.crt
+              DB_POSTGRESDB_SSL_CERT_FILE: /var/run/secrets/postgresql/tls.crt
+              DB_POSTGRESDB_SSL_KEY_FILE: /var/run/secrets/postgresql/tls.key
               N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
               N8N_HIRING_BANNER_ENABLED: "false"
               N8N_HOST: "n8n.noms.tv"

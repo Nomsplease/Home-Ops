@@ -20,7 +20,12 @@ spec:
               repository: ghcr.io/patchmon/patchmon-server
               tag: 2.0.2@sha256:eaa1bcce290c7003cff01a96cfc893a64cb144e582e9b797875e6381f56b297a
             env:
-              TZ: America/New_York
+              DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: url
+              TZ: ${TIMEZONE}
               # Logging
               ENABLE_LOGGING: true
               LOG_LEVEL: debug

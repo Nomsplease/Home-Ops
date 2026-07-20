@@ -8,6 +8,10 @@ spec:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       name: ${HTTPROUTE_NAME:=${APP}}
+      # Scopes the policy to the HTTPRoute rule named "protected" (Gateway API
+      # HTTPRouteRule.name), so any other rule in the route bypasses forward auth.
+      # Override OIDC_SECTION_NAME if the app's protected rule uses a different name.
+      sectionName: ${OIDC_SECTION_NAME:=protected}
   oidc:
     provider:
       issuer: "https://id.${SECRET_DOMAIN}"

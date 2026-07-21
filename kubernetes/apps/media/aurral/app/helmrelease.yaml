@@ -27,6 +27,7 @@ spec:
               PORT: &port 80
               PUID: 1000
               PGID: 1000
+              TRUST_PROXY: "true"
               TZ: America/New_York
             envFrom:
               - secretRef:

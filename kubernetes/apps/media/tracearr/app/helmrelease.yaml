@@ -27,6 +27,7 @@ spec:
                     name: "{{ .Release.Name }}-postgres"
                     key: url
               LOG_LEVEL: info
+              OIDC_PROVIDER_NAME: "Pocket ID"
               REDIS_URL: redis://dragonfly.databases:6379/2
               TZ: America/New_York
             envFrom:
@@ -69,7 +70,7 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: network
             sectionName: https
     persistence:

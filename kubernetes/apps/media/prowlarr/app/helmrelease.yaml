@@ -21,8 +21,8 @@ spec:
               tag: 2.5.1.5464@sha256:5014bec2085b72759570ae958cdee251956c059bf82ca6244a3ce99e1c327a12
             env:
               TZ: America/New_York
-              PROWLARR__AUTHENTICATION__METHOD: External
-              PROWLARR__AUTHENTICATION__REQUIRED: DisabledForLocalAddresses
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
               PROWLARR__INSTANCENAME: Prowlarr
               PROWLARR__SERVER__PORT: &port 80
               PROWLARR__POSTGRES__MAINDBCONNECTIONSTRING:

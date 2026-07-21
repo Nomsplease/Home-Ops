@@ -57,6 +57,14 @@ spec:
               limits:
                 memory: 1Gi
     defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "vpn",
+            "namespace": "kube-system",
+            "ips": ["10.1.66.10/24"],
+            "mac": "00:00:10:01:66:10"
+          }]
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000

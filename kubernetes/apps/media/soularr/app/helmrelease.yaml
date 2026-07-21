@@ -1,0 +1,143 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: soularr
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: soularr
+  values:
+    controllers:
+      soularr:
+        forceRename: soularr
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/mrusse/soularr
+              tag: 1.2.2@sha256:c4f97924fabfce4e0de539d821ea7d20519b95c4815a707bacfc9d7212597f20
+            env:
+              SCRIPT_INTERVAL: 60
+              TZ: ${TIMEZONE}
+              WEBUI_PORT: 80
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+
+    configMaps:
+      config:
+        data:
+          config.ini: |
+            [Lidarr]
+            api_key = $LIDARR_API_KEY
+            host_url = http://lidarr.media.svc
+            download_dir = /media/Downloads/music
+            disable_sync = False
+
+            [Slskd]
+            api_key = not-required
+            host_url = http://slskd.media.svc
+            url_base = /
+            download_dir = /media/Downloads/music
+            delete_searches = True
+            stalled_timeout = 3600
+            remote_queue_timeout = 300
+
+            [Release Settings]
+            use_selected_lidarr_release = False
+            use_most_common_tracknum = True
+            allow_multi_disc = True
+            accepted_countries = Europe,Japan,United Kingdom,United States,[Worldwide],Australia,Canada
+            skip_region_check = False
+            accepted_formats = CD,Digital Media,Vinyl
+
+            [Search Settings]
+            search_timeout = 5000
+            maximum_peer_queue = 50
+            minimum_peer_upload_speed = 0
+            minimum_filename_match_ratio = 0.8
+            minimum_search_interval = 5
+            allowed_filetypes = flac 24/192,flac 16/44.1,flac,mp3 320,mp3
+            ignored_users =
+            album_prepend_artist = False
+            search_type = incrementing_page
+            number_of_albums_to_grab = 10
+            title_blacklist =
+            search_blacklist =
+            search_source = missing
+            failed_import_denylist = True
+
+            [Download Settings]
+            download_filtering = True
+            use_extension_whitelist = False
+            extensions_whitelist = lrc,nfo,txt
+
+            [Logging]
+            level = INFO
+            format = [%(levelname)s|%(module)s|L%(lineno)d] %(asctime)s: %(message)s
+            datefmt = %Y-%m-%dT%H:%M:%S%z
+            log_to_file = True
+            log_file = soularr.log
+            max_bytes = 1048576
+            backup_count = 3
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+      media:
+        type: nfs
+        server: truenas.services
+        path: /mnt/BigPool/Media
+      config:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /data/config.ini
+            subPath: config.ini
+            readOnly: true
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: http
+
+    service:
+      app:
+        controller: soularr
+        forceRename: soularr
+        ports:
+          http:
+            port: 80

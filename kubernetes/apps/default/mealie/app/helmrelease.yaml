@@ -21,7 +21,7 @@ spec:
               tag: v3.20.1@sha256:9b680f5dad8618e69317a005e083a00a699845fb2a72c392a558a4e2898aed20
             env:
               ALLOW_SIGNUP: "false"
-              BASE_URL: "${SECRET_DOMAIN}"
+              BASE_URL: "{{ .Release.Name }}.${SECRET_DOMAIN}"
               DB_ENGINE: postgres
               OIDC_AUTH_ENABLED: "true"
               OIDC_AUTO_REDIRECT: "True"
@@ -74,7 +74,7 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: network
             sectionName: https
     persistence:

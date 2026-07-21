@@ -23,7 +23,7 @@ spec:
               # Trust the x-forwarded-user header set by the Envoy SecurityPolicy's
               # OIDC/JWT auth so Aurral doesn't fall back to its own local login.
               AUTH_PROXY_ENABLED: "true"
-              DOWNLOAD_FOLDER: /media/Downloads/music
+              DOWNLOAD_FOLDER: /media/Music-Playlists
               PORT: &port 80
               PUID: 1000
               PGID: 1000
@@ -78,14 +78,6 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-        # globalMounts:
-        #   - path: /app/backend/data
-      # downloads:
-      #   type: nfs
-      #   server: truenas.services
-      #   path: /mnt/BigPool/Media/Downloads/music
-      #   globalMounts:
-      #     - path: /app/downloads
       media:
         type: nfs
         server: truenas.services

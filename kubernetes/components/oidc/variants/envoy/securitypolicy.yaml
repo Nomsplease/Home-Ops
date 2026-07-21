@@ -20,3 +20,26 @@ spec:
       name: "${OIDC_APP:=${APP}}-oidc-credentials"
     redirectURL: "https://${SUBDOMAIN:=${OIDC_APP:=${APP}}}.${SECRET_DOMAIN}/oauth2/callback"
     logoutPath: "/logout"
+    # profile scope is required for Pocket ID to include preferred_username in the ID token
+    scopes: ["openid", "profile"]
+    cookieNames:
+      idToken: "${OIDC_APP:=${APP}}-id-token"
+    # Required so the JWT provider below can parse the ID token cookie as a
+    # plain JWT instead of Envoy Gateway's encrypted cookie format. This means
+    # the ID and access tokens are stored as plaintext (HttpOnly) cookies.
+    disableTokenEncryption: true
+  # Re-validates the ID token cookie set by the oidc block above purely to
+  # project the preferred_username claim onto a header for upstream apps.
+  jwt:
+    optional: true
+    providers:
+      - name: pocket-id
+        issuer: "https://id.${SECRET_DOMAIN}"
+        remoteJWKS:
+          uri: "https://id.${SECRET_DOMAIN}/.well-known/jwks.json"
+        extractFrom:
+          cookies:
+            - "${OIDC_APP:=${APP}}-id-token"
+        claimToHeaders:
+          - header: x-forwarded-user
+            claim: preferred_username

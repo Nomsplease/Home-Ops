@@ -1,0 +1,74 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kometa
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: kometa
+  values:
+    controllers:
+      kometa:
+        forceRename: kometa
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: kometateam/quickstart
+              tag: v0.10.4@sha256:d1037ff56d00bb304371d52bd2818af12cb9fd64a518070d2da56527f9ba40be
+            env:
+              TZ: ${TIMEZONE}
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                memory: 2Gi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    persistence:
+      config:
+        existingClaim: kometa-quickstart
+      posters:
+        type: nfs
+        server: truenas.services
+        path: /mnt/BigPool/Media/Posters
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: http
+
+    service:
+      app:
+        controller: kometa
+        forceRename: kometa
+        ports:
+          http:
+            port: 7171

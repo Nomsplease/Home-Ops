@@ -28,8 +28,8 @@ spec:
               tag: 3.1.3.4975@sha256:0233c0a4bed5c2de663498a1d426919709190e5f23cf16ab219f51bfd144719c
             env:
               TZ: America/New_York
-              LIDARR__AUTHENTICATION__METHOD: External
-              LIDARR__AUTHENTICATION__REQUIRED: DisabledForLocalAddresses
+              LIDARR__AUTH__METHOD: External
+              LIDARR__AUTH__REQUIRED: DisabledForLocalAddresses
               LIDARR__INSTANCENAME: Lidarr
               LIDARR__SERVER__PORT: &port 80
               LIDARR__POSTGRES__MAINDBCONNECTIONSTRING:

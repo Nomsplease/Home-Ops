@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: security
 components:
   - ../../components/cluster-secrets
+  - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
   - ./kanidm/ks.yaml

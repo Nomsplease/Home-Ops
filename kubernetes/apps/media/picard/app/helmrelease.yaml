@@ -21,6 +21,8 @@ spec:
               repository: jlesage/musicbrainz-picard
               tag: v26.07.1@sha256:f481d52d402724325266c79759b495f0796947482fc09011b734028a40c8e4bc
             env:
+              DARK_MODE: "1"
+              KEEP_APP_RUNNING: "1"
               TZ: ${TIMEZONE}
             probes:
               liveness:
@@ -38,9 +40,6 @@ spec:
 
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
 

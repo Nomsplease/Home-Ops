@@ -31,7 +31,7 @@ spec:
   # Recovery End
   enablePDB: false
   enableSuperuserAccess: true
-  imageName: ghcr.io/cloudnative-pg/postgis:17.7-3.6.1-system-trixie@sha256:2e9c5acfaa33e8555095a81f2a9120126f55292a9952ddcec29a2e133117b9a8
+  imageName: ghcr.io/cloudnative-pg/postgis:17.7-3.6.1-system-trixie@sha256:130f566da6990269ef258fa5fa88c353455476a2bfbdcbb57ec703d7611b6020
   instances: 2
   monitoring:
     enablePodMonitor: true

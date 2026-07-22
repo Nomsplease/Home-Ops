@@ -1,0 +1,161 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kanidm
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: kanidm
+  interval: 30m
+  values:
+    controllers:
+      kanidm:
+        forceRename: kanidm
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/kanidm/server
+              tag: 1.10.4@sha256:d68cc899542fa494120f4014a76c59d5beacad8ee1673e1e62e95f82a332fb68
+            env:
+              KANIDM_ADMIN_BIND_PATH: /var/run/kanidmd.sock
+              KANIDM_BINDADDRESS: "[::]:8443"
+              KANIDM_DB_PATH: /data/kanidm.db
+              KANIDM_DOMAIN: idm.${SECRET_DOMAIN}
+              KANIDM_LDAPBINDADDRESS: "[::]:3636"
+              KANIDM_ORIGIN: https://idm.${SECRET_DOMAIN}
+              KANIDM_TLS_CHAIN: /certs/tls.crt
+              KANIDM_TLS_KEY: /certs/tls.key
+              KANIDM_MAIL_RELAY: smtp-relay.network.svc:25
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 144Mi
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /status
+                    port: &port 8443
+                    scheme: HTTPS
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probe
+
+      provision:
+        forceRename: kanidm-provision
+        containers:
+          app:
+            image:
+              repository: ghcr.io/m00nwtchr/kanidm-provision
+              tag: main@sha256:1271844f1db6c3b7656f8954595591ab2c968b005ac4420127343fcb6a7d190f
+            env:
+              KANIDM_INSTANCE: https://idm.${SECRET_DOMAIN}
+              KANIDM_NAMESPACE: security
+              KANIDM_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: kanidm-provision-token
+                    key: token
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 100Mi
+
+    defaultPodOptions:
+      automountServiceAccountToken: true
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          kanidm:
+            app:
+              - path: /data
+
+      certs:
+        type: secret
+        name: idm-${SECRET_DOMAIN}-tls
+        defaultMode: 400
+        advancedMounts:
+          kanidm:
+            app:
+              - path: /certs
+      empty:
+        type: emptyDir
+        globalMounts:
+          - path: /var/run
+      icon-cache:
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        suffix: icon-cache
+        advancedMounts:
+          provision:
+            app:
+              - path: /data/icons
+    rbac:
+      roles:
+        kanidm-write-secret:
+          type: ClusterRole
+          rules:
+            - apiGroups:
+                - ""
+              resources:
+                - "secrets"
+              verbs:
+                - "create"
+                - "patch"
+        kanidm-read-cm:
+          type: ClusterRole
+          rules:
+            - apiGroups:
+                - ""
+              resources:
+                - "configmaps"
+              verbs:
+                - "get"
+                - "list"
+                - "watch"
+      bindings:
+        kanidm-write-secret:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: kanidm-write-secret
+          subjects:
+            - identifier: kanidm
+        kanidm-read-cm:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: kanidm-read-cm
+          subjects:
+            - identifier: kanidm
+    route:
+      app:
+        hostnames:
+          - idm.${SECRET_DOMAIN}
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+    service:
+      app:
+        controller: kanidm
+        ports:
+          http:
+            port: *port
+          ldap:
+            port: 3636

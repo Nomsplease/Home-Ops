@@ -6,4 +6,5 @@ components:
   - ../../components/cluster-secrets
 resources:
   - ./namespace.yaml
+  - ./kanidm/ks.yaml
   - ./pocket-id/ks.yaml

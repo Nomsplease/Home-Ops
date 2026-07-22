@@ -237,3 +237,12 @@ kind: OOMConfig
 triggerExpression: memory_full_avg10 > 12.0 && d_memory_full_avg10 > 0.0 && time_since_trigger > duration("500ms")
 cgroupRankingExpression: 'memory_max.hasValue() ? 0.0 : ({Besteffort: 10.0, Burstable: 5.0, Guaranteed: 0.0, Podruntime: 0.0, System: 0.0}[class] * double(memory_current.orValue(0u)))'
 sampleInterval: 100ms
+---
+apiVersion: v1alpha1
+kind: ExtensionServiceConfig
+name: nut-client
+configFiles:
+  - content: |-
+        MONITOR "ups@op://Kubernetes/nutserver/upsmonHost" 1 "op://Kubernetes/nutserver/upsmonUser" "op://Kubernetes/nutserver/upsmonPass" secondary
+        SHUTDOWNCMD "/sbin/poweroff"
+    mountPath: /usr/local/etc/nut/upsmon.conf

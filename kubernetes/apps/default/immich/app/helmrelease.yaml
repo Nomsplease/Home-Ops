@@ -28,9 +28,6 @@ spec:
               REDIS_HOSTNAME: dragonfly.databases
               REDIS_PORT: "6379"
               TZ: ${TIMEZONE}
-            envFrom:
-              - secretRef:
-                  name: immich
 
     immich:
       metrics:

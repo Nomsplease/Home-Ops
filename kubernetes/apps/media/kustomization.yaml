@@ -12,6 +12,7 @@ resources:
   ## Deployments
   - ./aurral/ks.yaml
   - ./autobrr/ks.yaml
+  - ./beets/ks.yaml
   - ./cmdarr/ks.yaml
   - ./emby/ks.yaml
   - ./kometa/ks.yaml

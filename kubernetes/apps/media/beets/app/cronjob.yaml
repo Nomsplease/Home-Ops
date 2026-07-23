@@ -1,0 +1,60 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: beets
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "*/15 * * * *"
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+          containers:
+            - name: beets
+              image: lscr.io/linuxserver/beets:latest@sha256:b8765bc96d916e455be26130e90391777098c6549a26c8723b3d40f59c224fcf
+              command: ["beet"]
+              args: ["import", "-q", "/downloads"]
+              env:
+                - name: BEETSDIR
+                  value: /config
+                - name: TZ
+                  value: America/New_York
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 128Mi
+                limits:
+                  memory: 512Mi
+              volumeMounts:
+                - name: pvc
+                  mountPath: /config
+                - name: config
+                  mountPath: /config/config.yaml
+                  subPath: config.yaml
+                  readOnly: true
+                - name: media
+                  mountPath: /downloads
+                  subPath: Downloads/music
+          volumes:
+            - name: pvc
+              persistentVolumeClaim:
+                claimName: beets
+            - name: config
+              configMap:
+                name: beets-config
+            - name: media
+              nfs:
+                server: truenas.services
+                path: /mnt/BigPool/Media
+          restartPolicy: OnFailure

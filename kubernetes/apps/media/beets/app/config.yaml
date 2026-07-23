@@ -1,0 +1,16 @@
+directory: /downloads
+library: /config/library.db
+
+import:
+  move: no
+  copy: no
+  write: yes
+  autotag: yes
+  quiet: yes
+  quiet_fallback: asis
+  resume: no
+  incremental: yes
+  log: /config/import.log
+
+musicbrainz:
+  host: musicbrainz.org

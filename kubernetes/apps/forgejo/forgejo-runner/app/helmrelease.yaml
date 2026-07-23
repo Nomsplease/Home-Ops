@@ -49,6 +49,7 @@ spec:
                 - default:k8s:/config/podspec-default.yaml
                 - docker:k8s:/config/podspec-dind.yaml
                 - multiarch:k8s:/config/podspec-dind.yaml  # you need binfmt-misc extension for multiarch
+                - kvm:k8s:/config/podspec-kvm.yaml
               timeout: 3h
           podspec-default.yaml: |-
             containers:
@@ -65,6 +66,30 @@ spec:
                   requests:
                     cpu: 100m
                     memory: 256Mi
+            restartPolicy: Never
+          podspec-kvm.yaml: |-
+            containers:
+              - env:
+                  - name: DEBIAN_FRONTEND
+                    value: noninteractive
+                image: ghcr.io/bjw-s-labs/forgejo-runner:ubuntu-24.04@sha256:66d4ea40fc744ecd0e5b83535b5434ea6351e8d5b1fdab13b04f3bcfa8c32fca
+                imagePullPolicy: IfNotPresent
+                name: main
+                resources:
+                  limits:
+                    cpu: 500m
+                    memory: 4Gi
+                  requests:
+                    cpu: 100m
+                    memory: 256Mi
+                volumeMounts:
+                  - name: kvm
+                    mountPath: /dev/kvm
+            volumes:
+              - name: kvm
+                hostPath:
+                  path: /dev/kvm
+                  type: CharDevice
             restartPolicy: Never
           podspec-dind.yaml: |-
             initContainers:

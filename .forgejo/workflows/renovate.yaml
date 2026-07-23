@@ -8,7 +8,7 @@ on:
     paths:
       - .renovaterc.json5
   schedule:
-    - cron: 0 */2 * * * # Every Two Hours
+    - cron: 0 3 * * * # At 3AM
   workflow_dispatch:
     inputs:
       dryRun:

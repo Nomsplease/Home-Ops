@@ -21,7 +21,7 @@ spec:
               tag: 0.26.0@sha256:ecd4026d4f8fb504e2cc55323efa2c1f5b56d20d3686b018249cc36b48ea17a6
             env:
               SLSKD_SLSK_DIAG_LEVEL: debug
-              APP_DIR: /config
+              SLSKD_APP_DIR: /config
               SLSKD_DOWNLOADS_DIR: /media/Downloads/music
               SLSKD_INCOMPLETE_DIR: /cache
               SLSKD_SLSK_LISTEN_PORT: 25827

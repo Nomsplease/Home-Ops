@@ -20,7 +20,7 @@ spec:
       httpRoute:
         enabled: true
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "jenkins.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network

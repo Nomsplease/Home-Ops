@@ -10,61 +10,61 @@ spec:
     kind: OCIRepository
     name: jenkins
   values:
-controller:
-  image:
-    tag: "weekly"
+    controller:
+      image:
+        tag: "weekly"
 
-  serviceType: ClusterIP
+      serviceType: ClusterIP
 
-  httpRoute:
-    enabled: true
-    hostnames:
-      - "{{ .Release.Name }}.${SECRET_DOMAIN}"
-    parentRefs:
-      - name: envoy-internal
-        namespace: network
+      httpRoute:
+        enabled: true
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
 
-  admin:
-    create: true
+      admin:
+        create: true
 
-  persistence:
-    enabled: true
-    existingClaim: "{{ .Release.Name }}"
+      persistence:
+        enabled: true
+        existingClaim: "{{ .Release.Name }}"
 
-  serviceAccount:
-    create: true
-    name: "{{ .Release.Name }}"
+      serviceAccount:
+        create: true
+        name: "{{ .Release.Name }}"
 
-  installPlugins:
-    - kubernetes
-    - workflow-aggregator
-    - git
-    - configuration-as-code
-    - credentials
-    - docker-workflow
+      installPlugins:
+        - kubernetes
+        - workflow-aggregator
+        - git
+        - configuration-as-code
+        - credentials
+        - docker-workflow
 
-  JCasC:
-    enabled: true
-    configScripts:
-      kubernetes-cloud.yaml: |
-        jenkins:
-          clouds:
-            - kubernetes:
-                name: "kubernetes"
-                serverUrl: "https://kubernetes.default"
-                namespace: "jenkins"
-                jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:8080"
-                containerCap: 10
-                connectTimeout: 5
-                readTimeout: 15
-                retentionTimeout: 5
-                templates:
-                  - name: "default-agent"
-                    label: "k8s-agent"
-                    idleMinutes: 1
-                    serviceAccount: "jenkins"
-                    containers:
-                      - name: "jnlp"
-                        image: "jenkins/inbound-agent:latest"
-                        workingDir: "/home/jenkins"
-                        args: "^${computer.jnlpmac} ^${computer.name}"
+      JCasC:
+        enabled: true
+        configScripts:
+          kubernetes-cloud.yaml: |
+            jenkins:
+              clouds:
+                - kubernetes:
+                    name: "kubernetes"
+                    serverUrl: "https://kubernetes.default"
+                    namespace: "jenkins"
+                    jenkinsUrl: "http://jenkins.jenkins.svc.cluster.local:8080"
+                    containerCap: 10
+                    connectTimeout: 5
+                    readTimeout: 15
+                    retentionTimeout: 5
+                    templates:
+                      - name: "default-agent"
+                        label: "k8s-agent"
+                        idleMinutes: 1
+                        serviceAccount: "jenkins"
+                        containers:
+                          - name: "jnlp"
+                            image: "jenkins/inbound-agent:latest"
+                            workingDir: "/home/jenkins"
+                            args: "^$${computer.jnlpmac} ^$${computer.name}"

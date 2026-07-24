@@ -10,6 +10,14 @@ spec:
     kind: OCIRepository
     name: jenkins
   values:
+    persistence:
+      enabled: true
+      existingClaim: "jenkins"
+
+    serviceAccount:
+      create: true
+      name: "jenkins"
+
     controller:
       image:
         # renovate: datasource=docker depName=jenkins/jenkins
@@ -27,14 +35,6 @@ spec:
 
       admin:
         create: true
-
-      persistence:
-        enabled: true
-        existingClaim: "{{ .Release.Name }}"
-
-      serviceAccount:
-        create: true
-        name: "{{ .Release.Name }}"
 
       installPlugins:
         - kubernetes

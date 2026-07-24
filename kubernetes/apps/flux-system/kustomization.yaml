@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: flux-system
 components:
   - ../../components/cluster-secrets
+  - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
   - ./flux-instance/ks.yaml

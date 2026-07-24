@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: system-upgrade
 components:
   - ../../components/cluster-secrets
+  - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
   - ./tuppr/ks.yaml

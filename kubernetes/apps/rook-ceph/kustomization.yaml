@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: rook-ceph
 components:
   - ../../components/cluster-secrets
+  - ../../components/kopiur/secret
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml

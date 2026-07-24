@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: kube-system
 components:
   - ../../components/cluster-secrets
+  - ../../components/kopiur/secret
 resources:
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml

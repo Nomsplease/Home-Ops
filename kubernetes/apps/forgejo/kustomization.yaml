@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: forgejo
 components:
   - ../../components/cluster-secrets
+  - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
   - ./forgejo-runner/ks.yaml

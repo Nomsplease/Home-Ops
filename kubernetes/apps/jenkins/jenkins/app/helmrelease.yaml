@@ -12,7 +12,8 @@ spec:
   values:
     controller:
       image:
-        tag: "weekly"
+        # renovate: datasource=docker depName=jenkins/jenkins
+        tag: "2.574-jdk21"
 
       serviceType: ClusterIP
 

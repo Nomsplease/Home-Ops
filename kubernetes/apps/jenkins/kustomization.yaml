@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: jenkins
 components:
   - ../../components/cluster-secrets
+  - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
   - ./jenkins/ks.yaml
-

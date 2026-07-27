@@ -29,9 +29,6 @@ concurrency:
   group: ${{ forgejo.workflow-ref }}-${{ forgejo.event.number || forgejo.ref_name }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-
 jobs:
   renovate:
     name: Renovate

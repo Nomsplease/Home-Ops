@@ -35,10 +35,10 @@ spec:
       admin:
         existingSecret: forgejo-secret
       oauth:
-        - name: kanidm
+        - name: PocketID
           provider: openidConnect
-          existingSecret: kanidm-forgejo-oidc
-          autoDiscoverUrl: "https://idm.${SECRET_DOMAIN}/oauth2/openid/forgejo/.well-known/openid-configuration"
+          existingSecret: forgejo-pocketid-secret
+          autoDiscoverUrl: "https://id.${SECRET_DOMAIN}/.well-known/openid-configuration"
       config:
         APP_NAME: "Noms's Forge"
         APP_SLOGAN: "Nom nom nom Code"

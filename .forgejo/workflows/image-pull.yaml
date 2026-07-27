@@ -9,9 +9,6 @@ concurrency:
   group: ${{ forgejo.workflow_ref }}-${{ forgejo.event.number || forgejo.ref_name }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-
 jobs:
   filter:
     name: Image Pull - Filter

@@ -60,6 +60,8 @@ spec:
         shutdown_timeout: 3m
     podSpecs:
       podspec-default.yaml: |
+        imagePullSecrets:
+          - name: forgejo-registry-pull-secret
         containers:
           - env:
               - name: DEBIAN_FRONTEND
@@ -76,6 +78,8 @@ spec:
                 memory: 4Gi
         restartPolicy: Never
       podspec-dind.yaml: |
+        imagePullSecrets:
+          - name: forgejo-registry-pull-secret
         initContainers:
           - name: dind
             image: docker:29-dind

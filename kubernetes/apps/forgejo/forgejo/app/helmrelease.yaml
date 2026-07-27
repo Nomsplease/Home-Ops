@@ -115,6 +115,7 @@ spec:
           HOST: redis://dragonfly.databases.svc:6379/7?pool_size=100&idle_timeout=180s
         actions:
           ENABLED: true
+          DEFAULT_ACTIONS_URL: https://github.com
         mailer:
           ENABLED: true
           FROM: Forgejo <admin@${SECRET_DOMAIN}>

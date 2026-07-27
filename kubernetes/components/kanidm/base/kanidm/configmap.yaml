@@ -52,7 +52,8 @@ data:
           "${APP}": {
             "scopeMaps": {
               "users": [],
-              "admins": []
+              "admins": [],
+              "bots": []
             }
           }
         }

@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./externalsecret.yaml
+  # - ./helmrelease.yaml
+  - ./httproute.yaml
+  - ./ocirepository.yaml
+configMapGenerator:
+  - name: forgejo-themes
+    files:
+      - themes/theme-alucard.css
+      - themes/theme-dracula.css
+      - themes/theme-draculalucard.css
+  - name: forgejo-logo
+    files:
+      - logo.svg=img/logo.svg.txt
+      - logo.png=img/logo.png.bin
+      - favicon.svg=img/favicon.svg.txt
+      - favicon.png=img/favicon.png.bin
+      - apple-touch-icon.png=img/apple-touch-icon.png.bin
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

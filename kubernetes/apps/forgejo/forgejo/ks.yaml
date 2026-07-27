@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app forgejo
+spec:
+  components:
+    - ../../../../components/kanidm/base
+    - ../../../../components/kopiur/backup
+    - ../../../../components/postgres/cert
+  dependsOn:
+    - name: cloudnative-pg-cluster
+      namespace: databases
+    - name: dragonfly
+      namespace: databases
+    - name: kanidm
+      namespace: security
+    - name: kopiur
+      namespace: kopiur-system
+  interval: 1h
+  path: ./kubernetes/apps/forgejo/forgejo/app
+  postBuild:
+    substitute:
+      APP: *app
+      KOPIUR_CAPACITY: 50Gi
+      APP_NAMESPACE: forgejo
+      OIDC_CALLBACK: /user/oauth2/kanidm/callback
+      SUBDOMAIN: git
+      OIDC_CLIENT_ID_KEY: key
+      OIDC_CLIENT_SECRET_KEY: secret
+      OIDC_SCOPES: '["openid", "profile", "email", "groups", "ssh_publickeys"]'
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true 
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: forgejo
+  wait: false

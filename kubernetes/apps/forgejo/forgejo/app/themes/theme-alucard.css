@@ -1,0 +1,746 @@
+.markup [src$="#gh-light-mode-only"],
+.markup [src$="#light-mode-only"],
+.markup [href$="#gh-light-mode-only"],
+.markup [href$="#light-mode-only"] {
+  display: unset;
+}
+
+.markup [src$="#gh-dark-mode-only"],
+.markup [src$="#dark-mode-only"],
+.markup [href$="#gh-dark-mode-only"],
+.markup [href$="#dark-mode-only"] {
+  display: none;
+}
+
+:root {
+  /* Alucard palette (Dracula light) — https://draculatheme.com/contribute */
+  --alucard-background: #fffbeb;
+  --alucard-selection: #cfcfde;
+  --alucard-foreground: #1f1f1f;
+  --alucard-comment: #6c664b;
+  --alucard-red: #cb3a2a;
+  --alucard-orange: #a34d14;
+  --alucard-yellow: #846e15;
+  --alucard-green: #14710a;
+  --alucard-cyan: #036a96;
+  --alucard-purple: #644ac9;
+  --alucard-pink: #a3144d;
+
+  /* steel ramp — kept for compatibility; only --steel-450 is referenced (selection-bg) */
+  --steel-900: #10161d;
+  --steel-850: #131a21;
+  --steel-800: #171e26;
+  --steel-750: #1d262f;
+  --steel-700: #242d38;
+  --steel-650: #2b3642;
+  --steel-600: #374351;
+  --steel-550: #445161;
+  --steel-500: #515f70;
+  --steel-450: #5f6e80;
+  --steel-400: #6d7d8f;
+  --steel-350: #7c8c9f;
+  --steel-300: #8c9caf;
+  --steel-250: #9dadc0;
+  --steel-200: #aebed0;
+  --steel-150: #c0cfe0;
+  --steel-100: #d2e0f0;
+
+  /* warm zinc ramp — tinted to complement Alucard's cream background */
+  --zinc-50: #fffef7;
+  --zinc-100: #f8f5ea;
+  --zinc-150: #f0ede1;
+  --zinc-200: #e7e4d8;
+  --zinc-250: #dfdccf;
+  --zinc-300: #d4d1c5;
+  --zinc-350: #bab8ac;
+  --zinc-400: #a1a094;
+  --zinc-450: #89887d;
+  --zinc-500: #717066;
+  --zinc-550: #615f57;
+  --zinc-600: #514f49;
+  --zinc-650: #46443f;
+  --zinc-700: #3b3a35;
+  --zinc-750: #302f2b;
+  --zinc-800: #252421;
+  --zinc-850: #1d1c19;
+  --zinc-900: #161513;
+
+  /* primary — Alucard purple */
+  --color-primary: var(--alucard-purple);
+  --color-primary-contrast: #ffffff;
+  --color-primary-dark-1: #644ac9;
+  --color-primary-dark-2: #5940b5;
+  --color-primary-dark-3: #5940b5;
+  --color-primary-dark-4: #4e37a1;
+  --color-primary-dark-5: #4e37a1;
+  --color-primary-dark-6: #4e37a1;
+  --color-primary-dark-7: #4e37a1;
+  --color-primary-light-1: #7660d0;
+  --color-primary-light-2: #8876d8;
+  --color-primary-light-3: #9a8ce0;
+  --color-primary-light-4: #b5aae9;
+  --color-primary-light-5: #d0c9f2;
+  --color-primary-light-6: #e8e4f8;
+  --color-primary-light-7: #f4f2fc;
+  --color-primary-alpha-10: #644ac919;
+  --color-primary-alpha-20: #644ac933;
+  --color-primary-alpha-30: #644ac94b;
+  --color-primary-alpha-40: #644ac966;
+  --color-primary-alpha-50: #644ac980;
+  --color-primary-alpha-60: #644ac999;
+  --color-primary-alpha-70: #644ac9b3;
+  --color-primary-alpha-80: #644ac9cc;
+  --color-primary-alpha-90: #644ac9e1;
+  --color-primary-hover: var(--color-primary-dark-2);
+  --color-primary-active: var(--color-primary-dark-4);
+
+  /* secondary — surface chrome, based on zinc ramp */
+  --color-secondary: var(--zinc-200);
+  --color-secondary-dark-1: var(--zinc-200);
+  --color-secondary-dark-2: var(--zinc-300);
+  --color-secondary-dark-3: var(--zinc-300);
+  --color-secondary-dark-4: var(--zinc-400);
+  --color-secondary-dark-5: var(--zinc-400);
+  --color-secondary-dark-6: var(--zinc-500);
+  --color-secondary-dark-7: var(--zinc-500);
+  --color-secondary-dark-8: var(--zinc-600);
+  --color-secondary-dark-9: var(--zinc-600);
+  --color-secondary-dark-10: var(--zinc-700);
+  --color-secondary-dark-11: var(--zinc-700);
+  --color-secondary-dark-12: var(--zinc-800);
+  --color-secondary-dark-13: var(--zinc-800);
+  --color-secondary-light-1: var(--zinc-200);
+  --color-secondary-light-2: var(--zinc-100);
+  --color-secondary-light-3: var(--zinc-100);
+  --color-secondary-light-4: var(--zinc-50);
+  --color-secondary-alpha-10: #d4d1c519;
+  --color-secondary-alpha-20: #d4d1c533;
+  --color-secondary-alpha-30: #d4d1c54b;
+  --color-secondary-alpha-40: #d4d1c566;
+  --color-secondary-alpha-50: #d4d1c580;
+  --color-secondary-alpha-60: #d4d1c599;
+  --color-secondary-alpha-70: #d4d1c5b3;
+  --color-secondary-alpha-80: #d4d1c5cc;
+  --color-secondary-alpha-90: #d4d1c5e1;
+  --color-secondary-hover: var(--color-secondary-dark-2);
+  --color-secondary-active: var(--color-secondary-dark-4);
+
+  /* console — stays dark even in light themes */
+  --color-console-fg: #f8f8f2;
+  --color-console-fg-subtle: #6272a4;
+  --color-console-bg: #1f212b;
+  --color-console-border: #383c47;
+  --color-console-hover-bg: #ffffff16;
+  --color-console-active-bg: #454a57;
+  --color-console-menu-bg: #383c47;
+  --color-console-menu-border: #5c6374;
+
+  /* named colors — mapped to Alucard palette */
+  --color-red: var(--alucard-red);
+  --color-orange: var(--alucard-orange);
+  --color-yellow: var(--alucard-yellow);
+  --color-olive: #91a313;
+  --color-green: var(--alucard-green);
+  --color-teal: var(--alucard-cyan);
+  --color-blue: #2553b0;
+  --color-violet: var(--alucard-purple);
+  --color-purple: var(--alucard-purple);
+  --color-pink: var(--alucard-pink);
+  --color-brown: #a47252;
+  --color-grey: var(--zinc-500);
+  --color-black: #000000;
+
+  /* light variants */
+  --color-red-light: #d85040;
+  --color-orange-light: #bf5e1c;
+  --color-yellow-light: #9d841b;
+  --color-olive-light: #839311;
+  --color-green-light: #1a8e0d;
+  --color-teal-light: #0482b8;
+  --color-blue-light: #3366c4;
+  --color-violet-light: #7a60d4;
+  --color-purple-light: #7a60d4;
+  --color-pink-light: #c01a5e;
+  --color-brown-light: #94674a;
+  --color-grey-light: var(--zinc-400);
+  --color-black-light: #181818;
+
+  /* dark-1 variants (scale-color $lightness: -10%) */
+  --color-red-dark-1: #b73526;
+  --color-orange-dark-1: #934512;
+  --color-yellow-dark-1: #776413;
+  --color-olive-dark-1: #839311;
+  --color-green-dark-1: #126509;
+  --color-teal-dark-1: #035f87;
+  --color-blue-dark-1: #214a9e;
+  --color-violet-dark-1: #5940b5;
+  --color-purple-dark-1: #5940b5;
+  --color-pink-dark-1: #930f45;
+  --color-brown-dark-1: #94674a;
+  --color-black-dark-1: #000000;
+
+  /* dark-2 variants (scale-color $lightness: -20%) */
+  --color-red-dark-2: #a23022;
+  --color-orange-dark-2: #823e10;
+  --color-yellow-dark-2: #6a5a11;
+  --color-olive-dark-2: #74820f;
+  --color-green-dark-2: #105a08;
+  --color-teal-dark-2: #035578;
+  --color-blue-dark-2: #1d418c;
+  --color-violet-dark-2: #4e37a1;
+  --color-purple-dark-2: #4e37a1;
+  --color-pink-dark-2: #830d3e;
+  --color-brown-dark-2: #835b42;
+  --color-black-dark-2: #000000;
+
+  /* ANSI colors — Dracula terminal palette (console is always dark) */
+  --color-ansi-black: #21222c;
+  --color-ansi-red: #ff5555;
+  --color-ansi-green: #50fa7b;
+  --color-ansi-yellow: #f1fa8c;
+  --color-ansi-blue: #bd93f9;
+  --color-ansi-magenta: #ff79c6;
+  --color-ansi-cyan: #8be9fd;
+  --color-ansi-white: var(--color-console-fg-subtle);
+  --color-ansi-bright-black: #6272a4;
+  --color-ansi-bright-red: #ff6e6e;
+  --color-ansi-bright-green: #69ff94;
+  --color-ansi-bright-yellow: #ffffa5;
+  --color-ansi-bright-blue: #d6acff;
+  --color-ansi-bright-magenta: #ff92df;
+  --color-ansi-bright-cyan: #a4ffff;
+  --color-ansi-bright-white: var(--color-console-fg);
+
+  /* other colors */
+  --color-gold: var(--alucard-orange);
+  --color-white: #ffffff;
+  --color-pure-black: #000000;
+
+  /* diff */
+  --color-diff-removed-word-bg: #f5c0b8;
+  --color-diff-added-word-bg: #b3e6ba;
+  --color-diff-removed-row-bg: #fceae7;
+  --color-diff-moved-row-bg: #fef5d4;
+  --color-diff-added-row-bg: #e0f5e3;
+  --color-diff-removed-row-border: #f5c0b8;
+  --color-diff-moved-row-border: #e8d48a;
+  --color-diff-added-row-border: #b3e6ba;
+  --color-diff-inactive: var(--zinc-100);
+
+  /* alerts */
+  --color-error-border: #f5c0b8;
+  --color-error-bg: #fceae7;
+  --color-error-bg-active: #f5c0b8;
+  --color-error-bg-hover: #f8d5d0;
+  --color-error-text: #7a2018;
+  --color-success-border: #b3e6ba;
+  --color-success-bg: #e0f5e3;
+  --color-success-text: #0d4a07;
+  --color-warning-border: #e8d48a;
+  --color-warning-bg: #fef5d4;
+  --color-warning-text: #5a4a0e;
+  --color-info-border: #c5b8e8;
+  --color-info-bg: #ede8f8;
+  --color-info-text: #3b2a7a;
+
+  /* badges */
+  --color-red-badge: var(--alucard-red);
+  --color-red-badge-bg: #cb3a2a22;
+  --color-red-badge-hover-bg: #cb3a2a44;
+  --color-green-badge: var(--alucard-green);
+  --color-green-badge-bg: #14710a22;
+  --color-green-badge-hover-bg: #14710a44;
+  --color-yellow-badge: var(--alucard-yellow);
+  --color-yellow-badge-bg: #846e1522;
+  --color-yellow-badge-hover-bg: #846e1544;
+  --color-orange-badge: var(--alucard-orange);
+  --color-orange-badge-bg: #a34d1422;
+  --color-orange-badge-hover-bg: #a34d1444;
+
+  /* thin element colors (oklch — parametric, for light theme) */
+  --thin-lightness: 0.43;
+  --regular-chroma: 0.19;
+  --color-thin-green: oklch(var(--thin-lightness) var(--regular-chroma) 145deg);
+  --color-thin-red: oklch(var(--thin-lightness) var(--regular-chroma) 27deg);
+  --color-thin-purple: oklch(
+    var(--thin-lightness) var(--regular-chroma) 298deg
+  );
+  --color-thin-orange: oklch(var(--thin-lightness) var(--regular-chroma) 41deg);
+
+  --thin-lightness-highlight: 0.36;
+  --color-thin-red-highlight: oklch(
+    var(--thin-lightness-highlight) var(--regular-chroma) 27deg
+  );
+
+  /* danger button bg (oklch — light theme) */
+  --bg-lightness: 0.88;
+  --bg-chroma: 0.05;
+  --color-danger-bg: oklch(var(--bg-lightness) var(--bg-chroma) 27deg);
+
+  /* target-based / semantic colors */
+  --color-body: var(--alucard-background);
+  --color-box-header: var(--zinc-100);
+  --color-box-body: var(--zinc-50);
+  --color-box-body-highlight: var(--zinc-200);
+  --color-text-dark: #000;
+  --color-text: var(--zinc-900);
+  --color-text-light: var(--zinc-700);
+  --color-text-light-1: var(--zinc-650);
+  --color-text-light-2: var(--zinc-600);
+  --color-text-light-3: var(--zinc-550);
+  --color-footer: var(--zinc-100);
+  --color-timeline: var(--zinc-200);
+  --color-input-text: var(--zinc-800);
+  --color-input-background: #fff;
+  --color-input-toggle-background: #fff;
+  --color-input-border: var(--zinc-300);
+  --color-input-border-hover: var(--zinc-400);
+  --color-header-wrapper: var(--zinc-50);
+  --color-header-wrapper-transparent: #fffef700;
+  --color-light: #ffffffcc;
+  --color-light-mimic-enabled: rgba(
+    0,
+    0,
+    0,
+    calc(6 / 255 * 222 / 255 / var(--opacity-disabled))
+  );
+  --color-light-border: #0000001d;
+  --color-hover: #e7e4d8aa;
+  --color-active: #e7e4d8;
+  --color-menu: var(--zinc-100);
+  --color-card: var(--zinc-50);
+  --fancy-card-bg: var(--zinc-100);
+  --fancy-card-border: var(--zinc-200);
+  --color-markup-table-row: #ffffff06;
+  --color-markup-code-block: var(--zinc-150);
+  --color-markup-code-inline: var(--zinc-200);
+  --color-button: var(--zinc-150);
+  --color-code-bg: var(--zinc-50);
+  --color-shadow: #00000060;
+  --color-secondary-bg: var(--zinc-100);
+  --color-text-focus: #fff;
+  --color-expand-button: var(--zinc-200);
+  --color-placeholder-text: var(--color-text-light-3);
+  --color-editor-line-highlight: var(--zinc-100);
+  --color-project-board-bg: var(--color-secondary-light-2);
+  --color-project-board-dark-label: var(--color-text-light-3);
+  --color-caret: var(--color-text);
+  --color-reaction-bg: #0000000a;
+  --color-reaction-active-bg: var(--color-primary-alpha-20);
+  --color-reaction-hover-bg: var(--color-primary-alpha-30);
+  --color-tooltip-text: #ffffff;
+  --color-tooltip-bg: #000000f0;
+  --color-nav-bg: var(--zinc-100);
+  --color-nav-hover-bg: var(--zinc-300);
+  --color-secondary-nav-bg: var(--color-body);
+  --color-label-text: var(--color-text);
+  --color-label-bg: #d4d1c57b;
+  --color-label-hover-bg: #d4d1c5a0;
+  --color-label-active-bg: #d4d1c5ff;
+  --color-label-bg-alt: #d4d1c5ff;
+  --color-accent: var(--color-primary-light-1);
+  --color-small-accent: var(--color-primary-light-5);
+  --color-highlight-fg: var(--color-primary-light-4);
+  --color-highlight-bg: var(--color-primary-light-6);
+  --color-overlay-backdrop: #080808c0;
+  --color-selection-bg: var(--alucard-selection);
+  --color-selection-fg: var(--alucard-foreground);
+
+  /* pattern colors for image diff */
+  --checkerboard-color-1: #ffffff;
+  --checkerboard-color-2: #e7e4d8;
+
+  /* status indicators */
+  --color-indicator-offline: var(--zinc-600);
+  --color-indicator-offline-20: #514f4933;
+  --color-indicator-idle: var(--alucard-green);
+  --color-indicator-idle-20: #14710a33;
+  --color-indicator-active: var(--alucard-purple);
+  --color-indicator-active-20: #644ac933;
+
+  accent-color: var(--color-accent);
+  color-scheme: light;
+}
+
+.ui.secondary.vertical.menu {
+  border-radius: 0.28571429rem !important;
+  overflow: hidden;
+}
+.ui.basic.primary.button.item {
+  background-color: var(--color-active) !important;
+  color: var(--color-text) !important;
+  box-shadow: none !important;
+}
+.ui.red.label.notification_count,
+.ui.primary.labels .label {
+  background-color: var(--color-primary-dark-1) !important;
+}
+.ui.labeled.icon.buttons > .button > .icon,
+.ui.labeled.icon.button > .icon {
+  background-color: var(--color-shadow) !important;
+}
+#review-box .review-comments-counter {
+  background-color: var(--color-label-bg) !important;
+  margin-left: 0.5em;
+}
+.ui.basic.labels .primary.label,
+.ui.ui.ui.basic.primary.label {
+  color: var(--color-text-dark) !important;
+}
+.ui.yellow.label.pending-label {
+  background: var(--color-warning-bg) !important;
+  color: var(--color-text-dark) !important;
+}
+strong.attention-important,
+svg.attention-important {
+  color: var(--color-violet-light);
+}
+strong.attention-note,
+svg.attention-note {
+  color: var(--color-blue-light);
+}
+strong.attention-caution,
+svg.attention-caution {
+  color: var(--color-red-light);
+}
+
+/* Chroma syntax highlighting — Alucard palette
+   https://github.com/alecthomas/chroma/blob/6428fb4e65f3c1493491571c8a6a8f1add1da822/types.go#L208
+   Spec: https://draculatheme.com/spec */
+.chroma .bp {
+  color: var(--alucard-purple);
+  font-style: italic;
+} /* NameBuiltinPseudo — self/this/super */
+.chroma .c {
+  color: var(--alucard-comment);
+  font-style: italic;
+} /* Comment */
+.chroma .c1 {
+  color: var(--alucard-comment);
+  font-style: italic;
+} /* CommentSingle */
+.chroma .ch {
+  color: var(--alucard-comment);
+  font-style: italic;
+} /* CommentHashbang */
+.chroma .cm {
+  color: var(--alucard-comment);
+  font-style: italic;
+} /* CommentMultiline */
+.chroma .cp {
+  color: var(--alucard-pink);
+} /* CommentPreproc — preprocessor directives */
+.chroma .cpf {
+  color: var(--alucard-yellow);
+} /* CommentPreprocFile — string/path */
+.chroma .cs {
+  color: var(--alucard-comment);
+  font-style: italic;
+} /* CommentSpecial */
+.chroma .dl {
+  color: var(--alucard-yellow);
+} /* LiteralStringDelimiter */
+.chroma .fm {
+} /* NameFunctionMagic */
+.chroma .g {
+} /* Generic */
+.chroma .gd {
+  color: var(--alucard-red);
+  background-color: #fceae7;
+} /* GenericDeleted */
+.chroma .ge {
+  color: var(--alucard-foreground);
+  font-style: italic;
+} /* GenericEmph */
+.chroma .gh {
+  color: var(--alucard-purple);
+} /* GenericHeading */
+.chroma .gi {
+  color: var(--alucard-green);
+  background-color: #e0f5e3;
+} /* GenericInserted */
+.chroma .gl {
+} /* GenericUnderline */
+.chroma .go {
+  color: var(--alucard-comment);
+} /* GenericOutput */
+.chroma .gp {
+  color: var(--alucard-foreground);
+} /* GenericPrompt */
+.chroma .gr {
+  color: var(--alucard-red);
+} /* GenericError */
+.chroma .gs {
+  color: var(--alucard-foreground);
+  font-weight: bold;
+} /* GenericStrong */
+.chroma .gt {
+  color: var(--alucard-red);
+} /* GenericTraceback */
+.chroma .gu {
+  color: var(--alucard-comment);
+} /* GenericSubheading */
+.chroma .il {
+  color: var(--alucard-orange);
+} /* LiteralNumberIntegerLong */
+.chroma .k {
+  color: var(--alucard-pink);
+} /* Keyword */
+.chroma .kc {
+  color: var(--alucard-orange);
+} /* KeywordConstant — true/false/null */
+.chroma .kd {
+  color: var(--alucard-pink);
+} /* KeywordDeclaration — let/var/const */
+.chroma .kn {
+  color: var(--alucard-pink);
+} /* KeywordNamespace */
+.chroma .kp {
+  color: var(--alucard-pink);
+} /* KeywordPseudo */
+.chroma .kr {
+  color: var(--alucard-pink);
+} /* KeywordReserved */
+.chroma .kt {
+  color: var(--alucard-cyan);
+} /* KeywordType */
+.chroma .l {
+} /* Literal */
+.chroma .ld {
+} /* LiteralDate */
+.chroma .m {
+  color: var(--alucard-orange);
+} /* LiteralNumber */
+.chroma .mb {
+  color: var(--alucard-orange);
+} /* LiteralNumberBin */
+.chroma .mf {
+  color: var(--alucard-orange);
+} /* LiteralNumberFloat */
+.chroma .mh {
+  color: var(--alucard-orange);
+} /* LiteralNumberHex */
+.chroma .mi {
+  color: var(--alucard-orange);
+} /* LiteralNumberInteger */
+.chroma .mo {
+  color: var(--alucard-orange);
+} /* LiteralNumberOct */
+.chroma .n {
+  color: var(--alucard-foreground);
+} /* Name */
+.chroma .na {
+  color: var(--alucard-green);
+} /* NameAttribute */
+.chroma .nb {
+  color: var(--alucard-cyan);
+} /* NameBuiltin */
+.chroma .nc {
+  color: var(--alucard-cyan);
+} /* NameClass */
+.chroma .nd {
+  color: var(--alucard-green);
+} /* NameDecorator */
+.chroma .ne {
+  color: var(--alucard-cyan);
+} /* NameException */
+.chroma .nf {
+  color: var(--alucard-green);
+} /* NameFunction */
+.chroma .ni {
+  color: var(--alucard-foreground);
+} /* NameEntity */
+.chroma .nl {
+  color: var(--alucard-pink);
+} /* NameLabel */
+.chroma .nn {
+  color: var(--alucard-foreground);
+} /* NameNamespace */
+.chroma .no {
+  color: var(--alucard-orange);
+} /* NameConstant */
+.chroma .nt {
+  color: var(--alucard-pink);
+} /* NameTag */
+.chroma .nv {
+  color: var(--alucard-foreground);
+} /* NameVariable */
+.chroma .nx {
+  color: var(--alucard-foreground);
+} /* NameOther */
+.chroma .o {
+  color: var(--alucard-pink);
+} /* Operator */
+.chroma .ow {
+  color: var(--alucard-pink);
+} /* OperatorWord */
+.chroma .p {
+  color: var(--alucard-foreground);
+} /* Punctuation */
+.chroma .py {
+} /* NameProperty */
+.chroma .s {
+  color: var(--alucard-yellow);
+} /* LiteralString */
+.chroma .s1 {
+  color: var(--alucard-yellow);
+} /* LiteralStringSingle */
+.chroma .s2 {
+  color: var(--alucard-yellow);
+} /* LiteralStringDouble */
+.chroma .sa {
+  color: var(--alucard-pink);
+} /* LiteralStringAffix */
+.chroma .sb {
+  color: var(--alucard-yellow);
+} /* LiteralStringBacktick */
+.chroma .sc {
+  color: var(--alucard-yellow);
+} /* LiteralStringChar */
+.chroma .sd {
+  color: var(--alucard-yellow);
+} /* LiteralStringDoc */
+.chroma .se {
+  color: var(--alucard-orange);
+} /* LiteralStringEscape */
+.chroma .sh {
+  color: var(--alucard-yellow);
+} /* LiteralStringHeredoc */
+.chroma .si {
+  color: var(--alucard-yellow);
+} /* LiteralStringInterpol */
+.chroma .sr {
+  color: var(--alucard-cyan);
+} /* LiteralStringRegex */
+.chroma .ss {
+  color: var(--alucard-orange);
+} /* LiteralStringSymbol */
+.chroma .sx {
+  color: var(--alucard-yellow);
+} /* LiteralStringOther */
+.chroma .vc {
+  color: var(--alucard-foreground);
+} /* NameVariableClass */
+.chroma .vg {
+  color: var(--alucard-foreground);
+} /* NameVariableGlobal */
+.chroma .vi {
+  color: var(--alucard-foreground);
+} /* NameVariableInstance */
+.chroma .vm {
+} /* NameVariableMagic */
+.chroma .w {
+  color: var(--alucard-comment);
+} /* TextWhitespace */
+.chroma .err {
+  /* not styled — Chroma flags too many things like JSX */
+} /* Error */
+
+/* CodeMirror — markdown editor, Alucard palette */
+.CodeMirror.cm-s-default .cm-property,
+.CodeMirror.cm-s-paper .cm-property {
+  color: var(--alucard-green);
+}
+
+.CodeMirror.cm-s-default .cm-header,
+.CodeMirror.cm-s-paper .cm-header {
+  color: var(--alucard-purple);
+}
+
+.CodeMirror.cm-s-default .cm-quote,
+.CodeMirror.cm-s-paper .cm-quote {
+  color: var(--alucard-yellow);
+}
+
+.CodeMirror.cm-s-default .cm-keyword,
+.CodeMirror.cm-s-paper .cm-keyword {
+  color: var(--alucard-pink);
+}
+
+.CodeMirror.cm-s-default .cm-atom,
+.CodeMirror.cm-s-paper .cm-atom {
+  color: var(--alucard-orange);
+}
+
+.CodeMirror.cm-s-default .cm-number,
+.CodeMirror.cm-s-paper .cm-number {
+  color: var(--alucard-orange);
+}
+
+.CodeMirror.cm-s-default .cm-def,
+.CodeMirror.cm-s-paper .cm-def {
+  color: var(--alucard-foreground);
+}
+
+.CodeMirror.cm-s-default .cm-variable-2,
+.CodeMirror.cm-s-paper .cm-variable-2 {
+  color: var(--alucard-cyan);
+}
+
+.CodeMirror.cm-s-default .cm-variable-3,
+.CodeMirror.cm-s-paper .cm-variable-3 {
+  color: var(--alucard-green);
+}
+
+.CodeMirror.cm-s-default .cm-comment,
+.CodeMirror.cm-s-paper .cm-comment {
+  color: var(--alucard-comment);
+  font-style: italic;
+}
+
+.CodeMirror.cm-s-default .cm-string,
+.CodeMirror.cm-s-paper .cm-string {
+  color: var(--alucard-yellow);
+}
+
+.CodeMirror.cm-s-default .cm-string-2,
+.CodeMirror.cm-s-paper .cm-string-2 {
+  color: var(--alucard-orange);
+}
+
+.CodeMirror.cm-s-default .cm-meta,
+.CodeMirror.cm-s-paper .cm-meta,
+.CodeMirror.cm-s-default .cm-qualifier,
+.CodeMirror.cm-s-paper .cm-qualifier {
+  color: var(--alucard-pink);
+}
+
+.CodeMirror.cm-s-default .cm-builtin,
+.CodeMirror.cm-s-paper .cm-builtin {
+  color: var(--alucard-cyan);
+}
+
+.CodeMirror.cm-s-default .cm-bracket,
+.CodeMirror.cm-s-paper .cm-bracket {
+  color: var(--alucard-foreground);
+}
+
+.CodeMirror.cm-s-default .cm-tag,
+.CodeMirror.cm-s-paper .cm-tag {
+  color: var(--alucard-pink);
+}
+
+.CodeMirror.cm-s-default .cm-attribute,
+.CodeMirror.cm-s-paper .cm-attribute {
+  color: var(--alucard-green);
+}
+
+.CodeMirror.cm-s-default .cm-hr,
+.CodeMirror.cm-s-paper .cm-hr {
+  color: var(--alucard-comment);
+}
+
+.CodeMirror.cm-s-default .cm-url,
+.CodeMirror.cm-s-paper .cm-url {
+  color: var(--alucard-cyan);
+}
+
+.CodeMirror.cm-s-default .cm-link,
+.CodeMirror.cm-s-paper .cm-link {
+  color: var(--alucard-purple);
+}
+
+.CodeMirror.cm-s-default .cm-error,
+.CodeMirror.cm-s-paper .cm-error {
+  color: var(--alucard-red);
+}

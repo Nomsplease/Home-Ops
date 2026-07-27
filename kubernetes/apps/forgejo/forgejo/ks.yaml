@@ -6,7 +6,7 @@ metadata:
   name: &app forgejo
 spec:
   components:
-    - ../../../../components/kanidm/base
+    - ../../../../components/kanidm
     - ../../../../components/kopiur/backup
     - ../../../../components/postgres/cert
   dependsOn:

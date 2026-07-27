@@ -12,7 +12,7 @@ spec:
     - name: kanidm
       namespace: security
   interval: 1h
-  path: ./kubernetes/components/oidc/base/kanidm
+  path: ./kubernetes/components/kanidm/base/kanidm
   postBuild:
     substitute:
       APP: *app

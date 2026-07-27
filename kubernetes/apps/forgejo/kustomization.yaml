@@ -8,5 +8,6 @@ components:
   - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
+  - ./forgejo/ks.yaml
   - ./forgejo-runner/ks.yaml
 

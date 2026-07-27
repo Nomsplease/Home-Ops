@@ -91,7 +91,7 @@ spec:
             store:
               backend: valkey
               parameters:
-                url: "redis://dragonfly.database.svc:6379/8"
+                url: "redis://dragonfly.databases.svc:6379/8"
     service:
       anubis:
         controller: anubis

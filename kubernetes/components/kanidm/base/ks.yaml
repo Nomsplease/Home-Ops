@@ -48,6 +48,9 @@ spec:
       emptyState: "{}"
       emptyArray: "[]"
       defaultScopes: '["openid", "profile", "email", "groups"]'
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:

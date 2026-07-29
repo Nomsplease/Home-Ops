@@ -7,5 +7,4 @@ components:
   - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
-  - ./kanidm/ks.yaml
   - ./pocket-id/ks.yaml

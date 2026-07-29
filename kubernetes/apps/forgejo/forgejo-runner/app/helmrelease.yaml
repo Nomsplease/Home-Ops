@@ -136,6 +136,8 @@ spec:
               - name: docker-certs
                 mountPath: /certs
                 readOnly: true
+              - name: kvm
+                mountPath: /dev/kvm
         volumes:
           - name: docker-storage
             emptyDir: {}

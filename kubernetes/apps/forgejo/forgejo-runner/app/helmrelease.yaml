@@ -29,6 +29,7 @@ spec:
       container:
         docker_host: "-"
         workdir_parent: shared/workdir
+        options: --device /dev/kvm
       host:
         workdir_parent: /data/act
       kubernetes:
@@ -55,6 +56,7 @@ spec:
           - ubuntu-latest:k8s:/config/podspec-default.yaml
           - default:k8s:/config/podspec-default.yaml
           - docker:k8s:/config/podspec-dind.yaml
+          - kvm:k8s:/config/podspec-dind-kvm.yaml
           - multiarch:k8s:/config/podspec-dind.yaml  # you need binfmt-misc extension for multiarch
         timeout: 3h
         shutdown_timeout: 3m
@@ -78,6 +80,67 @@ spec:
                 memory: 4Gi
         restartPolicy: Never
       podspec-dind.yaml: |
+        initContainers:
+          - name: dind
+            image: docker:29-dind
+            securityContext:
+              privileged: true
+            restartPolicy: Always
+            env:
+              - name: DOCKER_TLS_CERTDIR
+                value: /certs
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1Gi
+              limits:
+                cpu: 500m
+                memory: 8Gi
+            volumeMounts:
+              - name: docker-storage
+                mountPath: /var/lib/docker
+              - name: docker-certs
+                mountPath: /certs
+            startupProbe:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - docker --tlsverify --tlscacert=/certs/client/ca.pem --tlscert=/certs/client/cert.pem --tlskey=/certs/client/key.pem -H tcp://localhost:2376 info
+              initialDelaySeconds: 5
+              periodSeconds: 1
+              failureThreshold: 30
+        containers:
+          - env:
+              - name: DEBIAN_FRONTEND
+                value: noninteractive
+              - name: DOCKER_HOST
+                value: tcp://localhost:2376
+              - name: DOCKER_TLS_VERIFY
+                value: "1"
+              - name: DOCKER_CERT_PATH
+                value: /certs/client
+            image: ghcr.io/bjw-s-labs/forgejo-runner:ubuntu-24.04@sha256:175bb41fcb7d53a1316bc1288aa20f07d68f3394650177bdc88462bf87054036
+            imagePullPolicy: IfNotPresent
+            name: main
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1Gi
+              limits:
+                cpu: 500m
+                memory: 4Gi
+            volumeMounts:
+              - name: docker-certs
+                mountPath: /certs
+                readOnly: true
+        volumes:
+          - name: docker-storage
+            emptyDir: {}
+          - name: docker-certs
+            emptyDir: {}
+        restartPolicy: Never
+      podspec-dind-kvm.yaml: |
         imagePullSecrets:
           - name: forgejo-registry-pull-secret
         initContainers:

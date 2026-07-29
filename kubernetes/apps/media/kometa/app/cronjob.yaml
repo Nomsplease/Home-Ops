@@ -36,7 +36,7 @@ spec:
           volumes:
             - name: pvc
               persistentVolumeClaim:
-                claimName: kometa-quickstart
+                claimName: kometa
             - name: posters
               nfs:
                 server: truenas.services

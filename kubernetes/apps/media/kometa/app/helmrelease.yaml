@@ -46,7 +46,7 @@ spec:
 
     persistence:
       config:
-        existingClaim: kometa-quickstart
+        existingClaim: "{{ .Release.Name }}"
       posters:
         type: nfs
         server: truenas.services

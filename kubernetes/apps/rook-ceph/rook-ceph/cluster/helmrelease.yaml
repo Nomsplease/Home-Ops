@@ -92,6 +92,12 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
+          - name: main-1
+            devices:
+              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC09716D"
+          - name: main-2
+            devices:
+              - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W320270E
           - name: main-3
             devices:
               - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC09703D"

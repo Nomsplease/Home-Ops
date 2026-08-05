@@ -27,8 +27,6 @@ data:
     sonarr:
       - name: sonarr
         url: http://sonarr
-      - name: sonarr-kids
-        url: http://sonarr-kids
 
     client_api:
       timeout: 5s

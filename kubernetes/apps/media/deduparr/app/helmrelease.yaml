@@ -21,6 +21,11 @@ spec:
               repository: git.enoent.fr/kernald/deduparr
               tag: 1.2.0@sha256:f7f5770664b53f7198b86a741afafdcae720eb89d339b3b4597b3960bbd59dea
             env:
+              DEDUPARR_DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: deduparr-postgres
+                    key: url
               TZ: ${TIMEZONE}
             envFrom:
               - secretRef:

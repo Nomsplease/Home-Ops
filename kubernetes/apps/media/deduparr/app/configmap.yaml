@@ -16,10 +16,6 @@ data:
       interval: 5min
       port: 9090
 
-    database:
-      url:
-        file: /var/run/secrets/postgres/url
-
     radarr:
       - name: radarr
         url: http://radarr

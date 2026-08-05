@@ -36,6 +36,9 @@ spec:
                   secretKeyRef:
                     name: deduparr-postgres
                     key: url
+            envFrom:
+              - secretRef:
+                  name: deduparr-secret
             probes:
               liveness:
                 enabled: true

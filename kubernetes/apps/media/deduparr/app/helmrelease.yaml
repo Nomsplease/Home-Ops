@@ -22,8 +22,8 @@ spec:
               tag: 1.2.0@sha256:f7f5770664b53f7198b86a741afafdcae720eb89d339b3b4597b3960bbd59dea
             env:
               DEDUPARR_SCHEDULE: service
-              DEDUPARR_ACTION: dry-run
-              DEDUPARR_LOG_LEVEL: debug
+              DEDUPARR_ACTION: remove
+              DEDUPARR_LOG_LEVEL: info
               DEDUPARR_LOG_FORMAT: text
               DEDUPARR_REMOVE_FROM_CLIENT: false
               DEDUPARR_SERVICE__PORT: &port 9090

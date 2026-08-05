@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: deduparr
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: deduparr
+  values:
+    controllers:
+      deduparr:
+        forceRename: deduparr
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: git.enoent.fr/kernald/deduparr
+              tag: 1.2.0@sha256:f7f5770664b53f7198b86a741afafdcae720eb89d339b3b4597b3960bbd59dea
+            env:
+              TZ: ${TIMEZONE}
+              DEDUPARR_DATABASE_URL_FILE: /var/run/secrets/postgres/url
+            envFrom:
+              - secretRef:
+                  name: deduparr-secret
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health/live
+                    port: &port 9090
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health/ready
+                    port: *port
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health/live
+                    port: *port
+                  failureThreshold: 30
+                  periodSeconds: 5
+                  timeoutSeconds: 5
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                memory: 2Gi
+
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    persistence:
+      config:
+        type: configMap
+        name: deduparr-config
+        globalMounts:
+          - path: /config
+            readOnly: true
+      postgres:
+        type: secret
+        name: deduparr-postgres
+        globalMounts:
+          - path: /var/run/secrets/postgres
+            readOnly: true
+
+    service:
+      app:
+        controller: deduparr
+        forceRename: deduparr
+        ports:
+          http:
+            port: *port

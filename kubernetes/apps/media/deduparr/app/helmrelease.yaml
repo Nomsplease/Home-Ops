@@ -21,15 +21,21 @@ spec:
               repository: git.enoent.fr/kernald/deduparr
               tag: 1.2.0@sha256:f7f5770664b53f7198b86a741afafdcae720eb89d339b3b4597b3960bbd59dea
             env:
+              DEDUPARR_SCHEDULE: service
+              DEDUPARR_ACTION: dry-run
+              DEDUPARR_LOG_LEVEL: debug
+              DEDUPARR_LOG_FORMAT: text
+              DEDUPARR_REMOVE_FROM_CLIENT: false
+              DEDUPARR_SERVICE__PORT: &port 9090
+              DEDUPARR_SERVICE__INTERVAL: 5m
+              DEDUPARR_RADARR_MAIN_URL: http://radarr
+              DEDUPARR_SONARR_MAIN_URL: http://sonarr
+              DEDUPARR_SONARR_KIDS_URL: http://sonarr-kids
               DEDUPARR_DATABASE_URL:
                 valueFrom:
                   secretKeyRef:
                     name: deduparr-postgres
                     key: url
-              TZ: ${TIMEZONE}
-            envFrom:
-              - secretRef:
-                  name: deduparr-secret
             probes:
               liveness:
                 enabled: true
@@ -37,7 +43,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health/live
-                    port: &port 9090
+                    port: *port
                   periodSeconds: 30
                   timeoutSeconds: 5
               readiness:
@@ -72,12 +78,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
 
     persistence:
-      config:
-        type: configMap
-        name: deduparr-config
-        globalMounts:
-          - path: /config
-            readOnly: true
       postgres:
         type: secret
         name: deduparr-postgres

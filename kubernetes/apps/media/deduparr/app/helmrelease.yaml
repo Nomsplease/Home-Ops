@@ -22,7 +22,6 @@ spec:
               tag: 1.2.0@sha256:f7f5770664b53f7198b86a741afafdcae720eb89d339b3b4597b3960bbd59dea
             env:
               TZ: ${TIMEZONE}
-              DEDUPARR_DATABASE_URL_FILE: /var/run/secrets/postgres/url
             envFrom:
               - secretRef:
                   name: deduparr-secret

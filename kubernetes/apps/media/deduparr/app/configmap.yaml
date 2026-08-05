@@ -19,7 +19,6 @@ data:
     radarr:
       - name: radarr
         url: http://radarr
-        enabled: true
 
     sonarr:
       - name: sonarr

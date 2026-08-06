@@ -8,6 +8,7 @@ components:
   - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
+  - ./bambuddy/ks.yaml
   - ./esphome/ks.yaml
   - ./homeassistant/ks.yaml
   - ./mosquitto/ks.yaml

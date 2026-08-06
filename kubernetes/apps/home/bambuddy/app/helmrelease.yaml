@@ -120,7 +120,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: app
+              - identifier: bambuddy
                 port: http
 
     service:

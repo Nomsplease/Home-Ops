@@ -21,7 +21,7 @@ spec:
     controller:
       image:
         # renovate: datasource=docker depName=jenkins/jenkins
-        tag: "2.575-jdk21"
+        tag: "2.576-jdk21"
 
       serviceType: ClusterIP
 

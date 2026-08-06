@@ -24,11 +24,33 @@ spec:
                 add:
                   - NET_BIND_SERVICE
             env:
-              DATABASE_URL:
+              POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
                     name: bambuddy-postgres
-                    key: url
+                    key: username
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: bambuddy-postgres
+                    key: password
+              POSTGRES_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: bambuddy-postgres
+                    key: host
+              POSTGRES_DB:
+                valueFrom:
+                  secretKeyRef:
+                    name: bambuddy-postgres
+                    key: database
+              DATABASE_URL:
+                value: "postgresql+asyncpg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST)/$(POSTGRES_DB)"
+                dependsOn:
+                  - POSTGRES_USER
+                  - POSTGRES_PASSWORD
+                  - POSTGRES_HOST
+                  - POSTGRES_DB
               PUID: 1000
               PGID: 1000
               PORT: 8080

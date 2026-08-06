@@ -12,6 +12,7 @@ spec:
   values:
     controllers:
       bambuddy:
+        forceRename: bambuddy
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -69,6 +70,27 @@ spec:
               limits:
                 memory: 1Gi
 
+      bambu-studio-api:
+        forceRename: bambu-studio-api
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/maziggy/bambu-studio-api
+              tag: bambuddy-1.2.5.2@sha256:107106d0e750055e6f817179f3ba0549d4d6ccd8ac5dd45be379f8e7611d323e
+            env:
+              NODE_ENV: production
+              PORT: 3000
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+
+
     defaultPodOptions:
       securityContext:
         fsGroup: 1000
@@ -102,10 +124,18 @@ spec:
                 port: http
 
     service:
-      app:
+      bambuddy:
+        controller: bambuddy
+        forceRename: bambuddy
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 10.1.20.26
         ports:
           http:
             port: 8080
+      bambu-studio-api:
+        controller: bambu-studio-api
+        forceRename: bambu-studio-api
+        ports:
+          http:
+            port: 3000

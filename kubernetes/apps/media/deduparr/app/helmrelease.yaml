@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: git.enoent.fr/kernald/deduparr
-              tag: 1.2.0@sha256:f7f5770664b53f7198b86a741afafdcae720eb89d339b3b4597b3960bbd59dea
+              tag: 1.2.1@sha256:f7f5770664b53f7198b86a741afafdcae720eb89d339b3b4597b3960bbd59dea
             env:
               DEDUPARR_SCHEDULE: service
               DEDUPARR_ACTION: remove

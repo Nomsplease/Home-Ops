@@ -28,6 +28,8 @@ spec:
             image:
               repository: ghcr.io/esphome/esphome
               tag: 2026.7.3
+            env:
+              PLATFORMIO_CORE_DIR: /cache/platformio
             probes:
               liveness: &probes
                 enabled: true

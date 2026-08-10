@@ -80,6 +80,10 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      incomplete:
+        type: nfs
+        server: truenas.services
+        path: /mnt/Apps/Containers/qBittorrent/incomplete
       media:
         type: nfs
         server: truenas.services

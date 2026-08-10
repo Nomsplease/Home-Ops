@@ -18,7 +18,7 @@ spec:
     replicationTLSSecret: postgres-replication-cert
 
   storage:
-    size: 20Gi
+    size: 30Gi
     storageClass: ceph-block
   
   enableSuperuserAccess: true

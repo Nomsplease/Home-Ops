@@ -81,7 +81,7 @@ spec:
 
   emailNotifications:
     apiKeyExpiration: true
-    loginNotification: true
+    loginNotification: false
     oneTimeAccessAsAdmin: true
     oneTimeAccessAsUnauthenticated: false
     verification: true

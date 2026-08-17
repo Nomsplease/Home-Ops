@@ -74,6 +74,21 @@ spec:
         forceRename: bambu-studio-api
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - bambuddy
+                      - key: app.kubernetes.io/controller
+                        operator: In
+                        values:
+                          - bambuddy
+                  topologyKey: kubernetes.io/hostname
         containers:
           app:
             image:

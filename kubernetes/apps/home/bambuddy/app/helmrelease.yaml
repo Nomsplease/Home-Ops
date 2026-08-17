@@ -102,13 +102,19 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: /app/data
-            subPath: data
-          - path: /app/logs
-            subPath: logs
-          - path: /app/data/backups
-            subPath: backups
+        advancedMounts:
+          bambuddy:
+            app:
+              - path: /app/data
+                subPath: bambuddy/data
+              - path: /app/logs
+                subPath: bambuddy/logs
+              - path: /app/data/backups
+                subPath: bambuddy/backups
+          bambu-studio-api:
+            app:
+              - path: /app/data
+                subPath: bambu-studio-api/data
 
     route:
       app:

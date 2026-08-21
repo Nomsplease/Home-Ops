@@ -54,7 +54,7 @@ spec:
     - name: cilium
       localASN: 64514
       peers:
-        - name: unifi
+        - name: rb5009
           peerASN: 64513
           peerAddress: 10.1.20.1
           peerConfigRef:
@@ -65,7 +65,7 @@ kind: Service
 metadata:
   name: kube-api
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: k8s.noms.tv
+    external-dns.alpha.kubernetes.io/hostname: k8s.services
     lbipam.cilium.io/ips: 10.1.20.10
 spec:
   type: LoadBalancer

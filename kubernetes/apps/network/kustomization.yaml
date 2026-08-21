@@ -16,4 +16,3 @@ resources:
   - ./envoy-gateway/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./technitium-dns/ks.yaml
-  - ./unifi-dns/ks.yaml

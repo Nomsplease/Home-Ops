@@ -43,7 +43,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_5c7d374ec774ef11946bcf8c8fcc3fa0-if00-port0
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/zigbee
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
               # DEBUG: "zigbee-herdsman*"
             envFrom:
@@ -84,3 +84,9 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      zigbee:
+        type: hostPath
+        hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_5c7d374ec774ef11946bcf8c8fcc3fa0-if00-port0
+        hostPathType: CharDevice
+        globalMounts:
+          - path: /dev/zigbee

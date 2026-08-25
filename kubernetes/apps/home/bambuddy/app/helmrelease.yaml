@@ -93,7 +93,7 @@ spec:
           app:
             image:
               repository: ghcr.io/maziggy/bambu-studio-api
-              tag: bambuddy-1.2.5.2@sha256:107106d0e750055e6f817179f3ba0549d4d6ccd8ac5dd45be379f8e7611d323e
+              tag: bambuddy-1.2.5.2@sha256:4d95453b13ac744b33122ca4296cef67b68060fca92d2a18be70151076716d84
             env:
               NODE_ENV: production
               PORT: 3000

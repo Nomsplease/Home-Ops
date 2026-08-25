@@ -44,7 +44,7 @@ jobs:
         run: renovate
         env:
           GITHUB_COM_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-          LOG_LEVEL: "${{ inputs.logLevel || 'debug' }}"
+          LOG_LEVEL: "${{ inputs.logLevel || 'info' }}"
           RENOVATE_AUTODISCOVER: true
           RENOVATE_AUTODISCOVER_FILTER: "${{ forgejo.repository }}"
           RENOVATE_DRY_RUN: "${{ inputs.dryRun }}"

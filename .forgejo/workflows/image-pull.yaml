@@ -42,7 +42,7 @@ jobs:
           cache: false
           tool_versions: |
             github:home-operations/flate 0.2.12
-          github_token: ""
+          github_token: ${{ secrets.TOKEN_GITHUB }}
 
       - name: Extract Images
         id: extract
@@ -68,6 +68,7 @@ jobs:
           cache: false
           tool_versions: |
             talosctl latest
+          github_token: ${{ secrets.TOKEN_GITHUB }}
 
       - name: Pull Image
         env:

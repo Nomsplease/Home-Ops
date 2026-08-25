@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/sonarr
-              tag: 4.0.19.2997@sha256:01db3e6a923f6e0f3a217baa94b4660cf2f9b45d4166b2fc8c20c67c5221cb78
+              tag: 4.0.19.3006@sha256:f3f87b789aca4e27eb60401e0782200b351b727d3b55d42279dbfb4b24f00d9c
             env:
               SONARR__APP__INSTANCENAME: Sonarr-Kids
               SONARR__APP__THEME: dark

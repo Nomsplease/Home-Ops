@@ -14,5 +14,6 @@ resources:
   - ./cloudflare-ddns/ks.yaml
   - ./cloudflare-dns/ks.yaml
   - ./envoy-gateway/ks.yaml
+  - ./mikr/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./technitium-dns/ks.yaml

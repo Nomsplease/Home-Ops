@@ -22,7 +22,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
           containers:
             - name: beets
-              image: lscr.io/linuxserver/beets:latest@sha256:691245106c0f6aedf62f909242733ceda26fdbbee17e07d02f253bf7784707bf
+              image: lscr.io/linuxserver/beets:latest@sha256:90b1404e962dfc09c1926f4d8dca8920fc90d71369df5398340a12eb8ce7328c
               command: ["beet"]
               args: ["import", "-q", "/downloads"]
               env:

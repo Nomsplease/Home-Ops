@@ -68,6 +68,12 @@ spec:
           - env:
               - name: DEBIAN_FRONTEND
                 value: noninteractive
+              - name: NODE
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.hostIP
+              - name: TALOSCONFIG
+                value: /var/run/secrets/talos.dev/config
             image: ghcr.io/bjw-s-labs/forgejo-runner:ubuntu-24.04@sha256:175bb41fcb7d53a1316bc1288aa20f07d68f3394650177bdc88462bf87054036
             imagePullPolicy: IfNotPresent
             name: main
@@ -78,6 +84,14 @@ spec:
               limits:
                 cpu: 500m
                 memory: 4Gi
+            volumeMounts:
+              - name: talos-secrets
+                mountPath: /var/run/secrets/talos.dev
+                readOnly: true
+        volumes:
+          - name: talos-secrets
+            secret:
+              secretName: talos-api-access
         restartPolicy: Never
       podspec-dind.yaml: |
         initContainers:

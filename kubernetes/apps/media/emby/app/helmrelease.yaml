@@ -14,6 +14,48 @@ spec:
       emby:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          install-plugins:
+            image:
+              repository: docker.io/alpine
+              tag: 3.22@sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce
+            env:
+              # renovate: datasource=github-releases depName=Tracearr/Media-Server-SSE
+              SSE_VERSION: v0.4.1
+              # renovate: datasource=github-releases depName=fscorrupt/posterizarr
+              POSTERIZARR_VERSION: "3.2.0"
+            command:
+              - sh
+              - -ec
+              - |
+                cache=/config/.plugin-cache
+                mkdir -p "$cache" /config/plugins
+
+                install_plugin() {
+                  url="$1"; zip="$2"; dll="$3"; prune_glob="$4"
+                  cached="${cache}/${zip}"
+                  if [ ! -f "$cached" ]; then
+                    wget -q -O "$cached" "$url"
+                    find "$cache" -maxdepth 1 -name "$prune_glob" ! -name "$zip" -delete
+                  fi
+                  want=$(unzip -p "$cached" "$dll" | sha256sum | cut -d' ' -f1)
+                  have=""
+                  [ -f "/config/plugins/$dll" ] && have=$(sha256sum "/config/plugins/$dll" | cut -d' ' -f1)
+                  [ "$want" = "$have" ] || unzip -o "$cached" -d /config/plugins
+                }
+
+                sse_ver="${SSE_VERSION#v}"
+                install_plugin \
+                  "https://github.com/Tracearr/Media-Server-SSE/releases/download/${SSE_VERSION}/Tracearr.Sse.Emby_${sse_ver}.zip" \
+                  "Tracearr.Sse.Emby_${sse_ver}.zip" \
+                  "Emby.Plugin.Sse.dll" \
+                  "Tracearr.Sse.Emby_*.zip"
+
+                install_plugin \
+                  "https://github.com/fscorrupt/posterizarr/releases/download/${POSTERIZARR_VERSION}/Posterizarr.Plugin.Emby_v${POSTERIZARR_VERSION}.zip" \
+                  "Posterizarr.Plugin.Emby_v${POSTERIZARR_VERSION}.zip" \
+                  "Posterizarr.Plugin.Emby.dll" \
+                  "Posterizarr.Plugin.Emby_v*.zip"
         containers:
           app:
             image:

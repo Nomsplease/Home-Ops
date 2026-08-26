@@ -28,9 +28,9 @@ spec:
       auth_type: cert
       server_tls_sslmode: verify-full
       client_tls_sslmode: verify-full
-      max_client_conn: "1000"
+      max_client_conn: "10000"
       max_prepared_statements: "200"
-      default_pool_size: "60"
+      default_pool_size: "100"
       ignore_startup_parameters: search_path,options
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/podmonitor_v1.json

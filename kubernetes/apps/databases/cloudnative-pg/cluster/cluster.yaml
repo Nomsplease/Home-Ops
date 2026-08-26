@@ -25,6 +25,8 @@ spec:
   superuserSecret:
     name: cnpg-admin
 
+  primaryUpdateMethod: switchover
+
   bootstrap:
     recovery:
       source: &src source

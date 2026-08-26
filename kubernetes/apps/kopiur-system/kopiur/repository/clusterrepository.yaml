@@ -7,6 +7,9 @@ metadata:
 spec:
   allowedNamespaces:
     all: true
+  bootstrap:
+    failurePolicy:
+      activeDeadlineSeconds: 900
   backend:
     s3:
       auth:
@@ -15,13 +18,16 @@ spec:
           namespace: kopiur-system
       bucket: homelab
       prefix: kopiur/
-      endpoint: "${GARAGE_URL}"
+      endpoint: truenas.services:3900
       region: "${GARAGE_REGION}"
   encryption:
     passwordSecretRef:
       name: kopiur-repository-secret
       namespace: kopiur-system
       key: KOPIA_PASSWORD
+  parameters:
+    epoch:
+      minDuration: 6h
   scheduleDefaults:
     timezone: America/New_York
   server:

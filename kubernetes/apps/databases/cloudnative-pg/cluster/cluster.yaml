@@ -27,6 +27,9 @@ spec:
 
   primaryUpdateMethod: switchover
 
+  backup:
+    target: prefer-standby
+
   bootstrap:
     recovery:
       source: &src source

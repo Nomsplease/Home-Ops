@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/hreskiv/mikr
-              tag: 1.76.0@sha256:5ee4e2ad6481ac909b81378ff4b0f7fece80ce582dd8a7c398dab317d7525dc9
+              tag: 1.77.0@sha256:ada90997bfefba3c4d7a33d50fb247f4fb09a545bf1b992baa95f42d1edf774a
             env:
               METRICS_ENABLED: "true"
               TZ: ${TIMEZONE}

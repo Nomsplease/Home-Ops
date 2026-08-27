@@ -18,7 +18,7 @@ spec:
           namespace: kopiur-system
       bucket: homelab
       prefix: kopiur/
-      endpoint: truenas.internal:9000
+      endpoint: truenas.services:9000
       region: "${GARAGE_REGION}"
   encryption:
     passwordSecretRef:

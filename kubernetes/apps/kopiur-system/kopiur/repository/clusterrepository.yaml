@@ -18,10 +18,8 @@ spec:
           namespace: kopiur-system
       bucket: homelab
       prefix: kopiur/
-      endpoint: truenas.${SECRET_DOMAIN}:9000
+      endpoint: s3.int.${SECRET_DOMAIN}
       region: us-east-1
-      tls:
-        insecureSkipVerify: true
   encryption:
     passwordSecretRef:
       name: kopiur-repository-internal-secret

@@ -7,10 +7,7 @@ metadata:
 spec:
   configuration:
     destinationPath: s3://homelab/cnpg
-    endpointURL: https://truenas.services:9000
-    endpointCA:
-      name: rustfs-internal-ca
-      key: ca.crt
+    endpointURL: https://s3.int.${SECRET_DOMAIN}
     s3Credentials:
       accessKeyId:
         name: postgres-s3-internal
@@ -35,10 +32,7 @@ metadata:
 spec:
   configuration:
     destinationPath: s3://homelab/cnpg
-    endpointURL: https://10.3.10.10:9000
-    endpointCA:
-      name: rustfs-kwh-ca
-      key: ca.crt
+    endpointURL: https://s3.kwh.${SECRET_DOMAIN}
     s3Credentials:
       accessKeyId:
         name: postgres-s3-kwh

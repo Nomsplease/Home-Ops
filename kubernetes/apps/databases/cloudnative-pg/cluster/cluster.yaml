@@ -39,6 +39,10 @@ spec:
       isWALArchiver: true
       parameters:
         barmanObjectName: &store homelab-cnpg
+    - name: *plugin
+      isWALArchiver: false
+      parameters:
+        barmanObjectName: homelab-cnpg-kwh
 
   externalClusters:
     - name: *src

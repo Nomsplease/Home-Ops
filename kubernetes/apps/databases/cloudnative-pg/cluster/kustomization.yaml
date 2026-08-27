@@ -12,4 +12,5 @@ resources:
   - ./objectstore.yaml
   - ./pooler.yaml
   - ./scheduledbackup.yaml
+  - ./scheduledbackup-kwh.yaml
   - ./service.yaml

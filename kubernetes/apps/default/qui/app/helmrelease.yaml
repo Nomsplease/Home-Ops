@@ -83,7 +83,7 @@ spec:
       incomplete:
         type: nfs
         server: truenas.services
-        path: /mnt/Apps/Containers/qBittorrent/incomplete
+        path: /mnt/Downloads/qBittorrent/incomplete
       media:
         type: nfs
         server: truenas.services

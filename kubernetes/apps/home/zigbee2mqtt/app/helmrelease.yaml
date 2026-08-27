@@ -61,7 +61,7 @@ spec:
                   periodSeconds: 10
     defaultPodOptions:
       nodeSelector:
-        kubernetes.io/hostname: main-7
+        kubernetes.io/hostname: main-8
       securityContext:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch

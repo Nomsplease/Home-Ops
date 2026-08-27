@@ -13,6 +13,9 @@ spec:
       runAsGroup: ${KOPIUR_PGID:=1000}
   policy:
     onMissingSnapshot: Continue
+  repository:
+    kind: ClusterRepository
+    name: truenas-internal
   source:
     fromPolicy:
       name: ${APP}

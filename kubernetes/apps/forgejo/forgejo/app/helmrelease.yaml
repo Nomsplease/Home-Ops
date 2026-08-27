@@ -135,6 +135,8 @@ spec:
     service:
       ssh:
         port: 2222
+    podSecurityContext:
+      fsGroupChangePolicy: OnRootMismatch
     persistence:
       create: false
       claimName: ${APP}

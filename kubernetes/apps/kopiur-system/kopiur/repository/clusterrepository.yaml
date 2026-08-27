@@ -18,7 +18,7 @@ spec:
           namespace: kopiur-system
       bucket: homelab
       prefix: kopiur/
-      endpoint: truenas.services:9000
+      endpoint: https://truenas.services:9000
       region: us-east-1
       tls:
         disableTls: true
@@ -57,7 +57,7 @@ spec:
           namespace: kopiur-system
       bucket: homelab
       prefix: kopiur/
-      endpoint: 10.3.10.10:9000
+      endpoint: https://10.3.10.10:9000
       region: us-east-1
       tls:
         disableTls: true

@@ -124,6 +124,7 @@ cluster:
         - level: Metadata
     certSANs:
       - k8s.internal
+      - k8s.{{ ENV.SECRET_DOMAIN }}
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"

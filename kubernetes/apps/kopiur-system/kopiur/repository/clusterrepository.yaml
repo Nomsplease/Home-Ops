@@ -19,7 +19,9 @@ spec:
       bucket: homelab
       prefix: kopiur/
       endpoint: truenas.services:9000
-      region: "${GARAGE_REGION}"
+      region: us-east-1
+      tls:
+        disableTls: true
   encryption:
     passwordSecretRef:
       name: kopiur-repository-internal-secret
@@ -56,7 +58,9 @@ spec:
       bucket: homelab
       prefix: kopiur/
       endpoint: 10.3.10.10:9000
-      region: "${GARAGE_REGION}"
+      region: us-east-1
+      tls:
+        disableTls: true
   encryption:
     passwordSecretRef:
       name: kopiur-repository-kwh-secret

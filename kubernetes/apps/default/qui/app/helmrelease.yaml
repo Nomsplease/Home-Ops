@@ -82,9 +82,9 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       incomplete:
         type: nfs
-        server: truenas.services
+        server: truenas.${SECRET_DOMAIN}
         path: /mnt/Downloads/qBittorrent/incomplete
       media:
         type: nfs
-        server: truenas.services
+        server: truenas.${SECRET_DOMAIN}
         path: /mnt/BigPool/Media

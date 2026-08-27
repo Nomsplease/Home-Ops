@@ -54,7 +54,7 @@ spec:
     persistence:
       media:
         type: nfs
-        server: truenas.services
+        server: truenas.${SECRET_DOMAIN}
         path: /mnt/BigPool/Media/Downloads
         globalMounts:
           - path: /media/Downloads/Complete

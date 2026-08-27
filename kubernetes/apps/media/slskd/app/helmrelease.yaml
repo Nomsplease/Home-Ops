@@ -97,5 +97,5 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
-        server: truenas.services
+        server: truenas.${SECRET_DOMAIN}
         path: /mnt/BigPool/Media

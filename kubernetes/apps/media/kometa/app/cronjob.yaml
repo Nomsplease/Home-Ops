@@ -39,6 +39,6 @@ spec:
                 claimName: kometa
             - name: posters
               nfs:
-                server: truenas.services
+                server: truenas.${SECRET_DOMAIN}
                 path: /mnt/BigPool/Media/Posters
           restartPolicy: OnFailure

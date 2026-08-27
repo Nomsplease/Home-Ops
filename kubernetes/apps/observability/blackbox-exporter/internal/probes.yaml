@@ -11,7 +11,7 @@ spec:
   targets:
     staticConfig:
       static:
-        - truenas.services
+        - truenas.${SECRET_DOMAIN}
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter-internal
@@ -29,7 +29,7 @@ spec:
   targets:
     staticConfig:
       static:
-        - truenas.services:2049
+        - truenas.${SECRET_DOMAIN}:2049
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter-internal

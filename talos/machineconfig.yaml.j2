@@ -92,7 +92,7 @@ cluster:
     {% endif %}
   clusterName: main
   controlPlane:
-    endpoint: https://k8s.services:6443
+    endpoint: https://k8s.{{ ENV.SECRET_DOMAIN }}:6443
   discovery:
     enabled: true
     registries:

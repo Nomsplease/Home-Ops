@@ -18,7 +18,7 @@ spec:
           namespace: kopiur-system
       bucket: homelab
       prefix: kopiur/
-      endpoint: truenas.services:9000
+      endpoint: truenas.${SECRET_DOMAIN}:9000
       region: us-east-1
       tls:
         insecureSkipVerify: true

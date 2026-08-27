@@ -41,6 +41,7 @@ reboot-node node:
 render-config node:
     export CONTROLPLANE="$(just talos machine-controller "{{ node }}")"
     export SCHEMATIC="$(just talos schematic-id "{{ node }}")"
+    export SECRET_DOMAIN="$(op read op://Kubernetes/domains/SECRET_DOMAIN)"
     talosctl machineconfig patch <(just template "{{ source_directory() }}/machineconfig.yaml.j2") \
         -p @<(just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2")
 
@@ -88,4 +89,5 @@ machine-controller node:
 [script]
 machine-image node:
     export SCHEMATIC="$(just talos schematic-id "{{ node }}")"
+    export SECRET_DOMAIN="$(op read op://Kubernetes/domains/SECRET_DOMAIN)"
     just template "{{ source_directory() }}/machineconfig.yaml.j2" | yq -e 'select(.machine) | .machine.install.image'

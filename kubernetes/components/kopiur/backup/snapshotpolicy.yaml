@@ -24,7 +24,7 @@ spec:
       name: truenas-kwh
   retention:
     keepHourly: 12
-    keepDaily: 7
+    keepDaily: 5
   sources:
     - pvc:
         name: ${APP}

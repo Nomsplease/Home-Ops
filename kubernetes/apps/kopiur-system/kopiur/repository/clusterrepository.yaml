@@ -10,6 +10,8 @@ spec:
   bootstrap:
     failurePolicy:
       activeDeadlineSeconds: 900
+  create:
+    enabled: true
   backend:
     s3:
       auth:
@@ -19,7 +21,7 @@ spec:
       bucket: homelab
       prefix: kopiur/
       endpoint: s3.int.${SECRET_DOMAIN}
-      region: us-east-1
+      region: "${GARAGE_REGION}"
   encryption:
     passwordSecretRef:
       name: kopiur-repository-internal-secret
@@ -47,6 +49,8 @@ spec:
   bootstrap:
     failurePolicy:
       activeDeadlineSeconds: 900
+  create:
+    enabled: true
   backend:
     s3:
       auth:
@@ -55,10 +59,8 @@ spec:
           namespace: kopiur-system
       bucket: homelab
       prefix: kopiur/
-      endpoint: 10.3.10.10:9000
-      region: us-east-1
-      tls:
-        insecureSkipVerify: true
+      endpoint: s3.kwh.${SECRET_DOMAIN}
+      region: "${GARAGE_REGION}"
   encryption:
     passwordSecretRef:
       name: kopiur-repository-kwh-secret

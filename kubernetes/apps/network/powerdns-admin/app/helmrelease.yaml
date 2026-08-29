@@ -1,0 +1,87 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: powerdns-admin
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: powerdns-admin
+  values:
+    controllers:
+      powerdns-admin:
+        forceRename: powerdns-admin
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/powerdnsadmin/pda-legacy
+              tag: 0.6.1
+            env:
+              SECRET_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: powerdns-admin-secret
+                    key: SECRET_KEY
+              # No SQLALCHEMY_DATABASE_URI override -- the image's own
+              # default (sqlite:////data/powerdns-admin.db) already lands
+              # inside the persisted /data volume below.
+              #
+              # The PowerDNS server connection itself (API URL + API key,
+              # http://10.1.20.1:8081 per
+              # ../../../network/powerdns-dns/app/helmrelease.yaml) has no
+              # env-var auto-provisioning in this image (confirmed against
+              # its docker_config.py -- only SQLALCHEMY_DATABASE_URI is a
+              # real config env var) -- it's a one-time manual step through
+              # this app's own "Create a new PDNS connection" UI after
+              # first boot. Same API key as the powerdns-dns secret.
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /data
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: powerdns-admin
+                port: http
+
+    service:
+      powerdns-admin:
+        controller: powerdns-admin
+        forceRename: powerdns-admin
+        ports:
+          http:
+            port: 80

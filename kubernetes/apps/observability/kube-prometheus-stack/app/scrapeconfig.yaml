@@ -7,7 +7,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - truenas.hme.${SECRET_DOMAIN}:9100
+        - truenas-k8s.hme.${SECRET_DOMAIN}:9100
         # - pikvm.internal:9100
   metricsPath: /metrics
   relabelings:
@@ -23,7 +23,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - truenas.hme.${SECRET_DOMAIN}:9633
+        - truenas-k8s.hme.${SECRET_DOMAIN}:9633
   metricsPath: /metrics
   relabelings:
     - action: replace

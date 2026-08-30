@@ -16,6 +16,6 @@ resources:
   - ./envoy-gateway/ks.yaml
   - ./mikrodash/ks.yaml
   - ./powerdns-admin/ks.yaml
-  # - ./powerdns-dns/ks.yaml
+  - ./powerdns-dns/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./technitium-dns/ks.yaml

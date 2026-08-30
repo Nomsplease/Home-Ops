@@ -21,6 +21,7 @@ spec:
       name: pdns
     extraArgs:
       - --ignore-ingress-tls-spec
+      - --gateway-name=envoy-internal
       - --pdns-server=http://10.1.20.1:8081
       - --pdns-api-key=$(PDNS_API_KEY)
     triggerLoopOnEvent: true

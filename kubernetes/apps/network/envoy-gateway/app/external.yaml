@@ -43,6 +43,14 @@ spec:
               kubernetes.io/metadata.name: forgejo
         kinds:
           - kind: TCPRoute
+    - name: stun
+      protocol: UDP
+      port: 3478
+      allowedRoutes:
+        namespaces:
+          from: Same
+        kinds:
+          - kind: UDPRoute
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1

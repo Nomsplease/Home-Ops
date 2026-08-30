@@ -100,7 +100,7 @@ spec:
           - path: /config/MediaCover
       media:
         type: nfs
-        server: truenas.${SECRET_DOMAIN}
+        server: truenas.hme.${SECRET_DOMAIN}
         path: /mnt/BigPool/Media
       tmpfs:
         type: emptyDir

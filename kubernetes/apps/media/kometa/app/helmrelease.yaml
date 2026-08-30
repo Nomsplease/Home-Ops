@@ -49,7 +49,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       posters:
         type: nfs
-        server: truenas.${SECRET_DOMAIN}
+        server: truenas.hme.${SECRET_DOMAIN}
         path: /mnt/BigPool/Media/Posters
 
     route:

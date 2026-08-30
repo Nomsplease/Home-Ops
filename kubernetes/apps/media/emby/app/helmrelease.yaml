@@ -140,12 +140,15 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
-        server: truenas.${SECRET_DOMAIN}
+        server: truenas.hme.${SECRET_DOMAIN}
         path: /mnt/BigPool/Media
       transcode:
         type: emptyDir

@@ -81,6 +81,8 @@ spec:
         parentRefs:
           - name: envoy-external
             namespace: network
+          - name: envoy-internal
+            namespace: network
         rules:
           - # Ref: https://forums.plex.tv/t/external-srt-subtitles-are-not-working-w-reverse-proxy/886540
             backendRefs:
@@ -103,7 +105,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
-        server: truenas.${SECRET_DOMAIN}
+        server: truenas.hme.${SECRET_DOMAIN}
         path: /mnt/BigPool/Media
       tmp:
         type: emptyDir

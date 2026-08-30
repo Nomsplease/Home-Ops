@@ -7,7 +7,7 @@ metadata:
 spec:
   configuration:
     destinationPath: s3://homelab/cnpg
-    endpointURL: https://s3.int.${SECRET_DOMAIN}
+    endpointURL: https://s3.hme.${SECRET_DOMAIN}
     s3Credentials:
       accessKeyId:
         name: postgres-s3-internal

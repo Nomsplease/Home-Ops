@@ -20,7 +20,7 @@ spec:
           namespace: kopiur-system
       bucket: homelab
       prefix: kopiur/
-      endpoint: s3.int.${SECRET_DOMAIN}
+      endpoint: s3.hme.${SECRET_DOMAIN}
       region: "${GARAGE_REGION}"
   encryption:
     passwordSecretRef:

@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/secops-7/mikrodash
-              tag: 0.7.38@sha256:2e44af9bb09b852fb467172fdcba8ecbba77ced2f80b1468ae7db2c9added83c
+              tag: 0.8.2@sha256:18a91f324ff68a046e9549ab9e09b5e9a14d97c767a3a77db293c4a590434583
             probes:
               liveness:
                 enabled: true

@@ -120,8 +120,8 @@ spec:
           ENABLED: true
           FROM: Forgejo <admin@${SECRET_DOMAIN}>
           PROTOCOL: smtp
-          SMTP_ADDR: smtp-relay.network.svc
-          SMTP_PORT: 25
+          SMTP_ADDR: ${SMTP_SERVER}
+          SMTP_PORT: ${SMTP_PORT}
         webhook:
           ALLOWED_HOST_LIST: "*"
     deployment:

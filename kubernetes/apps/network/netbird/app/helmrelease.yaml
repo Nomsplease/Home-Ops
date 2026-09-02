@@ -1,0 +1,174 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: netbird
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: netbird
+  values:
+    controllers:
+      dashboard:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: netbirdio/dashboard
+              tag: v2.91.0@sha256:aae926912ca43704e66b8146164eb2d285e36adb816a3beb95224ee80253ecfb
+            env:
+              NETBIRD_MGMT_API_ENDPOINT: https://netbird.${SECRET_DOMAIN}
+              NETBIRD_MGMT_GRPC_API_ENDPOINT: https://netbird.${SECRET_DOMAIN}
+              AUTH_AUTHORITY: https://netbird.${SECRET_DOMAIN}/oauth2
+              USE_AUTH0: false
+              AUTH_SUPPORTED_SCOPES: openid profile email groups
+              AUTH_REDIRECT_URI: /nb-auth
+              AUTH_SILENT_REDIRECT_URI: /nb-silent-auth
+            envFrom:
+              - secretRef:
+                  name: netbird
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 2Gi
+
+      server:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: netbirdio/netbird-server
+              tag: 0.77.1@sha256:e71f39cefcd90956d818dc4179084fd47d39f0741d1211b818ec640766b5794d
+            args:
+              - "--config"
+              - "/etc/netbird/config.yaml"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 2Gi
+
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        advancedMounts:
+          server:
+            app:
+              - path: /data
+      config:
+        type: secret
+        name: netbird
+        items:
+          - key: config.yaml
+            path: config.yaml
+        advancedMounts:
+          server:
+            app:
+              - path: /etc/netbird/config.yaml
+                subPath: config.yaml
+                readOnly: true
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - name: grpc
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /signalexchange.SignalExchange/
+              - path:
+                  type: PathPrefix
+                  value: /management.ManagementService/
+              - path:
+                  type: PathPrefix
+                  value: /management.ProxyService/
+            backendRefs:
+              - identifier: server
+                port: http
+          - name: backend
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /relay
+              - path:
+                  type: PathPrefix
+                  value: /ws-proxy/
+              - path:
+                  type: PathPrefix
+                  value: /api
+              - path:
+                  type: PathPrefix
+                  value: /oauth2
+            backendRefs:
+              - identifier: server
+                port: http
+          - name: dashboard
+            backendRefs:
+              - identifier: dashboard
+                port: http
+
+      stun:
+        kind: UDPRoute
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: stun
+        rules:
+          - backendRefs:
+              - identifier: server
+                port: stun
+
+    service:
+      dashboard:
+        controller: dashboard
+        forceRename: netbird-dashboard
+        ports:
+          http:
+            port: 80
+      server:
+        controller: server
+        forceRename: netbird-server
+        ports:
+          http:
+            port: 80
+            appProtocol: kubernetes.io/h2c
+          stun:
+            port: 3478
+            protocol: UDP
+

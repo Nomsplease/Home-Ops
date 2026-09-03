@@ -24,11 +24,10 @@ spec:
             env:
               NETBIRD_MGMT_API_ENDPOINT: https://netbird.${SECRET_DOMAIN}
               NETBIRD_MGMT_GRPC_API_ENDPOINT: https://netbird.${SECRET_DOMAIN}
-              AUTH_AUTHORITY: https://netbird.${SECRET_DOMAIN}/oauth2
-              USE_AUTH0: false
+              USE_AUTH0: "false"
               AUTH_SUPPORTED_SCOPES: openid profile email groups
-              AUTH_REDIRECT_URI: /nb-auth
-              AUTH_SILENT_REDIRECT_URI: /nb-silent-auth
+              AUTH_REDIRECT_URI: /auth
+              AUTH_SILENT_REDIRECT_URI: /silent-auth
             envFrom:
               - secretRef:
                   name: netbird
@@ -56,6 +55,9 @@ spec:
             args:
               - "--config"
               - "/etc/netbird/config.yaml"
+            envFrom:
+              - secretRef:
+                  name: netbird
             probes:
               liveness:
                 enabled: true

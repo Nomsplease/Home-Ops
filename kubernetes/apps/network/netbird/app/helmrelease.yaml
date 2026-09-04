@@ -123,7 +123,7 @@ spec:
                   value: /management.ProxyService/
             backendRefs:
               - identifier: server
-                port: http
+                port: grpc
           - name: backend
             matches:
               - path:
@@ -168,9 +168,13 @@ spec:
         controller: server
         forceRename: netbird-server
         ports:
-          http:
+          grpc:
             port: 80
+            targetPort: 80
             appProtocol: kubernetes.io/h2c
+          http:
+            port: 8080
+            targetPort: 80
           stun:
             port: 3478
             protocol: UDP

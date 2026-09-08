@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/lklynet/aurral
-              tag: 2.0.0-test.2@sha256:ac303881f8656ebf8c6e25b83e150f7406a12e46347882fdcb7f43e1f644111c
+              tag: 2.8.0@sha256:cf3cbd059d7c50fb12a9fcf35ff5d5124852b6219c61bf78aa5614eaf65d6cd2
             env:
               # Trust the x-forwarded-user header set by the Envoy SecurityPolicy's
               # OIDC/JWT auth so Aurral doesn't fall back to its own local login.

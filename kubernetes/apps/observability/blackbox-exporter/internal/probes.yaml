@@ -23,6 +23,7 @@ kind: Probe
 metadata:
   name: tcp-internal
 spec:
+  jobName: nfs_probe
   module: tcp_connect
   prober:
     url: blackbox-exporter-internal.observability.svc.cluster.local:9115

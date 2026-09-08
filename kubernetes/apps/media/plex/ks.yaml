@@ -8,6 +8,7 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
+    - ../../../../components/zeroscaler
   dependsOn:
     - name: intel-device-plugins-gpu
       namespace: kube-system

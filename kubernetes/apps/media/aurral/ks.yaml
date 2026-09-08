@@ -8,6 +8,7 @@ spec:
   components:
     - ../../../../components/kopiur/backup
     - ../../../../components/oidc/envoy
+    - ../../../../components/zeroscaler
   dependsOn:
     - name: kopiur
       namespace: kopiur-system

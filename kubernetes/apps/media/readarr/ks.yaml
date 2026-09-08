@@ -9,6 +9,7 @@ spec:
   components:
     - ../../../../components/oidc/envoy
     - ../../../../components/kopiur/backup
+    - ../../../../components/zeroscaler
   dependsOn:
     - name: pocket-id
       namespace: security

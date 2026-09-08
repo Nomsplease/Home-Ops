@@ -19,7 +19,10 @@ spec:
     substitute:
       APP: plex
       KOPIUR_CAPACITY: 250Gi
-  prune: true 
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
   retryInterval: 1m
   sourceRef:
     kind: GitRepository

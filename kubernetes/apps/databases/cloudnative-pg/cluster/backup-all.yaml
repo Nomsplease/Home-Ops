@@ -6,8 +6,8 @@ metadata:
   name: postgres-backup-all
 spec:
   concurrencyPolicy: Forbid
-  schedule: "0 3 * * *"
-  successfulJobsHistoryLimit: 1
+  schedule: "0 */6 * * *"
+  successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
@@ -52,7 +52,7 @@ spec:
                 - |
                   mc alias set garage "https://s3.hme.${SECRET_DOMAIN}" "$ACCESS_KEY_ID" "$SECRET_ACCESS_KEY"
                   mc cp /dumps/*.sql.gz garage/homelab/cnpg/nightly/
-                  mc rm --recursive --force --older-than 14d garage/homelab/cnpg/nightly/
+                  mc rm --recursive --force --older-than 7d garage/homelab/cnpg/nightly/
               env:
                 - name: SECRET_DOMAIN
                   value: ${SECRET_DOMAIN}

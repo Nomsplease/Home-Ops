@@ -6,6 +6,11 @@ metadata:
   name: agones
 spec:
   interval: 1h
+  # CRDs are vendored+patched in ./crds.yaml (see its header comment)
+  install:
+    crds: Skip
+  upgrade:
+    crds: Skip
   chart:
     spec:
       chart: agones
@@ -14,12 +19,12 @@ spec:
         kind: HelmRepository
         name: agones
   values:
-    crds:
-      CleanupOnDelete: false
     gameservers:
       namespaces:
         - games
     agones:
+      crds:
+        install: false
       controller:
         replicas: 1
       ping:

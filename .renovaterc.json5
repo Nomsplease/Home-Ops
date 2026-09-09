@@ -162,6 +162,20 @@
       "allowedVersions": "<1.20.0"
     },
     {
+      // agones' CRDs fail server-side apply as shipped (invalid schema keys leaked
+      // from a vendored corev1 type) — kubernetes/apps/games/agones/app/crds.yaml is
+      // a cleaned copy applied directly instead of via Helm. Regenerate it on every
+      // chart bump so it doesn't silently drift from what's actually running.
+      "description": "Regenerate vendored agones CRDs on chart bump",
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["agones"],
+      "postUpgradeTasks": {
+        "commands": ["./Scripts/Renovate/regen-agones-crds.sh {{{newVersion}}}"],
+        "fileFilters": ["kubernetes/apps/games/agones/app/crds.yaml"],
+        "executionMode": "update"
+      }
+    },
+    {
       "description": "Spegel Group",
       "groupName": "Spegel",
       "matchDatasources": ["docker"],

@@ -45,6 +45,9 @@ jobs:
         env:
           GITHUB_COM_TOKEN: ${{ secrets.TOKEN_GITHUB }}
           LOG_LEVEL: "${{ inputs.logLevel || 'info' }}"
+          # Lets the agones postUpgradeTask (regenerates vendored CRDs, see .renovaterc.json5)
+          # run its script. allowedCommands is global-only, so it has to live here, not in repo config.
+          RENOVATE_ALLOWED_COMMANDS: '["^\\./Scripts/Renovate/regen-agones-crds\\.sh"]'
           RENOVATE_AUTODISCOVER: true
           RENOVATE_AUTODISCOVER_FILTER: "${{ forgejo.repository }}"
           RENOVATE_DRY_RUN: "${{ inputs.dryRun }}"

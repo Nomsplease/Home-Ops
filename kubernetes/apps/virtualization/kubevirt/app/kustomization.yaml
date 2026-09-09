@@ -47,6 +47,38 @@ patches:
             - "virtualmachinetemplates"
             - "virtualmachinetemplates/status"
           verbs: ["get"]
+      - op: add
+        path: /rules/-
+        value:
+          apiGroups: ["template.kubevirt.io"]
+          resources: ["virtualmachinetemplaterequests"]
+          verbs: ["get", "list", "patch", "watch"]
+      - op: add
+        path: /rules/-
+        value:
+          apiGroups: ["template.kubevirt.io"]
+          resources:
+            - "virtualmachinetemplaterequests/finalizers"
+            - "virtualmachinetemplates/finalizers"
+          verbs: ["update"]
+      - op: add
+        path: /rules/-
+        value:
+          apiGroups: ["template.kubevirt.io"]
+          resources: ["virtualmachinetemplaterequests/status"]
+          verbs: ["get", "patch"]
+      - op: add
+        path: /rules/-
+        value:
+          apiGroups: ["template.kubevirt.io"]
+          resources: ["virtualmachinetemplates"]
+          verbs: ["create", "list", "watch"]
+      - op: add
+        path: /rules/-
+        value:
+          apiGroups: ["template.kubevirt.io"]
+          resources: ["virtualmachinetemplates/status"]
+          verbs: ["patch"]
     target:
       kind: ClusterRole
       name: kubevirt-operator

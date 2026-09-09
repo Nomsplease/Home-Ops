@@ -39,6 +39,14 @@ patches:
             - "virtualmachineinstances/backup"
             - "virtualmachineinstances/redefine-checkpoint"
           verbs: ["update"]
+      - op: add
+        path: /rules/-
+        value:
+          apiGroups: ["template.kubevirt.io"]
+          resources:
+            - "virtualmachinetemplates"
+            - "virtualmachinetemplates/status"
+          verbs: ["get"]
     target:
       kind: ClusterRole
       name: kubevirt-operator

@@ -6,4 +6,4 @@ metadata:
   name: home-ops
 spec:
   dnsZoneRef:
-    name: netbird.${SECRET_DOMAIN}
+    name: k8s.netbird.${SECRET_DOMAIN}

@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
+apiVersion: observability.giantswarm.io/v1alpha2
+kind: Silence
+metadata:
+  name: hpa-maxed-out
+spec:
+  # zeroscaler HPAs (minReplicas=0, maxReplicas=1) are always "at max" while active —
+  # that's the normal/desired state, not a real problem.
+  matchers:
+    - name: alertname
+      value: KubeHpaMaxedOut
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
+apiVersion: observability.giantswarm.io/v1alpha2
+kind: Silence
+metadata:
+  name: watchdog
+spec:
+  # Dead-man's-switch alert, meant to always be firing to prove the pipeline works.
+  matchers:
+    - name: alertname
+      value: Watchdog

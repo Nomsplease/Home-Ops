@@ -11,6 +11,10 @@ spec:
         kubevirt.io/vm: sendspin-bt-bridge
     spec:
       evictionStrategy: None
+      dnsPolicy: None
+      dnsConfig:
+        nameservers:
+          - "10.1.20.1"
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

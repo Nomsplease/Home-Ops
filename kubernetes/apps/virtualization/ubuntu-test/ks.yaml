@@ -7,20 +7,12 @@ metadata:
   namespace: virtualization
 spec:
   dependsOn:
-    - name: kopiur
-      namespace: kopiur-system
     - name: kubevirt
     - name: cdi
     - name: multus
       namespace: kube-system
   interval: 1h
   path: ./kubernetes/apps/virtualization/ubuntu-test/app
-  components:
-    - ../../../../components/kopiur/backup
-  postBuild:
-    substitute:
-      APP: ubuntu-test
-      KOPIUR_CAPACITY: 50Gi
   prune: true
   retryInterval: 2m
   sourceRef:

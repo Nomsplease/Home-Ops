@@ -79,6 +79,41 @@ patches:
           apiGroups: ["template.kubevirt.io"]
           resources: ["virtualmachinetemplates/status"]
           verbs: ["patch"]
+      - op: add
+        path: /rules/-
+        value:
+          apiGroups: ["cdi.kubevirt.io"]
+          resources: ["datavolumes"]
+          verbs: ["create", "delete", "patch"]
+      - op: add
+        path: /rules/-
+        value:
+          apiGroups: ["cdi.kubevirt.io"]
+          resources: ["datavolumes/source"]
+          verbs: ["create"]
+      - op: add
+        path: /rules/-
+        value:
+          apiGroups: ["template.kubevirt.io"]
+          resources: ["virtualmachinetemplaterequests"]
+          verbs: ["create", "delete", "deletecollection", "update"]
+      - op: add
+        path: /rules/-
+        value:
+          apiGroups: ["template.kubevirt.io"]
+          resources: ["virtualmachinetemplaterequests/source"]
+          verbs: ["create"]
+      - op: add
+        path: /rules/-
+        value:
+          apiGroups: ["template.kubevirt.io"]
+          resources: ["virtualmachinetemplates"]
+          verbs: ["delete", "deletecollection", "patch", "update"]
+      - op: add
+        path: /rules/-
+        value:
+          nonResourceURLs: ["/metrics"]
+          verbs: ["get"]
     target:
       kind: ClusterRole
       name: kubevirt-operator

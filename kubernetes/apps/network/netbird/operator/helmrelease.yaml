@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: netbird-operator
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: netbird-operator
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    managementURL: https://netbird.${SECRET_DOMAIN}
+    cluster:
+      name: home-ops
+    netbirdAPI:
+      keyFromSecret:
+        name: netbird-mgmt-api-key
+        key: NB_API_KEY
+    operator:
+      resources:
+        requests:
+          cpu: 10m
+        limits:
+          memory: 256Mi

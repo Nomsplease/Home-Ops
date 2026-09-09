@@ -28,6 +28,11 @@ spec:
     # plain JWT instead of Envoy Gateway's encrypted cookie format. This means
     # the ID and access tokens are stored as plaintext (HttpOnly) cookies.
     disableTokenEncryption: true
+    # Background fetch/XHR polling
+    denyRedirect:
+      headers:
+        - name: Sec-Fetch-Mode
+          value: cors
   # Re-validates the ID token cookie set by the oidc block above purely to
   # project the preferred_username claim onto a header for upstream apps.
   jwt:

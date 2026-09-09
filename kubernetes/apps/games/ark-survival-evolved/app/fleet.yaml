@@ -58,12 +58,12 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       name: arkse-secrets
-                      key: SessionName
+                      key: username
                 - name: ServerAdminPassword
                   valueFrom:
                     secretKeyRef:
                       name: arkse-secrets
-                      key: ServerAdminPassword
+                      key: password
               command:
                 - /bin/bash
                 - -c

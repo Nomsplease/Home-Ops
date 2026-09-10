@@ -19,7 +19,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      APP_ICON_URL: "https://raw.githubusercontent.com/lklynet/aurral/refs/heads/release/v2/docs/src/assets/logo.svg"
+      APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/aurral.svg"
       OIDC_APP_NAME: Music Playlists (Aurral)
       KOPIUR_CAPACITY: 5Gi
     substituteFrom:

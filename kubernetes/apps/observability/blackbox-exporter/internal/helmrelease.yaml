@@ -45,7 +45,7 @@ spec:
       rules:
         - alert: InternalProbeFailed
           expr: |-
-            probe_success == 0
+            probe_success{job=~"probe/observability/(icmp|tcp)-internal"} == 0
           for: 15m
           labels:
             severity: critical

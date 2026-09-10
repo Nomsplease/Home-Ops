@@ -5,8 +5,7 @@ metadata:
   name: financal-services
 spec:
   friendlyName: Financal Services
-  allowedOIDCClients:
-    - name: wallos
+  allowedOIDCClients: []
 ---
 apiVersion: pocketid.internal/v1alpha1
 kind: PocketIDUserGroup
@@ -24,7 +23,6 @@ metadata:
 spec:
   friendlyName: Media Service Users
   allowedOIDCClients:
-    - name: navidrome
     - name: prowlarr
     - name: radarr
     - name: readarr
@@ -38,5 +36,4 @@ metadata:
   name: emby-users
 spec:
   friendlyName: Emby Users
-  allowedOIDCClients:
-    - name: emby
+  allowedOIDCClients: []

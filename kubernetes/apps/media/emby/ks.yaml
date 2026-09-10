@@ -6,7 +6,6 @@ metadata:
   name: emby
 spec:
   components:
-    # - ../../../../components/oidc/envoy
     - ../../../../components/kopiur/backup
     - ../../../../components/zeroscaler
   dependsOn:
@@ -21,11 +20,7 @@ spec:
   postBuild:
     substitute:
       APP: emby
-      # Only the "protected" rule in emby's HTTPRoute is gated by OIDC (the component's
-      # default); the "bypass" rule (native client/API paths) is untouched so Emby
-      # apps/TVs keep working.
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/emby.svg"
-      OIDC_APP_NAME: Emby
       KOPIUR_CAPACITY: 100Gi
     substituteFrom:
       - name: cluster-secrets

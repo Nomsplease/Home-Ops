@@ -15,9 +15,9 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      KOPIUR_ACCESSMODES: ReadWriteMany
-      KOPIUR_STORAGECLASS: ceph-filesystem
-      KOPIUR_SNAPSHOTCLASS: csi-ceph-filesystem
+      KOPIUR_ACCESSMODES: ReadWriteOnce
+      KOPIUR_STORAGECLASS: ceph-block
+      KOPIUR_SNAPSHOTCLASS: csi-ceph-blockpool
       KOPIUR_CAPACITY: 10Gi
     substituteFrom:
       - name: cluster-secrets

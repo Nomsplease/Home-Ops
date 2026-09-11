@@ -45,6 +45,25 @@ spec:
         urlPrefix: /
         ssl: false
         prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
+      # CVE-2025-30156: rotate daemon keys, but stay on keyType aes since aes256k
+      # needs kernel 7.0+ CSI clients (Talos is on 6.18). Mute the resulting warnings.
+      healthCheck:
+        muteHealthWarning:
+          AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_CLIENT_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_KEYS_ALLOWED:
+            policy: mute
+          AUTH_INSECURE_KEYS_CREATABLE:
+            policy: mute
+      security:
+        cephx:
+          daemon:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
+          csi:
+            keyType: aes # aes256k requires kernel 7.0+
       mgr:
         count: 3
         modules:
@@ -55,21 +74,9 @@ spec:
           - name: rook
             enabled: true
       resources:
-        mgr:
-          limits:
-            memory: "4Gi"
-          requests:
-            cpu: "500m"
-            memory: "512Mi"
-        mon:
-          limits:
-            memory: "2Gi"
-          requests:
-            cpu: "1000m"
-            memory: "1Gi"
         osd:
           limits:
-            memory: "4Gi"
+            memory: 8Gi # Required for bootstrap
           requests:
             cpu: "1000m"
             memory: "2Gi"

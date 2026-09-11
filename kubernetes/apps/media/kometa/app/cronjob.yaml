@@ -1,0 +1,46 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kometa
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 */4 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+          containers:
+            - name: kometa
+              image: kometateam/kometa:v2.4.8@sha256:c58f6d4af511613f218b6dafbfc84078af4e5a6089790c1fdba58fd7c5dad70a
+              args: ["--run", "--read-only-config"]
+              env:
+                - name: KOMETA_CONFIG
+                  value: /posters/couchpotatocentral_config.yml
+                - name: TZ
+                  value: ${TIMEZONE}
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 512Mi
+                limits:
+                  memory: 4Gi
+              volumeMounts:
+                - name: posters
+                  mountPath: /posters
+          volumes:
+            - name: posters
+              nfs:
+                server: truenas.hme.${SECRET_DOMAIN}
+                path: /mnt/BigPool/Media/Posters
+          restartPolicy: OnFailure

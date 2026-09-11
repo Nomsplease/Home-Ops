@@ -23,7 +23,7 @@ spec:
               # renovate: datasource=github-releases depName=Tracearr/Media-Server-SSE
               SSE_VERSION: v0.4.1
               # renovate: datasource=github-releases depName=fscorrupt/posterizarr
-              POSTERIZARR_VERSION: "3.2.0"
+              POSTERIZARR_VERSION: "3.3.4"
             command:
               - sh
               - -ec

@@ -43,6 +43,21 @@ spec:
         forceRename: powerdns-admin-par
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - powerdns-admin
+                      - key: app.kubernetes.io/controller
+                        operator: In
+                        values:
+                          - powerdns-admin-hme
+                  topologyKey: kubernetes.io/hostname
         containers:
           app:
             image:

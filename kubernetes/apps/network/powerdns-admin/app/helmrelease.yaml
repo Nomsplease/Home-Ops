@@ -11,8 +11,8 @@ spec:
     name: powerdns-admin
   values:
     controllers:
-      powerdns-admin:
-        forceRename: powerdns-admin
+      powerdns-admin-hme:
+        forceRename: powerdns-admin-hme
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -37,7 +37,35 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 512Mi
+                memory: 1Gi
+
+      powerdns-admin-par:
+        forceRename: powerdns-admin-par
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/powerdnsadmin/pda-legacy
+              tag: 0.6.1
+            env:
+              SECRET_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: powerdns-admin-secret
+                    key: SECRET_KEY
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
 
     defaultPodOptions:
       securityContext:
@@ -47,26 +75,50 @@ spec:
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: /data
+        advancedMounts:
+          powerdns-admin-hme:
+            app:
+              - path: /data
+                subPath: hme
+          powerdns-admin-par:
+            app:
+              - path: /data
+                subPath: par
 
     route:
-      app:
+      app-hme:
         hostnames:
-          - "dnsadmin.${SECRET_DOMAIN}"
+          - "dnsadmin-hme.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: powerdns-admin
+              - identifier: powerdns-admin-hme
+                port: http
+      app-par:
+        hostnames:
+          - "dnsadmin-par.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: powerdns-admin-par
                 port: http
 
     service:
-      powerdns-admin:
-        controller: powerdns-admin
-        forceRename: powerdns-admin
+      powerdns-admin-hme:
+        controller: powerdns-admin-hme
+        forceRename: powerdns-admin-hme
+        ports:
+          http:
+            port: 80
+      powerdns-admin-par:
+        controller: powerdns-admin-par
+        forceRename: powerdns-admin-par
         ports:
           http:
             port: 80

@@ -18,4 +18,3 @@ resources:
   - ./netbird/ks.yaml
   - ./powerdns-admin/ks.yaml
   - ./powerdns-dns/ks.yaml
-  - ./technitium-dns/ks.yaml

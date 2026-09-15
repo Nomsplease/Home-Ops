@@ -13,8 +13,8 @@ spec:
       url: http://forgejo-http:3000
       existingSecret: forgejo-runner-secret
     image:
-      repository: registry.erwanleboucher.dev/eleboucher/runner
-      tag: "12.13.0"
+      repository: data.forgejo.org/forgejo/runner
+      tag: "13.1.0"
     plugin:
       image:
         repository: registry.erwanleboucher.dev/eleboucher/runner-k8s-plugin

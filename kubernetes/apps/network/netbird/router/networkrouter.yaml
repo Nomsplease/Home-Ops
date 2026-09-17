@@ -1,9 +1,0 @@
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/netbirdio/kubernetes-operator/main/charts/netbird-operator/crds/netbird.io_networkrouters.yaml
-apiVersion: netbird.io/v1alpha1
-kind: NetworkRouter
-metadata:
-  name: home-ops
-spec:
-  dnsZoneRef:
-    name: k8s.netbird.${SECRET_DOMAIN}

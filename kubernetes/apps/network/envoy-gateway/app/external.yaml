@@ -5,13 +5,13 @@ kind: Gateway
 metadata:
   name: envoy-external
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname envoy-external.noms.tv
+    external-dns.kubernetes.io/target: &hostname envoy-external.noms.tv
 spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: *hostname
-      external-dns.alpha.kubernetes.io/target: "10.1.20.24"
+      external-dns.kubernetes.io/hostname: *hostname
+      external-dns.kubernetes.io/target: "10.1.20.24"
       lbipam.cilium.io/ips: "10.1.20.24"
     labels:
       expose/vx0: "true"

@@ -1,0 +1,61 @@
+---
+apiVersion: agones.dev/v1
+kind: Fleet
+metadata:
+  name: valheim
+  labels:
+    game: valheim
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        game: valheim
+    spec:
+      ports:
+        - name: game
+          portPolicy: Dynamic
+          containerPort: 2456
+          protocol: UDP
+        - name: query
+          portPolicy: Dynamic
+          containerPort: 2457
+          protocol: UDP
+      health:
+        disabled: true
+      template:
+        metadata:
+          labels:
+            game: valheim
+        spec:
+          containers:
+            - name: valheim
+              image: ghcr.io/community-valheim-tools/valheim-server:latest
+              env:
+                - name: SERVER_NAME
+                  value: "Home-Ops Valheim"
+                - name: WORLD_NAME
+                  value: "Dedicated"
+                - name: SERVER_PORT
+                  value: "2456"
+                - name: SERVER_PUBLIC
+                  value: "false"
+              resources:
+                requests:
+                  cpu: "2"
+                  memory: 4Gi
+                limits:
+                  memory: 8Gi
+              volumeMounts:
+                - name: valheim-data
+                  mountPath: /config
+                  subPath: config
+                - name: valheim-data
+                  mountPath: /opt/valheim
+                  subPath: opt-valheim
+          volumes:
+            - name: valheim-data
+              persistentVolumeClaim:
+                claimName: valheim

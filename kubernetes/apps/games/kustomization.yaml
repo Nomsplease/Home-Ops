@@ -13,3 +13,4 @@ resources:
   - ./agones/ks.yaml
   - ./ark-survival-evolved/ks.yaml
   - ./gameplane/ks.yaml
+  - ./valheim/ks.yaml

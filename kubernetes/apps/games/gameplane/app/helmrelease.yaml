@@ -10,16 +10,13 @@ spec:
     kind: OCIRepository
     name: gameplane
   values:
-    # Control plane (operator/api/web) runs here in `games`, alongside Agones.
-    # Actual GameServer workloads land in their own namespace so the chart's
-    # default-deny NetworkPolicies don't clamp the existing Agones/Ark fleet.
     gamesNamespace: gameplane-games
     ingress:
-      # Replaced by ./httproute.yaml (cluster uses Gateway API / envoy-gateway,
-      # no ingress-nginx controller installed).
       enabled: false
     api:
       db:
         driver: sqlite
       storage:
+        # Keep in sync with KOPIUR_CAPACITY in ../ks.yaml
+        size: 5Gi
         storageClassName: ceph-block

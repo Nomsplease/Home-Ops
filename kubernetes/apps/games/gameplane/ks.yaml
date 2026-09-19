@@ -6,8 +6,21 @@ metadata:
   name: gameplane
   namespace: games
 spec:
+  components:
+    - ../../../../components/kopiur/backup
+  dependsOn:
+    - name: kopiur
+      namespace: kopiur-system
   interval: 30m
   path: ./kubernetes/apps/games/gameplane/app
+  postBuild:
+    substitute:
+      # Must match the PVC name the chart itself
+      APP: gameplane-api-data
+      KOPIUR_CAPACITY: 5Gi
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   retryInterval: 1m
   sourceRef:

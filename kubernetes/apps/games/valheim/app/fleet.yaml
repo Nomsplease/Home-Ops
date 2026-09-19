@@ -34,12 +34,18 @@ spec:
             - name: valheim
               image: ghcr.io/community-valheim-tools/valheim-server:latest
               env:
-                SERVER_NAME: "Home-Ops Valheim"
-                WORLD_NAME: "Dedicated"
-                SERVER_PORT: "2456"
-                SERVER_PUBLIC: "false"
-                SERVER_PASS: ""
-                VALHEIM_PLUS: "true"
+                - name: SERVER_NAME
+                  value: "Home-Ops Valheim"
+                - name: WORLD_NAME
+                  value: "Dedicated"
+                - name: SERVER_PORT
+                  value: "2456"
+                - name: SERVER_PUBLIC
+                  value: "false"
+                - name: SERVER_PASS
+                  value: ""
+                - name: VALHEIM_PLUS
+                  value: "true"
               resources:
                 requests:
                   cpu: "2"

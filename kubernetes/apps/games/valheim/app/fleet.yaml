@@ -41,7 +41,7 @@ spec:
                 - name: SERVER_PORT
                   value: "2456"
                 - name: SERVER_PUBLIC
-                  value: "false"
+                  value: "true"
               resources:
                 requests:
                   cpu: "2"

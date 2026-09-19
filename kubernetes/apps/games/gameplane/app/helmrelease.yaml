@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gameplane
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: gameplane
+  values:
+    # Control plane (operator/api/web) runs here in `games`, alongside Agones.
+    # Actual GameServer workloads land in their own namespace so the chart's
+    # default-deny NetworkPolicies don't clamp the existing Agones/Ark fleet.
+    gamesNamespace: gameplane-games
+    ingress:
+      # Replaced by ./httproute.yaml (cluster uses Gateway API / envoy-gateway,
+      # no ingress-nginx controller installed).
+      enabled: false
+    api:
+      db:
+        driver: sqlite
+      storage:
+        storageClassName: ceph-block

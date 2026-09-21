@@ -55,6 +55,6 @@ spec:
                 name: beets-config
             - name: media
               nfs:
-                server: truenas.hme.${SECRET_DOMAIN}
+                server: truenas-k8s.hme.${SECRET_DOMAIN}
                 path: /mnt/BigPool/Media
           restartPolicy: OnFailure

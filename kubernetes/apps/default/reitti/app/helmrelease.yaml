@@ -18,7 +18,7 @@ spec:
           init-nginx-conf:
             image:
               repository: ghcr.io/dedicatedcode/reitti-tile-cache
-              tag: 5.5.0@sha256:0f1c6d9968b0762e2d7007a981e4bfd9a52dd493f8e9d240c55f548d3c495e3d
+              tag: 5.5.1@sha256:593a7177e80c216cffe6b72a865fa05bc84dcd49e7aae14373b2b5af6bf279d6
             command:
               - sh
               - -c
@@ -67,7 +67,7 @@ spec:
           tile-cache:
             image:
               repository: ghcr.io/dedicatedcode/reitti-tile-cache
-              tag: 5.5.0@sha256:0f1c6d9968b0762e2d7007a981e4bfd9a52dd493f8e9d240c55f548d3c495e3d
+              tag: 5.5.1@sha256:593a7177e80c216cffe6b72a865fa05bc84dcd49e7aae14373b2b5af6bf279d6
             resources:
               requests:
                 cpu: 50m

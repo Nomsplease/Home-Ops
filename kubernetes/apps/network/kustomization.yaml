@@ -15,6 +15,7 @@ resources:
   - ./cloudflare-dns/ks.yaml
   - ./envoy-gateway/ks.yaml
   - ./mikrodash/ks.yaml
+  - ./mikrotik-dns/ks.yaml
   - ./netbird/ks.yaml
   - ./powerdns-admin/ks.yaml
   - ./powerdns-dns/ks.yaml

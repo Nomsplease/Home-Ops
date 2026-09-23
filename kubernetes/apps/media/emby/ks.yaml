@@ -21,7 +21,7 @@ spec:
     substitute:
       APP: emby
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/emby.svg"
-      KOPIUR_CAPACITY: 100Gi
+      KOPIUR_CAPACITY: 150Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

@@ -47,7 +47,7 @@ spec:
                 - name: VALHEIM_PLUS
                   value: "true"
                 - name: SERVER_ARGS
-                  value: "-modifier deathpenalty casual -modifier resources muchmore -modifier portals casual -saveinterval 300 -backups 8"
+                  value: "-modifier deathpenalty casual -modifier resources muchmore -modifier portals casual -modifier raids none -saveinterval 300 -backups 8"
               resources:
                 requests:
                   cpu: "2"

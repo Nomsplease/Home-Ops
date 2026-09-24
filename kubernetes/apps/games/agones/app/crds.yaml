@@ -1,4 +1,4 @@
-# Vendored from `helm template agones/agones --version 1.60.0` with
+# Vendored from `helm template agones/agones --version 1.61.0` with
 # x-kubernetes-patch-strategy / x-kubernetes-patch-merge-key stripped from every
 # CRD schema. Those keys are strategic-merge-patch markers leaked from the
 # vendored corev1.PodTemplateSpec type into the generated CRD schema — they
@@ -15,7 +15,7 @@ metadata:
   labels:
     component: crd
     app: agones
-    chart: agones-1.60.0
+    chart: agones-1.61.0
     release: agones
     heritage: Helm
 spec:
@@ -6517,7 +6517,7 @@ metadata:
   labels:
     component: crd
     app: agones
-    chart: agones-1.60.0
+    chart: agones-1.61.0
     release: agones
     heritage: Helm
 spec:
@@ -7226,7 +7226,7 @@ metadata:
   labels:
     component: crd
     app: agones
-    chart: agones-1.60.0
+    chart: agones-1.61.0
     release: agones
     heritage: Helm
 spec:
@@ -13561,7 +13561,7 @@ metadata:
   labels:
     component: crd
     app: agones
-    chart: agones-1.60.0
+    chart: agones-1.61.0
     release: agones
     heritage: Helm
   name: gameserverallocationpolicies.multicluster.agones.dev
@@ -13638,7 +13638,7 @@ metadata:
   labels:
     component: crd
     app: agones
-    chart: agones-1.60.0
+    chart: agones-1.61.0
     release: agones
     heritage: Helm
 spec:

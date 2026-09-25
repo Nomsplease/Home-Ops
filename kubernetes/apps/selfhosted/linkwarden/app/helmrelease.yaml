@@ -76,13 +76,11 @@ spec:
               - --upgrade-db
             env:
               MEILI_NO_ANALYTICS: true
-              MEILI_MASTER_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: linkwarden
-                    key: MEILI_MASTER_KEY
               NEXT_PUBLIC_OIDC_ENABLED: "true"
               OIDC_CUSTOM_NAME: "PocketID"
+            envFrom:
+              - secretRef:
+                name: "{{ .Release.Name }}"
             resources:
               requests:
                 cpu: 10m

@@ -13,3 +13,4 @@ resources:
   - ./pooler.yaml
   - ./scheduledbackup.yaml
   - ./service.yaml
+  - ./timescaledb-update.yaml

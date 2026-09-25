@@ -52,7 +52,8 @@ spec:
               - /models/models--bartowski--Qwen_Qwen3.6-35B-A3B-GGUF/mmproj.gguf
               - --ctx-size
               - "131072"
-              - --no-mmap
+              - --load-mode
+              - none
               - --flash-attn
               - on
               - --sleep-idle-seconds

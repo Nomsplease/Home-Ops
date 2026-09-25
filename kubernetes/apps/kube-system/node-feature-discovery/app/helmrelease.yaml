@@ -14,5 +14,9 @@ spec:
       config:
         core:
           sources: ["pci", "system", "usb"]
+        sources:
+          usb:
+            # Default is ["0e", "ef", "fe", "ff"]; add 02 (CDC) for the KVM's serial port.
+            deviceClassWhitelist: ["02", "0e", "ef", "fe", "ff"]
     prometheus:
       enable: false

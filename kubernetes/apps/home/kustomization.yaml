@@ -11,6 +11,7 @@ resources:
   - ./bambuddy/ks.yaml
   - ./esphome/ks.yaml
   - ./homeassistant/ks.yaml
+  - ./kvm-controller/ks.yaml
   - ./matter-server/ks.yaml
   - ./mosquitto/ks.yaml
   - ./n8n/ks.yaml

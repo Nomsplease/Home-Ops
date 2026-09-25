@@ -1,0 +1,100 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kvm-controller
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: kvm-controller
+  values:
+    controllers:
+      kvm-controller:
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: python
+              tag: 3.13-alpine@sha256:79e7a9b9ff1cbceff819f856fb374477792a5967759d94df266de7b7b4120e6f
+            command:
+              - /bin/sh
+              - -c
+            args:
+              - pip install --quiet pyserial==3.5 paho-mqtt==2.1.0 && exec python /app/kvm_controller.py
+            env:
+              TZ: America/New_York
+              PIP_DISABLE_PIP_VERSION_CHECK: "1"
+              PIP_NO_CACHE_DIR: "1"
+              PIP_ROOT_USER_ACTION: ignore
+              PYTHONUNBUFFERED: "1"
+              MQTT_HOST: mosquitto
+              BASE_TOPIC: kvm
+              SERIAL_PORT: /host-dev/serial/by-id/usb-Artery_Technology_AT32_Virtual_COM_Port_B76D83A78226-if00
+            envFrom:
+              - secretRef:
+                  name: kvm-controller
+            securityContext:
+              privileged: true
+            probes:
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /bin/sh
+                      - -c
+                      - test $(( $(date +%s) - $(stat -c %Y /tmp/alive) )) -lt 60
+                  periodSeconds: 5
+                  failureThreshold: 30
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /bin/sh
+                      - -c
+                      - test $(( $(date +%s) - $(stat -c %Y /tmp/alive) )) -lt 60
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /bin/sh
+                      - -c
+                      - test -f /tmp/ready
+                  periodSeconds: 15
+                  timeoutSeconds: 5
+                  failureThreshold: 1
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
+    defaultPodOptions:
+      nodeSelector:
+        rextron-kvm.feature.node.kubernetes.io/serial: "true"
+    persistence:
+      host-dev:
+        type: hostPath
+        hostPath: /dev
+        hostPathType: Directory
+        globalMounts:
+          - path: /host-dev
+      script:
+        type: configMap
+        name: kvm-controller
+        globalMounts:
+          - path: /app/kvm_controller.py
+            subPath: kvm_controller.py
+            readOnly: true

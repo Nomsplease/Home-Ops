@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/nfd.k8s-sigs.io/nodefeaturerule_v1alpha1.json
+apiVersion: nfd.k8s-sigs.io/v1alpha1
+kind: NodeFeatureRule
+metadata:
+  name: rextron-kvm-serial-device
+spec:
+  rules:
+    - # Level1Techs / Rextron HDMI 2.1 KVM, AUX USB-C port (Artery AT32 virtual COM port, CDC-ACM)
+      name: rextron-kvm.serial
+      labels:
+        rextron-kvm.feature.node.kubernetes.io/serial: "true"
+      matchFeatures:
+        - feature: usb.device
+          matchExpressions:
+            class: { op: In, value: ["02"] }
+            vendor: { op: In, value: ["2e3c"] }
+            device: { op: In, value: ["5740"] }

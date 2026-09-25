@@ -4,7 +4,7 @@
 The KVM's AUX USB-C port enumerates as a CDC-ACM serial device (Artery AT32,
 2e3c:5740). It takes text commands ending in CRLF (`V=2`), echoes them back and
 prints a `>` prompt. There is no way to read the current state back, so the
-state published here is the last thing this bridge (or Home Assistant) set.
+entities are stateless buttons: PC n switches video, audio and USB to input n.
 
 Entities are announced through Home Assistant MQTT discovery.
 """
@@ -41,51 +41,27 @@ ALIVE_FILE = pathlib.Path(os.environ.get("ALIVE_FILE", "/tmp/alive"))
 READY_FILE = pathlib.Path(os.environ.get("READY_FILE", "/tmp/ready"))
 
 AVAILABILITY_TOPIC = f"{BASE_TOPIC}/availability"
-INPUTS = ["PC 1", "PC 2", "PC 3", "PC 4"]
-FOLLOW = "Follow video"
+PRESS = "PRESS"
+INPUTS = [1, 2, 3, 4]
 
 log = logging.getLogger("kvm-controller")
 
-
-def select_command(letter, option):
-    """Map a select option to the KVM command, or None if it is not valid."""
-    if option == FOLLOW and letter in ("A", "U"):
-        return f"{letter}=*"
-    if option in INPUTS:
-        return f"{letter}={option[-1]}"
-    return None
-
-
-# key -> (component, name, icon, options, command builder)
+# key -> button. Each one points video (V), audio (A) and USB (U) at the same input.
 ENTITIES = {
-    "video": {
-        "component": "select",
-        "name": "Video Input",
-        "icon": "mdi:monitor-multiple",
-        "options": INPUTS,
-        "command": lambda option: select_command("V", option),
-    },
-    "audio": {
-        "component": "select",
-        "name": "Audio Input",
-        "icon": "mdi:speaker",
-        "options": [FOLLOW] + INPUTS,
-        "command": lambda option: select_command("A", option),
-    },
-    "usb": {
-        "component": "select",
-        "name": "USB Input",
-        "icon": "mdi:usb-port",
-        "options": [FOLLOW] + INPUTS,
-        "command": lambda option: select_command("U", option),
-    },
-    "autoscan": {
-        "component": "switch",
-        "name": "Auto Scan",
-        "icon": "mdi:sync",
-        "command": lambda payload: {"ON": "V=A", "OFF": "V=$"}.get(payload),
-    },
+    f"pc{n}": {
+        "name": f"PC {n}",
+        "icon": f"mdi:numeric-{n}-box",
+        "commands": [f"{letter}={n}" for letter in "VAU"],
+    }
+    for n in INPUTS
 }
+
+# Discovery and state topics from the earlier select/switch design. Publishing an empty retained
+# payload removes the stale entities from Home Assistant.
+LEGACY_TOPICS = [
+    f"{DISCOVERY_PREFIX}/{component}/{BASE_TOPIC}_{key}/config"
+    for component, key in (("select", "video"), ("select", "audio"), ("select", "usb"), ("switch", "autoscan"))
+] + [f"{BASE_TOPIC}/{key}/state" for key in ("video", "audio", "usb", "autoscan")]
 
 
 class KvmRejected(Exception):
@@ -200,14 +176,13 @@ class Bridge:
                 "unique_id": f"{BASE_TOPIC}_{key}",
                 "icon": entity["icon"],
                 "command_topic": f"{BASE_TOPIC}/{key}/set",
-                "state_topic": f"{BASE_TOPIC}/{key}/state",
+                "payload_press": PRESS,
                 "availability_topic": AVAILABILITY_TOPIC,
                 "device": device,
             }
-            if entity["component"] == "select":
-                config["options"] = entity["options"]
-            topic = f"{DISCOVERY_PREFIX}/{entity['component']}/{BASE_TOPIC}_{key}/config"
-            self.publish(topic, json.dumps(config))
+            self.publish(f"{DISCOVERY_PREFIX}/button/{BASE_TOPIC}_{key}/config", json.dumps(config))
+        for topic in LEGACY_TOPICS:
+            self.publish(topic, "")
 
     def on_connect(self, client, userdata, flags, reason_code, properties):
         if reason_code.is_failure:
@@ -240,25 +215,21 @@ class Bridge:
             self.commands.put((key, payload))
 
     def handle(self, key, payload):
-        command = ENTITIES[key]["command"](payload)
-        if command is None:
+        if payload != PRESS:
             log.warning("ignoring %r for %s", payload, key)
             return
-        try:
-            reply = self.kvm.send(command)
-        except KvmRejected as err:
-            log.error("%s", err)
-            return
-        except (serial.SerialException, OSError) as err:
-            log.error("%s failed: %s", command, err)
-            self.set_online(False)
-            return
-        log.info("%s -> %r", command, reply)
+        for command in ENTITIES[key]["commands"]:
+            try:
+                reply = self.kvm.send(command)
+            except KvmRejected as err:
+                log.error("%s", err)
+                continue
+            except (serial.SerialException, OSError) as err:
+                log.error("%s failed: %s", command, err)
+                self.set_online(False)
+                return
+            log.info("%s -> %r", command, reply)
         self.set_online(True)
-        self.publish(f"{BASE_TOPIC}/{key}/state", payload)
-        # With auto scan on, the input changes on its own and we no longer know where it is.
-        if key == "autoscan" and payload == "ON":
-            self.publish(f"{BASE_TOPIC}/video/state", "None")
 
     def ping(self):
         try:

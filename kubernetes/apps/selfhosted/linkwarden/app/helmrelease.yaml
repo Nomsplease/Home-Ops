@@ -81,6 +81,8 @@ spec:
                   secretKeyRef:
                     name: linkwarden
                     key: MEILI_MASTER_KEY
+              NEXT_PUBLIC_OIDC_ENABLED: "true"
+              OIDC_CUSTOM_NAME: "PocketID"
             resources:
               requests:
                 cpu: 10m

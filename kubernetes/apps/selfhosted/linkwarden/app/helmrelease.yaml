@@ -112,6 +112,7 @@ spec:
       app:
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "bookmarks.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network

@@ -26,7 +26,6 @@ spec:
                     name: linkwarden-postgres
                     key: url
               NEXTAUTH_URL: "https://bookmarks.${SECRET_DOMAIN}/api/v1/auth"
-              # NEXT_PUBLIC_DISABLE_REGISTRATION: "true"
               MEILI_HOST: "http://linkwarden-meilisearch:7700"
               TZ: ${TIMEZONE}
               NEXT_PUBLIC_OIDC_ENABLED: "true"
@@ -44,9 +43,9 @@ spec:
             resources:
               requests:
                 cpu: 50m
-                memory: 256Mi
+                memory: 512Mi
               limits:
-                memory: 2Gi
+                memory: 8Gi
 
       meilisearch:
         annotations:

@@ -44,10 +44,10 @@ spec:
                   value: "false"
                 - name: SERVER_PASS
                   value: ""
-                - name: VALHEIM_PLUS
+                - name: BEPINEX
                   value: "true"
                 - name: SERVER_ARGS
-                  value: "-modifier deathpenalty casual -modifier resources muchmore -modifier portals casual -modifier raids none -saveinterval 300 -backups 8"
+                  value: "-modifier deathpenalty casual -modifier resources muchmore -modifier portals casual -modifier raids none -saveinterval 600 -backups 8"
               resources:
                 requests:
                   cpu: "2"

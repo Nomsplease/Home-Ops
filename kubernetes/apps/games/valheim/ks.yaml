@@ -18,7 +18,7 @@ spec:
   postBuild:
     substitute:
       APP: valheim
-      KOPIUR_CAPACITY: 10Gi
+      KOPIUR_CAPACITY: 20Gi
   prune: true
   retryInterval: 1m
   sourceRef:

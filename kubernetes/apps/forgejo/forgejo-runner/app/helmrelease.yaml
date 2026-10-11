@@ -34,7 +34,7 @@ spec:
         workdir_parent: /data/act
       kubernetes:
         namespace: forgejo
-        poll_timeout: 10m
+        poll_timeout: 30m
       log:
         level: info
       plugins:
@@ -42,7 +42,7 @@ spec:
           address: "unix:///plugin/forgejo-runner-k8s.sock"
           options:
             namespace: forgejo
-            poll_timeout: 10m
+            poll_timeout: 30m
             labels: "app.kubernetes.io/name=forgejo-runner-instance,egress.home.arpa/custom-egress=true"
             resources: |
               requests:
@@ -65,6 +65,12 @@ spec:
       podspec-default.yaml: |
         imagePullSecrets:
           - name: forgejo-registry-pull-secret
+        securityContext:
+          sysctls:
+            - name: net.ipv6.conf.all.disable_ipv6
+              value: "1"
+            - name: net.ipv6.conf.default.disable_ipv6
+              value: "1"
         containers:
           - env:
               - name: DEBIAN_FRONTEND
@@ -95,6 +101,12 @@ spec:
               secretName: talos-api-access
         restartPolicy: Never
       podspec-dind.yaml: |
+        securityContext:
+          sysctls:
+            - name: net.ipv6.conf.all.disable_ipv6
+              value: "1"
+            - name: net.ipv6.conf.default.disable_ipv6
+              value: "1"
         initContainers:
           - name: dind
             image: docker:29-dind
@@ -158,6 +170,12 @@ spec:
       podspec-dind-kvm.yaml: |
         imagePullSecrets:
           - name: forgejo-registry-pull-secret
+        securityContext:
+          sysctls:
+            - name: net.ipv6.conf.all.disable_ipv6
+              value: "1"
+            - name: net.ipv6.conf.default.disable_ipv6
+              value: "1"
         initContainers:
           - name: dind
             image: docker:29-dind
@@ -229,6 +247,12 @@ spec:
       podspec-podman.yaml: |
         imagePullSecrets:
           - name: forgejo-registry-pull-secret
+        securityContext:
+          sysctls:
+            - name: net.ipv6.conf.all.disable_ipv6
+              value: "1"
+            - name: net.ipv6.conf.default.disable_ipv6
+              value: "1"
         containers:
           - name: main
             securityContext:

@@ -30,7 +30,13 @@ build tag=`just fcos next-tag`:
     for s in "$secrets"/*; do
         secret_args+=(--secret "id=$(basename "$s"),src=$s")
     done
+    # --network=host: podman build otherwise gives the build container its
+    # own isolated network namespace (slirp4netns/pasta -- userspace
+    # networking that doesn't consult kernel ipv6 sysctls), which breaks
+    # image pulls on hosts/runners where ipv6 doesn't actually route. Just
+    # share the pod's/workstation's own already-working network instead.
     cd "{{ source_directory() }}" && podman build \
+        --network=host \
         "${secret_args[@]}" \
         -t "{{ image }}:{{ tag }}" -t "{{ image }}:latest" -f Containerfile .
 

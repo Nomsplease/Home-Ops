@@ -1,0 +1,53 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: "FCOS Image"
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - fcos/Containerfile
+      - fcos/files/**
+  schedule:
+    - cron: 0 3 * * 6 # 3AM every Saturday -- picks up Fedora/package updates even with no repo changes
+
+concurrency:
+  group: ${{ forgejo.workflow_ref }}-${{ forgejo.event.number || forgejo.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: FCOS Image - Build & Push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Log in to the Forgejo registry
+        run: echo "${{ secrets.TOKEN_PACKAGES }}" | docker login git.noms.tv -u "${{ forgejo.actor }}" --password-stdin
+
+      - name: Compute next date-based tag
+        id: tag
+        run: |
+          year_month="$(date -u +%Y.%m)"
+          body="$(curl -fsS -u "${{ forgejo.actor }}:${{ secrets.TOKEN_PACKAGES }}" "https://git.noms.tv/v2/homelab/fcos-bootc/tags/list" || true)"
+          max=-1
+          for existing in $(grep -oE "\"${year_month//./\\.}\.[0-9]+\"" <<< "$body" | tr -d '"'); do
+            n="${existing##*.}"
+            [ "$n" -gt "$max" ] && max="$n"
+          done
+          tag="${year_month}.$((max + 1))"
+          echo "Next tag: $tag"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Build
+        working-directory: fcos
+        run: docker build -t "git.noms.tv/homelab/fcos-bootc:${{ steps.tag.outputs.tag }}" -t git.noms.tv/homelab/fcos-bootc:latest -f Containerfile .
+
+      - name: Push
+        run: |
+          docker push "git.noms.tv/homelab/fcos-bootc:${{ steps.tag.outputs.tag }}"
+          docker push git.noms.tv/homelab/fcos-bootc:latest

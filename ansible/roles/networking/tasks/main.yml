@@ -1,0 +1,49 @@
+---
+- name: Configure the bond0 interface
+  community.general.nmcli:
+    type: bond
+    conn_name: bond0
+    ifname: bond0
+    mode: active-backup
+    miimon: 1000
+    mtu: 9000
+    method4: auto
+    method6: auto
+    state: present
+
+- name: Configure VLAN sub-interfaces on bond0
+  community.general.nmcli:
+    type: vlan
+    conn_name: "bond0.{{ item }}"
+    ifname: "bond0.{{ item }}"
+    vlandev: bond0
+    vlanid: "{{ item }}"
+    mtu: 9000
+    method4: disabled
+    method6: disabled
+    state: present
+  loop: "{{ bond_vlan_ids }}"
+
+# community.general.nmcli has no permanent-MAC-match option for plain
+# ethernet connections hand-written keyfile instead.
+- name: Write the bond0 member connection, matched by permanent MAC
+  ansible.builtin.template:
+    src: bond0-member.nmconnection.j2
+    dest: /etc/NetworkManager/system-connections/bond0-member.nmconnection
+    owner: root
+    group: root
+    mode: "0600"
+  register: bond_member_file
+
+- name: Reload NetworkManager connection files
+  ansible.builtin.command: nmcli connection reload
+  when: bond_member_file is changed
+  changed_when: true
+
+- name: Activate the bond0 member connection
+  community.general.nmcli:
+    conn_name: bond0-member
+    state: up
+  when: bond_member_file is changed
+  async: 30
+  poll: 0

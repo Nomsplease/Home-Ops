@@ -1,0 +1,37 @@
+# Bootable container image for the k8s_nodes group (see ansible/inventory).
+FROM quay.io/fedora/fedora-bootc:44
+
+COPY .build/files/ /
+
+RUN --mount=type=secret,id=username,required=true --mount=type=secret,id=password_hash,required=true <<'EOT'
+set -euo pipefail
+useradd --create-home --groups wheel --password "$(cat /run/secrets/password_hash)" "$(cat /run/secrets/username)"
+EOT
+
+# /home is a symlink to /var/home, and ostree/bootc does not deploy
+# anything placed under /var from the container image -- it's treated as
+# persistent runtime state, seeded fresh at boot, not synced from the
+# image. So authorized_keys can't be chown/chmod'd here at build time the
+# way sudoers/upsmon can; it's materialized into /var/home instead by the
+# tmpfiles.d rule in files/etc/tmpfiles.d/localadmin-ssh.conf, reading from
+# /usr/share/factory (which, being under /usr, does persist).
+RUN chmod 0440 /etc/sudoers.d/local-user \
+    && chmod 0640 /etc/nut/upsmon.conf
+
+RUN --mount=type=cache,target=/var/cache/libdnf5 <<EOT
+set -euo pipefail
+dnf -y install \
+    kubeadm \
+    kubelet \
+    cri-tools \
+    qemu-kvm \
+    libvirt-daemon-kvm \
+    libvirt-client \
+    lvm2 \
+    nut-client \
+    htop \
+    python3
+dnf clean all
+EOT
+
+RUN systemctl enable kubelet.service nut-monitor.service

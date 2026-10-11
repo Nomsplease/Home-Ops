@@ -1,0 +1,12 @@
+---
+- name: Create the Miroir volume group on the dedicated SATA disk
+  community.general.lvg:
+    vg: miroir-vg
+    pvs:
+      - "/dev/disk/by-id/{{ miroir_disk_by_id }}"
+
+- name: Create the Miroir LVM thin pool
+  community.general.lvol:
+    vg: miroir-vg
+    thinpool: thinpool
+    size: 100%FREE

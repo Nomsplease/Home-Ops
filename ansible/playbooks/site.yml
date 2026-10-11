@@ -1,0 +1,7 @@
+---
+- name: Configure Fedora CoreOS Kubernetes nodes
+  hosts: k8s_nodes
+  become: true
+  roles:
+    - networking
+    - storage

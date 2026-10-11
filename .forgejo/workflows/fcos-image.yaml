@@ -12,10 +12,8 @@ on:
   push:
     branches: ["main"]
     paths:
-      - fcos/Containerfile
-      - fcos/files/**
-      - fcos/secrets/**
-      - fcos/mod.just
+      - fcos/**
+      - .forgejo/workflows/fcos-image.yaml
   schedule:
     - cron: 0 3 * * 6 # 3AM every Saturday -- picks up Fedora/package updates even with no repo changes
   workflow_dispatch: {}

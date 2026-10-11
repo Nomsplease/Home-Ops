@@ -41,6 +41,14 @@ spec:
               readiness:
                 enabled: true
                 port: 8080
+              # The gateway is silent for ~30s at boot and ready ~10s later; without this the
+              # liveness probe (3 x 10s) kills it mid-start and Helm rolls the release back.
+              startup:
+                enabled: true
+                port: 8080
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 10m

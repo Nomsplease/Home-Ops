@@ -3,10 +3,8 @@ FROM quay.io/fedora/fedora-bootc:44
 
 COPY .build/files/ /
 
-RUN --mount=type=secret,id=username,required=true --mount=type=secret,id=password_hash,required=true <<'EOT'
-set -euo pipefail
-useradd --create-home --groups wheel --password "$(cat /run/secrets/password_hash)" "$(cat /run/secrets/username)"
-EOT
+RUN --mount=type=secret,id=username,required=true --mount=type=secret,id=password_hash,required=true \
+    useradd --create-home --groups wheel --password "$(cat /run/secrets/password_hash)" "$(cat /run/secrets/username)"
 
 # /home is a symlink to /var/home, and ostree/bootc does not deploy
 # anything placed under /var from the container image -- it's treated as
@@ -18,20 +16,18 @@ EOT
 RUN chmod 0440 /etc/sudoers.d/local-user \
     && chmod 0640 /etc/nut/upsmon.conf
 
-RUN --mount=type=cache,target=/var/cache/libdnf5 <<EOT
-set -euo pipefail
-dnf -y install \
-    kubeadm \
-    kubelet \
-    cri-tools \
-    qemu-kvm \
-    libvirt-daemon-kvm \
-    libvirt-client \
-    lvm2 \
-    nut-client \
-    htop \
-    python3
-dnf clean all
-EOT
+RUN --mount=type=cache,target=/var/cache/libdnf5 \
+    dnf -y install \
+        kubeadm \
+        kubelet \
+        cri-tools \
+        qemu-kvm \
+        libvirt-daemon-kvm \
+        libvirt-client \
+        lvm2 \
+        nut-client \
+        htop \
+        python3 \
+    && dnf clean all
 
 RUN systemctl enable kubelet.service nut-monitor.service

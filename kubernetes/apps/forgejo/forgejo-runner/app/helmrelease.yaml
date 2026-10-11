@@ -58,6 +58,7 @@ spec:
           - docker:k8s:/config/podspec-dind.yaml
           - kvm:k8s:/config/podspec-dind-kvm.yaml
           - multiarch:k8s:/config/podspec-dind.yaml  # you need binfmt-misc extension for multiarch
+          - podman:k8s:/config/podspec-podman.yaml  # podman is daemonless -- no dind sidecar, just a privileged main container
         timeout: 3h
         shutdown_timeout: 3m
     podSpecs:
@@ -224,4 +225,30 @@ spec:
             hostPath:
               path: /dev/kvm
               type: CharDevice
+        restartPolicy: Never
+      podspec-podman.yaml: |
+        imagePullSecrets:
+          - name: forgejo-registry-pull-secret
+        containers:
+          - name: main
+            securityContext:
+              privileged: true
+            env:
+              - name: DEBIAN_FRONTEND
+                value: noninteractive
+            image: ghcr.io/bjw-s-labs/forgejo-runner:ubuntu-24.04@sha256:fea688b875acdce4e7c786d117b30c1b0203271b23e77d80c306b373d9f5422f
+            imagePullPolicy: IfNotPresent
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1Gi
+              limits:
+                cpu: 500m
+                memory: 8Gi
+            volumeMounts:
+              - name: podman-storage
+                mountPath: /var/lib/containers
+        volumes:
+          - name: podman-storage
+            emptyDir: {}
         restartPolicy: Never

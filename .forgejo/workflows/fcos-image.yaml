@@ -1,5 +1,11 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+# Day-2 only: this runs on Forgejo, which runs in the cluster this image
+# provisions nodes for. It can't be part of initial node bring-up (chicken
+# /egg) -- that path builds locally and images via `just fcos install`
+# instead, with Forgejo never involved. This workflow just calls the same
+# `just fcos build`/`push` recipes used locally, so there's one source of
+# truth for the build -- it can't silently drift from what you run by hand.
 name: "FCOS Image"
 
 on:
@@ -8,8 +14,11 @@ on:
     paths:
       - fcos/Containerfile
       - fcos/files/**
+      - fcos/secrets/**
+      - fcos/mod.just
   schedule:
     - cron: 0 3 * * 6 # 3AM every Saturday -- picks up Fedora/package updates even with no repo changes
+  workflow_dispatch: {}
 
 concurrency:
   group: ${{ forgejo.workflow_ref }}-${{ forgejo.event.number || forgejo.ref_name }}
@@ -18,7 +27,9 @@ concurrency:
 jobs:
   build:
     name: FCOS Image - Build & Push
-    runs-on: ubuntu-latest
+    runs-on: podman
+    env:
+      OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -26,28 +37,25 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Log in to the Forgejo registry
-        run: echo "${{ secrets.TOKEN_PACKAGES }}" | docker login git.noms.tv -u "${{ forgejo.actor }}" --password-stdin
+      - name: Install 1Password CLI
+        uses: 1Password/install-cli-action@f800e0b6b8e9a137ed2c585f54cd68182ca83e7b # v4.1.0
 
-      - name: Compute next date-based tag
-        id: tag
-        run: |
-          year_month="$(date -u +%Y.%m)"
-          body="$(curl -fsS -u "${{ forgejo.actor }}:${{ secrets.TOKEN_PACKAGES }}" "https://git.noms.tv/v2/homelab/fcos-bootc/tags/list" || true)"
-          max=-1
-          for existing in $(grep -oE "\"${year_month//./\\.}\.[0-9]+\"" <<< "$body" | tr -d '"'); do
-            n="${existing##*.}"
-            [ "$n" -gt "$max" ] && max="$n"
-          done
-          tag="${year_month}.$((max + 1))"
-          echo "Next tag: $tag"
-          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+      - name: Verify 1Password auth
+        run: op user get --me
 
-      - name: Build
+      - name: Setup Mise
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          cache: false
+          tool_versions: |
+            just latest
+          github_token: ${{ secrets.TOKEN_GITHUB }}
+
+      - name: Install podman
+        run: apt-get update && apt-get install -y podman
+
+      - name: Build and push
         working-directory: fcos
-        run: docker build -t "git.noms.tv/homelab/fcos-bootc:${{ steps.tag.outputs.tag }}" -t git.noms.tv/homelab/fcos-bootc:latest -f Containerfile .
-
-      - name: Push
         run: |
-          docker push "git.noms.tv/homelab/fcos-bootc:${{ steps.tag.outputs.tag }}"
-          docker push git.noms.tv/homelab/fcos-bootc:latest
+          just fcos build
+          just fcos push

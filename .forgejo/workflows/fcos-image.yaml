@@ -35,6 +35,11 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Disable IPv6
+        run: |
+          sysctl -w net.ipv6.conf.all.disable_ipv6=1
+          sysctl -w net.ipv6.conf.default.disable_ipv6=1
+
       - name: Install 1Password CLI
         uses: 1Password/install-cli-action@f800e0b6b8e9a137ed2c585f54cd68182ca83e7b # v4.1.0
 

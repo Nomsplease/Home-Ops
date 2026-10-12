@@ -1,0 +1,1 @@
+LABEL=EFI-SYSTEM  /boot/efi  vfat  umask=0077,shortname=winnt,nofail  0  2

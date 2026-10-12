@@ -28,6 +28,11 @@ spec:
         port: 53
         plugins:
           - name: errors
+          # Remove when pods are IPv6 capable
+          - name: template
+            parameters: ANY AAAA .
+            configBlock: |-
+              rcode NXDOMAIN
           - name: health
             configBlock: |-
               lameduck 5s

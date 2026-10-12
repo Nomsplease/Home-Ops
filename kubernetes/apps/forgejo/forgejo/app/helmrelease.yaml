@@ -116,6 +116,7 @@ spec:
         actions:
           ENABLED: true
           DEFAULT_ACTIONS_URL: https://github.com
+          ZOMBIE_TASK_TIMEOUT: 60m
         mailer:
           ENABLED: true
           FROM: Forgejo <admin@${SECRET_DOMAIN}>

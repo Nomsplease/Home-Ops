@@ -11,18 +11,17 @@ default:
 [doc('Build the bootc image locally, tagged YYYY.MM.N plus latest')]
 [script]
 build tag=`just fcos next-tag`:
+    tag="{{ tag }}"
+    if podman image exists "{{ image }}:$tag"; then
+        just log info "Image already built, skipping" "tag" "$tag"
+        exit 0
+    fi
     mkdir -p "{{ source_directory() }}/.build"
     files="{{ source_directory() }}/.build/files"
     secrets="{{ source_directory() }}/.build/secrets"
     rm -rf "$files" "$secrets"
     cp -r "{{ source_directory() }}/files" "$files"
     cp -r "{{ source_directory() }}/secrets" "$secrets"
-    # Each secrets/<name> file becomes --secret id=<name> (its resolved
-    # content the value) -- referenced by id in the Containerfile instead
-    # of ARG/--build-arg, so nothing lands in the image's layer history.
-    # --secret id=<name> with no src= resolves against a file literally
-    # named <name> in the build context root, NOT the podman secret store
-    # -- src= pointing at the staged file is required.
     trap 'rm -rf "$files" "$secrets"' EXIT
     find "$files" -type f -exec sh -c 'op inject -i "$1" -o "$1.tmp" && mv "$1.tmp" "$1"' _ {} \;
     find "$secrets" -type f -exec sh -c 'op inject -i "$1" -o "$1.tmp" && mv "$1.tmp" "$1"' _ {} \;
@@ -30,15 +29,10 @@ build tag=`just fcos next-tag`:
     for s in "$secrets"/*; do
         secret_args+=(--secret "id=$(basename "$s"),src=$s")
     done
-    # --network=host: podman build otherwise gives the build container its
-    # own isolated network namespace (slirp4netns/pasta -- userspace
-    # networking that doesn't consult kernel ipv6 sysctls), which breaks
-    # image pulls on hosts/runners where ipv6 doesn't actually route. Just
-    # share the pod's/workstation's own already-working network instead.
     cd "{{ source_directory() }}" && podman build \
         --network=host \
         "${secret_args[@]}" \
-        -t "{{ image }}:{{ tag }}" -t "{{ image }}:latest" -f Containerfile .
+        -t "{{ image }}:$tag" -t "{{ image }}:latest" -f Containerfile .
 
 [private]
 [script]
@@ -115,9 +109,6 @@ install node tag=`just fcos next-tag`:
     rm -f "$tarball"
     podman save -o "$tarball" "{{ image }}:$tag"
     name="$(basename "$tarball")"
-    # -i <(...) is a process substitution (anonymous pipe), not a real file
-    # -- the key never touches disk. Each use below gets its own fresh one;
-    # the same substituted fd can't be read twice across two commands.
     ssh_opts=(-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -o BatchMode=yes -o IdentitiesOnly=yes)
     just log info "Sending image to {{ node }}'s live environment" "host" "{{ node }}"
     scp "${ssh_opts[@]}" -i <(op read "op://Kubernetes/FCOS User/public key") "$tarball" "core@{{ node }}:$name"
@@ -136,8 +127,8 @@ remote node cmd:
 
 [confirm('Upgrade bootc image on ' + node + ' [y|N] ?')]
 [doc('Pull the latest image and reboot a node into it')]
-upgrade node tag="latest":
-    just fcos remote "{{ node }}" "sudo bootc switch --enforce-config-sysroot {{ image }}:{{ tag }} && sudo systemctl reboot"
+upgrade node tag=`just fcos current-tag`:
+    just fcos remote "{{ node }}" "sudo bootc switch {{ image }}:{{ tag }} && sudo systemctl reboot"
 
 [confirm('Roll back bootc image on ' + node + ' [y|N] ?')]
 [doc('Roll back a node to its previous deployment')]

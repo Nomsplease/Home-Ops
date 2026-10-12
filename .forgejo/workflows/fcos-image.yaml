@@ -35,6 +35,20 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Compute next date-based tag
+        id: tag
+        run: |
+          year_month="$(date -u +%Y.%m)"
+          body="$(curl -fsS -u "${{ forgejo.actor }}:${{ secrets.TOKEN_PACKAGES }}" "https://git.noms.tv/v2/homelab/fcos-bootc/tags/list" || true)"
+          max=-1
+          for existing in $(grep -oE "\"${year_month//./\\.}\.[0-9]+\"" <<< "$body" | tr -d '"'); do
+            n="${existing##*.}"
+            [ "$n" -gt "$max" ] && max="$n"
+          done
+          tag="${year_month}.$((max + 1))"
+          echo "Next tag: $tag"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
       - name: Install 1Password CLI
         uses: 1Password/install-cli-action@1a3160d5e9de1ae0803eaa08a88746f5ae3daa50 # v4.1.0
 
@@ -54,5 +68,5 @@ jobs:
 
       - name: Build and push
         run: |
-          just fcos build
-          just fcos push
+          just fcos build ${{ steps.tag.outputs.tag }}
+          just fcos push ${{ steps.tag.outputs.tag }}

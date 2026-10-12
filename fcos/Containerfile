@@ -6,13 +6,6 @@ COPY .build/files/ /
 RUN --mount=type=secret,id=username,required=true --mount=type=secret,id=password_hash,required=true \
     useradd --create-home --groups wheel --password "$(cat /run/secrets/password_hash)" "$(cat /run/secrets/username)"
 
-# /home is a symlink to /var/home, and ostree/bootc does not deploy
-# anything placed under /var from the container image -- it's treated as
-# persistent runtime state, seeded fresh at boot, not synced from the
-# image. So authorized_keys can't be chown/chmod'd here at build time the
-# way sudoers/upsmon can; it's materialized into /var/home instead by the
-# tmpfiles.d rule in files/etc/tmpfiles.d/localadmin-ssh.conf, reading from
-# /usr/share/factory (which, being under /usr, does persist).
 RUN chmod 0440 /etc/sudoers.d/local-user \
     && chmod 0640 /etc/nut/upsmon.conf
 

@@ -126,14 +126,25 @@ remote node cmd:
     ssh -o IdentitiesOnly=yes -i <(op read "op://Kubernetes/FCOS User/public key") "$username@{{ node }}" "{{ cmd }}"
 
 [confirm('Upgrade bootc image on ' + node + ' [y|N] ?')]
-[doc('Pull the latest image and reboot a node into it')]
-upgrade node tag=`just fcos current-tag`:
-    just fcos remote "{{ node }}" "sudo bootc switch {{ image }}:{{ tag }} && sudo systemctl reboot"
+[doc('Refresh the currently-tracked tag (or switch to a specific tag if given) and reboot')]
+[script]
+upgrade node tag="":
+    tag="{{ tag }}"
+    if [ -n "$tag" ]; then
+        just fcos remote "{{ node }}" "sudo bootc upgrade --apply --tag $tag"
+    else
+        just fcos remote "{{ node }}" "sudo bootc upgrade --apply"
+    fi
+
+[confirm('Point ' + node + ' at a different image reference: ' + ref + ' [y|N] ?')]
+[doc('Point a node at a completely different image reference (registry/repo, not just a tag) and reboot -- for routine tag changes use `upgrade` instead')]
+change-image node ref:
+    just fcos remote "{{ node }}" "sudo bootc switch --apply {{ ref }}"
 
 [confirm('Roll back bootc image on ' + node + ' [y|N] ?')]
 [doc('Roll back a node to its previous deployment')]
 rollback node:
-    just fcos remote "{{ node }}" "sudo bootc rollback && sudo systemctl reboot"
+    just fcos remote "{{ node }}" "sudo bootc rollback --apply"
 
 [doc('Show the current/rollback bootc deployments on a node')]
 status node:

@@ -1,0 +1,89 @@
+---
+- name: Check for an existing cluster admin config on this node
+  ansible.builtin.stat:
+    path: /etc/kubernetes/admin.conf
+  register: kube_admin_conf
+
+- name: Determine whether any control-plane node still needs to join
+  ansible.builtin.set_fact:
+    kube_pending_join: "{{ not (groups['k8s_control_plane'] | map('extract', hostvars, ['kube_admin_conf', 'stat', 'exists']) | list is all) }}"
+
+- name: Generate a certificate key for control-plane joins
+  ansible.builtin.command: kubeadm certs certificate-key
+  register: kubeadm_cert_key
+  changed_when: false
+  when:
+    - inventory_hostname == groups['k8s_control_plane'][0]
+    - kube_pending_join
+
+- name: Initialize the first control-plane node
+  ansible.builtin.command:
+    cmd: >
+      kubeadm init
+      --control-plane-endpoint {{ groups['k8s_control_plane'][0] }}:6443
+      --apiserver-cert-extra-sans k8s.hme.{{ secret_domain }}
+      --upload-certs
+      --certificate-key {{ kubeadm_cert_key.stdout }}
+      --pod-network-cidr {{ kube_pod_cidr_v4 }},{{ kube_pod_cidr_v6 }}
+      --service-cidr {{ kube_service_cidr_v4 }},{{ kube_service_cidr_v6 }}
+      --skip-phases addon/kube-proxy
+  changed_when: true
+  when:
+    - inventory_hostname == groups['k8s_control_plane'][0]
+    - not kube_admin_conf.stat.exists
+
+- name: Re-upload cluster certs under the fresh certificate key
+  ansible.builtin.command: kubeadm init phase upload-certs --upload-certs --certificate-key {{ kubeadm_cert_key.stdout }}
+  changed_when: true
+  when:
+    - inventory_hostname == groups['k8s_control_plane'][0]
+    - kube_pending_join
+
+- name: Generate the join command for the remaining control-plane nodes
+  ansible.builtin.command: kubeadm token create --print-join-command
+  register: kubeadm_join_command
+  changed_when: false
+  when:
+    - inventory_hostname == groups['k8s_control_plane'][0]
+    - kube_pending_join
+
+- name: Join the remaining control-plane nodes
+  ansible.builtin.command:
+    cmd: >
+      {{ hostvars[groups['k8s_control_plane'][0]].kubeadm_join_command.stdout }}
+      --control-plane
+      --certificate-key {{ hostvars[groups['k8s_control_plane'][0]].kubeadm_cert_key.stdout }}
+  changed_when: true
+  when:
+    - inventory_hostname != groups['k8s_control_plane'][0]
+    - not kube_admin_conf.stat.exists
+
+- name: Remove the control-plane taint so this small cluster can schedule everywhere
+  ansible.builtin.command: >
+    kubectl --kubeconfig /etc/kubernetes/admin.conf
+    taint nodes {{ inventory_hostname }} node-role.kubernetes.io/control-plane-
+  register: taint_removal
+  changed_when: "'untainted' in taint_removal.stdout"
+  failed_when:
+    - taint_removal.rc != 0
+    - "'not found' not in taint_removal.stderr"
+
+- name: Fetch the admin kubeconfig to the workstation
+  ansible.builtin.fetch:
+    src: /etc/kubernetes/admin.conf
+    dest: "{{ playbook_dir }}/../../kubeconfig"
+    flat: true
+  when: inventory_hostname == groups['k8s_control_plane'][0]
+
+- name: Rename the workstation kubeconfig's context to match repo convention
+  ansible.builtin.command: >
+    kubectl --kubeconfig {{ playbook_dir }}/../../kubeconfig
+    config rename-context kubernetes-admin@kubernetes main
+  delegate_to: localhost
+  become: false
+  register: kube_context_rename
+  changed_when: kube_context_rename.rc == 0
+  failed_when:
+    - kube_context_rename.rc != 0
+    - "'does not exist' not in kube_context_rename.stderr"
+  when: inventory_hostname == groups['k8s_control_plane'][0]

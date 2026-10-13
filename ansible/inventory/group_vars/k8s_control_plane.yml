@@ -1,0 +1,7 @@
+---
+secret_domain: "{{ lookup('ansible.builtin.env', 'SECRET_DOMAIN') }}"
+
+kube_pod_cidr_v4: 172.20.0.0/16
+kube_pod_cidr_v6: "fd00:10:20:1::/64"
+kube_service_cidr_v4: 172.21.0.0/16
+kube_service_cidr_v6: "fd00:10:20:2::/64"

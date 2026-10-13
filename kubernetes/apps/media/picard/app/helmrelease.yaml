@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: jlesage/musicbrainz-picard
-              tag: v26.09.1@sha256:e35aeaf7f17b3e1f29d9472070d3b97248c3c4f230b2f5adc6f67c20321fb782
+              tag: v26.10.2@sha256:8156be84eb7d6835f7f9e324ed2e408b0e430505f9c7c7ce62dd658569c55a4a
             env:
               DARK_MODE: "1"
               KEEP_APP_RUNNING: "1"

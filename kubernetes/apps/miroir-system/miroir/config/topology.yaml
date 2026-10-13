@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/miroir.home-operations.com/miroirnodegroup_v1alpha1.json
+apiVersion: miroir.home-operations.com/v1alpha1
+kind: MiroirNodeGroup
+metadata:
+  name: cache
+spec:
+  nodeSelector:
+    matchLabels:
+      storage.miroir.home-operations.com/class: cache
+  template:
+    pools:
+      - name: cache
+        lvmthin:
+          device: /dev/disk/by-id/REPLACE_ME-miroir-sata

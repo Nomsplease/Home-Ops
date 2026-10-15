@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/connorgallopo/tracearr
-              tag: 2.4.1@sha256:689af46c10c34ccd0487be71a713323574a8cfd60214d89fee6ddb5f60555eae
+              tag: 2.8.3@sha256:df06e1a22b7eda67929a3076c5fe4ad2e03df8f92324ab09c2f3b18137a82c83
             env:
               BACKUP_DIR: /backups
               CORS_ORIGIN: "{{ .Release.Name }}.${SECRET_DOMAIN}"

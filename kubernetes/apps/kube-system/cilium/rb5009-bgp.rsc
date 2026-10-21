@@ -4,7 +4,7 @@
 set name=k8s as=64513 router-id=10.1.20.1
 
 /routing bgp template
-add name=k8s afi=ip,ipv6 nexthop-choice=force-self
+add name=k8s afi=ip nexthop-choice=force-self
 
 /routing bgp connection
 add name=k8s-1 remote.address=10.1.20.11/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s

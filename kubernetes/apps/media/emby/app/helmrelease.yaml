@@ -60,7 +60,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/emby
-              tag: 4.10.0.40@sha256:5bc893ea483fae01c8032b9d9755669efb047a9b04d3c0e021230af84057e203
+              tag: 4.10.2.0@sha256:3926aa2a20747561bdd7d8885f5e6bdc335c89c9a15cb0e55ec9a3b636c1d598
             env:
               TZ: America/New_York
             probes:

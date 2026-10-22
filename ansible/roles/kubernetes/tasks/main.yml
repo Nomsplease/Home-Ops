@@ -21,7 +21,7 @@
     cmd: >
       kubeadm init
       --control-plane-endpoint {{ groups['k8s_control_plane'][0] }}:6443
-      --apiserver-cert-extra-sans k8s.hme.{{ secret_domain }}
+      --apiserver-cert-extra-sans {{ kube_vip_hostname }}
       --upload-certs
       --certificate-key {{ kubeadm_cert_key.stdout }}
       --pod-network-cidr {{ kube_pod_cidr_v4 }},{{ kube_pod_cidr_v6 }}
@@ -87,3 +87,114 @@
     - kube_context_rename.rc != 0
     - "'does not exist' not in kube_context_rename.stderr"
   when: inventory_hostname == groups['k8s_control_plane'][0]
+
+# The following tasks repoint every control-plane node's kubeconfigs from the
+# literal bootstrap node IP to the BGP-advertised VIP
+#   just ansible apply kubernetes <host> -- then re-run with --tags repoint-vip
+- name: Confirm the apiserver VIP is reachable before repointing kubeconfigs away from the node IP
+  ansible.builtin.uri:
+    url: "https://{{ kube_vip_hostname }}:6443/healthz"
+    ca_path: /etc/kubernetes/pki/ca.crt
+    status_code: 200
+  register: kube_vip_healthcheck
+  retries: 12
+  delay: 5
+  until: kube_vip_healthcheck.status is defined and kube_vip_healthcheck.status == 200
+  tags:
+    - never
+    - repoint-vip
+
+- name: Repoint admin.conf at the apiserver VIP
+  ansible.builtin.replace:
+    path: /etc/kubernetes/admin.conf
+    regexp: 'server: https://[^:]+:6443'
+    replace: "server: https://{{ kube_vip_hostname }}:6443"
+  tags:
+    - never
+    - repoint-vip
+
+- name: Repoint super-admin.conf at the apiserver VIP
+  ansible.builtin.replace:
+    path: /etc/kubernetes/super-admin.conf
+    regexp: 'server: https://[^:]+:6443'
+    replace: "server: https://{{ kube_vip_hostname }}:6443"
+  tags:
+    - never
+    - repoint-vip
+
+- name: Repoint kubelet.conf at the apiserver VIP
+  ansible.builtin.replace:
+    path: /etc/kubernetes/kubelet.conf
+    regexp: 'server: https://[^:]+:6443'
+    replace: "server: https://{{ kube_vip_hostname }}:6443"
+  register: kube_vip_kubelet_conf
+  tags:
+    - never
+    - repoint-vip
+
+- name: Restart kubelet to pick up the repointed kubelet.conf
+  ansible.builtin.systemd:
+    name: kubelet
+    state: restarted
+  when: kube_vip_kubelet_conf is changed
+  tags:
+    - never
+    - repoint-vip
+
+- name: Repoint controller-manager.conf at the apiserver VIP
+  ansible.builtin.replace:
+    path: /etc/kubernetes/controller-manager.conf
+    regexp: 'server: https://[^:]+:6443'
+    replace: "server: https://{{ kube_vip_hostname }}:6443"
+  register: kube_vip_cm_conf
+  tags:
+    - never
+    - repoint-vip
+
+- name: Force kube-controller-manager to restart and pick up the repointed kubeconfig
+  ansible.builtin.shell: |
+    set -o pipefail
+    crictl stopp "$(crictl pods --name kube-controller-manager --state ready -q)"
+  args:
+    executable: /bin/bash
+  changed_when: true
+  when: kube_vip_cm_conf is changed
+  tags:
+    - never
+    - repoint-vip
+
+- name: Repoint scheduler.conf at the apiserver VIP
+  ansible.builtin.replace:
+    path: /etc/kubernetes/scheduler.conf
+    regexp: 'server: https://[^:]+:6443'
+    replace: "server: https://{{ kube_vip_hostname }}:6443"
+  register: kube_vip_sched_conf
+  tags:
+    - never
+    - repoint-vip
+
+- name: Force kube-scheduler to restart and pick up the repointed kubeconfig
+  ansible.builtin.shell: |
+    set -o pipefail
+    crictl stopp "$(crictl pods --name kube-scheduler --state ready -q)"
+  args:
+    executable: /bin/bash
+  changed_when: true
+  when: kube_vip_sched_conf is changed
+  tags:
+    - never
+    - repoint-vip
+
+- name: Rename the workstation kubeconfig's server to the VIP as well
+  ansible.builtin.command: >
+    kubectl --kubeconfig {{ playbook_dir }}/../../kubeconfig
+    config set-cluster main --server https://{{ kube_vip_hostname }}:6443
+  delegate_to: localhost
+  become: false
+  register: kube_workstation_vip
+  changed_when: kube_workstation_vip.rc == 0
+  when:
+    - inventory_hostname == groups['k8s_control_plane'][0]
+  tags:
+    - never
+    - repoint-vip

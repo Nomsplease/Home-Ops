@@ -34,3 +34,11 @@ apply playbook="" host="all":
     export ANSIBLE_USER="$(op read "op://Kubernetes/FCOS User/Local User/FCOS Username")"
     export SECRET_DOMAIN="$(op read op://Kubernetes/domains/SECRET_DOMAIN)"
     cd "{{ source_directory() }}" && ansible-playbook "playbooks/{{ playbook }}.yml" --limit "{{ host }}"
+
+[confirm('Repoint every control-plane kubeconfig at the apiserver VIP? Only do this once the cluster + Cilium BGP are confirmed healthy. [y|N]')]
+[doc('Repoint control-plane kubeconfigs (admin/super-admin/kubelet/controller-manager/scheduler) from the bootstrap node IP to the BGP-advertised VIP')]
+[script]
+repoint-vip host="all":
+    export ANSIBLE_USER="$(op read "op://Kubernetes/FCOS User/Local User/FCOS Username")"
+    export SECRET_DOMAIN="$(op read op://Kubernetes/domains/SECRET_DOMAIN)"
+    cd "{{ source_directory() }}" && ansible-playbook playbooks/kubernetes.yml --limit "{{ host }}" --tags repoint-vip

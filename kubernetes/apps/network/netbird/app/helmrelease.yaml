@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: netbirdio/dashboard
-              tag: v2.93.0@sha256:b96c67fe89aaed7164513579d00565bd4326d8a5b8b8ee8c8ccf9ca7efa3f288
+              tag: v2.95.0@sha256:3d6adfee19dd8d34d795af51daee69d27d2081d2076a5a304cfdd14acc67d6f4
             env:
               NETBIRD_MGMT_API_ENDPOINT: https://netbird.${SECRET_DOMAIN}
               NETBIRD_MGMT_GRPC_API_ENDPOINT: https://netbird.${SECRET_DOMAIN}

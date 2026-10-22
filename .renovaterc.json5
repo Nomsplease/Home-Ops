@@ -162,6 +162,12 @@
       "allowedVersions": "<1.20.0"
     },
     {
+      "description": "Hold Fedora bootc base image at 44 (stable)",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["quay.io/fedora/fedora-bootc"],
+      "allowedVersions": "<45"
+    },
+    {
       // agones' CRDs fail server-side apply as shipped (invalid schema keys leaked
       // from a vendored corev1 type) — kubernetes/apps/games/agones/app/crds.yaml is
       // a cleaned copy applied directly instead of via Helm. Regenerate it on every

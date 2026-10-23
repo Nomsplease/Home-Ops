@@ -21,7 +21,7 @@ spec:
               tag: 3.24@sha256:71e9b7bae160ba167fa17414401b94cbcdaf3c32feeab9298bd794a2a0614c35
             env:
               # renovate: datasource=github-releases depName=Tracearr/Media-Server-SSE
-              SSE_VERSION: v0.5.1
+              SSE_VERSION: v0.6.0
               # renovate: datasource=github-releases depName=fscorrupt/posterizarr
               POSTERIZARR_VERSION: "3.3.7"
             command:

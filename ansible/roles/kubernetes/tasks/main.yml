@@ -68,6 +68,14 @@
     - taint_removal.rc != 0
     - "'not found' not in taint_removal.stderr"
 
+- name: Label this node for Miroir's "cache" storage class
+  ansible.builtin.command: >
+    kubectl --kubeconfig /etc/kubernetes/admin.conf
+    label node {{ inventory_hostname }} storage.miroir.home-operations.com/class=cache --overwrite
+  register: miroir_label
+  changed_when: "'not labeled' not in miroir_label.stdout"
+  when: miroir_disk_by_id is defined
+
 - name: Fetch the admin kubeconfig to the workstation
   ansible.builtin.fetch:
     src: /etc/kubernetes/admin.conf

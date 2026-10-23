@@ -17,5 +17,3 @@ resources:
   - ./mikrodash/ks.yaml
   - ./mikrotik-dns/ks.yaml
   - ./netbird/ks.yaml
-  - ./powerdns-admin/ks.yaml
-  - ./powerdns-dns/ks.yaml

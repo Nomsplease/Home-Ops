@@ -95,6 +95,15 @@ spec:
         existingClaim: "{{ .Release.Name }}-cache"
       config:
         existingClaim: "{{ .Release.Name }}"
+      config-file:
+        type: configMap
+        name: "{{ .Release.Name }}-config"
+        advancedMounts:
+          slskd:
+            app:
+              - path: /config/slskd.yml
+                subPath: slskd.yml
+                readOnly: true
       media:
         type: nfs
         server: truenas-k8s.hme.${SECRET_DOMAIN}

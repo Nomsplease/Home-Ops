@@ -3,6 +3,7 @@ set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 image := "git.noms.tv/homelab/fcos-bootc"
+fedora_version := "44"
 
 [private]
 default:
@@ -67,57 +68,122 @@ push tag=`just fcos current-tag`:
     podman push "{{ image }}:{{ tag }}"
     podman push "{{ image }}:latest"
 
-[doc('Download and customize (once) the generic Fedora CoreOS live ISO -- adds our SSH key to its ephemeral `core` user so `install` can drive it remotely. Reused as-is for every node; delete fcos/output to pick up a rotated key.')]
+[doc('Start (if needed) a throwaway local HTTP server serving fcos/.build, so netboot.xyz (inst.ks=) can fetch a rendered kickstart during PXE install')]
+[private]
 [script]
-live-iso:
-    mkdir -p "{{ source_directory() }}/output" "{{ source_directory() }}/.build"
-    iso="{{ source_directory() }}/output/fedora-coreos-live.iso"
-    if [ -f "$iso" ]; then
-        just log info "Customized live ISO already cached" "path" "$iso"
-        exit 0
+kickstart-serve:
+    if ! podman container exists fcos-kickstart; then
+        podman run -d --name fcos-kickstart --restart=always -p 8000:8000 \
+            -v "{{ source_directory() }}/.build:/data:ro" \
+            docker.io/library/python:3-slim \
+            python3 -m http.server 8000 --directory /data
+    elif [ "$(podman inspect -f '{{ "{{" }}.State.Running{{ "}}" }}' fcos-kickstart)" != "true" ]; then
+        podman start fcos-kickstart
     fi
-    base_iso="{{ source_directory() }}/.build/fedora-coreos-live-base.iso"
-    meta="$(curl -fsSL https://builds.coreos.fedoraproject.org/streams/stable.json)"
-    url="$(jq -r '.architectures.x86_64.artifacts.metal.formats.iso.disk.location' <<< "$meta")"
-    sha256="$(jq -r '.architectures.x86_64.artifacts.metal.formats.iso.disk.sha256' <<< "$meta")"
-    curl -fL --retry 5 --retry-delay 5 --retry-all-errors --progress-bar -o "$base_iso" "$url"
-    echo "$sha256  $base_iso" | sha256sum -c -
-    sshkey="$(op read "op://Kubernetes/FCOS User/public key")"
-    ignition="{{ source_directory() }}/.build/live.ign"
-    printf '{"ignition":{"version":"3.4.0"},"passwd":{"users":[{"name":"core","sshAuthorizedKeys":["%s"]}]}}' "$sshkey" > "$ignition"
-    podman run --rm \
-        -v "{{ source_directory() }}/output:/output" \
-        -v "$base_iso:/base.iso:ro" \
-        -v "$ignition:/live.ign:ro" \
-        quay.io/coreos/coreos-installer:release \
-        iso customize --live-ignition /live.ign -o /output/fedora-coreos-live.iso /base.iso
-    just log info "Customized live ISO ready -- mount this as virtual media on the node's BMC and boot from it" "path" "$iso"
 
-[doc('Build and remotely install the bootc image on a node already booted into the customized live ISO (see live-iso)')]
+[doc('Start (if needed) a throwaway local registry so nodes can pull the image during install, before Forgejo exists')]
+[private]
+[script]
+registry-push tag:
+    tag="{{ tag }}"
+    if ! podman container exists fcos-registry; then
+        podman run -d --name fcos-registry --restart=always -p 5000:5000 docker.io/library/registry:2
+    elif [ "$(podman inspect -f '{{ "{{" }}.State.Running{{ "}}" }}' fcos-registry)" != "true" ]; then
+        podman start fcos-registry
+    fi
+    podman tag "{{ image }}:$tag" "localhost:5000/fcos-bootc:$tag"
+    podman push --tls-verify=false "localhost:5000/fcos-bootc:$tag"
+
+[private]
+[script]
+workstation-ip:
+    ip -4 route get 1.1.1.1 | grep -oP '(?<=src )\S+' | head -1
+
+[doc('Build the image, push it to a throwaway local registry, and render + serve a per-node Anaconda kickstart over HTTP for netboot.xyz (inst.ks=) to fetch. Mirrors the two disks listed in nodes/<node>.disks as a RAID1 boot')]
 [script]
 install node tag=`just fcos next-tag`:
     tag="{{ tag }}"
-    disk_file="{{ source_directory() }}/nodes/{{ node }}.disk"
-    if [ -f "$disk_file" ]; then
-        disk="/dev/disk/by-id/$(cat "$disk_file")"
-    else
-        just log fatal "No $disk_file"
+    disks_file="{{ source_directory() }}/nodes/{{ node }}.disks"
+    if [ ! -f "$disks_file" ]; then
+        just log fatal "No $disks_file"
     fi
+    mapfile -t disks < "$disks_file"
+    if [ "${#disks[@]}" -ne 2 ]; then
+        just log fatal "$disks_file must list exactly two disk ids (one per line)"
+    fi
+    disk1="${disks[0]}"
+    disk2="${disks[1]}"
     just fcos build "$tag"
+    just fcos registry-push "$tag"
+    registry_host="$(just fcos workstation-ip)"
     mkdir -p "{{ source_directory() }}/.build"
-    tarball="{{ source_directory() }}/.build/{{ node }}-bootc-$tag.tar"
-    rm -f "$tarball"
-    podman save -o "$tarball" "{{ image }}:$tag"
-    name="$(basename "$tarball")"
-    ssh_opts=(-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -o BatchMode=yes -o IdentitiesOnly=yes)
-    just log info "Sending image to {{ node }}'s live environment" "host" "{{ node }}"
-    scp "${ssh_opts[@]}" -i <(op read "op://Kubernetes/FCOS User/public key") "$tarball" "core@{{ node }}:$name"
-    just log info "Loading and installing on {{ node }} (uses your ssh-agent)"
-    ssh "${ssh_opts[@]}" -i <(op read "op://Kubernetes/FCOS User/public key") "core@{{ node }}" "\
-        sudo podman load -i $name && \
-        sudo podman run --rm --privileged --pid=host -v /dev:/dev -v /var/lib/containers/storage:/var/lib/containers/storage --security-opt label=type:unconfined_t {{ image }}:$tag bootc install to-disk --source-imgref containers-storage:{{ image }}:$tag --filesystem ext4 --karg systemd.hostname={{ node }} --wipe $disk && \
-        sudo systemctl reboot"
-    just log info "{{ node }} is rebooting into the installed OS"
+    just fcos kickstart-serve
+    ks="{{ source_directory() }}/.build/{{ node }}.ks"
+    # NOTE: `raid --device=esp|root` and `network --device=link` syntax below
+    # matches documented pykickstart usage but hasn't been run against a real
+    # Fedora {{ fedora_version }} Anaconda yet -- `ksvalidator` it (see below)
+    # and watch the first real install closely.
+    ks_lines=(
+        "lang en_US.UTF-8"
+        "keyboard us"
+        "timezone UTC --utc"
+        ""
+        "network --bootproto=dhcp --device=link --activate --hostname=${node}"
+        ""
+        "# Only ever touch this node's two boot disks -- never the Ceph OSD NVMe"
+        "# or anything else installed in the box."
+        "ignoredisk --only-use=/dev/disk/by-id/${disk1},/dev/disk/by-id/${disk2}"
+        "zerombr"
+        "clearpart --all --initlabel --disklabel=gpt"
+        ""
+        "part raid.01 --size=1024 --ondisk=/dev/disk/by-id/${disk1}"
+        "part raid.02 --size=1024 --ondisk=/dev/disk/by-id/${disk2}"
+        "part raid.11 --size=0 --grow --ondisk=/dev/disk/by-id/${disk1}"
+        "part raid.12 --size=0 --grow --ondisk=/dev/disk/by-id/${disk2}"
+        ""
+        "# metadata 1.0 for the ESP (so firmware still reads it as plain FAT32) is"
+        "# applied automatically by Anaconda for a RAID1 /boot/efi -- no need to"
+        "# ask for it explicitly."
+        "raid /boot/efi --fstype=efi --level=RAID1 --device=esp raid.01 raid.02"
+        "raid / --fstype=ext4 --level=RAID1 --device=root raid.11 raid.12"
+        ""
+        "bootloader --boot-drive=/dev/disk/by-id/${disk1}"
+        ""
+        "rootpw --lock"
+        ""
+        "%pre"
+        "mkdir -p /etc/containers/registries.conf.d"
+        "cat > /etc/containers/registries.conf.d/local-insecure.conf <<EOF"
+        "[[registry]]"
+        "location = \"${registry_host}:5000\""
+        "insecure = true"
+        "EOF"
+        "%end"
+        ""
+        "ostreecontainer --url=docker://${registry_host}:5000/fcos-bootc:${tag} --no-signature-verification"
+        ""
+        "# Anaconda only ever registers one EFI NVRAM boot entry (for disk1's"
+        "# ESP member) -- without this, disk2 alone can't cold-boot the"
+        "# firmware into GRUB if disk1 fails. Mirror the loader it just"
+        "# installed onto disk1's ESP as a second boot entry for disk2."
+        "%post"
+        'EFI_DIR=$(find /boot/efi/EFI -mindepth 1 -maxdepth 1 -type d ! -iname BOOT | head -1)'
+        'LOADER=$(find "$EFI_DIR" -maxdepth 1 \( -iname "shim*.efi" -o -iname "grub*.efi" \) 2>/dev/null | head -1)'
+        '[ -z "$LOADER" ] && LOADER=$(find /boot/efi/EFI/BOOT -maxdepth 1 -iname "*.efi" 2>/dev/null | head -1)'
+        'if [ -z "$LOADER" ]; then'
+        '    echo "WARNING: no EFI loader found under /boot/efi -- register disk2'"'"'s boot entry by hand with efibootmgr" >&2'
+        'else'
+        '    EFI_PATH=$(echo "${LOADER#/boot/efi}" | tr / "\\")'
+        "    efibootmgr -c -d /dev/disk/by-id/${disk2} -p 1 -L \"Fedora (mirror)\" -l \"\$EFI_PATH\" || echo \"WARNING: efibootmgr failed to register disk2's boot entry -- register it by hand\" >&2"
+        'fi'
+        "%end"
+        ""
+        "reboot"
+    )
+    printf '%s\n' "${ks_lines[@]}" > "$ks"
+    just log info "Validate the kickstart before pointing netboot.xyz at it" "cmd" "podman run --rm -v $ks:/k.ks:ro registry.fedoraproject.org/fedora:{{ fedora_version }} bash -c 'dnf -y -q install pykickstart >/dev/null && ksvalidator /k.ks'"
+    ks_url="http://${registry_host}:8000/{{ node }}.ks"
+    just log info "Point {{ node }}'s netboot.xyz MAC override at the Fedora {{ fedora_version }} netinstall entry with this kernel arg, then boot it. Anaconda will partition, mirror both disks, and deploy unattended." "inst.ks" "$ks_url"
 
 [private]
 [script]

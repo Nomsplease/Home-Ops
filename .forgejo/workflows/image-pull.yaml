@@ -4,6 +4,8 @@ name: Image Pull
 on:
   pull_request:
     branches: ["main"]
+    paths:
+      - kubernetes/**
 
 concurrency:
   group: ${{ forgejo.workflow_ref }}-${{ forgejo.event.number || forgejo.ref_name }}

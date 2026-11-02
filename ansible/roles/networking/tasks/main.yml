@@ -1,4 +1,10 @@
 ---
+# The FCOS install ISO is generic/shared across all nodes and never sets a
+# hostname, so this is the first point anything node-specific gets applied.
+- name: Set this node's hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}"
+
 - name: Configure the bond0 interface
   community.general.nmcli:
     type: bond

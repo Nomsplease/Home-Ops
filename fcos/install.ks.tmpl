@@ -1,0 +1,79 @@
+# Unattended install -- skip Anaconda's interactive display-mode negotiation.
+cmdline
+
+lang en_US.UTF-8
+keyboard us
+timezone UTC --utc
+
+network --bootproto=dhcp --device=link --activate
+
+%pre
+mkdir -p /etc/containers/registries.conf.d
+cat > /etc/containers/registries.conf.d/local-insecure.conf <<EOF
+[[registry]]
+location = "@REGISTRY_HOST@:5000"
+insecure = true
+EOF
+
+# Detect this node's two boot-mirror disks by model
+mapfile -t boot_disks < <(ls -1 /dev/disk/by-id/ 2>/dev/null | grep -E "^ata-CT1000BX500SSD1_[^-]+$" | sed "s#^#/dev/disk/by-id/#" | sort -u)
+if [ "${#boot_disks[@]}" -ne 2 ]; then
+    echo "FATAL: expected exactly 2 CT1000BX500 boot disks, found ${#boot_disks[@]}" >&2
+    exit 1
+fi
+d1="${boot_disks[0]}"
+d2="${boot_disks[1]}"
+# bootloader --boot-drive= needs a plain kernel device name, not a by-id path.
+d1_kname="$(basename "$(readlink -f "$d1")")"
+cat > /tmp/part-include.cfg <<PARTEOF
+ignoredisk --only-use=$d1,$d2
+zerombr
+clearpart --all --initlabel --disklabel=gpt
+
+part /boot/efi --fstype=efi --size=1024 --ondisk=$d1
+part /boot/efi2 --fstype=vfat --size=1024 --ondisk=$d2
+part raid.21 --size=1024 --ondisk=$d1
+part raid.22 --size=1024 --ondisk=$d2
+part raid.11 --size=0 --grow --ondisk=$d1
+part raid.12 --size=0 --grow --ondisk=$d2
+
+raid /boot --fstype=ext4 --level=RAID1 --device=boot raid.21 raid.22
+raid / --fstype=ext4 --level=RAID1 --device=root raid.11 raid.12
+
+bootloader --boot-drive=$d1_kname
+PARTEOF
+%end
+
+# bootupd can't write to a RAID-backed ESP, so disk1 gets a real ESP and disk2 a separately managed mirror (see %post).
+%include /tmp/part-include.cfg
+
+rootpw --lock
+
+ostreecontainer --url=@REGISTRY_HOST@:5000/fcos-bootc:@TAG@ --no-signature-verification
+
+# Mirror disk1's ESP to disk2 so firmware can still boot if disk1 fails.
+%post
+mirror_part=$(findmnt -no SOURCE /boot/efi2)
+mirror_disk="/dev/$(lsblk -no PKNAME "$mirror_part")"
+mirror_partnum="$(lsblk -no PARTN "$mirror_part")"
+# Mark /boot/efi2 as a real ESP; kickstart can't set the GPT type directly.
+sfdisk --part-type "$mirror_disk" "$mirror_partnum" C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+
+# Try bootupd's native ESP sync first; the manual copy below is a guaranteed fallback.
+bootupctl update -v || echo "WARNING: bootupctl update didn't sync /boot/efi2 -- falling back to a manual copy" >&2
+
+EFI_DIR=$(find /boot/efi/EFI -mindepth 1 -maxdepth 1 -type d ! -iname BOOT | head -1)
+# Prefer shim over grub for the proper secure-boot chain.
+LOADER=$(find "$EFI_DIR" -maxdepth 1 -iname "shim*.efi" 2>/dev/null | head -1)
+[ -z "$LOADER" ] && LOADER=$(find "$EFI_DIR" -maxdepth 1 -iname "grub*.efi" 2>/dev/null | head -1)
+[ -z "$LOADER" ] && LOADER=$(find /boot/efi/EFI/BOOT -maxdepth 1 -iname "*.efi" 2>/dev/null | head -1)
+if [ -z "$LOADER" ]; then
+    echo "WARNING: no EFI loader found under /boot/efi -- mirror it to /boot/efi2 and register its boot entry by hand with efibootmgr" >&2
+else
+    cp -r -p /boot/efi/. /boot/efi2/
+    EFI_PATH=$(echo "${LOADER#/boot/efi}" | tr / "\\")
+    efibootmgr -c -d "$mirror_disk" -p "$mirror_partnum" -L "Fedora (mirror)" -l "$EFI_PATH" || echo "WARNING: efibootmgr failed to register /boot/efi2's boot entry -- register it by hand" >&2
+fi
+%end
+
+reboot

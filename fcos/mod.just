@@ -68,18 +68,34 @@ push tag=`just fcos current-tag`:
     podman push "{{ image }}:{{ tag }}"
     podman push "{{ image }}:latest"
 
-[doc('Start (if needed) a throwaway local HTTP server serving fcos/.build, so netboot.xyz (inst.ks=) can fetch a rendered kickstart during PXE install')]
+[doc('Download (once) and cache the Fedora Server netinstall ISO used as the base for per-node install ISOs')]
 [private]
 [script]
-kickstart-serve:
-    if ! podman container exists fcos-kickstart; then
-        podman run -d --name fcos-kickstart --restart=always -p 8000:8000 \
-            -v "{{ source_directory() }}/.build:/data:ro" \
-            docker.io/library/python:3-slim \
-            python3 -m http.server 8000 --directory /data
-    elif [ "$(podman inspect -f '{{ "{{" }}.State.Running{{ "}}" }}' fcos-kickstart)" != "true" ]; then
-        podman start fcos-kickstart
+netinst-iso:
+    mkdir -p "{{ source_directory() }}/.build"
+    iso="{{ source_directory() }}/.build/fedora-{{ fedora_version }}-netinst.iso"
+    if [ -f "$iso" ]; then
+        just log info "Base netinstall ISO already cached" "path" "$iso"
+        exit 0
     fi
+    base_url="https://download.fedoraproject.org/pub/fedora/linux/releases/{{ fedora_version }}/Server/x86_64/iso"
+    filename="$(curl -fsSL "$base_url/" | grep -oE 'Fedora-Server-netinst-x86_64-{{ fedora_version }}-[0-9.]+\.iso' | head -1)"
+    if [ -z "$filename" ]; then
+        just log fatal "Could not find a Fedora {{ fedora_version }} Server netinst ISO at $base_url"
+    fi
+    point="${filename#Fedora-Server-netinst-x86_64-{{ fedora_version }}-}"
+    point="${point%.iso}"
+    checksum_file="Fedora-Server-{{ fedora_version }}-${point}-x86_64-CHECKSUM"
+    tmp="{{ source_directory() }}/.build/$filename"
+    curl -fL --retry 5 --retry-delay 5 --retry-all-errors --progress-bar -o "$tmp" "$base_url/$filename"
+    sha256="$(curl -fsSL "$base_url/$checksum_file" | grep -F "($filename)" | awk '{print $4}')"
+    if [ -z "$sha256" ]; then
+        rm -f "$tmp"
+        just log fatal "Could not find a checksum for $filename in $checksum_file"
+    fi
+    echo "$sha256  $tmp" | sha256sum -c -
+    mv "$tmp" "$iso"
+    just log info "Base netinstall ISO cached" "path" "$iso"
 
 [doc('Start (if needed) a throwaway local registry so nodes can pull the image during install, before Forgejo exists')]
 [private]
@@ -99,91 +115,34 @@ registry-push tag:
 workstation-ip:
     ip -4 route get 1.1.1.1 | grep -oP '(?<=src )\S+' | head -1
 
-[doc('Build the image, push it to a throwaway local registry, and render + serve a per-node Anaconda kickstart over HTTP for netboot.xyz (inst.ks=) to fetch. Mirrors the two disks listed in nodes/<node>.disks as a RAID1 boot')]
+[doc('Build the image, push it to a throwaway local registry, and bake a single generic Anaconda kickstart into a bootable Fedora netinstall ISO (mount as BMC virtual media or write to USB) -- the same ISO installs every node. Disks are auto-detected by model at install time, so no per-node data is needed')]
 [script]
-install node tag=`just fcos next-tag`:
+install tag=`just fcos next-tag`:
     tag="{{ tag }}"
-    disks_file="{{ source_directory() }}/nodes/{{ node }}.disks"
-    if [ ! -f "$disks_file" ]; then
-        just log fatal "No $disks_file"
-    fi
-    mapfile -t disks < "$disks_file"
-    if [ "${#disks[@]}" -ne 2 ]; then
-        just log fatal "$disks_file must list exactly two disk ids (one per line)"
-    fi
-    disk1="${disks[0]}"
-    disk2="${disks[1]}"
     just fcos build "$tag"
     just fcos registry-push "$tag"
+    just fcos netinst-iso
     registry_host="$(just fcos workstation-ip)"
-    mkdir -p "{{ source_directory() }}/.build"
-    just fcos kickstart-serve
-    ks="{{ source_directory() }}/.build/{{ node }}.ks"
-    # NOTE: `raid --device=esp|root` and `network --device=link` syntax below
-    # matches documented pykickstart usage but hasn't been run against a real
-    # Fedora {{ fedora_version }} Anaconda yet -- `ksvalidator` it (see below)
-    # and watch the first real install closely.
-    ks_lines=(
-        "lang en_US.UTF-8"
-        "keyboard us"
-        "timezone UTC --utc"
-        ""
-        "network --bootproto=dhcp --device=link --activate --hostname=${node}"
-        ""
-        "# Only ever touch this node's two boot disks -- never the Ceph OSD NVMe"
-        "# or anything else installed in the box."
-        "ignoredisk --only-use=/dev/disk/by-id/${disk1},/dev/disk/by-id/${disk2}"
-        "zerombr"
-        "clearpart --all --initlabel --disklabel=gpt"
-        ""
-        "part raid.01 --size=1024 --ondisk=/dev/disk/by-id/${disk1}"
-        "part raid.02 --size=1024 --ondisk=/dev/disk/by-id/${disk2}"
-        "part raid.11 --size=0 --grow --ondisk=/dev/disk/by-id/${disk1}"
-        "part raid.12 --size=0 --grow --ondisk=/dev/disk/by-id/${disk2}"
-        ""
-        "# metadata 1.0 for the ESP (so firmware still reads it as plain FAT32) is"
-        "# applied automatically by Anaconda for a RAID1 /boot/efi -- no need to"
-        "# ask for it explicitly."
-        "raid /boot/efi --fstype=efi --level=RAID1 --device=esp raid.01 raid.02"
-        "raid / --fstype=ext4 --level=RAID1 --device=root raid.11 raid.12"
-        ""
-        "bootloader --boot-drive=/dev/disk/by-id/${disk1}"
-        ""
-        "rootpw --lock"
-        ""
-        "%pre"
-        "mkdir -p /etc/containers/registries.conf.d"
-        "cat > /etc/containers/registries.conf.d/local-insecure.conf <<EOF"
-        "[[registry]]"
-        "location = \"${registry_host}:5000\""
-        "insecure = true"
-        "EOF"
-        "%end"
-        ""
-        "ostreecontainer --url=docker://${registry_host}:5000/fcos-bootc:${tag} --no-signature-verification"
-        ""
-        "# Anaconda only ever registers one EFI NVRAM boot entry (for disk1's"
-        "# ESP member) -- without this, disk2 alone can't cold-boot the"
-        "# firmware into GRUB if disk1 fails. Mirror the loader it just"
-        "# installed onto disk1's ESP as a second boot entry for disk2."
-        "%post"
-        'EFI_DIR=$(find /boot/efi/EFI -mindepth 1 -maxdepth 1 -type d ! -iname BOOT | head -1)'
-        'LOADER=$(find "$EFI_DIR" -maxdepth 1 \( -iname "shim*.efi" -o -iname "grub*.efi" \) 2>/dev/null | head -1)'
-        '[ -z "$LOADER" ] && LOADER=$(find /boot/efi/EFI/BOOT -maxdepth 1 -iname "*.efi" 2>/dev/null | head -1)'
-        'if [ -z "$LOADER" ]; then'
-        '    echo "WARNING: no EFI loader found under /boot/efi -- register disk2'"'"'s boot entry by hand with efibootmgr" >&2'
-        'else'
-        '    EFI_PATH=$(echo "${LOADER#/boot/efi}" | tr / "\\")'
-        "    efibootmgr -c -d /dev/disk/by-id/${disk2} -p 1 -L \"Fedora (mirror)\" -l \"\$EFI_PATH\" || echo \"WARNING: efibootmgr failed to register disk2's boot entry -- register it by hand\" >&2"
-        'fi'
-        "%end"
-        ""
-        "reboot"
-    )
-    printf '%s\n' "${ks_lines[@]}" > "$ks"
-    just log info "Validate the kickstart before pointing netboot.xyz at it" "cmd" "podman run --rm -v $ks:/k.ks:ro registry.fedoraproject.org/fedora:{{ fedora_version }} bash -c 'dnf -y -q install pykickstart >/dev/null && ksvalidator /k.ks'"
-    ks_url="http://${registry_host}:8000/{{ node }}.ks"
-    just log info "Point {{ node }}'s netboot.xyz MAC override at the Fedora {{ fedora_version }} netinstall entry with this kernel arg, then boot it. Anaconda will partition, mirror both disks, and deploy unattended." "inst.ks" "$ks_url"
+    mkdir -p "{{ source_directory() }}/.build" "{{ source_directory() }}/output"
+    ks="{{ source_directory() }}/.build/fcos-install.ks"
+    # Plain @TOKEN@ substitution, not `just template` -- Jinja's `{#` collides with bash's `${#arr[@]}`.
+    sed -e "s|@REGISTRY_HOST@|$registry_host|g" -e "s|@TAG@|$tag|g" \
+        "{{ source_directory() }}/install.ks.tmpl" > "$ks"
+    just log info "Checking %pre/%post bash syntax"
+    awk '/^%pre$/,/^%end$/{if (!/^%pre$/ && !/^%end$/) print}' "$ks" | bash -n
+    awk '/^%post$/,/^%end$/{if (!/^%post$/ && !/^%end$/) print}' "$ks" | bash -n
+    just log info "Validate the kickstart before baking it into the ISO (the %include target is stubbed empty for this check only -- the real content is generated by %pre at install time)" "cmd" "podman run --rm -v $ks:/k.ks:ro registry.fedoraproject.org/fedora:{{ fedora_version }} bash -c 'dnf -y -q install pykickstart >/dev/null && touch /tmp/part-include.cfg && ksvalidator /k.ks'"
+    base_iso="{{ source_directory() }}/.build/fedora-{{ fedora_version }}-netinst.iso"
+    out_iso="{{ source_directory() }}/output/fcos-install.iso"
+    rm -f "$out_iso"
+    # --skip-mkefiboot: rootless podman can't grant the loop-device access it needs.
+    podman run --rm \
+        -v "$base_iso:/base.iso:ro" \
+        -v "$ks:/ks.cfg:ro" \
+        -v "{{ source_directory() }}/output:/output" \
+        registry.fedoraproject.org/fedora:{{ fedora_version }} \
+        bash -c 'dnf -y -q install lorax >/dev/null && mkksiso --skip-mkefiboot /ks.cfg /base.iso /output/fcos-install.iso'
+    just log info "Generic install ISO ready -- mount as virtual media on any node's BMC (or write to USB) and boot from it. Anaconda will detect and mirror the right 2 disks and deploy unattended. Ansible sets the hostname afterward." "path" "$out_iso"
 
 [private]
 [script]

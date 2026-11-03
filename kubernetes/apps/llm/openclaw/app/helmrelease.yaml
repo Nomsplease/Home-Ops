@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/openclaw/openclaw
-              tag: 2026.10.6@sha256:7dbff0fe5f5359b1badefe90a23efa9f203cd0d3c36bee095f4896c7a1d3864b
+              tag: 2026.10.9@sha256:1a2a3ce113e435039dbeac5ae261759bb4759908563d91c81059e896b38c5d98
             env:
               TZ: America/New_York
               OPENCLAW_LOG_LEVEL: info
@@ -71,7 +71,7 @@ spec:
             #     and is only trusted from the trustedProxies CIDR above.
             image:
               repository: ghcr.io/openclaw/openclaw
-              tag: 2026.10.6@sha256:7dbff0fe5f5359b1badefe90a23efa9f203cd0d3c36bee095f4896c7a1d3864b
+              tag: 2026.10.9@sha256:1a2a3ce113e435039dbeac5ae261759bb4759908563d91c81059e896b38c5d98
             command:
               - "sh"
               - "-c"

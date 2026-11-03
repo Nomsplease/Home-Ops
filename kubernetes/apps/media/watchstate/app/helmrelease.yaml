@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/arabcoders/watchstate
-              tag: v1.10.9@sha256:d9f7c240a87fb9bb0b00e7c6cc5af0c2edfc9065a248141cfba3ebbcd1a79d46
+              tag: v1.10.11@sha256:2433ee5fb699390d1b2f551d6f6735f5733586459510bd907addc610e247d519
             env:
               WS_TRUST_PROXY: "true"
               WS_TRUST_LOCAL: "true"

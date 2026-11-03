@@ -13,7 +13,10 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
     dnf -y install \
         kubeadm \
         kubelet \
+        kubectl \
         cri-tools \
+        containerd \
+        runc \
         mdadm \
         qemu-kvm \
         libvirt-daemon-kvm \
@@ -24,4 +27,4 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
         python3 \
     && dnf clean all
 
-RUN systemctl enable kubelet.service nut-monitor.service
+RUN systemctl enable containerd.service kubelet.service nut-monitor.service

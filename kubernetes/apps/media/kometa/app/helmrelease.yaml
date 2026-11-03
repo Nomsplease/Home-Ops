@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: kometateam/quickstart
-              tag: v0.10.14@sha256:3b738f5ca494ec098bfe90cf6899968e60a824b85cf35d43302a18f301d31640
+              tag: v0.10.16@sha256:ac1a188b389dd320c0bf11f2b927765f09d92081590bfa9ff4f22694c322f5d6
             env:
               TZ: ${TIMEZONE}
             probes:

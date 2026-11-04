@@ -16,7 +16,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      KOPIUR_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 10Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

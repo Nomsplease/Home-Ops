@@ -9,7 +9,7 @@ spec:
     - ../../../../components/kopiur/backup
     - ../../../../components/zeroscaler
   dependsOn:
-    - name: intel-device-plugins-gpu
+    - name: intel-gpu-resource-driver
       namespace: kube-system
     - name: kopiur
       namespace: kopiur-system

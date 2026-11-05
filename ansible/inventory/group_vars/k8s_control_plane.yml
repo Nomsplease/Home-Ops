@@ -12,3 +12,7 @@ kube_pod_cidr_v4: 172.20.0.0/16
 kube_pod_cidr_v6: "fd00:10:20:1::/56"
 kube_service_cidr_v4: 172.21.0.0/16
 kube_service_cidr_v6: "fd00:10:20:2::/108"
+
+# Default (110) keeps getting hit; each node's /24 from kube_pod_cidr_v4 has
+# plenty of headroom for a higher ceiling.
+kube_max_pods: 250

@@ -78,6 +78,21 @@
   changed_when: "'not labeled' not in miroir_label.stdout"
   when: miroir_disk_by_id is defined
 
+# Default kubelet maxPods (110) is too low for this cluster's pod density; the
+# per-node /24 from kube_pod_cidr_v4 comfortably supports a higher ceiling.
+- name: Raise kubelet's maxPods above the default of 110
+  ansible.builtin.lineinfile:
+    path: /var/lib/kubelet/config.yaml
+    regexp: '^maxPods:'
+    line: "maxPods: {{ kube_max_pods }}"
+  register: kubelet_max_pods
+
+- name: Restart kubelet if maxPods changed
+  ansible.builtin.systemd:
+    name: kubelet
+    state: restarted
+  when: kubelet_max_pods.changed
+
 - name: Fetch the admin kubeconfig to the workstation
   ansible.builtin.fetch:
     src: /etc/kubernetes/admin.conf

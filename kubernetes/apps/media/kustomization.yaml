@@ -15,6 +15,7 @@ resources:
   - ./beets/ks.yaml
   - ./cmdarr/ks.yaml
   - ./emby/ks.yaml
+  - ./jellyfin/ks.yaml
   - ./kometa/ks.yaml
   - ./lidarr/ks.yaml
   - ./maintainerr/ks.yaml

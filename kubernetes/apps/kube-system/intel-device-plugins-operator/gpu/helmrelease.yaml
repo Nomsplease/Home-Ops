@@ -13,3 +13,5 @@ spec:
     name: i915
     nodeFeatureRule: false
     sharedDevNum: 99
+    # by-path mounting collides with k8s-3's simple-framebuffer device and breaks every GPU container.
+    bypathMode: none

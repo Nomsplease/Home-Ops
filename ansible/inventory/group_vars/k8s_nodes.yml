@@ -3,7 +3,11 @@ ansible_user: "{{ lookup('ansible.builtin.env', 'ANSIBLE_USER') }}"
 
 bond_mode: 802.3ad
 
-bond_vlan_ids:
-  - 10
-  - 30
-  - 66
+# ipv6: auto where the VLAN has RA; link-local where it doesn't (auto hangs).
+bond_vlans:
+  - id: 10
+    ipv6: auto
+  - id: 30
+    ipv6: auto
+  - id: 66
+    ipv6: link-local

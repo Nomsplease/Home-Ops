@@ -20,15 +20,37 @@
 - name: Configure VLAN sub-interfaces on bond0
   community.general.nmcli:
     type: vlan
-    conn_name: "bond0.{{ item }}"
-    ifname: "bond0.{{ item }}"
+    conn_name: "bond0.{{ item.id }}"
+    ifname: "bond0.{{ item.id }}"
     vlandev: bond0
-    vlanid: "{{ item }}"
+    vlanid: "{{ item.id }}"
     mtu: 9000
     method4: disabled
-    method6: auto
+    method6: "{{ item.ipv6 }}"
     state: present
-  loop: "{{ bond_vlan_ids }}"
+  loop: "{{ bond_vlans }}"
+  loop_control:
+    label: "{{ item.id }}"
+  register: bond_vlan_result
+
+# state:present only updates the saved profile; cycle to apply ipv6.method.
+- name: Reactivate changed VLAN sub-interfaces
+  community.general.nmcli:
+    conn_name: "bond0.{{ item.item.id }}"
+    state: down
+  loop: "{{ bond_vlan_result.results }}"
+  loop_control:
+    label: "{{ item.item.id }}"
+  when: item is changed
+
+- name: Bring the reactivated VLAN sub-interfaces back up
+  community.general.nmcli:
+    conn_name: "bond0.{{ item.item.id }}"
+    state: up
+  loop: "{{ bond_vlan_result.results }}"
+  loop_control:
+    label: "{{ item.item.id }}"
+  when: item is changed
 
 # nmcli lacks permanent-MAC matching for ethernet; hand-write keyfile instead.
 - name: Write the bond0 member connections, matched by permanent MAC

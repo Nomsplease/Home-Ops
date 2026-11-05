@@ -30,6 +30,7 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
         nut-client \
         htop \
         python3 \
+        intel-gpu-tools \
     && dnf clean all
 
 RUN bash -euo pipefail -c '\

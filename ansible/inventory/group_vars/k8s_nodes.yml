@@ -1,6 +1,8 @@
 ---
 ansible_user: "{{ lookup('ansible.builtin.env', 'ANSIBLE_USER') }}"
 
+bond_mode: 802.3ad
+
 bond_vlan_ids:
   - 10
   - 30

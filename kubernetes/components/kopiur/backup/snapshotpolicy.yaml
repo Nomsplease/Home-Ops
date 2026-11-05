@@ -9,9 +9,9 @@ spec:
     compressor: zstd
   mover:
     cache:
-      capacity: ${KOPIUR_CAPACITY:=5Gi}
+      capacity: ${KOPIUR_CACHE_CAPACITY:=5Gi}
       mode: Persistent
-      storageClassName: ceph-block
+      storageClassName: miroir-kopiur-cache
     podSecurityContext:
       fsGroup: ${KOPIUR_PGID:=1000}
     securityContext:
@@ -23,8 +23,10 @@ spec:
     - kind: ClusterRepository
       name: truenas-kwh
   retention:
-    keepHourly: 12
-    keepDaily: 5
+    keepLatest: 3
+    keepHourly: 24
+    keepDaily: 7
+    keepWeekly: 4
   sources:
     - pvc:
         name: ${APP}

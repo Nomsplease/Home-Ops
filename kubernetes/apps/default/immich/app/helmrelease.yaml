@@ -60,7 +60,7 @@ spec:
           type: persistentVolumeClaim
           accessMode: ReadWriteOnce
           size: 15Gi
-          storageClass: ceph-block
+          storageClass: miroir-app-cache
       controllers:
         main:
           strategy: Recreate

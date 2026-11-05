@@ -24,6 +24,11 @@ releases:
     inherit:
       - template: default
 
+  - name: snapshot-controller
+    namespace: kube-system
+    inherit:
+      - template: default
+
   - name: grafana-operator
     namespace: observability
     inherit:

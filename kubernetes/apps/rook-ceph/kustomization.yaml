@@ -10,4 +10,5 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
+  - ./ceph-csi-drivers/ks.yaml
   - ./rook-ceph/ks.yaml

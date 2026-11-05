@@ -1,3 +1,8 @@
 ---
-bond_member_mac: "F8:F2:1E:45:3A:D1"
-bond_member_uuid: "467a5808-3f98-4f91-af12-1e8617b50566"
+miroir_disk_by_id: nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708742X
+
+bond_members:
+  - mac: "F8:F2:1E:45:3A:D0"
+    uuid: "f3b58b03-61b1-4254-8acf-8e0efa5ed38d"
+  - mac: "F8:F2:1E:45:3A:D1"
+    uuid: "467a5808-3f98-4f91-af12-1e8617b50566"

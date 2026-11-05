@@ -8,37 +8,35 @@ default:
 
 [doc('Install/update required Ansible collections')]
 [script]
-bootstrap:
+workstation:
     ansible-galaxy collection install -r "{{ source_directory() }}/requirements.yml"
 
-[doc('Dry-run a playbook against a host (or all) without changing anything')]
+[doc('Configure Fedora CoreOS Kubernetes nodes (networking, storage). Extra args (--limit, --check --diff, ...) are passed through to ansible-playbook')]
 [script]
-check playbook="" host="all":
-    if [ -z "{{ playbook }}" ]; then
-        available="$(ls "{{ source_directory() }}/playbooks" | sed 's/\.yml$//' | paste -sd, -)"
-        just log error "No playbook given" "available" "$available"
-        exit 1
-    fi
+nodes *args:
     export ANSIBLE_USER="$(op read "op://Kubernetes/FCOS User/Local User/FCOS Username")"
     export SECRET_DOMAIN="$(op read op://Kubernetes/domains/SECRET_DOMAIN)"
-    cd "{{ source_directory() }}" && ansible-playbook "playbooks/{{ playbook }}.yml" --limit "{{ host }}" --check --diff
+    cd "{{ source_directory() }}" && ansible-playbook playbooks/nodes.yml {{ args }}
 
-[doc('Apply a playbook to a host (or all matching hosts)')]
+[doc('Provision the kubeadm cluster on the FCOS k8s nodes. Extra args (--limit, --check --diff, ...) are passed through to ansible-playbook')]
 [script]
-apply playbook="" host="all":
-    if [ -z "{{ playbook }}" ]; then
-        available="$(ls "{{ source_directory() }}/playbooks" | sed 's/\.yml$//' | paste -sd, -)"
-        just log error "No playbook given" "available" "$available"
-        exit 1
-    fi
+kubernetes *args:
     export ANSIBLE_USER="$(op read "op://Kubernetes/FCOS User/Local User/FCOS Username")"
     export SECRET_DOMAIN="$(op read op://Kubernetes/domains/SECRET_DOMAIN)"
-    cd "{{ source_directory() }}" && ansible-playbook "playbooks/{{ playbook }}.yml" --limit "{{ host }}"
+    cd "{{ source_directory() }}" && ansible-playbook playbooks/kubernetes.yml {{ args }}
 
 [confirm('Repoint every control-plane kubeconfig at the apiserver VIP? Only do this once the cluster + Cilium BGP are confirmed healthy. [y|N]')]
-[doc('Repoint control-plane kubeconfigs (admin/super-admin/kubelet/controller-manager/scheduler) from the bootstrap node IP to the BGP-advertised VIP')]
+[doc('Repoint control-plane kubeconfigs (admin/super-admin/kubelet/controller-manager/scheduler) from the bootstrap node IP to the BGP-advertised VIP. Extra args (--limit, --check --diff, ...) are passed through to ansible-playbook')]
 [script]
-repoint-vip host="all":
+repoint-vip *args:
     export ANSIBLE_USER="$(op read "op://Kubernetes/FCOS User/Local User/FCOS Username")"
     export SECRET_DOMAIN="$(op read op://Kubernetes/domains/SECRET_DOMAIN)"
-    cd "{{ source_directory() }}" && ansible-playbook playbooks/kubernetes.yml --limit "{{ host }}" --tags repoint-vip
+    cd "{{ source_directory() }}" && ansible-playbook playbooks/kubernetes.yml --tags repoint-vip {{ args }}
+
+[confirm('Reset the kubeadm cluster? This wipes etcd/certs/CNI state and reboots the node(s) so the cluster can be reprovisioned from scratch. Use --limit to scope to one host. [y|N]')]
+[doc('Tear down the kubeadm cluster (kubeadm reset + state cleanup + reboot) so it can be bootstrapped again from scratch. Extra args (--limit, --check --diff, ...) are passed through to ansible-playbook')]
+[script]
+teardown *args:
+    export ANSIBLE_USER="$(op read "op://Kubernetes/FCOS User/Local User/FCOS Username")"
+    export SECRET_DOMAIN="$(op read op://Kubernetes/domains/SECRET_DOMAIN)"
+    cd "{{ source_directory() }}" && ansible-playbook playbooks/teardown.yml {{ args }}

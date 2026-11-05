@@ -1,3 +1,8 @@
 ---
-bond_member_mac: "90:E2:BA:37:CF:C2"
-bond_member_uuid: "33132bf0-4e3d-4087-a78a-eec1770c1edc"
+miroir_disk_by_id: nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708745J
+
+bond_members:
+  - mac: "90:E2:BA:86:76:C4"
+    uuid: "33132bf0-4e3d-4087-a78a-eec1770c1edc"
+  - mac: "90:E2:BA:86:76:C5"
+    uuid: "b3ea4313-0f89-470e-9277-e43e7a7739e1"

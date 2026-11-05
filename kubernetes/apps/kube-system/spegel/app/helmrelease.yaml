@@ -19,4 +19,4 @@ spec:
       enabled: true
     spegel:
       containerdSock: /run/containerd/containerd.sock
-      containerdRegistryConfigPath: /etc/cri/conf.d/hosts
+      containerdRegistryConfigPath: /etc/containerd/certs.d

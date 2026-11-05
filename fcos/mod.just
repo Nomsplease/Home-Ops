@@ -94,6 +94,16 @@ netinst-iso:
         just log fatal "Could not find a checksum for $filename in $checksum_file"
     fi
     echo "$sha256  $tmp" | sha256sum -c -
+    just log info "Patching GRUB default boot entry to skip the 'test this media' pass"
+    podman run --rm -v "$tmp:/iso:rw" registry.fedoraproject.org/fedora:{{ fedora_version }} bash -c '
+        dnf -y -q install xorriso >/dev/null
+        cd /tmp
+        xorriso -indev /iso -osirrox on -extract /EFI/BOOT/grub.cfg efi-grub.cfg -extract /EFI/BOOT/BOOT.conf efi-boot.conf -extract /boot/grub2/grub.cfg bios-grub.cfg
+        sed -i "s/^set default=\"1\"\$/set default=\"0\"/" efi-grub.cfg efi-boot.conf bios-grub.cfg
+        # -boot_image any replay preserves the El Torito boot catalog on write --
+        # without it xorriso silently drops it, producing an unbootable ISO.
+        xorriso -indev /iso -outdev /iso -boot_image any replay -update efi-grub.cfg /EFI/BOOT/grub.cfg -update efi-boot.conf /EFI/BOOT/BOOT.conf -update bios-grub.cfg /boot/grub2/grub.cfg -- -commit
+    '
     mv "$tmp" "$iso"
     just log info "Base netinstall ISO cached" "path" "$iso"
 
@@ -115,7 +125,7 @@ registry-push tag:
 workstation-ip:
     ip -4 route get 1.1.1.1 | grep -oP '(?<=src )\S+' | head -1
 
-[doc('Build the image, push it to a throwaway local registry, and bake a single generic Anaconda kickstart into a bootable Fedora netinstall ISO (mount as BMC virtual media or write to USB) -- the same ISO installs every node. Disks are auto-detected by model at install time, so no per-node data is needed')]
+[doc('Build the image, push it to a throwaway local registry, and bake a single generic Anaconda kickstart into a bootable Fedora netinstall ISO (mount as BMC virtual media or write to USB) -- the same ISO installs every node. The boot disk is auto-detected by model at install time, so no per-node data is needed')]
 [script]
 install tag=`just fcos next-tag`:
     tag="{{ tag }}"
@@ -142,7 +152,7 @@ install tag=`just fcos next-tag`:
         -v "{{ source_directory() }}/output:/output" \
         registry.fedoraproject.org/fedora:{{ fedora_version }} \
         bash -c 'dnf -y -q install lorax >/dev/null && mkksiso --skip-mkefiboot /ks.cfg /base.iso /output/fcos-install.iso'
-    just log info "Generic install ISO ready -- mount as virtual media on any node's BMC (or write to USB) and boot from it. Anaconda will detect and mirror the right 2 disks and deploy unattended. Ansible sets the hostname afterward." "path" "$out_iso"
+    just log info "Generic install ISO ready -- mount as virtual media on any node's BMC (or write to USB) and boot from it. Anaconda will detect the right boot disk and deploy unattended. Ansible sets the hostname afterward." "path" "$out_iso"
 
 [private]
 [script]
@@ -150,7 +160,7 @@ remote node cmd:
     username="$(op read "op://Kubernetes/FCOS User/Local User/FCOS Username")"
     ssh -o IdentitiesOnly=yes -i <(op read "op://Kubernetes/FCOS User/public key") "$username@{{ node }}" "{{ cmd }}"
 
-[confirm('Upgrade bootc image on ' + node + ' [y|N] ?')]
+#[confirm('Upgrade bootc image on ' + node + ' [y|N] ?')]
 [doc('Refresh the currently-tracked tag (or switch to a specific tag if given) and reboot')]
 [script]
 upgrade node tag="":
@@ -165,6 +175,19 @@ upgrade node tag="":
 [doc('Point a node at a completely different image reference (registry/repo, not just a tag) and reboot -- for routine tag changes use `upgrade` instead')]
 change-image node ref:
     just fcos remote "{{ node }}" "sudo bootc switch --apply {{ ref }}"
+
+[confirm('Build, push to a throwaway local registry, and switch ' + node + ' to pull from this workstation right now [y|N] ?')]
+[doc('For emergencies: Build the image, push it to a throwaway local registry on this workstation, and switch a live node straight to it.')]
+[script]
+change-image-local node tag=`just fcos next-tag`:
+    tag="{{ tag }}"
+    just fcos build "$tag"
+    just fcos registry-push "$tag"
+    registry_host="$(just fcos workstation-ip)"
+    config_b64="$(printf '[[registry]]\nlocation = "%s:5000"\ninsecure = true\n' "$registry_host" | base64 -w0)"
+    just fcos remote "{{ node }}" "echo $config_b64 | base64 -d | sudo tee /etc/containers/registries.conf.d/workstation-emergency.conf >/dev/null"
+    just fcos remote "{{ node }}" "sudo bootc switch --apply $registry_host:5000/fcos-bootc:$tag"
+
 
 [confirm('Roll back bootc image on ' + node + ' [y|N] ?')]
 [doc('Roll back a node to its previous deployment')]

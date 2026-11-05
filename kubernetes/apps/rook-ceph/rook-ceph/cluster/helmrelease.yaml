@@ -11,6 +11,47 @@ spec:
   interval: 1h
   timeout: 30m
   values:
+    cephClusterSpec:
+      cephConfig:
+        mon:
+          mon_cluster_log_level: info
+      cleanupPolicy:
+        wipeDevicesFromOtherClusters: true
+      csi:
+        cephfs:
+          kernelMountOptions: ms_mode=prefer-crc
+        readAffinity:
+          enabled: false # https://github.com/ceph/ceph-csi/issues/5772
+      dashboard:
+        urlPrefix: /
+        ssl: false
+        prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
+      mgr:
+        modules:
+          - name: pg_autoscaler
+            enabled: true
+      resources:
+        osd:
+          limits:
+            memory: 8Gi # Required for bootstrap
+      security:
+        cephx:
+          allowedCiphers: [aes256k]
+          daemon:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
+          csi:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
+            keepPriorKeyCountMax: 0
+            keyType: aes256k
+          rbdMirrorPeer:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
+            keyType: aes256k
+      storage:
+        useAllDevices: false
+        devicePathFilter: /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_.*
     monitoring:
       enabled: true
       createPrometheusRules: true
@@ -26,116 +67,6 @@ spec:
           - name: envoy-internal
             namespace: network
             sectionName: https
-    cephClusterSpec:
-      cephConfig:
-        global:
-          bdev_enable_discard: "true" # quote
-          bdev_async_discard_threads: "1" # quote
-          osd_class_update_on_start: "false" # quote
-          # Warn on 10% free space on mons
-          mon_data_avail_warn: "10"
-      cleanupPolicy:
-        wipeDevicesFromOtherClusters: true
-      crashCollector:
-        disable: false
-      csi:
-        readAffinity:
-          enabled: true
-      dashboard:
-        enabled: true
-        urlPrefix: /
-        ssl: false
-        prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
-      # CVE-2025-30156: rotate daemon keys, but stay on keyType aes since aes256k
-      # needs kernel 7.0+ CSI clients (Talos is on 6.18). Mute the resulting warnings.
-      healthCheck:
-        muteHealthWarning:
-          AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
-            policy: mute
-          AUTH_INSECURE_CLIENT_KEY_TYPE:
-            policy: mute
-          AUTH_INSECURE_KEYS_ALLOWED:
-            policy: mute
-          AUTH_INSECURE_KEYS_CREATABLE:
-            policy: mute
-      security:
-        cephx:
-          daemon:
-            keyRotationPolicy: KeyGeneration
-            keyGeneration: 2
-          csi:
-            keyType: aes # aes256k requires kernel 7.0+
-      mgr:
-        count: 3
-        modules:
-          - name: insights
-            enabled: true
-          - name: pg_autoscaler
-            enabled: true
-          - name: rook
-            enabled: true
-      resources:
-        mgr:
-          limits:
-            memory: "4Gi"
-          requests:
-            cpu: "500m"
-            memory: "512Mi"
-        mon:
-          limits:
-            memory: "2Gi"
-          requests:
-            cpu: "1000m"
-            memory: "512Mi"
-        osd:
-          limits:
-            memory: 8Gi # Required for bootstrap
-          requests:
-            cpu: "1000m"
-            memory: "2Gi"
-      network:
-        provider: host
-        connections:
-          requireMsgr2: true
-      # placement:
-      #   mgr: &placement
-      #     nodeAffinity:
-      #       requiredDuringSchedulingIgnoredDuringExecution:
-      #         nodeSelectorTerms:
-      #           - matchExpressions:
-      #               - key: node-role.kubernetes.io/control-plane
-      #                 operator: Exists
-      #   mon: *placement
-      storage:
-        useAllNodes: false
-        useAllDevices: false
-        config:
-          osdsPerDevice: "1"
-        nodes:
-          - name: main-1
-            devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC09716D"
-          - name: main-2
-            devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W320270E"
-          - name: main-3
-            devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC09703D"
-          - name: main-4
-            devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708742X"
-          - name: main-5
-            devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0TC08560R"
-          - name: main-6
-            devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W320254A"
-          # - name: main-7
-          #   devices:
-          #     - name: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W708745J"
-          # - name: main-8
-          #   devices:
-          #     - name: "/dev/disk/by-id/nvme-CT1000P5PSSD8_22503D27B049"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
@@ -146,43 +77,39 @@ spec:
           enabled: true
           name: ceph-block
           isDefault: true
-          reclaimPolicy: Delete
-          allowVolumeExpansion: true
-          volumeBindingMode: Immediate
           mountOptions:
             - discard
           parameters:
-            compression_mode: aggressive
             compression_algorithm: zstd
-            imageFormat: "2"
-            imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
-            csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-            csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
+            compression_mode: passive
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
+            csi.storage.k8s.io/controller-publish-secret-name: rook-csi-rbd-provisioner
+            csi.storage.k8s.io/controller-publish-secret-namespace: "{{ .Release.Namespace }}"
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
             csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
-            csi.storage.k8s.io/fstype: ext4
+            csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+            csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
+            imageFeatures: deep-flatten,exclusive-lock,fast-diff,layering,object-map
+            imageFormat: "2"
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       name: csi-ceph-blockpool
-      isDefault: false
-      deletionPolicy: Delete
+      isDefault: true
     cephFileSystems:
-      - name: &cephFileSystemName ceph-filesystem
+      - name: ceph-filesystem
         spec:
           metadataPool:
             replicated:
               size: 3
           dataPools:
-            - failureDomain: host
+            - name: data0
+              failureDomain: host
               replicated:
                 size: 3
-              name: data0
           metadataServer:
             activeCount: 1
             activeStandby: true
-            priorityClassName: system-cluster-critical
             placement:
               topologySpreadConstraints:
                 - maxSkew: 1
@@ -191,7 +118,8 @@ spec:
                   labelSelector:
                     matchLabels:
                       app.kubernetes.io/name: ceph-mds
-                      app.kubernetes.io/part-of: *cephFileSystemName
+                      app.kubernetes.io/part-of: ceph-filesystem
+            priorityClassName: system-cluster-critical
             resources:
               requests:
                 cpu: 100m
@@ -200,23 +128,18 @@ spec:
                 memory: 4Gi
         storageClass:
           enabled: true
-          isDefault: false
           name: ceph-filesystem
-          pool: data0
-          reclaimPolicy: Delete
-          allowVolumeExpansion: true
-          volumeBindingMode: Immediate
           parameters:
-            csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-            csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
             csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
+            csi.storage.k8s.io/controller-publish-secret-name: rook-csi-cephfs-provisioner
+            csi.storage.k8s.io/controller-publish-secret-namespace: "{{ .Release.Namespace }}"
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
             csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
-            csi.storage.k8s.io/fstype: ext4
+            csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+            csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
     cephFileSystemVolumeSnapshotClass:
       enabled: true
       name: csi-ceph-filesystem
       isDefault: false
-      deletionPolicy: Delete
     cephObjectStores: []

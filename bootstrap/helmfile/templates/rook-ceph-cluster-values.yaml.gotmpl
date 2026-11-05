@@ -1,0 +1,1 @@
+{{ (fromYaml (readFile "../../../kubernetes/apps/rook-ceph/rook-ceph/cluster/helmrelease.yaml")).spec.values | toYaml }}

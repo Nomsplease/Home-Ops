@@ -2,8 +2,13 @@
 secret_domain: "{{ lookup('ansible.builtin.env', 'SECRET_DOMAIN') }}"
 
 kube_vip_hostname: "k8s.hme.{{ secret_domain }}"
+# Must match the lbipam.cilium.io/ips annotation on the kube-api Service
+# (kubernetes/apps/kube-system/cilium/app/networking.yaml). Kubeconfigs point
+# here, not at kube_vip_hostname, so apiserver reachability never depends on
+# the router's DNS being up.
+kube_vip_address: "10.1.20.10"
 
 kube_pod_cidr_v4: 172.20.0.0/16
-kube_pod_cidr_v6: "fd00:10:20:1::/64"
+kube_pod_cidr_v6: "fd00:10:20:1::/56"
 kube_service_cidr_v4: 172.21.0.0/16
 kube_service_cidr_v6: "fd00:10:20:2::/108"

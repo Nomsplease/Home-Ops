@@ -29,9 +29,9 @@ spec:
         - helm-controller
         - notification-controller
       sync:
-        kind: GitRepository
-        url: https://git.noms.tv/Homelab/Home-Ops.git
-        ref: refs/heads/main
+        kind: OCIRepository
+        url: oci://registry.${SECRET_DOMAIN}/home-ops
+        ref: main
         path: kubernetes/flux/cluster
         interval: 1h
       commonMetadata:

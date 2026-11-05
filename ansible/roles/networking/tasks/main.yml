@@ -1,6 +1,4 @@
 ---
-# The FCOS install ISO is generic/shared across all nodes and never sets a
-# hostname, so this is the first point anything node-specific gets applied.
 - name: Set this node's hostname
   ansible.builtin.hostname:
     name: "{{ inventory_hostname }}"
@@ -10,12 +8,14 @@
     type: bond
     conn_name: bond0
     ifname: bond0
-    mode: active-backup
+    mode: "{{ bond_mode }}"
+    mac: "{{ bond_members[-1].mac }}"
     miimon: 1000
     mtu: 9000
     method4: auto
     method6: auto
     state: present
+  register: bond0_result
 
 - name: Configure VLAN sub-interfaces on bond0
   community.general.nmcli:
@@ -26,30 +26,41 @@
     vlanid: "{{ item }}"
     mtu: 9000
     method4: disabled
-    method6: disabled
+    method6: auto
     state: present
   loop: "{{ bond_vlan_ids }}"
 
-# community.general.nmcli has no permanent-MAC-match option for plain
-# ethernet connections hand-written keyfile instead.
-- name: Write the bond0 member connection, matched by permanent MAC
+# nmcli lacks permanent-MAC matching for ethernet; hand-write keyfile instead.
+- name: Write the bond0 member connections, matched by permanent MAC
   ansible.builtin.template:
     src: bond0-member.nmconnection.j2
-    dest: /etc/NetworkManager/system-connections/bond0-member.nmconnection
+    dest: "/etc/NetworkManager/system-connections/bond0-member-{{ idx }}.nmconnection"
     owner: root
     group: root
     mode: "0600"
-  register: bond_member_file
+  loop: "{{ bond_members }}"
+  loop_control:
+    index_var: idx
+  register: bond_member_files
 
 - name: Reload NetworkManager connection files
   ansible.builtin.command: nmcli connection reload
-  when: bond_member_file is changed
+  when: bond_member_files is changed
   changed_when: true
 
-- name: Activate the bond0 member connection
+- name: Activate the bond0 member connections
   community.general.nmcli:
-    conn_name: bond0-member
+    conn_name: "bond0-member-{{ idx }}"
     state: up
-  when: bond_member_file is changed
+  loop: "{{ bond_members }}"
+  loop_control:
+    index_var: idx
+  when: bond_member_files is changed
   async: 30
   poll: 0
+
+# Bond mode change requires a reboot; switch LACP/LAG must match first.
+- name: Reboot if the bond or its member connections changed
+  ansible.builtin.reboot:
+    reboot_timeout: 180
+  when: bond0_result is changed or bond_member_files is changed

@@ -17,6 +17,7 @@ spec:
           restartPolicy: Never
           initContainers:
             - name: dump
+              # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
               image: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie@sha256:5bf4a23aa13fb560903fba932676773ba4ba2729c162e587b09bf539a2e3df56
               command:
                 - /bin/sh
@@ -44,8 +45,8 @@ spec:
                   mountPath: /dumps
           containers:
             - name: upload
-              # renovate: datasource=docker depName=minio/mc
-              image: minio/mc:RELEASE.2025-08-13T08-35-41Z-cpuv1@sha256:95b5f3f7969a5c5a9f3a700ba72d5c84172819e13385aaf916e237cf111ab868
+              # renovate: datasource=docker depName=pgsty/mc
+              image: pgsty/mc:RELEASE.2026-10-26T00-00-00Z@sha256:ce62c9053c69ce12a527a322345b5ad9f44b5f8a7b8189f82e516f2e3f30f1d8
               command:
                 - /bin/sh
                 - -c
@@ -53,6 +54,9 @@ spec:
                   mc alias set garage "https://s3.hme.${SECRET_DOMAIN}" "$ACCESS_KEY_ID" "$SECRET_ACCESS_KEY"
                   mc cp /dumps/*.sql.gz garage/homelab/cnpg/nightly/
                   mc rm --recursive --force --older-than 7d garage/homelab/cnpg/nightly/
+                  mc alias set garage-kwh "https://s3.kwh.${SECRET_DOMAIN}" "$KWH_ACCESS_KEY_ID" "$KWH_SECRET_ACCESS_KEY"
+                  mc cp /dumps/*.sql.gz garage-kwh/homelab/cnpg/nightly/
+                  mc rm --recursive --force --older-than 7d garage-kwh/homelab/cnpg/nightly/
               env:
                 - name: SECRET_DOMAIN
                   value: ${SECRET_DOMAIN}
@@ -65,6 +69,16 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       name: postgres-s3-internal
+                      key: SECRET_ACCESS_KEY
+                - name: KWH_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-s3-kwh
+                      key: ACCESS_KEY_ID
+                - name: KWH_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-s3-kwh
                       key: SECRET_ACCESS_KEY
               volumeMounts:
                 - name: dumps

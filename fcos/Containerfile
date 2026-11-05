@@ -31,6 +31,7 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
         htop \
         python3 \
         intel-gpu-tools \
+        audit \
     && dnf clean all
 
 RUN bash -euo pipefail -c '\
@@ -43,7 +44,7 @@ RUN bash -euo pipefail -c '\
     tar xzvfC "cilium-linux-${cli_arch}.tar.gz" /usr/local/bin; \
     rm "cilium-linux-${cli_arch}.tar.gz"{,.sha256sum}'
 
-RUN systemctl enable containerd.service kubelet.service nut-monitor.service
+RUN systemctl enable containerd.service kubelet.service nut-monitor.service auditd.service
 
 # Without this, drop-ins (e.g. cni.toml) are silently ignored.
 RUN sed -i '1i imports = ["/etc/containerd/config.toml.d/*.toml"]' /etc/containerd/config.toml

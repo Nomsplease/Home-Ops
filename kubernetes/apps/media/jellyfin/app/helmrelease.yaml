@@ -1,0 +1,115 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jellyfin
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: jellyfin
+  values:
+    controllers:
+      jellyfin:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          install-plugins:
+            image:
+              repository: docker.io/alpine
+              tag: 3.24@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a
+            env:
+              # renovate: datasource=github-releases depName=Tracearr/Media-Server-SSE
+              SSE_VERSION: v0.6.1
+              # renovate: datasource=github-releases depName=fscorrupt/posterizarr
+              POSTERIZARR_VERSION: "3.3.7"
+            command:
+              - sh
+              - -ec
+              - |
+                cache=/config/.plugin-cache
+                mkdir -p "$cache" /config/plugins
+
+                install_plugin() {
+                  url="$1"; zip="$2"; dll="$3"; prune_glob="$4"
+                  cached="$cache/$zip"
+                  if [ ! -f "$cached" ]; then
+                    wget -q -O "$cached" "$url"
+                    find "$cache" -maxdepth 1 -name "$prune_glob" ! -name "$zip" -delete
+                  fi
+                  want=$(unzip -p "$cached" "$dll" | sha256sum | cut -d' ' -f1)
+                  have=""
+                  [ -f "/config/plugins/$dll" ] && have=$(sha256sum "/config/plugins/$dll" | cut -d' ' -f1)
+                  [ "$want" = "$have" ] || unzip -o "$cached" -d /config/plugins
+                }
+
+                sse_ver="$${SSE_VERSION#v}"
+                install_plugin \
+                  "https://github.com/Tracearr/Media-Server-SSE/releases/download/$SSE_VERSION/Tracearr.Sse.jellyfin_$sse_ver.zip" \
+                  "Tracearr.Sse.jellyfin_$sse_ver.zip" \
+                  "jellyfin.Plugin.Sse.dll" \
+                  "Tracearr.Sse.jellyfin_*.zip"
+
+                install_plugin \Posterizarr.Plugin_v3.3.7-jf12.zip
+                  "https://github.com/fscorrupt/posterizarr/releases/download/$POSTERIZARR_VERSION/Posterizarr.Plugin_v$POSTERIZARR_VERSION-jf12.zip" \
+                  "Posterizarr.Plugin_v$POSTERIZARR_VERSION-jf12.zip" \
+                  "Posterizarr.Plugin.dll" \
+                  "Posterizarr.Plugin_v*.zip"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jellyfin/jellyfin
+              tag: 12.4@sha256:fea863d0cd9ec445985d9c75fc6ed64e38a1d2766cf0c250a33d553f4fc1b771
+            env:
+              TZ: America/New_York
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /System/Ping
+                    port: &port 8096
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                gpu.intel.com/i915: 1
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+      media:
+        type: nfs
+        server: truenas-k8s.hme.${SECRET_DOMAIN}
+        path: /mnt/BigPool/Media
+      transcode:
+        type: emptyDir

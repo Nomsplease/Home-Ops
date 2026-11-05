@@ -4,4 +4,3 @@ resources:
   - ./grafanadashboard.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
-  - ./resourceclaimtemplate.yaml

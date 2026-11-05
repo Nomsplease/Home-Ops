@@ -3,6 +3,7 @@ set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 image := "git.noms.tv/homelab/fcos-bootc"
+apoci_image := "registry.noms.tv/fcos-bootc"
 fedora_version := "44"
 
 [private]
@@ -67,6 +68,12 @@ push tag=`just fcos current-tag`:
         -u "$(op read "op://Kubernetes/forgejo-registry-bot/username")" --password-stdin
     podman push "{{ image }}:{{ tag }}"
     podman push "{{ image }}:latest"
+    op read "op://Kubernetes/Apoci/PushToken" | podman login registry.noms.tv \
+        -u registry --password-stdin
+    podman tag "{{ image }}:{{ tag }}" "{{ apoci_image }}:{{ tag }}"
+    podman tag "{{ image }}:latest" "{{ apoci_image }}:latest"
+    podman push "{{ apoci_image }}:{{ tag }}"
+    podman push "{{ apoci_image }}:latest"
 
 [doc('Download (once) and cache the Fedora Server netinstall ISO used as the base for per-node install ISOs')]
 [private]

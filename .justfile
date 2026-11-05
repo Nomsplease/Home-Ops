@@ -34,8 +34,9 @@ deps:
     yay -Syu --needed minijinja-cli-bin 1password-cli
 
 [private]
+[positional-arguments]
 log lvl msg *args:
-    gum log -t rfc3339 -s -l "{{ lvl }}" "{{ msg }}" {{ args }}
+    gum log -t rfc3339 -s -l "$1" "$2" "${@:3}"
 
 [private]
 template file *args:

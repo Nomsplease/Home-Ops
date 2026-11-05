@@ -14,7 +14,7 @@ spec:
   prune: true 
   retryInterval: 1m
   sourceRef:
-    kind: GitRepository
+    kind: OCIRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: kube-system
@@ -34,7 +34,7 @@ spec:
   path: ./kubernetes/apps/kube-system/multus/networks
   prune: true
   sourceRef:
-    kind: GitRepository
+    kind: OCIRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: kube-system

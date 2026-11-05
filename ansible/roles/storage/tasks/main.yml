@@ -1,12 +1,16 @@
 ---
-- name: Create the Miroir volume group on the dedicated SATA disk
-  community.general.lvg:
-    vg: miroir-vg
-    pvs:
-      - "/dev/disk/by-id/{{ miroir_disk_by_id }}"
-
-- name: Create the Miroir LVM thin pool
-  community.general.lvol:
-    vg: miroir-vg
-    thinpool: thinpool
-    size: 100%FREE
+# Miroir's own agent owns the LVM stack (pvcreate/vgcreate/lvcreate thinpool)
+# on top of this partition -- Ansible only needs to hand it a device with a
+# stable, node-independent name. A GPT partlabel does that; the underlying
+# by-id disk's serial still differs per node, but /dev/disk/by-partlabel/<name>
+# resolves identically everywhere, matching the device path in
+# kubernetes/apps/miroir-system/miroir/config/topology.yaml.
+- name: Create the Miroir GPT partition on the dedicated disk
+  community.general.parted:
+    device: "/dev/disk/by-id/{{ miroir_disk_by_id }}"
+    label: gpt
+    number: 1
+    part_start: 0%
+    part_end: 100%
+    name: r-miroir-cache
+    state: present

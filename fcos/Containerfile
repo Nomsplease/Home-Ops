@@ -1,7 +1,13 @@
 # Bootable container image for the k8s_nodes group (see ansible/inventory).
 FROM quay.io/fedora/fedora-bootc:44
 
+# renovate: datasource=github-releases depName=cilium/cilium-cli
+ARG CILIUM_CLI_VERSION=v0.20.2
+
 COPY .build/files/ /
+
+# kubeadm/kubelet need /opt/cni/bin writable
+RUN rmdir /opt && ln -s var/opt /opt
 
 RUN --mount=type=secret,id=username,required=true --mount=type=secret,id=password_hash,required=true \
     useradd --create-home --groups wheel --password "$(cat /run/secrets/password_hash)" "$(cat /run/secrets/username)"
@@ -13,8 +19,10 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
     dnf -y install \
         kubeadm \
         kubelet \
+        kubectl \
         cri-tools \
-        mdadm \
+        containerd \
+        runc \
         qemu-kvm \
         libvirt-daemon-kvm \
         libvirt-client \
@@ -24,4 +32,17 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
         python3 \
     && dnf clean all
 
-RUN systemctl enable kubelet.service nut-monitor.service
+RUN bash -euo pipefail -c '\
+    cli_arch=amd64; \
+    [ "$(uname -m)" = "aarch64" ] && cli_arch=arm64; \
+    cd /tmp; \
+    curl -fL --remote-name-all \
+        "https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-linux-${cli_arch}.tar.gz"{,.sha256sum}; \
+    sha256sum --check "cilium-linux-${cli_arch}.tar.gz.sha256sum"; \
+    tar xzvfC "cilium-linux-${cli_arch}.tar.gz" /usr/local/bin; \
+    rm "cilium-linux-${cli_arch}.tar.gz"{,.sha256sum}'
+
+RUN systemctl enable containerd.service kubelet.service nut-monitor.service
+
+# Without this, drop-ins (e.g. cni.toml) are silently ignored.
+RUN sed -i '1i imports = ["/etc/containerd/config.toml.d/*.toml"]' /etc/containerd/config.toml

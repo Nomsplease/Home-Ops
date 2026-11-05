@@ -1,0 +1,9 @@
+---
+- name: Reset the kubeadm cluster on the FCOS k8s nodes so it can be reprovisioned
+  hosts: k8s_control_plane
+  become: true
+  tasks:
+    - name: Run the kubernetes role's reset tasks
+      ansible.builtin.import_role:
+        name: kubernetes
+        tasks_from: reset

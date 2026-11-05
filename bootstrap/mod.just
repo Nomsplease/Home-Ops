@@ -3,54 +3,15 @@ set quiet
 set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
-controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
-nodes := `talosctl config info -o yaml | yq -e '.nodes | join (" ")'`
-
 [private]
 default:
     just -l bootstrap
 
 [confirm('Bootstrap cluster? [y|N]')]
-[doc('Bootstrap a Talos & Kubernetes cluster end-to-end')]
-cluster: nodes k8s (kubeconfig "node") base apps kubeconfig
+[doc('Bootstrap Kubernetes cluster add-ons (base manifests, CRDs, core apps) before Flux takes over')]
+cluster: base apps
 
-[private]
-[script]
-nodes:
-    just log info "Running stage..." "stage" "$(basename "$0")"
-    for n in {{ nodes }}; do
-        if ! op=$(just --yes talos apply-node "$n" --insecure 2>&1); then
-            if [[ "$op" == *"certificate required"* ]]; then
-                just log info "Talos already configured, skipping apply of config" "stage" "$(basename "$0")" "node" "$n"
-                continue
-            fi
-            just log fatal "Failed to apply Talos configuration" "stage" "$(basename "$0")" "node" "$n" "output" "$op"
-        fi
-    done
-
-[private]
-[script]
-k8s:
-    just log info "Running stage..." "stage" "$(basename "$0")"
-    until op=$(talosctl -n "{{ controller }}" bootstrap 2>&1 || true) && [[ "$op" == *"AlreadyExists"* ]]; do
-        just log info "Kubernetes bootstrap in progress. Retrying in 5 seconds..." "stage" "$(basename "$0")"
-        sleep 5
-    done
-
-[private]
-[script]
-kubeconfig lb="cilium":
-    just log info "Running stage..." "stage" "$(basename "$0")"
-    if ! talosctl kubeconfig -n "{{ controller }}" -f --force-context-name main {{ justfile_dir() }}; then
-        just log fatal "Failed to fetch kubeconfig" "stage" "$(basename "$0")"
-    fi
-    if [[ "{{ lb }}" != "cilium" ]]; then
-        if ! kubectl config set-cluster main --server "https://{{ controller }}:6443"; then
-            just log fatal "Failed to set kubectl cluster server address" "stage" "$(basename "$0")"
-        fi
-    fi
-
-[private]
+[doc('Bootstrap Kubernetes cluster base manifests')]
 [script]
 base: ready
     just log info "Running stage..." "stage" "$(basename "$0")"
@@ -61,10 +22,11 @@ base: ready
         just log fatal "Failed to apply base crds" "stage" "$(basename "$0")"
     fi
 
-[private]
+[doc('Bootstrap Kubernetes cluster app manifests')]
 [script]
 apps:
     just log info "Running stage..." "stage" "$(basename "$0")"
+    export SECRET_DOMAIN="$(op read op://Kubernetes/domains/SECRET_DOMAIN)"
     if ! helmfile -f "{{ source_directory() }}/helmfile/apps.yaml" sync --hide-notes; then
         just log fatal "Failed to sync helmfile" "stage" "$(basename "$0")"
     fi

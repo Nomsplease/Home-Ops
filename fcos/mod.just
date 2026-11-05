@@ -3,6 +3,7 @@ set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 image := "git.noms.tv/homelab/fcos-bootc"
+fedora_version := "44"
 
 [private]
 default:
@@ -67,57 +68,91 @@ push tag=`just fcos current-tag`:
     podman push "{{ image }}:{{ tag }}"
     podman push "{{ image }}:latest"
 
-[doc('Download and customize (once) the generic Fedora CoreOS live ISO -- adds our SSH key to its ephemeral `core` user so `install` can drive it remotely. Reused as-is for every node; delete fcos/output to pick up a rotated key.')]
+[doc('Download (once) and cache the Fedora Server netinstall ISO used as the base for per-node install ISOs')]
+[private]
 [script]
-live-iso:
-    mkdir -p "{{ source_directory() }}/output" "{{ source_directory() }}/.build"
-    iso="{{ source_directory() }}/output/fedora-coreos-live.iso"
+netinst-iso:
+    mkdir -p "{{ source_directory() }}/.build"
+    iso="{{ source_directory() }}/.build/fedora-{{ fedora_version }}-netinst.iso"
     if [ -f "$iso" ]; then
-        just log info "Customized live ISO already cached" "path" "$iso"
+        just log info "Base netinstall ISO already cached" "path" "$iso"
         exit 0
     fi
-    base_iso="{{ source_directory() }}/.build/fedora-coreos-live-base.iso"
-    meta="$(curl -fsSL https://builds.coreos.fedoraproject.org/streams/stable.json)"
-    url="$(jq -r '.architectures.x86_64.artifacts.metal.formats.iso.disk.location' <<< "$meta")"
-    sha256="$(jq -r '.architectures.x86_64.artifacts.metal.formats.iso.disk.sha256' <<< "$meta")"
-    curl -fL --retry 5 --retry-delay 5 --retry-all-errors --progress-bar -o "$base_iso" "$url"
-    echo "$sha256  $base_iso" | sha256sum -c -
-    sshkey="$(op read "op://Kubernetes/FCOS User/public key")"
-    ignition="{{ source_directory() }}/.build/live.ign"
-    printf '{"ignition":{"version":"3.4.0"},"passwd":{"users":[{"name":"core","sshAuthorizedKeys":["%s"]}]}}' "$sshkey" > "$ignition"
-    podman run --rm \
-        -v "{{ source_directory() }}/output:/output" \
-        -v "$base_iso:/base.iso:ro" \
-        -v "$ignition:/live.ign:ro" \
-        quay.io/coreos/coreos-installer:release \
-        iso customize --live-ignition /live.ign -o /output/fedora-coreos-live.iso /base.iso
-    just log info "Customized live ISO ready -- mount this as virtual media on the node's BMC and boot from it" "path" "$iso"
-
-[doc('Build and remotely install the bootc image on a node already booted into the customized live ISO (see live-iso)')]
-[script]
-install node tag=`just fcos next-tag`:
-    tag="{{ tag }}"
-    disk_file="{{ source_directory() }}/nodes/{{ node }}.disk"
-    if [ -f "$disk_file" ]; then
-        disk="/dev/disk/by-id/$(cat "$disk_file")"
-    else
-        just log fatal "No $disk_file"
+    base_url="https://download.fedoraproject.org/pub/fedora/linux/releases/{{ fedora_version }}/Server/x86_64/iso"
+    filename="$(curl -fsSL "$base_url/" | grep -oE 'Fedora-Server-netinst-x86_64-{{ fedora_version }}-[0-9.]+\.iso' | head -1)"
+    if [ -z "$filename" ]; then
+        just log fatal "Could not find a Fedora {{ fedora_version }} Server netinst ISO at $base_url"
     fi
+    point="${filename#Fedora-Server-netinst-x86_64-{{ fedora_version }}-}"
+    point="${point%.iso}"
+    checksum_file="Fedora-Server-{{ fedora_version }}-${point}-x86_64-CHECKSUM"
+    tmp="{{ source_directory() }}/.build/$filename"
+    curl -fL --retry 5 --retry-delay 5 --retry-all-errors --progress-bar -o "$tmp" "$base_url/$filename"
+    sha256="$(curl -fsSL "$base_url/$checksum_file" | grep -F "($filename)" | awk '{print $4}')"
+    if [ -z "$sha256" ]; then
+        rm -f "$tmp"
+        just log fatal "Could not find a checksum for $filename in $checksum_file"
+    fi
+    echo "$sha256  $tmp" | sha256sum -c -
+    just log info "Patching GRUB default boot entry to skip the 'test this media' pass"
+    podman run --rm -v "$tmp:/iso:rw" registry.fedoraproject.org/fedora:{{ fedora_version }} bash -c '
+        dnf -y -q install xorriso >/dev/null
+        cd /tmp
+        xorriso -indev /iso -osirrox on -extract /EFI/BOOT/grub.cfg efi-grub.cfg -extract /EFI/BOOT/BOOT.conf efi-boot.conf -extract /boot/grub2/grub.cfg bios-grub.cfg
+        sed -i "s/^set default=\"1\"\$/set default=\"0\"/" efi-grub.cfg efi-boot.conf bios-grub.cfg
+        # -boot_image any replay preserves the El Torito boot catalog on write --
+        # without it xorriso silently drops it, producing an unbootable ISO.
+        xorriso -indev /iso -outdev /iso -boot_image any replay -update efi-grub.cfg /EFI/BOOT/grub.cfg -update efi-boot.conf /EFI/BOOT/BOOT.conf -update bios-grub.cfg /boot/grub2/grub.cfg -- -commit
+    '
+    mv "$tmp" "$iso"
+    just log info "Base netinstall ISO cached" "path" "$iso"
+
+[doc('Start (if needed) a throwaway local registry so nodes can pull the image during install, before Forgejo exists')]
+[private]
+[script]
+registry-push tag:
+    tag="{{ tag }}"
+    if ! podman container exists fcos-registry; then
+        podman run -d --name fcos-registry --restart=always -p 5000:5000 docker.io/library/registry:2
+    elif [ "$(podman inspect -f '{{ "{{" }}.State.Running{{ "}}" }}' fcos-registry)" != "true" ]; then
+        podman start fcos-registry
+    fi
+    podman tag "{{ image }}:$tag" "localhost:5000/fcos-bootc:$tag"
+    podman push --tls-verify=false "localhost:5000/fcos-bootc:$tag"
+
+[private]
+[script]
+workstation-ip:
+    ip -4 route get 1.1.1.1 | grep -oP '(?<=src )\S+' | head -1
+
+[doc('Build the image, push it to a throwaway local registry, and bake a single generic Anaconda kickstart into a bootable Fedora netinstall ISO (mount as BMC virtual media or write to USB) -- the same ISO installs every node. The boot disk is auto-detected by model at install time, so no per-node data is needed')]
+[script]
+install tag=`just fcos next-tag`:
+    tag="{{ tag }}"
     just fcos build "$tag"
-    mkdir -p "{{ source_directory() }}/.build"
-    tarball="{{ source_directory() }}/.build/{{ node }}-bootc-$tag.tar"
-    rm -f "$tarball"
-    podman save -o "$tarball" "{{ image }}:$tag"
-    name="$(basename "$tarball")"
-    ssh_opts=(-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -o BatchMode=yes -o IdentitiesOnly=yes)
-    just log info "Sending image to {{ node }}'s live environment" "host" "{{ node }}"
-    scp "${ssh_opts[@]}" -i <(op read "op://Kubernetes/FCOS User/public key") "$tarball" "core@{{ node }}:$name"
-    just log info "Loading and installing on {{ node }} (uses your ssh-agent)"
-    ssh "${ssh_opts[@]}" -i <(op read "op://Kubernetes/FCOS User/public key") "core@{{ node }}" "\
-        sudo podman load -i $name && \
-        sudo podman run --rm --privileged --pid=host -v /dev:/dev -v /var/lib/containers/storage:/var/lib/containers/storage --security-opt label=type:unconfined_t {{ image }}:$tag bootc install to-disk --source-imgref containers-storage:{{ image }}:$tag --filesystem ext4 --karg systemd.hostname={{ node }} --wipe $disk && \
-        sudo systemctl reboot"
-    just log info "{{ node }} is rebooting into the installed OS"
+    just fcos registry-push "$tag"
+    just fcos netinst-iso
+    registry_host="$(just fcos workstation-ip)"
+    mkdir -p "{{ source_directory() }}/.build" "{{ source_directory() }}/output"
+    ks="{{ source_directory() }}/.build/fcos-install.ks"
+    # Plain @TOKEN@ substitution, not `just template` -- Jinja's `{#` collides with bash's `${#arr[@]}`.
+    sed -e "s|@REGISTRY_HOST@|$registry_host|g" -e "s|@TAG@|$tag|g" \
+        "{{ source_directory() }}/install.ks.tmpl" > "$ks"
+    just log info "Checking %pre/%post bash syntax"
+    awk '/^%pre$/,/^%end$/{if (!/^%pre$/ && !/^%end$/) print}' "$ks" | bash -n
+    awk '/^%post$/,/^%end$/{if (!/^%post$/ && !/^%end$/) print}' "$ks" | bash -n
+    just log info "Validate the kickstart before baking it into the ISO (the %include target is stubbed empty for this check only -- the real content is generated by %pre at install time)" "cmd" "podman run --rm -v $ks:/k.ks:ro registry.fedoraproject.org/fedora:{{ fedora_version }} bash -c 'dnf -y -q install pykickstart >/dev/null && touch /tmp/part-include.cfg && ksvalidator /k.ks'"
+    base_iso="{{ source_directory() }}/.build/fedora-{{ fedora_version }}-netinst.iso"
+    out_iso="{{ source_directory() }}/output/fcos-install.iso"
+    rm -f "$out_iso"
+    # --skip-mkefiboot: rootless podman can't grant the loop-device access it needs.
+    podman run --rm \
+        -v "$base_iso:/base.iso:ro" \
+        -v "$ks:/ks.cfg:ro" \
+        -v "{{ source_directory() }}/output:/output" \
+        registry.fedoraproject.org/fedora:{{ fedora_version }} \
+        bash -c 'dnf -y -q install lorax >/dev/null && mkksiso --skip-mkefiboot /ks.cfg /base.iso /output/fcos-install.iso'
+    just log info "Generic install ISO ready -- mount as virtual media on any node's BMC (or write to USB) and boot from it. Anaconda will detect the right boot disk and deploy unattended. Ansible sets the hostname afterward." "path" "$out_iso"
 
 [private]
 [script]
@@ -125,7 +160,7 @@ remote node cmd:
     username="$(op read "op://Kubernetes/FCOS User/Local User/FCOS Username")"
     ssh -o IdentitiesOnly=yes -i <(op read "op://Kubernetes/FCOS User/public key") "$username@{{ node }}" "{{ cmd }}"
 
-[confirm('Upgrade bootc image on ' + node + ' [y|N] ?')]
+#[confirm('Upgrade bootc image on ' + node + ' [y|N] ?')]
 [doc('Refresh the currently-tracked tag (or switch to a specific tag if given) and reboot')]
 [script]
 upgrade node tag="":
@@ -140,6 +175,19 @@ upgrade node tag="":
 [doc('Point a node at a completely different image reference (registry/repo, not just a tag) and reboot -- for routine tag changes use `upgrade` instead')]
 change-image node ref:
     just fcos remote "{{ node }}" "sudo bootc switch --apply {{ ref }}"
+
+[confirm('Build, push to a throwaway local registry, and switch ' + node + ' to pull from this workstation right now [y|N] ?')]
+[doc('For emergencies: Build the image, push it to a throwaway local registry on this workstation, and switch a live node straight to it.')]
+[script]
+change-image-local node tag=`just fcos next-tag`:
+    tag="{{ tag }}"
+    just fcos build "$tag"
+    just fcos registry-push "$tag"
+    registry_host="$(just fcos workstation-ip)"
+    config_b64="$(printf '[[registry]]\nlocation = "%s:5000"\ninsecure = true\n' "$registry_host" | base64 -w0)"
+    just fcos remote "{{ node }}" "echo $config_b64 | base64 -d | sudo tee /etc/containers/registries.conf.d/workstation-emergency.conf >/dev/null"
+    just fcos remote "{{ node }}" "sudo bootc switch --apply $registry_host:5000/fcos-bootc:$tag"
+
 
 [confirm('Roll back bootc image on ' + node + ' [y|N] ?')]
 [doc('Roll back a node to its previous deployment')]

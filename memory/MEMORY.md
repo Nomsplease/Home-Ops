@@ -1,1 +1,2 @@
 - [No YAML anchors](feedback_yaml_anchors.md) — user dislikes &anchor/*alias in manifests, write values out literally
+- [No apiserver VIP/LB](feedback_apiserver_vip.md) — don't add kube-vip etc.; manual kubeconfig swap + Cilium BGP is the pattern

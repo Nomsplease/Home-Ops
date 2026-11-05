@@ -1,0 +1,31 @@
+---
+# kubeadm reset doesn't fully clean CNI config or guarantee etcd-member
+# removal succeeds when every control-plane node resets concurrently -- the
+# explicit cleanup below plus a reboot make this idempotent regardless of
+# what kubeadm reset itself manages to do.
+- name: Reset this node's kubeadm state
+  ansible.builtin.command: kubeadm reset -f
+  changed_when: true
+  failed_when: false
+
+- name: Remove leftover Kubernetes state and CNI configuration
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/kubernetes
+    - /etc/cni/net.d
+    - /var/lib/etcd
+    - /var/lib/kubelet
+
+- name: Remove the fetched admin kubeconfig from the workstation
+  ansible.builtin.file:
+    path: "{{ playbook_dir }}/../../kubeconfig"
+    state: absent
+  delegate_to: localhost
+  become: false
+  when: inventory_hostname == groups['k8s_control_plane'][0]
+
+- name: Reboot to clear any CNI-added network state (iptables, veth, etc.)
+  ansible.builtin.reboot:
+    reboot_timeout: 180

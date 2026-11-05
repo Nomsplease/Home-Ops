@@ -23,7 +23,7 @@
 #   prune: true 
 #   retryInterval: 1m
 #   sourceRef:
-#     kind: GitRepository
+#     kind: OCIRepository
 #     name: flux-system
 #     namespace: flux-system
 #   targetNamespace: default
@@ -57,7 +57,7 @@ spec:
   prune: true 
   retryInterval: 1m
   sourceRef:
-    kind: GitRepository
+    kind: OCIRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: default
@@ -79,7 +79,7 @@ spec:
   prune: true 
   retryInterval: 1m
   sourceRef:
-    kind: GitRepository
+    kind: OCIRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: default
@@ -101,7 +101,7 @@ spec:
   prune: true 
   retryInterval: 1m
   sourceRef:
-    kind: GitRepository
+    kind: OCIRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: default

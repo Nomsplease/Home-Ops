@@ -1,0 +1,221 @@
+---
+- name: Check for an existing cluster admin config on this node
+  ansible.builtin.stat:
+    path: /etc/kubernetes/admin.conf
+  register: kube_admin_conf
+
+# Scoped to ansible_play_hosts_all (not groups['k8s_control_plane']) so a --limit run
+# doesn't try to read kube_admin_conf off hosts this play never gathered it for.
+- name: Determine whether any control-plane node still needs to join
+  ansible.builtin.set_fact:
+    kube_pending_join: "{{ not (ansible_play_hosts_all | map('extract', hostvars, ['kube_admin_conf', 'stat', 'exists']) | list is all) }}"
+
+- name: Generate a certificate key for control-plane joins
+  ansible.builtin.command: kubeadm certs certificate-key
+  register: kubeadm_cert_key
+  changed_when: false
+  when:
+    - inventory_hostname == groups['k8s_control_plane'][0]
+    - kube_pending_join
+
+- name: Initialize the first control-plane node
+  ansible.builtin.command:
+    cmd: >
+      kubeadm init
+      --control-plane-endpoint {{ groups['k8s_control_plane'][0] }}:6443
+      --apiserver-cert-extra-sans {{ kube_vip_hostname }},{{ kube_vip_address }}
+      --upload-certs
+      --certificate-key {{ kubeadm_cert_key.stdout }}
+      --pod-network-cidr {{ kube_pod_cidr_v4 }},{{ kube_pod_cidr_v6 }}
+      --service-cidr {{ kube_service_cidr_v4 }},{{ kube_service_cidr_v6 }}
+      --skip-phases addon/kube-proxy,addon/coredns
+  changed_when: true
+  when:
+    - inventory_hostname == groups['k8s_control_plane'][0]
+    - not kube_admin_conf.stat.exists
+
+- name: Re-upload cluster certs under the fresh certificate key
+  ansible.builtin.command: kubeadm init phase upload-certs --upload-certs --certificate-key {{ kubeadm_cert_key.stdout }}
+  changed_when: true
+  when:
+    - inventory_hostname == groups['k8s_control_plane'][0]
+    - kube_pending_join
+
+- name: Generate the join command for the remaining control-plane nodes
+  ansible.builtin.command: kubeadm token create --print-join-command
+  register: kubeadm_join_command
+  changed_when: false
+  when:
+    - inventory_hostname == groups['k8s_control_plane'][0]
+    - kube_pending_join
+
+- name: Join the remaining control-plane nodes
+  ansible.builtin.command:
+    cmd: >
+      {{ hostvars[groups['k8s_control_plane'][0]].kubeadm_join_command.stdout }}
+      --control-plane
+      --certificate-key {{ hostvars[groups['k8s_control_plane'][0]].kubeadm_cert_key.stdout }}
+  changed_when: true
+  when:
+    - inventory_hostname != groups['k8s_control_plane'][0]
+    - not kube_admin_conf.stat.exists
+
+- name: Remove the control-plane taint so this small cluster can schedule everywhere
+  ansible.builtin.command: >
+    kubectl --kubeconfig /etc/kubernetes/admin.conf
+    taint nodes {{ inventory_hostname }} node-role.kubernetes.io/control-plane-
+  register: taint_removal
+  changed_when: "'untainted' in taint_removal.stdout"
+  failed_when:
+    - taint_removal.rc != 0
+    - "'not found' not in taint_removal.stderr"
+
+- name: Label this node for Miroir's "cache" storage class
+  ansible.builtin.command: >
+    kubectl --kubeconfig /etc/kubernetes/admin.conf
+    label node {{ inventory_hostname }} storage.miroir.home-operations.com/class=cache --overwrite
+  register: miroir_label
+  changed_when: "'not labeled' not in miroir_label.stdout"
+  when: miroir_disk_by_id is defined
+
+- name: Fetch the admin kubeconfig to the workstation
+  ansible.builtin.fetch:
+    src: /etc/kubernetes/admin.conf
+    dest: "{{ playbook_dir }}/../../kubeconfig"
+    flat: true
+  when: inventory_hostname == groups['k8s_control_plane'][0]
+
+- name: Rename the workstation kubeconfig's context to match repo convention
+  ansible.builtin.command: >
+    kubectl --kubeconfig {{ playbook_dir }}/../../kubeconfig
+    config rename-context kubernetes-admin@kubernetes k8s
+  delegate_to: localhost
+  become: false
+  register: kube_context_rename
+  changed_when: kube_context_rename.rc == 0
+  failed_when:
+    - kube_context_rename.rc != 0
+    - "'does not exist' not in kube_context_rename.stderr"
+  when: inventory_hostname == groups['k8s_control_plane'][0]
+
+# The following tasks repoint every control-plane node's kubeconfigs from the
+# literal bootstrap node IP to the BGP-advertised VIP IP. A fresh bootstrap's
+# apiserver cert already carries kube_vip_address as a SAN (see
+# --apiserver-cert-extra-sans above), so no cert regeneration is needed here.
+#   just ansible apply kubernetes <host> -- then re-run with --tags repoint-vip
+- name: Confirm the apiserver VIP is reachable before repointing kubeconfigs away from the node IP
+  ansible.builtin.uri:
+    url: "https://{{ kube_vip_address }}:6443/healthz"
+    ca_path: /etc/kubernetes/pki/ca.crt
+    status_code: 200
+  register: kube_vip_healthcheck
+  retries: 12
+  delay: 5
+  until: kube_vip_healthcheck.status is defined and kube_vip_healthcheck.status == 200
+  tags:
+    - never
+    - repoint-vip
+
+- name: Repoint admin.conf at the apiserver VIP
+  ansible.builtin.replace:
+    path: /etc/kubernetes/admin.conf
+    regexp: 'server: https://[^:]+:6443'
+    replace: "server: https://{{ kube_vip_address }}:6443"
+  tags:
+    - never
+    - repoint-vip
+
+- name: Check for super-admin.conf (only written by kubeadm init, not kubeadm join --control-plane)
+  ansible.builtin.stat:
+    path: /etc/kubernetes/super-admin.conf
+  register: kube_super_admin_conf
+  tags:
+    - never
+    - repoint-vip
+
+- name: Repoint super-admin.conf at the apiserver VIP
+  ansible.builtin.replace:
+    path: /etc/kubernetes/super-admin.conf
+    regexp: 'server: https://[^:]+:6443'
+    replace: "server: https://{{ kube_vip_address }}:6443"
+  when: kube_super_admin_conf.stat.exists
+  tags:
+    - never
+    - repoint-vip
+
+- name: Repoint kubelet.conf at the apiserver VIP
+  ansible.builtin.replace:
+    path: /etc/kubernetes/kubelet.conf
+    regexp: 'server: https://[^:]+:6443'
+    replace: "server: https://{{ kube_vip_address }}:6443"
+  register: kube_vip_kubelet_conf
+  tags:
+    - never
+    - repoint-vip
+
+- name: Restart kubelet to pick up the repointed kubelet.conf
+  ansible.builtin.systemd:
+    name: kubelet
+    state: restarted
+  when: kube_vip_kubelet_conf is changed
+  tags:
+    - never
+    - repoint-vip
+
+- name: Repoint controller-manager.conf at the apiserver VIP
+  ansible.builtin.replace:
+    path: /etc/kubernetes/controller-manager.conf
+    regexp: 'server: https://[^:]+:6443'
+    replace: "server: https://{{ kube_vip_address }}:6443"
+  register: kube_vip_cm_conf
+  tags:
+    - never
+    - repoint-vip
+
+- name: Force kube-controller-manager to restart and pick up the repointed kubeconfig
+  ansible.builtin.shell: |
+    set -o pipefail
+    crictl --timeout 30s stopp "$(crictl pods --name kube-controller-manager --state ready -q)"
+  args:
+    executable: /bin/bash
+  changed_when: true
+  when: kube_vip_cm_conf is changed
+  tags:
+    - never
+    - repoint-vip
+
+- name: Repoint scheduler.conf at the apiserver VIP
+  ansible.builtin.replace:
+    path: /etc/kubernetes/scheduler.conf
+    regexp: 'server: https://[^:]+:6443'
+    replace: "server: https://{{ kube_vip_address }}:6443"
+  register: kube_vip_sched_conf
+  tags:
+    - never
+    - repoint-vip
+
+- name: Force kube-scheduler to restart and pick up the repointed kubeconfig
+  ansible.builtin.shell: |
+    set -o pipefail
+    crictl --timeout 30s stopp "$(crictl pods --name kube-scheduler --state ready -q)"
+  args:
+    executable: /bin/bash
+  changed_when: true
+  when: kube_vip_sched_conf is changed
+  tags:
+    - never
+    - repoint-vip
+
+- name: Rename the workstation kubeconfig's server to the VIP as well
+  ansible.builtin.command: >
+    kubectl --kubeconfig {{ playbook_dir }}/../../kubeconfig
+    config set-cluster kubernetes --server https://{{ kube_vip_address }}:6443
+  delegate_to: localhost
+  become: false
+  register: kube_workstation_vip
+  changed_when: kube_workstation_vip.rc == 0
+  when:
+    - inventory_hostname == groups['k8s_control_plane'][0]
+  tags:
+    - never
+    - repoint-vip

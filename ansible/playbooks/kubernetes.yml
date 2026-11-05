@@ -1,0 +1,6 @@
+---
+- name: Provision the kubeadm cluster on the FCOS k8s nodes
+  hosts: k8s_control_plane
+  become: true
+  roles:
+    - kubernetes

@@ -7,11 +7,6 @@ set name=k8s as=64513 router-id=10.1.20.1
 add name=k8s afi=ip nexthop-choice=force-self
 
 /routing bgp connection
-add name=k8s-Main-1 remote.address=10.1.20.11/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s
-add name=k8s-Main-2 remote.address=10.1.20.12/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s
-add name=k8s-Main-3 remote.address=10.1.20.13/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s
-add name=k8s-Main-4 remote.address=10.1.20.14/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s
-add name=k8s-Main-5 remote.address=10.1.20.15/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s
-add name=k8s-Main-6 remote.address=10.1.20.16/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s
-add name=k8s-Main-7 remote.address=10.1.20.17/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s
-add name=k8s-Main-8 remote.address=10.1.20.18/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s
+add name=K8S-1 remote.address=10.1.20.11/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s
+add name=K8S-2 remote.address=10.1.20.12/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s
+add name=K8S-3 remote.address=10.1.20.13/32 remote.as=64514 local.role=ebgp templates=k8s instance=k8s

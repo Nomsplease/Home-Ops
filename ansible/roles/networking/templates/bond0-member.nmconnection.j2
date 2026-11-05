@@ -1,12 +1,12 @@
 [connection]
-id=bond0-member
-uuid={{ bond_member_uuid }}
+id=bond0-member-{{ idx }}
+uuid={{ item.uuid }}
 type=ethernet
 controller=bond0
 port-type=bond
 
 [ethernet]
-mac-address={{ bond_member_mac }}
+mac-address={{ item.mac }}
 
 [ipv4]
 method=disabled

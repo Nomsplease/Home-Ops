@@ -14,7 +14,7 @@ spec:
         kind: Secret
   prune: true
   sourceRef:
-    kind: GitRepository
+    kind: OCIRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
@@ -35,7 +35,7 @@ spec:
         kind: Secret
   prune: true
   sourceRef:
-    kind: GitRepository
+    kind: OCIRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace

@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./ocirepository.yaml
-  - ./serviceaccount.yaml
   - ./helmrelease.yaml

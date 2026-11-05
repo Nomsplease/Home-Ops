@@ -51,7 +51,7 @@ spec:
                   "jellyfin.Plugin.Sse.dll" \
                   "Tracearr.Sse.jellyfin_*.zip"
 
-                install_plugin \Posterizarr.Plugin_v3.3.7-jf12.zip
+                install_plugin \
                   "https://github.com/fscorrupt/posterizarr/releases/download/$POSTERIZARR_VERSION/Posterizarr.Plugin_v$POSTERIZARR_VERSION-jf12.zip" \
                   "Posterizarr.Plugin_v$POSTERIZARR_VERSION-jf12.zip" \
                   "Posterizarr.Plugin.dll" \

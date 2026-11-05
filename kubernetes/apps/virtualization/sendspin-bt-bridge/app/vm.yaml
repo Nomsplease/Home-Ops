@@ -23,7 +23,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - main-8
+                      - k8s-3
       domain:
         clock:
           utc: {}

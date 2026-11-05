@@ -67,5 +67,9 @@ spec:
           containers:
             main:
               resources:
-                limits:
-                  gpu.intel.com/i915: 1
+                claims:
+                  - name: gpu
+      defaultPodOptions:
+        resourceClaims:
+          - name: gpu
+            resourceClaimTemplateName: immich-machine-learning

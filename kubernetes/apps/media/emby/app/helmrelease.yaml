@@ -76,12 +76,15 @@ spec:
                   failureThreshold: 3
               readiness: *probes
             resources:
+              claims:
+                - name: gpu
               requests:
                 cpu: 100m
                 memory: 512Mi
-              limits:
-                gpu.intel.com/i915: 1
     defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: emby
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000

@@ -11,7 +11,7 @@ default:
 workstation:
     ansible-galaxy collection install -r "{{ source_directory() }}/requirements.yml"
 
-[doc('Configure Fedora CoreOS Kubernetes nodes (networking, storage). Extra args (--limit, --check --diff, ...) are passed through to ansible-playbook')]
+[doc('Configure Fedora CoreOS Kubernetes nodes (networking, storage, gpu). Extra args (--limit, --check --diff, ...) are passed through to ansible-playbook')]
 [script]
 nodes *args:
     export ANSIBLE_USER="$(op read "op://Kubernetes/FCOS User/Local User/FCOS Username")"

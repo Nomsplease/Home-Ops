@@ -1,6 +1,11 @@
 ---
 miroir_disk_by_id: nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0W320254A
 
+# Nvidia P2000 GPU + its audio function, passed through to a KubeVirt VM.
+gpu_vfio_ids:
+  - "10de:1c30"
+  - "10de:10f1"
+
 bond_members:
   - mac: "00:1B:21:97:5F:B0"
     uuid: "b2cc8a8e-9715-491b-bceb-968d6de72053"

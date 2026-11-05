@@ -1,0 +1,18 @@
+---
+- name: Check current kernel arguments
+  ansible.builtin.command: rpm-ostree kargs
+  register: current_kargs
+  changed_when: false
+  when: gpu_vfio_ids is defined
+
+# Binds these PCI IDs to vfio-pci at boot, before nouveau/nvidia can claim them.
+- name: Bind the passthrough GPU's PCI IDs to vfio-pci via kernel argument
+  ansible.builtin.command: "rpm-ostree kargs --append=vfio-pci.ids={{ gpu_vfio_ids | join(',') }}"
+  register: gpu_kargs
+  changed_when: true
+  when: gpu_vfio_ids is defined and ('vfio-pci.ids=' + gpu_vfio_ids | join(',')) not in current_kargs.stdout
+
+- name: Reboot to apply the new vfio-pci kernel argument
+  ansible.builtin.reboot:
+    reboot_timeout: 180
+  when: gpu_kargs is changed

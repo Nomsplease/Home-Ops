@@ -23,8 +23,8 @@ spec:
             - vendor: "2357"
               product: "0604"
     smbios:
-      sku: "TalosCloud"
+      sku: "Home-OpsCloud"
       version: "1.0.0"
-      manufacturer: "Talos Virtualization"
-      product: "talosvm"
+      manufacturer: "Home-Ops Virtualization"
+      product: "homeopsvm"
       family: "ccio"

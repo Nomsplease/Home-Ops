@@ -10,5 +10,4 @@ resources:
   ## Requisites
   - ./namespace.yaml
   ## Deployments
-  - ./linkwarden/ks.yaml
   - ./mitra/ks.yaml

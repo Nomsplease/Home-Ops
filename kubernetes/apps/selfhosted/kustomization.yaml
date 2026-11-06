@@ -11,3 +11,4 @@ resources:
   - ./namespace.yaml
   ## Deployments
   - ./linkwarden/ks.yaml
+  - ./mitra/ks.yaml

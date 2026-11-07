@@ -22,5 +22,5 @@ volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
 parameters:
   miroir.home-operations.com/pool: cache
-  miroir.home-operations.com/replicas: "2"
+  miroir.home-operations.com/replicas: "1"
   csi.storage.k8s.io/fstype: ext4

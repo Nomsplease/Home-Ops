@@ -1,9 +1,29 @@
 # Bootable container image for the k8s_nodes group (see ansible/inventory).
-FROM quay.io/fedora/fedora-bootc:44
+FROM quay.io/fedora/fedora-bootc:44 AS base
 
 # renovate: datasource=github-releases depName=cilium/cilium-cli
 ARG CILIUM_CLI_VERSION=v0.20.2
 
+# renovate: datasource=github-releases depName=LINBIT/drbd extractVersion=^drbd-(?<version>.*)$
+ARG DRBD_VERSION=9.3.4
+
+# Fedora only ships the in-tree DRBD 8.4 kernel module
+FROM base AS drbd-builder
+RUN --mount=type=cache,target=/var/cache/libdnf5 \
+    kernel_version="$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}' kernel)" && \
+    dnf -y install \
+        "kernel-devel-${kernel_version}" \
+        rpm-build kernel-rpm-macros redhat-rpm-config \
+        gcc make patch diffutils perl
+
+RUN set -euo pipefail; \
+    cd /tmp; \
+    curl -fL -o "drbd-${DRBD_VERSION}.tar.gz" \
+        "https://pkg.linbit.com/downloads/drbd/9/drbd-${DRBD_VERSION}.tar.gz"; \
+    echo "a2de4b7ffc43fdabad01b0bf7283b910eb6401b0f788e33a65ae94fc0588545c  drbd-${DRBD_VERSION}.tar.gz" | sha256sum --check; \
+    rpmbuild -tb --define "_topdir /tmp/rpmbuild" "drbd-${DRBD_VERSION}.tar.gz"
+
+FROM base
 COPY .build/files/ /
 
 # kubeadm/kubelet need /opt/cni/bin writable
@@ -34,6 +54,17 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
         ipmitool \
         audit \
     && dnf clean all
+
+# DRBD9 kernel module for Miroir replication
+COPY --from=drbd-builder /tmp/rpmbuild/RPMS/x86_64/kmod-drbd-*.rpm /tmp/
+RUN kernel_version="$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}' kernel)" && \
+    rpm -i --nodeps --noscripts /tmp/kmod-drbd-*.rpm && \
+    depmod "${kernel_version}" && \
+    rm -f /tmp/kmod-drbd-*.rpm
+
+# Host has no drbdadm (Miroir's agent bundles its own)
+RUN printf 'drbd\ndrbd_transport_tcp\n' > /etc/modules-load.d/drbd.conf && \
+    printf 'options drbd usermode_helper=disabled\n' > /etc/modprobe.d/drbd.conf
 
 RUN bash -euo pipefail -c '\
     cli_arch=amd64; \

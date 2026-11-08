@@ -1,0 +1,42 @@
+# Unattended install -- skip Anaconda's interactive display-mode negotiation.
+cmdline
+
+lang en_US.UTF-8
+keyboard us
+timezone UTC --utc
+
+network --bootproto=dhcp --device=link --activate
+
+%pre
+# Detect this node's single boot disk by model (Crucial P3 500GB or P5 Plus 1000GB NVMe).
+# NVMe udev rules emit a duplicate "_1"-suffixed alias alongside the base
+# nvme-<model>_<serial> one for the same device -- excluding any further
+# underscore (not just "-partN" dashes) keeps just the base alias.
+mapfile -t boot_disks < <(ls -1 /dev/disk/by-id/ 2>/dev/null | grep -E "^nvme-(CT500P3SSD8|CT1000P5PSSD8)_[^-_]+$" | sed "s#^#/dev/disk/by-id/#" | sort -u)
+if [ "${#boot_disks[@]}" -ne 1 ]; then
+    echo "FATAL: expected exactly 1 Crucial P3/P5 boot disk, found ${#boot_disks[@]}" >&2
+    exit 1
+fi
+d1="${boot_disks[0]}"
+# bootloader --boot-drive= needs a plain kernel device name, not a by-id path.
+d1_kname="$(basename "$(readlink -f "$d1")")"
+cat > /tmp/part-include.cfg <<PARTEOF
+ignoredisk --only-use=$d1
+zerombr
+clearpart --all --initlabel --disklabel=gpt
+
+part /boot/efi --fstype=efi --size=1024 --ondisk=$d1
+part /boot --fstype=ext4 --size=1024 --ondisk=$d1
+part / --fstype=ext4 --size=0 --grow --ondisk=$d1
+
+bootloader --boot-drive=$d1_kname
+PARTEOF
+%end
+
+%include /tmp/part-include.cfg
+
+rootpw --lock
+
+ostreecontainer --url=@IMAGE@ --no-signature-verification
+
+reboot

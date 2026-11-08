@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: valheim
   annotations:
-    lbipam.cilium.io/ips: 10.1.20.32
+    lbipam.cilium.io/ips: 10.1.10.33
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local

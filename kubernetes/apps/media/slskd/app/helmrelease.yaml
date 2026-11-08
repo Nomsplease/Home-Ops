@@ -106,5 +106,5 @@ spec:
                 readOnly: true
       media:
         type: nfs
-        server: truenas-k8s.hme.${SECRET_DOMAIN}
+        server: truenas.hme.${SECRET_DOMAIN}
         path: /mnt/BigPool/Media

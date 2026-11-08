@@ -41,6 +41,6 @@ spec:
           volumes:
             - name: posters
               nfs:
-                server: truenas-k8s.hme.${SECRET_DOMAIN}
+                server: truenas.hme.${SECRET_DOMAIN}
                 path: /mnt/BigPool/Media/Posters
           restartPolicy: OnFailure

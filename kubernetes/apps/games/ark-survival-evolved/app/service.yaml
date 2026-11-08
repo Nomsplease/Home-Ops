@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: ark-survival-evolved
   annotations:
-    lbipam.cilium.io/ips: 10.1.20.31
+    lbipam.cilium.io/ips: 10.1.10.32
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local

@@ -14,7 +14,7 @@ spec:
       dnsPolicy: None
       dnsConfig:
         nameservers:
-          - "10.1.20.1"
+          - "10.1.10.1"
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -64,7 +64,7 @@ spec:
             #       dhcp4-overrides:
             #         use-dns: false
             #       nameservers:
-            #         addresses: [10.1.20.1]
+            #         addresses: [10.1.10.1]
       networks:
         - name: default
           pod: {}

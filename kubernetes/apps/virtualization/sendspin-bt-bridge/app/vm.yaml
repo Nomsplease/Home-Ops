@@ -14,7 +14,7 @@ spec:
       dnsPolicy: None
       dnsConfig:
         nameservers:
-          - "10.1.20.1"
+          - "10.1.10.1"
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

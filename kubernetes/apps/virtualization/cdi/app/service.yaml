@@ -5,7 +5,7 @@ metadata:
   labels:
     cdi.kubevirt.io: "cdi-uploadproxy"
   annotations:
-    lbipam.cilium.io/ips: 10.1.20.29
+    lbipam.cilium.io/ips: 10.1.10.29
 spec:
   type: LoadBalancer
   ports:

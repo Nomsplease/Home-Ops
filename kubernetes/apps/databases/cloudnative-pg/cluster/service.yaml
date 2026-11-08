@@ -6,7 +6,7 @@ metadata:
   labels:
     app: postgres
   annotations:
-    lbipam.cilium.io/ips: 10.1.20.23
+    lbipam.cilium.io/ips: 10.1.10.34
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local

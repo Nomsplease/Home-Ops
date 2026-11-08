@@ -11,8 +11,8 @@ spec:
   infrastructure:
     annotations:
       external-dns.kubernetes.io/hostname: *hostname
-      external-dns.kubernetes.io/target: "10.1.20.24"
-      lbipam.cilium.io/ips: "10.1.20.24"
+      external-dns.kubernetes.io/target: "10.1.10.24"
+      lbipam.cilium.io/ips: "10.1.10.24"
     labels:
       expose/vx0: "true"
   listeners:

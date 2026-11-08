@@ -5,7 +5,7 @@ metadata:
     kubevirt.io/vm: sendspin-bt-bridge
   name: sendspin-bt-bridge
   annotations:
-    lbipam.cilium.io/ips: 10.1.20.30
+    lbipam.cilium.io/ips: 10.1.10.35
 spec:
   ipFamilyPolicy: PreferDualStack
   ports:

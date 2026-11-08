@@ -28,7 +28,7 @@ spec:
               tag: 1.43.5.11079@sha256:06ef0fc23e9af9bbaf284c3f27972f94e703d13d6f745edeb6818fcbebf6c673
             env:
               TZ: America/New_York
-              PLEX_ADVERTISE_URL: https://plex.noms.tv:443,http://10.1.20.25:32400,http://plex.default.svc.cluster.local:32400
+              PLEX_ADVERTISE_URL: https://plex.noms.tv:443,http://10.1.10.25:32400,http://plex.default.svc.cluster.local:32400
               PLEX_NO_AUTH_NETWORKS: 10.1.10.0/24
             probes:
               liveness:
@@ -69,7 +69,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 10.1.20.25
+          lbipam.cilium.io/ips: 10.1.10.25
         externalTrafficPolicy: Local
         ports:
           http:
@@ -105,7 +105,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
-        server: truenas-k8s.hme.${SECRET_DOMAIN}
+        server: truenas.hme.${SECRET_DOMAIN}
         path: /mnt/BigPool/Media
       tmp:
         type: emptyDir

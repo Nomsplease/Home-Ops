@@ -54,7 +54,7 @@ spec:
     route:
       app:
         hostnames:
-          - "calendar.noms.tv"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: network

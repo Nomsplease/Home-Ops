@@ -55,11 +55,16 @@ spec:
     route:
       app:
         hostnames:
-          - "mitra.noms.tv"
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network
             sectionName: https
+        rules:
+          - name: protected
+            backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"

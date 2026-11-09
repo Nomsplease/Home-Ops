@@ -7,16 +7,24 @@ metadata:
   namespace: &namespace selfhosted
 spec:
   components:
+    - ../../../../components/oidc/envoy
     - ../../../../components/kopiur/backup
   dependsOn:
     - name: kopiur
       namespace: kopiur-system
+    - name: pocket-id
+      namespace: security
   interval: 30m
   path: ./kubernetes/apps/selfhosted/mitra/app
   postBuild:
     substitute:
       APP: *app
+      APP_ICON_URL: "https://raw.githubusercontent.com/a11delavar/mitra/refs/heads/main/assets/mitra.svg"
+      OIDC_APP_NAME: Family Calendar (Mitra)
       KOPIUR_CAPACITY: 5Gi
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   retryInterval: 1m
   sourceRef:

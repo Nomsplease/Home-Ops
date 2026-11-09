@@ -37,3 +37,12 @@ metadata:
 spec:
   friendlyName: Emby Users
   allowedOIDCClients: []
+---
+apiVersion: pocketid.internal/v1alpha1
+kind: PocketIDUserGroup
+metadata:
+  name: calendar-access
+spec:
+  friendlyName: Family Calendar Access
+  allowedOIDCClients:
+    - name: mitra

@@ -55,6 +55,7 @@ spec:
     route:
       app:
         hostnames:
+          - "calendar.${SECRET_DOMAIN}"
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal

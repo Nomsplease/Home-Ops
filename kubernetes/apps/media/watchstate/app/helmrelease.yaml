@@ -22,6 +22,7 @@ spec:
             env:
               WS_TRUST_PROXY: "true"
               WS_TRUST_LOCAL: "true"
+              WS_SECURE_API_ENDPOINTS: "true"
             probes:
               liveness: &probes
                 enabled: true

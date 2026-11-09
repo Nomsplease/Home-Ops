@@ -8,7 +8,6 @@ spec:
   allowFirstLastIPs: "No"
   blocks:
     - cidr: 10.1.10.0/24
-    - cidr: 10.1.20.0/24
     - cidr: 10.1.30.0/24
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliumbgpadvertisement_v2.json
@@ -56,9 +55,26 @@ spec:
       peers:
         - name: rb5009
           peerASN: 64513
-          peerAddress: 10.1.20.1
+          peerAddress: 10.1.10.1
           peerConfigRef:
             name: l3-bgp-peer-config
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliuml2announcementpolicy_v2alpha1.json
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: l2-announcement-policy
+spec:
+  serviceSelector:
+    matchExpressions:
+      - {key: somekey, operator: NotIn, values: ["never-used-value"]}
+  nodeSelector:
+    matchLabels:
+      kubernetes.io/os: linux
+  interfaces:
+    - ^bond0$
+  externalIPs: false
+  loadBalancerIPs: true
 ---
 apiVersion: v1
 kind: Service
@@ -66,7 +82,7 @@ metadata:
   name: kube-api
   annotations:
     external-dns.kubernetes.io/hostname: k8s.hme.${SECRET_DOMAIN}
-    lbipam.cilium.io/ips: 10.1.20.10
+    lbipam.cilium.io/ips: 10.1.10.5
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local

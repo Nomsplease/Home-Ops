@@ -6,7 +6,7 @@ kube_vip_hostname: "k8s.hme.{{ secret_domain }}"
 # (kubernetes/apps/kube-system/cilium/app/networking.yaml). Kubeconfigs point
 # here, not at kube_vip_hostname, so apiserver reachability never depends on
 # the router's DNS being up.
-kube_vip_address: "10.1.20.10"
+kube_vip_address: "10.1.10.5"
 
 kube_pod_cidr_v4: 172.20.0.0/16
 kube_pod_cidr_v6: "fd00:10:20:1::/56"

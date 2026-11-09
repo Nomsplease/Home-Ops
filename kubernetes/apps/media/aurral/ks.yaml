@@ -21,7 +21,7 @@ spec:
       APP: *app
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/aurral.svg"
       OIDC_APP_NAME: Music Playlists (Aurral)
-      KOPIUR_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 10Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

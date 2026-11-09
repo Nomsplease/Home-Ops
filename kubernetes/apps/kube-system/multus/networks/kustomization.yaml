@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - iot.yaml
   - internal.yaml
-  - services.yaml
   - vpn.yaml

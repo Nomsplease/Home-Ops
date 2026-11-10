@@ -101,7 +101,7 @@ spec:
         labels:
           network: iot
         annotations:
-          lbipam.cilium.io/ips: 10.1.30.7
+          lbipam.cilium.io/ips: 10.1.30.9
         externalTrafficPolicy: Local
         ports:
           https:

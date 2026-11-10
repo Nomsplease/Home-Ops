@@ -6,6 +6,7 @@ bond_mode: 802.3ad
 # ipv6: auto where the VLAN has RA; link-local where it doesn't (auto hangs).
 bond_vlans:
   - id: 30
+    ipv4: auto
     ipv6: auto
   - id: 66
     ipv6: link-local

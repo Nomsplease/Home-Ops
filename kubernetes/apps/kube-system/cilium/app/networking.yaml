@@ -26,6 +26,7 @@ spec:
       selector:
         matchExpressions:
           - {key: somekey, operator: NotIn, values: ["never-used-value"]}
+          - {key: network, operator: NotIn, values: ["L2Announce-IoT"]}
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliumbgppeerconfig_v2.json
 apiVersion: cilium.io/v2
@@ -67,7 +68,7 @@ metadata:
 spec:
   serviceSelector:
     matchExpressions:
-      - {key: network, operator: NotIn, values: ["iot"]}
+      - {key: network, operator: NotIn, values: ["L2Announce-IoT"]}
   nodeSelector:
     matchLabels:
       kubernetes.io/os: linux
@@ -84,7 +85,7 @@ metadata:
 spec:
   serviceSelector:
     matchLabels:
-      network: iot
+      network: L2Announce-IoT
   nodeSelector:
     matchLabels:
       kubernetes.io/os: linux

@@ -99,7 +99,7 @@ spec:
       app:
         type: LoadBalancer
         labels:
-          network: iot
+          network: L2Announce-IoT
         annotations:
           lbipam.cilium.io/ips: 10.1.30.9
         externalTrafficPolicy: Local

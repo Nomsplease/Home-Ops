@@ -84,14 +84,8 @@ spec:
         controllerPlugin:
           replicas: 2
       cephfs:
+        enabled: false
         name: rook-ceph.cephfs.csi.ceph.com
-        grpcTimeout: 150
-        snapshotPolicy: volumeGroupSnapshot
-        log:
-          rotation:
-            enabled: false
-        controllerPlugin:
-          replicas: 2
       nfs:
         enabled: false
         name: rook-ceph.nfs.csi.ceph.com

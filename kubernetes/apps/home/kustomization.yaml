@@ -12,6 +12,7 @@ resources:
   - ./esphome/ks.yaml
   - ./homeassistant/ks.yaml
   - ./kvm-controller/ks.yaml
+  - ./local-roborock-server/ks.yaml
   - ./matter-server/ks.yaml
   - ./mosquitto/ks.yaml
   - ./n8n/ks.yaml

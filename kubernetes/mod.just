@@ -35,6 +35,22 @@ prune-pods:
         kubectl delete pods -A --field-selector status.phase="$phase" --ignore-not-found=true
     done
 
+[doc('Push an OCI artifact of this repo to the registry Flux boots from, and tag it main')]
+[script]
+push-oci:
+    cd "{{ justfile_directory() }}"
+    SECRET_DOMAIN="$(op read "op://Kubernetes/domains/SECRET_DOMAIN")"
+    SHA=$(git rev-parse HEAD)
+    TOKEN="$(op read "op://Kubernetes/Apoci/PushToken")"
+    flux push artifact "oci://registry.${SECRET_DOMAIN}/home-ops:${SHA}" \
+        --path=. \
+        --source="https://git.${SECRET_DOMAIN}/Homelab/Home-Ops" \
+        --revision="main@sha1:${SHA}" \
+        --creds="registry:${TOKEN}"
+    flux tag artifact "oci://registry.${SECRET_DOMAIN}/home-ops:${SHA}" \
+        --tag main \
+        --creds="registry:${TOKEN}"
+
 [doc('Restore a PVC from VolSync')]
 [script]
 restore ns app previous='0':

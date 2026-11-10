@@ -2,15 +2,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: noms-tv
+  name: ${SECRET_DOMAIN_CLEAN}
 spec:
-  secretName: noms-tv-tls
+  secretName: ${SECRET_DOMAIN_CLEAN}-tls
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: noms.tv
+  commonName: ${SECRET_DOMAIN)
   dnsNames:
-    - noms.tv
-    - '*.noms.tv'
-    - '*.int.noms.tv'
-    - '*.iot.noms.tv'
+    - ${SECRET_DOMAIN)
+    - '*.${SECRET_DOMAIN)'
+    - '*.hme.${SECRET_DOMAIN)'

@@ -70,6 +70,32 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
 
+    route:
+      app:
+        hostnames:
+          - "roborock.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - name: root-redirect
+            matches:
+              - path:
+                  type: Exact
+                  value: /
+            filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /admin
+                  statusCode: 302
+          - name: backend
+            backendRefs:
+              - identifier: app
+                port: https
+
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"

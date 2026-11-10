@@ -3,35 +3,36 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
-  name: icmp-internal
+  name: icmp
 spec:
   module: icmp
   prober:
-    url: blackbox-exporter-internal.observability.svc.cluster.local:9115
+    url: blackbox-exporter.observability.svc.cluster.local:9115
   targets:
     staticConfig:
       static:
         - truenas.hme.${SECRET_DOMAIN}
+        - tubeszb-dualradio-poe.hme.${SECRET_DOMAIN}
   metricRelabelings:
     - targetLabel: service
-      replacement: blackbox-exporter-internal
+      replacement: blackbox-exporter
       action: replace
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/probe_v1.json
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
-  name: tcp-internal
+  name: tcp
 spec:
   jobName: nfs_probe
   module: tcp_connect
   prober:
-    url: blackbox-exporter-internal.observability.svc.cluster.local:9115
+    url: blackbox-exporter.observability.svc.cluster.local:9115
   targets:
     staticConfig:
       static:
         - truenas.hme.${SECRET_DOMAIN}:2049
   metricRelabelings:
     - targetLabel: service
-      replacement: blackbox-exporter-internal
+      replacement: blackbox-exporter
       action: replace

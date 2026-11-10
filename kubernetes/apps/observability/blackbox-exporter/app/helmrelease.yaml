@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: blackbox-exporter-internal
+  name: blackbox-exporter
 spec:
   chartRef:
     kind: OCIRepository
-    name: blackbox-exporter-internal
+    name: blackbox-exporter
   interval: 1h
   values:
-    fullnameOverride: blackbox-exporter-internal
+    fullnameOverride: blackbox-exporter
     securityContext:
       readOnlyRootFilesystem: true
       allowPrivilegeEscalation: false
@@ -43,9 +43,9 @@ spec:
     prometheusRule:
       enabled: true
       rules:
-        - alert: InternalProbeFailed
+        - alert: ProbeFailed
           expr: |-
-            probe_success{job=~"probe/observability/(icmp|tcp)-internal"} == 0
+            probe_success{job=~"probe/observability/(icmp|tcp)"} == 0
           for: 15m
           labels:
             severity: critical

@@ -132,5 +132,6 @@ spec:
         ports:
           https:
             port: 555
+            appProtocol: https
           mqtt-tls:
             port: 8881

@@ -10,5 +10,6 @@ resources:
   ## Requisites
   - ./namespace.yaml
   ## Deployments
+  - ./dawarich/ks.yaml
   - ./mitra/ks.yaml
   - ./radicale/ks.yaml

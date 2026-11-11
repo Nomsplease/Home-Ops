@@ -38,6 +38,7 @@ spec:
               TIME_ZONE: ${TIMEZONE}
               APPLICATION_HOSTS: "location.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: https
+              ARCHIVE_RAW_DATA: "true"
               REDIS_URL: redis://dragonfly.databases:6379/8
               DATABASE_HOST: postgres-rw.databases.svc
               DATABASE_PORT: "5432"

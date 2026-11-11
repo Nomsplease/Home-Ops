@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dedicatedcode/reitti
-              tag: 5.9.1@sha256:2ad27831fc342c4158a4a7659df795580c1ad927ed0580ca21706f0d85280b05
+              tag: 5.10.0@sha256:d7e2fa65fbfeac2d630a6bdc9d42935b4404bdd19fc98d9629c554d31748a400
             env:
               DISABLE_LOCAL_LOGIN: "true"
               OIDC_ENABLED: "true"

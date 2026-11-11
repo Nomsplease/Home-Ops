@@ -12,15 +12,15 @@ GitOps-managed Kubernetes homelab. Talos Linux (8-node cluster, IPs 10.1.20.11�
 
 ## Common Commands
 
-All commands use `just` (task runner) — run `just -l` to list available recipes. `.justfile` at the repo root includes `bootstrap`, `kube` (from `kubernetes/mod.just`), and `talos` modules. (`Taskfile.yaml` + `.taskfiles/` also exist in the repo but are a stale, superseded predecessor — `just` is current.)
+All commands use `just` (task runner) — run `just -l` to list available recipes. `.justfile` at the repo root includes `bootstrap` and `kube` (from `kubernetes/mod.just`) modules.
 
 ### Bootstrap (initial cluster setup)
 
 ```bash
-just bootstrap cluster        # Full end-to-end bootstrap (nodes -> k8s -> kubeconfig -> base -> apps)
+just bootstrap cluster        # Full end-to-end bootstrap (base manifests + CRDs -> core apps via helmfile)
 ```
 
-Internally this chains: applying Talos config to every node, bootstrapping etcd, fetching kubeconfig, waiting for nodes to register, applying `bootstrap/kustomize/apps` (namespaces, External Secrets) + CRDs from `bootstrap/helmfile/crds.yaml`, then `helmfile sync` on `bootstrap/helmfile/apps.yaml` for the core apps Flux itself depends on (CNI, etc.) before Flux takes over.
+Internally this chains: waiting for nodes to register, applying `bootstrap/kustomize/apps` (namespaces, External Secrets) + CRDs from `bootstrap/helmfile/crds.yaml`, then `helmfile sync` on `bootstrap/helmfile/apps.yaml` for the core apps Flux itself depends on (CNI, etc.) before Flux takes over. Talos node provisioning/config management is not handled from this repo.
 
 ### Kubernetes Operations (`just kube ...`)
 
@@ -36,21 +36,6 @@ just kube snapshot                  # Trigger all VolSync ReplicationSources man
 just kube volsync <suspend|resume>  # Suspend/resume the VolSync controller
 just kube view-secret <ns> <secret> # View a decoded Secret
 ```
-
-### Talos Management (`just talos ...`)
-
-```bash
-just talos apply-node <node> [args]      # Apply rendered Talos config to a node (confirms first)
-just talos apply-all-nodes [args]        # Apply to every node in talosconfig
-just talos render-config <node>          # Render one node's machine config (machineconfig.yaml.j2 + nodes/<node>.yaml.j2, minijinja + op inject)
-just talos reboot-node / reset-node / shutdown-node <node>
-just talos upgrade-node <node> / upgrade-all-nodes
-just talos upgrade-k8s <version>
-just talos download-image <node> <version>
-just talos schematic-id <node>           # Resolve Talos Factory schematic ID for a node
-```
-
-Node configs are templated: `talos/machineconfig.yaml.j2` (shared) is patched with `talos/nodes/<node>.yaml.j2` per node, using `minijinja` templating (`.minijinja.toml`) with secrets injected via `op inject` (1Password CLI) — `op` must be authenticated when rendering.
 
 ## Architecture
 
@@ -73,7 +58,6 @@ kubernetes/
 │   ├── observability/         # Prometheus/Grafana-style stack
 │   ├── rook-ceph/             # Ceph storage (ceph-block StorageClass)
 │   ├── security/              # Security tooling
-│   ├── system-upgrade/        # Node/system upgrade controllers
 │   └── virtualization/        # KubeVirt/virtualization
 ├── components/               # Reusable Kustomize components
 │   ├── anubis/                # (proof-of-work bot-mitigation proxy component)
@@ -91,11 +75,6 @@ bootstrap/
 │   └── defaults.yaml
 ├── kustomize/apps/            # Namespaces + External Secrets applied before Flux bootstraps
 └── mod.just                   # `just bootstrap` recipes
-
-talos/
-├── machineconfig.yaml.j2      # Shared machine config template (minijinja)
-├── nodes/<ip>.yaml.j2          # Per-node patch (+ <ip>-schematic.yaml.j2 for Talos Factory)
-└── mod.just                    # `just talos` recipes
 
 Scripts/
 ├── Kubernetes/                 # PVC migration/extraction helper scripts
@@ -158,8 +137,6 @@ spec:
   dataFrom:
     - extract: { key: <1Password item name> }
 ```
-
-SOPS (`.sops.yaml`) is reserved for Talos bootstrap secrets only (`talsecret.sops.yaml`, `talenv.sops.yaml`), never app secrets.
 
 **Storage** — Rook-Ceph provides `ceph-block` (RBD, RWO); set `storageClassName: ceph-block` explicitly on hand-declared PVCs. app-template apps typically use `persistence.<name>.existingClaim: "{{ .Release.Name }}"` combined with the `components/kopiur/backup` component instead of declaring the PVC directly.
 

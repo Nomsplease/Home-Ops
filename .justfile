@@ -12,10 +12,6 @@ mod bootstrap "bootstrap"
 [group: 'Kube']
 mod kube "kubernetes"
 
-# Talos Recipes
-[group: 'Talos']
-mod talos "talos"
-
 # Fedora CoreOS Recipes
 [group: 'FCOS']
 mod fcos "fcos"

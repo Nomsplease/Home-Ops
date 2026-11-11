@@ -17,7 +17,7 @@ concurrency:
 
 env:
   # renovate: datasource=github-releases depName=fluxcd/flux2
-  FLUX_VERSION: v2.9.6
+  FLUX_VERSION: v2.10.0
   # renovate: datasource=github-releases depName=sigstore/cosign
   COSIGN_VERSION: v3.1.4
 

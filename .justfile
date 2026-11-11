@@ -30,7 +30,7 @@ default:
 
 [doc('Install the required workstation tooling for this repo (CachyOS/Arch)')]
 deps:
-    sudo pacman -Syu --needed gum yq kubectl docker podman ansible talosctl helmfile helm kustomize sops fluxcd
+    sudo pacman -Syu --needed gum yq kubectl docker podman ansible helmfile helm kustomize fluxcd
     yay -Syu --needed minijinja-cli-bin 1password-cli
 
 [private]

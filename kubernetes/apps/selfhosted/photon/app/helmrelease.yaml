@@ -19,7 +19,7 @@ spec:
               tag: 2.5.0@sha256:c5babeb0ac396b485822036cf3c69e54fb6c79d699328a4e042e11bbd6f73f1a
             env:
               REGION: planet
-              UPDATE_STRATEGY: SEQUENTIAL
+              UPDATE_STRATEGY: PARALLEL
               UPDATE_INTERVAL: 720h
               LOG_LEVEL: INFO
             # probes:
@@ -72,7 +72,7 @@ spec:
       data:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
-        size: 80Gi
+        size: 200Gi
         storageClass: ceph-block
         globalMounts:
           - path: /photon/data

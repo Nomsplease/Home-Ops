@@ -24,7 +24,6 @@ resources:
   - ./patchmon/ks.yaml
   # - ./piper/ks.yaml
   - ./qui/ks.yaml
-  - ./reitti/ks.yaml
   - ./seasonpackerr/ks.yaml
   - ./spoolman/ks.yaml
   - ./thelounge/ks.yaml

@@ -17,8 +17,10 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/python-roborock/local_roborock_server
-              tag: 1.2.1@sha256:0f3d0dd05f14315273df5622d43008b2665c24b2fed79277822d4c9184eab158
+              # Built from upstream main (commit 02a1770) — includes the multi-vacuum
+              # DUID/DID bridge-mapping fix (#165/#166) not yet in a tagged release.
+              repository: git.noms.tv/homelab/local-roborock-server
+              tag: main-02a1770@sha256:5aa8a4686874fdf2988f059d9a06490e035f7cbd18a46589b61845af4c735a19
             securityContext:
               capabilities:
                 add:

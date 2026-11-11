@@ -36,7 +36,7 @@ spec:
               SIDEKIQ_EMBEDDED: "true"
               WEB_CONCURRENCY: "0"
               TIME_ZONE: ${TIMEZONE}
-              APPLICATION_HOSTS: "dawarich.${SECRET_DOMAIN}"
+              APPLICATION_HOSTS: "location.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: https
               REDIS_URL: redis://dragonfly.databases:6379/8
               DATABASE_HOST: postgres-rw.databases.svc
@@ -117,6 +117,7 @@ spec:
     route:
       app:
         hostnames:
+          - "location.${SECRET_DOMAIN}"
           - "dawarich.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-external

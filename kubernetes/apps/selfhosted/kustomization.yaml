@@ -12,4 +12,5 @@ resources:
   ## Deployments
   - ./dawarich/ks.yaml
   - ./mitra/ks.yaml
+  - ./photon/ks.yaml
   - ./radicale/ks.yaml

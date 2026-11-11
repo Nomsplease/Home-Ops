@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: photon
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: photon
+  values:
+    controllers:
+      photon:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/rtuszik/photon-docker
+              tag: 2.5.0@sha256:c5babeb0ac396b485822036cf3c69e54fb6c79d699328a4e042e11bbd6f73f1a
+            env:
+              REGION: planet
+              UPDATE_STRATEGY: SEQUENTIAL
+              UPDATE_INTERVAL: 720h
+              LOG_LEVEL: INFO
+            # probes:
+            #   liveness:
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       httpGet:
+            #         path: /status
+            #         port: 2322
+            #       periodSeconds: 30
+            #       timeoutSeconds: 10
+            #       failureThreshold: 5
+            #   readiness:
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       httpGet:
+            #         path: /status
+            #         port: 2322
+            #       periodSeconds: 30
+            #       timeoutSeconds: 10
+            #       failureThreshold: 5
+            #   startup:
+            #     enabled: true
+            #     custom: true
+            #     spec:
+            #       httpGet:
+            #         path: /status
+            #         port: 2322
+            #       periodSeconds: 60
+            #       timeoutSeconds: 10
+            #       failureThreshold: 720
+            resources:
+              requests:
+                cpu: 500m
+                memory: 1Gi
+              limits:
+                memory: 4Gi
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 9011
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 2322
+    persistence:
+      data:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 80Gi
+        storageClass: ceph-block
+        globalMounts:
+          - path: /photon/data

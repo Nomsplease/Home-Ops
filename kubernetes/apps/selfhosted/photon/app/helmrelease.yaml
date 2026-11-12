@@ -22,37 +22,37 @@ spec:
               UPDATE_STRATEGY: PARALLEL
               UPDATE_INTERVAL: 720h
               LOG_LEVEL: INFO
-            # probes:
-            #   liveness:
-            #     enabled: true
-            #     custom: true
-            #     spec:
-            #       httpGet:
-            #         path: /status
-            #         port: 2322
-            #       periodSeconds: 30
-            #       timeoutSeconds: 10
-            #       failureThreshold: 5
-            #   readiness:
-            #     enabled: true
-            #     custom: true
-            #     spec:
-            #       httpGet:
-            #         path: /status
-            #         port: 2322
-            #       periodSeconds: 30
-            #       timeoutSeconds: 10
-            #       failureThreshold: 5
-            #   startup:
-            #     enabled: true
-            #     custom: true
-            #     spec:
-            #       httpGet:
-            #         path: /status
-            #         port: 2322
-            #       periodSeconds: 60
-            #       timeoutSeconds: 10
-            #       failureThreshold: 720
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /status
+                    port: 2322
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /status
+                    port: 2322
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 5
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /status
+                    port: 2322
+                  periodSeconds: 60
+                  timeoutSeconds: 10
+                  failureThreshold: 720
             resources:
               requests:
                 cpu: 500m

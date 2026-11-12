@@ -39,6 +39,8 @@ spec:
               APPLICATION_HOSTS: "location.${SECRET_DOMAIN}"
               APPLICATION_PROTOCOL: https
               ARCHIVE_RAW_DATA: "true"
+              PHOTON_API_HOST: "photon.selfhosted.svc.cluster.local:2322"
+              PHOTON_API_USE_HTTPS: "false"
               REDIS_URL: redis://dragonfly.databases:6379/8
               DATABASE_HOST: postgres-rw.databases.svc
               DATABASE_PORT: "5432"

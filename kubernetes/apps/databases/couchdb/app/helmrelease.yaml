@@ -1,50 +1,79 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: couchdb
 spec:
-  interval: 1h
-  chart:
-    spec:
-      chart: couchdb
-      version: "4.6.2"
-      sourceRef:
-        kind: HelmRepository
-        name: couchdb
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: couchdb
   values:
-    clusterSize: 1
-    createAdminSecret: false
-    extraSecretName: couchdb-secret
-    # https://github.com/vrtmrz/obsidian-livesync setup guide: CORS for Obsidian's
-    # embedded Chromium origins, plus larger document/request size limits.
-    couchdbConfig:
+    controllers:
       couchdb:
-        # Server instance identifier, not a secret - just needs to be unique.
-        uuid: a626f8e4ef4f3245c97fdfa414ab93f8
-        max_document_size: 50000000
-      chttpd:
-        require_valid_user: true
-        max_http_request_size: 4294967296
-      chttpd_auth:
-        require_valid_user: true
-      httpd:
-        WWW-Authenticate: Basic realm="couchdb"
-        enable_cors: true
-      cors:
-        credentials: true
-        origins: app://obsidian.md,capacitor://localhost,http://localhost
-        headers: accept, authorization, content-type, origin, referer
-        methods: GET, PUT, POST, HEAD, DELETE
-        max_age: 3600
-    persistentVolume:
-      enabled: true
-      accessModes:
-        - ${KOPIUR_ACCESSMODES:=ReadWriteOnce}
-      size: ${KOPIUR_CAPACITY}
-      storageClass: ${KOPIUR_STORAGECLASS:=ceph-block}
-      # Must match the PVC the kopiur backup component creates (see ../ks.yaml)
-      existingClaims:
-        - claimName: couchdb
-          volumeName: database-storage
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: couchdb
+              tag: 3.5.1@sha256:ccea1e8035bf7afd68336e24056a1ca9c1c46d7abe42da686322c0ac7218e5c2
+            env:
+              TZ: America/New_York
+            envFrom:
+              - secretRef:
+                  name: couchdb-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /_up
+                    port: &port 5984
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 5984
+        runAsGroup: 5984
+        fsGroup: 5984
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /opt/couchdb/data
+      local-ini:
+        type: secret
+        name: couchdb-secret
+        globalMounts:
+          - path: /opt/couchdb/etc/local.d/local.ini
+            subPath: local.ini

@@ -21,6 +21,8 @@ spec:
     # embedded Chromium origins, plus larger document/request size limits.
     couchdbConfig:
       couchdb:
+        # Server instance identifier, not a secret - just needs to be unique.
+        uuid: a626f8e4ef4f3245c97fdfa414ab93f8
         max_document_size: 50000000
       chttpd:
         require_valid_user: true

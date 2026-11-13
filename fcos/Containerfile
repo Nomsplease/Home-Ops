@@ -1,7 +1,7 @@
 # Bootable container image for the k8s_nodes group (see ansible/inventory).
 
 # renovate: datasource=github-releases depName=cilium/cilium-cli
-ARG CILIUM_CLI_VERSION=v0.20.2
+ARG CILIUM_CLI_VERSION=v0.20.3
 
 # renovate: datasource=github-releases depName=LINBIT/drbd extractVersion=^drbd-(?<version>.*)$
 ARG DRBD_VERSION=9.3.4

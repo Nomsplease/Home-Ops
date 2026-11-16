@@ -7,11 +7,7 @@ resources:
   - ./httproute.yaml
   - ./externalsecret.yaml
 patches:
-  # The Mattermost CRD hardcodes DB_CONNECTION_STRING as the secret key it reads;
-  # components/postgres/pass only emits url/dsn, so add the same value under that key.
-  # name is a regex (not literal) since the real resource name still has an
-  # unsubstituted ${APP} token at kustomize-build time; scope it to -postgres
-  # only so it doesn't also match the mattermost-s3 ExternalSecret above.
+  # The Mattermost CRD hardcodes DB_CONNECTION_STRING as the secret key
   - target:
       kind: ExternalSecret
       group: external-secrets.io
@@ -26,4 +22,4 @@ patches:
         target:
           template:
             data:
-              DB_CONNECTION_STRING: "postgresql://${DATABASE_OWNER:=${APP}}:{{ .password }}@postgres-rw.databases.svc/${APP}?sslmode=disable"
+              DB_CONNECTION_STRING: "postgres://${DATABASE_OWNER:=${APP}}:{{ .password }}@postgres-rw.databases.svc/${APP}?sslmode=disable"

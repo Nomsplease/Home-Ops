@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/a11delavar/mitra
-              tag: 0.7.1@sha256:9c0b189dbcdb306577110ca1294f4ee3643e7616442928d54df59dde0fe0379b
+              tag: 0.8.0@sha256:0d2c2a1d4c190a058b960c60986636d9b5dd094747c0db49b911c3be4309b29f
             env:
               TZ: America/New_York
               MITRA_PORT: &port 3000

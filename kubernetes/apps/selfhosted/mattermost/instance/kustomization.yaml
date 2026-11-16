@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./mattermost.yaml
+  - ./httproute.yaml
+  - ./externalsecret.yaml
+patches:
+  # The Mattermost CRD hardcodes DB_CONNECTION_STRING as the secret key it reads;
+  # components/postgres/pass only emits url/dsn, so add the same value under that key.
+  # name is a regex (not literal) since the real resource name still has an
+  # unsubstituted ${APP} token at kustomize-build time; scope it to -postgres
+  # only so it doesn't also match the mattermost-s3 ExternalSecret above.
+  - target:
+      kind: ExternalSecret
+      group: external-secrets.io
+      version: v1
+      name: .*-postgres
+    patch: |-
+      apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      metadata:
+        name: not-used
+      spec:
+        target:
+          template:
+            data:
+              DB_CONNECTION_STRING: "postgresql://${DATABASE_OWNER:=${APP}}:{{ .password }}@postgres-rw.databases.svc/${APP}?sslmode=disable"

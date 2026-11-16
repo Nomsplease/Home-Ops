@@ -11,6 +11,7 @@ resources:
   - ./namespace.yaml
   ## Deployments
   - ./dawarich/ks.yaml
+  - ./mattermost/ks.yaml
   - ./mitra/ks.yaml
   - ./photon/ks.yaml
   - ./radicale/ks.yaml

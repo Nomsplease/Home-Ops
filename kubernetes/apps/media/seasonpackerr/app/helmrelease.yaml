@@ -28,8 +28,8 @@ spec:
               SEASONPACKARR__SMART_MODE: true
               SEASONPACKARR__SMART_MODE_THRESHOLD: 0.75
               SEASONPACKARR__FUZZY_MATCHING_SKIP_REPACK_COMPARE: true
-              SEASONPACKARR__CLIENTS_DEFAULT_HOST: qbittorrent.default.svc.cluster.local
-              SEASONPACKARR__CLIENTS_DEFAULT_PORT: 80
+              SEASONPACKARR__CLIENTS_DEFAULT_HOST: 10.1.66.2
+              SEASONPACKARR__CLIENTS_DEFAULT_PORT: 8080
               SEASONPACKARR__CLIENTS_DEFAULT_IMPORT_SAVE_PATH: /media/Downloads/tv-sonarr
             envFrom:
               - secretRef:

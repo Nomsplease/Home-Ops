@@ -7,12 +7,17 @@ metadata:
   namespace: &namespace media
 spec:
   components:
+    - ../../../../components/kopiur/backup
     - ../../../../components/zeroscaler
+  dependsOn:
+    - name: kopiur
+      namespace: kopiur-system
   interval: 30m
   path: ./kubernetes/apps/media/seasonpackerr/app
   postBuild:
     substitute:
       APP: *app
+      KOPIUR_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

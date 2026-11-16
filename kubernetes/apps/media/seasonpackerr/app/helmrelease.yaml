@@ -75,6 +75,8 @@ spec:
           http:
             port: *port
     persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
         server: truenas.hme.${SECRET_DOMAIN}

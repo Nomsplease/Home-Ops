@@ -24,6 +24,8 @@ spec:
               SSE_VERSION: v0.6.1
               # renovate: datasource=github-releases depName=fscorrupt/posterizarr
               POSTERIZARR_VERSION: "3.3.7"
+              # renovate: datasource=github-releases depName=Moonfin-Client/Plugin
+              MOONFIN_VERSION: "3.1.0"
             command:
               - sh
               - -ec
@@ -56,6 +58,12 @@ spec:
                   "Posterizarr.Plugin.Emby_v$POSTERIZARR_VERSION.zip" \
                   "Posterizarr.Plugin.Emby.dll" \
                   "Posterizarr.Plugin.Emby_v*.zip"
+
+                install_plugin \
+                  "https://github.com/Moonfin-Client/Plugin/releases/download/$MOONFIN_VERSION/Moonfin.Emby-$MOONFIN_VERSION.0.zip" \
+                  "Moonfin.Emby-$MOONFIN_VERSION.0.zip" \
+                  "Emby.Plugins.Moonfin.dll" \
+                  "Moonfin.Emby-*.zip"
         containers:
           app:
             image:

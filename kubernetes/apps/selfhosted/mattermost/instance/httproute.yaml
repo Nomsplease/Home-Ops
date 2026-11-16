@@ -7,6 +7,7 @@ metadata:
 spec:
   hostnames:
     - mattermost.${SECRET_DOMAIN}
+    - chat.${SECRET_DOMAIN}
   parentRefs:
     - name: envoy-external
       namespace: network

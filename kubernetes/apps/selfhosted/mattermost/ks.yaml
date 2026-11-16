@@ -26,12 +26,15 @@ metadata:
   namespace: selfhosted
 spec:
   components:
+    - ../../../../components/oidc
     - ../../../../components/postgres/pass
   dependsOn:
     - name: mattermost-operator
       namespace: selfhosted
     - name: cloudnative-pg-cluster
       namespace: databases
+    - name: pocket-id
+      namespace: security
   healthChecks:
     - apiVersion: installation.mattermost.com/v1beta1
       kind: Mattermost
@@ -42,6 +45,9 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/mattermost.svg"
+      OIDC_APP_NAME: Mattermost
+      OIDC_CALLBACK_PATH: /plugins/mattermost-oidc/oauth2/callback
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

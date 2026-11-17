@@ -22,6 +22,25 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: mattermost-mobile-bridge
+  namespace: selfhosted
+spec:
+  interval: 1h
+  path: ./kubernetes/apps/selfhosted/mattermost/mobile-bridge
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: OCIRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: selfhosted
+  timeout: 5m
+  wait: false
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: &app mattermost
   namespace: selfhosted
 spec:

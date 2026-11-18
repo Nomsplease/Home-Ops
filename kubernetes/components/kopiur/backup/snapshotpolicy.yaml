@@ -9,7 +9,7 @@ spec:
     compressor: zstd
   mover:
     cache:
-      capacity: ${KOPIUR_CACHE_CAPACITY:=5Gi}
+      capacity: ${KOPIUR_CACHE_CAPACITY:=10Gi}
       mode: Persistent
       storageClassName: miroir-kopiur-cache
     podSecurityContext:

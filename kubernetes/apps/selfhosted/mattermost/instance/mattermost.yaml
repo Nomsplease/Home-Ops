@@ -25,6 +25,11 @@ spec:
       value: "${GARAGE_REGION}"
     - name: MM_FILESETTINGS_AMAZONS3PATHPREFIX
       value: mattermost
+    # Mattermost's free Test Push Notification Service
+    - name: MM_EMAILSETTINGS_SENDPUSHNOTIFICATIONS
+      value: "true"
+    - name: MM_EMAILSETTINGS_PUSHNOTIFICATIONSERVER
+      value: "https://push-test.mattermost.com"
   scheduling:
     resources:
       requests:

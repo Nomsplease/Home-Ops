@@ -1,0 +1,104 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: continuwuity
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: continuwuity
+  values:
+    controllers:
+      continuwuity:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/continuwuity/continuwuity
+              tag: v26.9.0@sha256:5cc03961412fb74836a14599cda3bfa17f003df902d9555281fa973976c5243b
+            env:
+              CONTINUWUITY_SERVER_NAME: matrix.${SECRET_DOMAIN}
+              CONTINUWUITY_DATABASE_PATH: /data/db
+              CONTINUWUITY_DATABASE_BACKEND: rocksdb
+              CONTINUWUITY_ADDRESS: 0.0.0.0
+              CONTINUWUITY_PORT: "8008"
+              CONTINUWUITY_LOG: info
+              CONTINUWUITY_ALLOW_FEDERATION: "true"
+              CONTINUWUITY_ALLOW_REGISTRATION: "false"
+              CONTINUWUITY_TRUSTED_SERVERS: '["matrix.org"]'
+              CONTINUWUITY_WELL_KNOWN__CLIENT: https://matrix.${SECRET_DOMAIN}
+              CONTINUWUITY_WELL_KNOWN__SERVER: matrix.${SECRET_DOMAIN}:443
+              CONTINUWUITY_OAUTH__OIDC__PROVIDER_NAME: Pocket ID
+              CONTINUWUITY_OAUTH__OIDC__DISCOVERY_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: continuwuity-oidc-credentials
+                    key: OIDC_DISCOVERY_URL
+              CONTINUWUITY_OAUTH__OIDC__CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: continuwuity-oidc-credentials
+                    key: OIDC_CLIENT_ID
+              CONTINUWUITY_OAUTH__OIDC__CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: continuwuity-oidc-credentials
+                    key: OIDC_CLIENT_SECRET
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /_matrix/federation/v1/version
+                    port: 8008
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /_matrix/federation/v1/version
+                    port: 8008
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+            resources:
+              requests:
+                cpu: 250m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 8008
+    route:
+      app:
+        hostnames:
+          - "matrix.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"

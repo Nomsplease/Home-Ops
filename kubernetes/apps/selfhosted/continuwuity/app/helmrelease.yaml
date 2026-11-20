@@ -22,7 +22,6 @@ spec:
             env:
               CONTINUWUITY_SERVER_NAME: matrix.${SECRET_DOMAIN}
               CONTINUWUITY_DATABASE_PATH: /data/db
-              CONTINUWUITY_DATABASE_BACKEND: rocksdb
               CONTINUWUITY_ADDRESS: 0.0.0.0
               CONTINUWUITY_PORT: "8008"
               CONTINUWUITY_LOG: info
@@ -36,7 +35,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: continuwuity-oidc-credentials
-                    key: OIDC_DISCOVERY_URL
+                    key: OIDC_ISSUER_URL
               CONTINUWUITY_OAUTH__OIDC__CLIENT_ID:
                 valueFrom:
                   secretKeyRef:

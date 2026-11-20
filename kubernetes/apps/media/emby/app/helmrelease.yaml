@@ -25,7 +25,7 @@ spec:
               # renovate: datasource=github-releases depName=fscorrupt/posterizarr
               POSTERIZARR_VERSION: "3.3.7"
               # renovate: datasource=github-releases depName=Moonfin-Client/Plugin
-              MOONFIN_VERSION: "3.1.0"
+              MOONFIN_VERSION: "3.1.1"
             command:
               - sh
               - -ec

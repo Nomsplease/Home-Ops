@@ -20,9 +20,6 @@ spec:
               repository: ghcr.io/lklynet/aurral
               tag: 2.13.0@sha256:75dd06805e3daefd49eb4f91d19f4110f0ef6eb1d2b13e48ae36120d113b48f0
             env:
-              # Trust the x-forwarded-user header set by the Envoy SecurityPolicy's
-              # OIDC/JWT auth so Aurral doesn't fall back to its own local login.
-              AUTH_PROXY_ENABLED: "true"
               DOWNLOAD_FOLDER: /media/Music-Playlists
               PORT: &port 80
               PUID: 1000
@@ -70,11 +67,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-        rules:
-          - name: protected
-            backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

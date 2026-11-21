@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/server-camp/mattermost-oidc-plugin/mobile-bridge
-              tag: 0.7.2@sha256:a19373cdfd9db255dd8c6aca84f6bd4bcfe9c8685b98d7e4f1fca88e42cabb8a
+              tag: 0.8.0@sha256:7c29a36f86a5cfc63b3d3cab417419859c1012b7018b17a1e4527d2bbe2d21c4
             env:
               # Separate Deployment, not sidecar: CRD lacks a field for extra containers.
               UPSTREAM: http://mattermost.selfhosted.svc.cluster.local:8065

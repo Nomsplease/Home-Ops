@@ -18,9 +18,9 @@ spec:
           app:
             image:
               repository: ghcr.io/lklynet/aurral
-              tag: 2.13.0@sha256:75dd06805e3daefd49eb4f91d19f4110f0ef6eb1d2b13e48ae36120d113b48f0
+              tag: 3.0.1@sha256:dfca50e61cfdea54506c9836431a3c6b526873e0650f4a348a4a032a1324b7dc
             env:
-              DOWNLOAD_FOLDER: /media/Music-Playlists
+              LIBRARY_FOLDER: /media/Music
               PORT: &port 80
               PUID: 1000
               PGID: 1000
@@ -47,7 +47,7 @@ spec:
                 cpu: 100m
                 memory: 256Mi
               limits:
-                memory: 2Gi
+                memory: 4Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

@@ -69,7 +69,7 @@ spec:
     route:
       app:
         hostnames:
-          - "music.noms.tv"
+          - "music-assistant.noms.tv"
         parentRefs:
           - name: envoy-internal
             namespace: network

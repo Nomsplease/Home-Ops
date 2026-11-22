@@ -26,6 +26,24 @@ spec:
               PGID: 1000
               TRUST_PROXY: "true"
               TZ: America/New_York
+              AURRAL_PUBLIC_URL: "https://music.${SECRET_DOMAIN}"
+              OIDC_ENABLED: "true"
+              OIDC_REDIRECT_URI: "https://music.${SECRET_DOMAIN}/sso/callback"
+              OIDC_ISSUER:
+                valueFrom:
+                  secretKeyRef:
+                    name: aurral-oidc-credentials
+                    key: OIDC_ISSUER_URL
+              OIDC_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: aurral-oidc-credentials
+                    key: OIDC_CLIENT_ID
+              OIDC_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: aurral-oidc-credentials
+                    key: OIDC_CLIENT_SECRET
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -75,6 +93,7 @@ spec:
       app:
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "music.${SECRET_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network

@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: guacamole/guacd
-              tag: latest@sha256:600d5975c6de9c973e3c40aed607b3e89172fdbe3d9283535ddf14b24e427fe2
+              tag: latest@sha256:2c2e9c9ad4874fa552b949cc58d4fa51e4077c70f15b1583ea3ab86d6438f4a5
             probes:
               liveness: &probes
                 enabled: true

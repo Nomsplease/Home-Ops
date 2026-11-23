@@ -88,4 +88,4 @@ spec:
           - /usr/share/postgresql/18/
       - name: timescaledb
         image:
-          reference: ghcr.io/cloudnative-pg/timescaledb-oss:2.32.0-18-trixie@sha256:5d2a0f82755b0efd8f6a584d2919cffb294ae90fb412ddefcd68220615d7f622
+          reference: ghcr.io/cloudnative-pg/timescaledb-oss:2.32.0-18-trixie@sha256:63373069a86391620bc89e656e304a00c6abb9b3853fee53db1adb1efa832180

@@ -30,6 +30,7 @@ spec:
               tag: 2026.11.0
             env:
               PLATFORMIO_CORE_DIR: /cache/platformio
+              UV_CACHE_DIR: /cache/uv
             probes:
               liveness: &probes
                 enabled: true

@@ -12,11 +12,9 @@ resources:
   ## Deployments
   - ./aurral/ks.yaml
   - ./autobrr/ks.yaml
-  - ./beets/ks.yaml
   - ./cmdarr/ks.yaml
   - ./emby/ks.yaml
   - ./jellyfin/ks.yaml
-  - ./lidarr/ks.yaml
   - ./maintainerr/ks.yaml
   - ./navidrome/ks.yaml
   - ./picard/ks.yaml

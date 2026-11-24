@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/devianteng/cmdarr
-              tag: v0.4.3@sha256:f9a7e10a312dc5390bb1aff4c20bb94ddce9c2cffffe7603c8a59825e1229e26
+              tag: v0.4.3@sha256:7ec8e92c6a37054a8b8e700b30cd80d3aa7a4195601d9eaf4b5a4275c326e010
             env:
               DEFAULT_SCHEDULE_CRON: 0 3 * * *
               PUID: 1000

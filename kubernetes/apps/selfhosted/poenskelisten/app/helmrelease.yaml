@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: poenskelisten
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: poenskelisten
+  values:
+    controllers:
+      poenskelisten:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/aunefyren/poenskelisten
+              tag: v2.7.0@sha256:83e5b7d119e4b5364ab9a129bfc7191f6397668cbedb53ef45c3e1071b3f719e
+            env:
+              PUID: "1000"
+              PGID: "1000"
+              timezone: ${TIMEZONE}
+              port: "8080"
+              externalurl: "https://wishlist.${SECRET_DOMAIN}"
+              dbtype: postgres
+              dbip: postgres-rw.databases.svc
+              dbport: "5432"
+              dbname: "{{ .Release.Name }}"
+              dbusername: "{{ .Release.Name }}"
+              dbpassword:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-postgres"
+                    key: password
+              oidcenabled: "true"
+              oidcprovidername: Pocket ID
+              oidcredirecturl: "https://wishlist.${SECRET_DOMAIN}/api/open/oidc/callback"
+              oidcclientid:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-oidc-credentials"
+                    key: OIDC_CLIENT_ID
+              oidcclientsecret:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-oidc-credentials"
+                    key: OIDC_CLIENT_SECRET
+              oidcissuerurl:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-oidc-credentials"
+                    key: OIDC_ISSUER_URL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 8080
+    route:
+      app:
+        hostnames:
+          - "wishlist.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 8080
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /app/files
+            subPath: files
+          - path: /app/images
+            subPath: images

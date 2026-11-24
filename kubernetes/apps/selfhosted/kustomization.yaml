@@ -15,4 +15,5 @@ resources:
   - ./mattermost/ks.yaml
   - ./mitra/ks.yaml
   - ./photon/ks.yaml
+  - ./poenskelisten/ks.yaml
   - ./radicale/ks.yaml

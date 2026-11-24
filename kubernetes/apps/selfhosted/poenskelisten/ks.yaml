@@ -23,7 +23,7 @@ spec:
     substitute:
       APP: *app
       APP_ICON_URL: "https://raw.githubusercontent.com/aunefyren/poenskelisten/main/web/assets/logo_trans.svg"
-      OIDC_APP_NAME: Poenskelisten
+      OIDC_APP_NAME: Wishlist
       OIDC_CALLBACK_PATH: /api/open/oidc/callback
       SUBDOMAIN: wishlist
       KOPIUR_CAPACITY: 5Gi

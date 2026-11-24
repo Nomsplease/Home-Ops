@@ -53,6 +53,7 @@ spec:
                   secretKeyRef:
                     name: "{{ .Release.Name }}-oidc-credentials"
                     key: OIDC_ISSUER_URL
+              oidcautocreateusers: "true"
             resources:
               requests:
                 cpu: 10m

@@ -17,3 +17,4 @@ resources:
   - ./photon/ks.yaml
   - ./poenskelisten/ks.yaml
   - ./radicale/ks.yaml
+  - ./securo/ks.yaml

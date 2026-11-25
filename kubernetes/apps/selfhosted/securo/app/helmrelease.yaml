@@ -1,0 +1,163 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: securo
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: securo
+  values:
+    global:
+      domain: "securo.${SECRET_DOMAIN}"
+      tls: true
+
+    config:
+      redisUrl: "redis://dragonfly.databases:6379/6"
+      celeryBrokerUrl: "redis://dragonfly.databases:6379/6"
+      celeryResultBackend: "redis://dragonfly.databases:6379/6"
+      oidcEnabled: "true"
+      oidcProviderName: "Pocket ID"
+
+    # Shared CloudNativePG cluster + dragonfly instead of the chart's bundled ones
+    postgresql:
+      enabled: false
+    redis:
+      enabled: false
+
+    # Hand-written httproute.yaml instead, to match this repo's native-chart convention
+    ingress:
+      enabled: false
+    httpRoute:
+      enabled: false
+
+    persistence:
+      attachments:
+        existingClaim: securo
+      agentKnowledge:
+        enabled: false
+      agentEmbeddingModels:
+        enabled: false
+
+    backend:
+      image:
+        tag: "0.22.0@sha256:b993682d9d99079695e1009ee3c95dc5190f46ef7416d2bf0968baa4d619610e"
+      extraEnv:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: password
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: host
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: database
+        - name: DATABASE_URL
+          value: "postgresql+asyncpg://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)?sslmode=disable"
+        - name: OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: securo-oidc-credentials
+              key: OIDC_CLIENT_ID
+        - name: OIDC_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: securo-oidc-credentials
+              key: OIDC_CLIENT_SECRET
+        - name: OIDC_DISCOVERY_URL
+          valueFrom:
+            secretKeyRef:
+              name: securo-oidc-credentials
+              key: OIDC_DISCOVERY_URL
+
+    frontend:
+      image:
+        tag: "0.22.0@sha256:5ecbe79a212c5f1a92c83e80aff5419a2b8942e9cda42f5278142a618caf5316"
+
+    celeryWorker:
+      extraEnv:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: password
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: host
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: database
+        - name: DATABASE_URL
+          value: "postgresql+asyncpg://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)?sslmode=disable"
+
+    celeryBeat:
+      extraEnv:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: password
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: host
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: database
+        - name: DATABASE_URL
+          value: "postgresql+asyncpg://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)?sslmode=disable"
+
+    migration:
+      extraEnv:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: password
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: host
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: database
+        - name: DATABASE_URL
+          value: "postgresql+asyncpg://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)?sslmode=disable"

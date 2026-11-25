@@ -6,6 +6,10 @@ targets:
 routes:
   seerr:
     target: matrix-media
+    verify:
+      token:
+        header: Authorization
+        secret: '{{ env "CHASKI_WEBHOOK_SECRET" }}'
     title: "{{ .payload.subject }}"
     message: |-
       {{ .payload.message }}
@@ -23,5 +27,9 @@ routes:
       {{- end }}
   maintainerr:
     target: matrix-media
+    verify:
+      token:
+        header: Authorization
+        secret: '{{ env "CHASKI_WEBHOOK_SECRET" }}'
     title: "{{ .payload.subject }}"
     message: "{{ .payload.message }}"

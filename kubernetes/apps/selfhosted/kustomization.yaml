@@ -12,7 +12,6 @@ resources:
   ## Deployments
   - ./continuwuity/ks.yaml
   - ./dawarich/ks.yaml
-  - ./mattermost/ks.yaml
   - ./mitra/ks.yaml
   - ./photon/ks.yaml
   - ./poenskelisten/ks.yaml

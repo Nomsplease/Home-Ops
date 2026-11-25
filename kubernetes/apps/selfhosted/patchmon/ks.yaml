@@ -4,7 +4,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: patchmon
-  namespace: default
+  namespace: selfhosted
 spec:
   components:
     - ../../../../components/postgres/cert
@@ -12,20 +12,20 @@ spec:
     - name: cloudnative-pg-cluster
       namespace: databases
   interval: 30m
-  path: ./kubernetes/apps/default/patchmon/app
+  path: ./kubernetes/apps/selfhosted/patchmon/app
   postBuild:
     substitute:
       APP: patchmon
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-  prune: true 
+  prune: true
   retryInterval: 1m
   sourceRef:
     kind: OCIRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: selfhosted
   timeout: 5m
   wait: false
 ---
@@ -34,19 +34,19 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: patchmon-guacd
-  namespace: default
+  namespace: selfhosted
 spec:
   interval: 30m
-  path: ./kubernetes/apps/default/patchmon/guacd
+  path: ./kubernetes/apps/selfhosted/patchmon/guacd
   postBuild:
     substitute:
       APP: patchmon-guacd
-  prune: true 
+  prune: true
   retryInterval: 1m
   sourceRef:
     kind: OCIRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: selfhosted
   timeout: 5m
   wait: false

@@ -12,8 +12,13 @@ resources:
   ## Deployments
   - ./continuwuity/ks.yaml
   - ./dawarich/ks.yaml
+  - ./immich/ks.yaml
+  - ./karakeep/ks.yaml
+  - ./lubelogger/ks.yaml
   - ./mealie/ks.yaml
   - ./mitra/ks.yaml
+  - ./paperless/ks.yaml
+  - ./patchmon/ks.yaml
   - ./photon/ks.yaml
   - ./poenskelisten/ks.yaml
   - ./qui/ks.yaml

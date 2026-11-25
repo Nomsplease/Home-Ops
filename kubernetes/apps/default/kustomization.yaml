@@ -11,12 +11,7 @@ resources:
   - ./namespace.yaml
   ## Deployments
   - ./actual-budget/ks.yaml
-  - ./immich/ks.yaml
-  - ./karakeep/ks.yaml
-  - ./lubelogger/ks.yaml
   - ./ntfy/ks.yaml
   # - ./openwakeword/ks.yaml
-  - ./paperless/ks.yaml
-  - ./patchmon/ks.yaml
   # - ./piper/ks.yaml
   # - ./whisper/ks.yaml

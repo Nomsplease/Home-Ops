@@ -11,7 +11,14 @@ spec:
     - name: kopiur
       namespace: kopiur-system
   interval: 30m
-  path: ./kubernetes/apps/default/karakeep/app
+  path: ./kubernetes/apps/selfhosted/karakeep/app
+  patches:
+    - patch: |-
+        - op: add
+          path: /spec/volumeName
+          value: pvc-897c65a7-991f-403e-b173-55868675dbca
+      target:
+        kind: PersistentVolumeClaim
   postBuild:
     substitute:
       APP: karakeep
@@ -25,6 +32,6 @@ spec:
     kind: OCIRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: selfhosted
   timeout: 5m
   wait: false

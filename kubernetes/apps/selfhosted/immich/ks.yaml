@@ -3,7 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app lubelogger
+  name: immich
+  namespace: selfhosted
 spec:
   components:
     - ../../../../components/kopiur/backup
@@ -11,14 +12,30 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: databases
+    - name: intel-device-plugins-gpu
+      namespace: kube-system
     - name: kopiur
       namespace: kopiur-system
   interval: 30m
-  path: ./kubernetes/apps/default/lubelogger/app
+  path: ./kubernetes/apps/selfhosted/immich/app
+  patches:
+    - patch: |-
+        - op: add
+          path: /spec/volumeName
+          value: pvc-930f3605-625f-43f0-8dba-4dc10e94b506
+      target:
+        kind: PersistentVolumeClaim
   postBuild:
     substitute:
-      APP: *app
-      KOPIUR_CAPACITY: 5Gi
+      APP: immich
+      DATABASE_EXTENSIONS: |
+        [
+          { name: vector },
+          { name: vchord },
+          { name: cube },
+          { name: earthdistance }
+        ]
+      KOPIUR_CAPACITY: 500Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
@@ -28,6 +45,6 @@ spec:
     kind: OCIRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: selfhosted
   timeout: 5m
   wait: false

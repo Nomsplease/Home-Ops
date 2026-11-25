@@ -4,7 +4,7 @@
 # kind: Kustomization
 # metadata:
 #   name: paperless-ai
-#   namespace: default
+#   namespace: selfhosted
 # spec:
 #   components:
 #     - ../../../../components/kopiur/backup
@@ -12,7 +12,7 @@
 #     - name: kopiur
 #       namespace: kopiur-system
 #   interval: 30m
-#   path: ./kubernetes/apps/default/paperless/ai
+#   path: ./kubernetes/apps/selfhosted/paperless/ai
 #   postBuild:
 #     substitute:
 #       APP: paperless-ai
@@ -20,13 +20,13 @@
 #     substituteFrom:
 #       - name: cluster-secrets
 #         kind: Secret
-#   prune: true 
+#   prune: true
 #   retryInterval: 1m
 #   sourceRef:
 #     kind: OCIRepository
 #     name: flux-system
 #     namespace: flux-system
-#   targetNamespace: default
+#   targetNamespace: selfhosted
 #   timeout: 5m
 #   wait: false
 ---
@@ -35,7 +35,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: paperless
-  namespace: default
+  namespace: selfhosted
 spec:
   components:
     - ../../../../components/kopiur/backup
@@ -46,7 +46,14 @@ spec:
     - name: kopiur
       namespace: kopiur-system
   interval: 30m
-  path: ./kubernetes/apps/default/paperless/app
+  path: ./kubernetes/apps/selfhosted/paperless/app
+  patches:
+    - patch: |-
+        - op: add
+          path: /spec/volumeName
+          value: pvc-7db467cf-06bb-4c2a-b262-2a8118b64c74
+      target:
+        kind: PersistentVolumeClaim
   postBuild:
     substitute:
       APP: paperless
@@ -54,13 +61,13 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-  prune: true 
+  prune: true
   retryInterval: 1m
   sourceRef:
     kind: OCIRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: selfhosted
   timeout: 5m
   wait: false
 ---
@@ -69,20 +76,20 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: paperless-gotenberg
-  namespace: default
+  namespace: selfhosted
 spec:
   interval: 30m
-  path: ./kubernetes/apps/default/paperless/gotenberg
+  path: ./kubernetes/apps/selfhosted/paperless/gotenberg
   postBuild:
     substitute:
       APP: paperless-gotenberg
-  prune: true 
+  prune: true
   retryInterval: 1m
   sourceRef:
     kind: OCIRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: selfhosted
   timeout: 5m
   wait: false
 ---
@@ -91,19 +98,19 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: paperless-tika
-  namespace: default
+  namespace: selfhosted
 spec:
   interval: 30m
-  path: ./kubernetes/apps/default/paperless/tika
+  path: ./kubernetes/apps/selfhosted/paperless/tika
   postBuild:
     substitute:
       APP: paperless-tika
-  prune: true 
+  prune: true
   retryInterval: 1m
   sourceRef:
     kind: OCIRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: selfhosted
   timeout: 5m
   wait: false

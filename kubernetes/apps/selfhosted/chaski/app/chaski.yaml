@@ -1,0 +1,27 @@
+targets:
+  matrix-media:
+    apprise:
+      url: '{{ env "MATRIX_APPRISE_URL_MEDIA" }}'
+
+routes:
+  seerr:
+    target: matrix-media
+    title: "{{ .payload.subject }}"
+    message: |-
+      {{ .payload.message }}
+      {{- with .payload.media }}
+      {{ .media_type }} · {{ .status }}
+      {{- end }}
+      {{- with .payload.request }}
+      Requested by {{ .requestedBy_username }}
+      {{- end }}
+      {{- with .payload.issue }}
+      Issue #{{ .issue_id }} ({{ .issue_type }}, {{ .issue_status }}) reported by {{ .reportedBy_username }}
+      {{- end }}
+      {{- with .payload.comment }}
+      {{ .commentedBy_username }}: {{ .comment_message }}
+      {{- end }}
+  maintainerr:
+    target: matrix-media
+    title: "{{ .payload.subject }}"
+    message: "{{ .payload.message }}"

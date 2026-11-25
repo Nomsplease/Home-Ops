@@ -10,6 +10,7 @@ resources:
   ## Requisites
   - ./namespace.yaml
   ## Deployments
+  - ./chaski/ks.yaml
   - ./continuwuity/ks.yaml
   - ./dawarich/ks.yaml
   - ./immich/ks.yaml

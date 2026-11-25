@@ -16,7 +16,6 @@ resources:
   - ./emby/ks.yaml
   - ./jellyfin/ks.yaml
   - ./maintainerr/ks.yaml
-  - ./picard/ks.yaml
   - ./plex/ks.yaml
   - ./posterizarr/ks.yaml
   - ./profilarr/ks.yaml

@@ -3,8 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app whisper
-  namespace: &namespace default
+  name: &app piper
+  namespace: &namespace home
 spec:
   components:
     - ../../../../components/kopiur/backup
@@ -12,7 +12,7 @@ spec:
     - name: kopiur
       namespace: kopiur-system
   interval: 30m
-  path: ./kubernetes/apps/default/whisper/app
+  path: ./kubernetes/apps/home/piper/app
   postBuild:
     substitute:
       APP: *app

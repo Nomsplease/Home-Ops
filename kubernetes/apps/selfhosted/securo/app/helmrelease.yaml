@@ -20,6 +20,7 @@ spec:
       celeryResultBackend: "redis://dragonfly.databases:6379/6"
       oidcEnabled: "true"
       oidcProviderName: "Pocket ID"
+      agentsEnabled: "true"
 
     # Shared CloudNativePG cluster + dragonfly instead of the chart's bundled ones
     postgresql:
@@ -37,9 +38,35 @@ spec:
       attachments:
         existingClaim: securo
       agentKnowledge:
-        enabled: false
+        enabled: true
       agentEmbeddingModels:
-        enabled: false
+        enabled: true
+
+    mcpServer:
+      enabled: true
+      extraEnv:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: password
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: host
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: securo-postgres
+              key: database
+        - name: DATABASE_URL
+          value: "postgresql+asyncpg://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)"
 
     backend:
       image:

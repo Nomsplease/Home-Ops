@@ -20,6 +20,14 @@ spec:
       backendRefs:
         - name: securo-backend
           port: 8000
+    - name: mcp
+      matches:
+        - path:
+            type: PathPrefix
+            value: /mcp
+      backendRefs:
+        - name: securo-mcp-server
+          port: 8765
     - name: frontend
       backendRefs:
         - name: securo-frontend

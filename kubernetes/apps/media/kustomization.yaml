@@ -26,7 +26,6 @@ resources:
   - ./seerr/ks.yaml
   - ./slskd/ks.yaml
   - ./sonarr/ks.yaml
-  - ./soularr/ks.yaml
   - ./tracearr/ks.yaml
   - ./unpackerr/ks.yaml
   - ./watchstate/ks.yaml

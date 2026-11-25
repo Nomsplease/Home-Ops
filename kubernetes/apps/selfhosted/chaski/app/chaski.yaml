@@ -32,4 +32,11 @@ routes:
         header: Authorization
         secret: '{{ env "CHASKI_WEBHOOK_SECRET" }}'
     title: "{{ .payload.subject }}"
-    message: "{{ .payload.message }}"
+    message: |-
+      {{ .payload.message }}
+      {{- if .payload.collectionName }}
+      Collection: {{ .payload.collectionName }}
+      {{- end }}
+      {{- if .payload.dayAmount }}
+      Days until handled: {{ .payload.dayAmount }}
+      {{- end }}

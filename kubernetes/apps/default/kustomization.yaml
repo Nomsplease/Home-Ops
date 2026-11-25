@@ -16,7 +16,6 @@ resources:
   - ./immich/ks.yaml
   - ./karakeep/ks.yaml
   - ./lubelogger/ks.yaml
-  - ./mealie/ks.yaml
   - ./ntfy/ks.yaml
   # - ./openwakeword/ks.yaml
   - ./paperless/ks.yaml

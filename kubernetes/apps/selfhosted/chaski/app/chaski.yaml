@@ -2,6 +2,9 @@ targets:
   matrix-media:
     apprise:
       url: '{{ env "MATRIX_APPRISE_URL_MEDIA" }}'
+  matrix-finances:
+    apprise:
+      url: '{{ env "MATRIX_APPRISE_URL_FINANCES" }}'
 
 routes:
   seerr:
@@ -39,4 +42,21 @@ routes:
       {{- end }}
       {{- if .payload.dayAmount }}
       Days until handled: {{ .payload.dayAmount }}
+      {{- end }}
+  wallos:
+    target: matrix-finances
+    verify:
+      token:
+        header: Authorization
+        secret: '{{ env "CHASKI_WEBHOOK_SECRET" }}'
+    title: "{{ .payload.name }} — {{ .payload.price }} {{ .payload.currency }}"
+    message: |-
+      Due {{ .payload.date }} ({{ .payload.days }} days)
+      Category: {{ .payload.category }}
+      Payer: {{ .payload.payer }}
+      {{- if .payload.notes }}
+      Notes: {{ .payload.notes }}
+      {{- end }}
+      {{- if .payload.url }}
+      {{ .payload.url }}
       {{- end }}

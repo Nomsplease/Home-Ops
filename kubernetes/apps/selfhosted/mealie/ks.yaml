@@ -15,14 +15,6 @@ spec:
     - name: kopiur
       namespace: kopiur-system
   interval: 30m
-  patches:
-    # Bind directly to the pre-existing Ceph RBD volume migrated from default/mealie (claimRef pre-targeted at this PVC), skipping the kopiur Restore populator.
-    - patch: |-
-        - op: add
-          path: /spec/volumeName
-          value: pvc-305f831c-0265-4cec-9b1f-9a298bf806ec
-      target:
-        kind: PersistentVolumeClaim
   path: ./kubernetes/apps/selfhosted/mealie/app
   postBuild:
     substitute:

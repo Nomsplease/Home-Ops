@@ -21,6 +21,7 @@ spec:
               spec:
                 strategy:
                   type: Recreate
+                  rollingUpdate: null
                 template:
                   spec:
                     affinity:
@@ -46,6 +47,7 @@ spec:
               spec:
                 strategy:
                   type: Recreate
+                  rollingUpdate: null
                 template:
                   spec:
                     affinity:
@@ -71,6 +73,7 @@ spec:
               spec:
                 strategy:
                   type: Recreate
+                  rollingUpdate: null
                 template:
                   spec:
                     affinity:
@@ -96,6 +99,7 @@ spec:
               spec:
                 strategy:
                   type: Recreate
+                  rollingUpdate: null
                 template:
                   spec:
                     affinity:

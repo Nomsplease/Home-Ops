@@ -25,6 +25,10 @@ spec:
       APP_ICON_URL: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/securo.svg"
       OIDC_APP_NAME: Securo
       OIDC_CALLBACK_PATH: /api/auth/oidc/callback
+      DATABASE_EXTENSIONS: |
+        [
+          { name: vector }
+        ]
       KOPIUR_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets

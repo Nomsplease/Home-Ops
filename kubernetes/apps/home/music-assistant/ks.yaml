@@ -12,14 +12,6 @@ spec:
     - name: kopiur
       namespace: kopiur-system
   interval: 30m
-  patches:
-    # Bind directly to the pre-existing Ceph RBD volume migrated from default/music-assistant, skipping the kopiur Restore populator.
-    - patch: |-
-        - op: add
-          path: /spec/volumeName
-          value: pvc-43573e08-0adb-4dd0-99e1-1ceb003b97d7
-      target:
-        kind: PersistentVolumeClaim
   path: ./kubernetes/apps/home/music-assistant/app
   postBuild:
     substitute:

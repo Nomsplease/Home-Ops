@@ -9,6 +9,110 @@ spec:
   chartRef:
     kind: OCIRepository
     name: securo
+  # Pins backend/worker/beat/mcp-server to one node; they share an RWO PVC.
+  postRenderers:
+    - kustomize:
+        patches:
+          - patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: securo-backend
+              spec:
+                strategy:
+                  type: Recreate
+                template:
+                  spec:
+                    affinity:
+                      podAffinity:
+                        preferredDuringSchedulingIgnoredDuringExecution:
+                          - weight: 100
+                            podAffinityTerm:
+                              labelSelector:
+                                matchExpressions:
+                                  - key: app.kubernetes.io/instance
+                                    operator: In
+                                    values:
+                                      - securo
+                              topologyKey: kubernetes.io/hostname
+            target:
+              kind: Deployment
+              name: ^securo-backend$
+          - patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: securo-worker
+              spec:
+                strategy:
+                  type: Recreate
+                template:
+                  spec:
+                    affinity:
+                      podAffinity:
+                        preferredDuringSchedulingIgnoredDuringExecution:
+                          - weight: 100
+                            podAffinityTerm:
+                              labelSelector:
+                                matchExpressions:
+                                  - key: app.kubernetes.io/instance
+                                    operator: In
+                                    values:
+                                      - securo
+                              topologyKey: kubernetes.io/hostname
+            target:
+              kind: Deployment
+              name: ^securo-worker$
+          - patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: securo-beat
+              spec:
+                strategy:
+                  type: Recreate
+                template:
+                  spec:
+                    affinity:
+                      podAffinity:
+                        preferredDuringSchedulingIgnoredDuringExecution:
+                          - weight: 100
+                            podAffinityTerm:
+                              labelSelector:
+                                matchExpressions:
+                                  - key: app.kubernetes.io/instance
+                                    operator: In
+                                    values:
+                                      - securo
+                              topologyKey: kubernetes.io/hostname
+            target:
+              kind: Deployment
+              name: ^securo-beat$
+          - patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: securo-mcp-server
+              spec:
+                strategy:
+                  type: Recreate
+                template:
+                  spec:
+                    affinity:
+                      podAffinity:
+                        preferredDuringSchedulingIgnoredDuringExecution:
+                          - weight: 100
+                            podAffinityTerm:
+                              labelSelector:
+                                matchExpressions:
+                                  - key: app.kubernetes.io/instance
+                                    operator: In
+                                    values:
+                                      - securo
+                              topologyKey: kubernetes.io/hostname
+            target:
+              kind: Deployment
+              name: ^securo-mcp-server$
   values:
     global:
       domain: "securo.${SECRET_DOMAIN}"

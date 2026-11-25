@@ -1,7 +1,7 @@
 targets:
   matrix-media:
     apprise:
-      url: '{{ env "MATRIX_APPRISE_URL_MEDIA" }}'
+      url: 'matrixs://{{ env "MATRIX_BOT_TOKEN" }}@matrix.${SECRET_DOMAIN}/{{ env "ROOM_ID_MEDIA" }}'
 
 routes:
   seerr:

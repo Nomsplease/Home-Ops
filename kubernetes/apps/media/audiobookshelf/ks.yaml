@@ -14,14 +14,6 @@ spec:
       namespace: kopiur-system
   interval: 30m
   path: ./kubernetes/apps/media/audiobookshelf/app
-  patches:
-    - patch: |-
-        - op: add
-          path: /spec/volumeName
-          value: pvc-46e47ab5-ba16-43d2-8901-b527554c3f44
-      target:
-        kind: PersistentVolumeClaim
-        name: '^\$\{APP\}$'
   postBuild:
     substitute:
       APP: *app

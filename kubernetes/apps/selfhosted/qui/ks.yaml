@@ -14,13 +14,6 @@ spec:
       namespace: kopiur-system
   interval: 1h
   path: ./kubernetes/apps/selfhosted/qui/app
-  patches:
-    - patch: |-
-        - op: add
-          path: /spec/volumeName
-          value: pvc-317676bf-5db3-4451-96f5-8952f07ec56e
-      target:
-        kind: PersistentVolumeClaim
   postBuild:
     substitute:
       APP: *app

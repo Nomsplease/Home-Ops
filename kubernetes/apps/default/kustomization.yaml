@@ -11,7 +11,6 @@ resources:
   - ./namespace.yaml
   ## Deployments
   - ./actual-budget/ks.yaml
-  - ./audiobookshelf/ks.yaml
   - ./immich/ks.yaml
   - ./karakeep/ks.yaml
   - ./lubelogger/ks.yaml
@@ -20,8 +19,4 @@ resources:
   - ./paperless/ks.yaml
   - ./patchmon/ks.yaml
   # - ./piper/ks.yaml
-  - ./qui/ks.yaml
-  - ./spoolman/ks.yaml
-  - ./thelounge/ks.yaml
-  - ./wallos/ks.yaml
   # - ./whisper/ks.yaml

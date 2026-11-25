@@ -16,5 +16,9 @@ resources:
   - ./mitra/ks.yaml
   - ./photon/ks.yaml
   - ./poenskelisten/ks.yaml
+  - ./qui/ks.yaml
   - ./radicale/ks.yaml
   - ./securo/ks.yaml
+  - ./spoolman/ks.yaml
+  - ./thelounge/ks.yaml
+  - ./wallos/ks.yaml

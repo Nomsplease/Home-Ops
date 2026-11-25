@@ -3,26 +3,35 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app thelounge
-  namespace: &namespace default
+  name: &app qui
+  namespace: &namespace selfhosted
 spec:
   components:
     - ../../../../components/kopiur/backup
+    - ../../../../components/zeroscaler
   dependsOn:
     - name: kopiur
       namespace: kopiur-system
-  interval: 30m
-  path: ./kubernetes/apps/default/thelounge/app
+  interval: 1h
+  path: ./kubernetes/apps/selfhosted/qui/app
+  patches:
+    - patch: |-
+        - op: add
+          path: /spec/volumeName
+          value: pvc-317676bf-5db3-4451-96f5-8952f07ec56e
+      target:
+        kind: PersistentVolumeClaim
   postBuild:
     substitute:
       APP: *app
-      KOPIUR_CAPACITY: 5Gi
-  prune: true 
-  retryInterval: 1m
+      KOPIUR_CAPACITY: 15Gi
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
   sourceRef:
     kind: OCIRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 5m
   wait: false

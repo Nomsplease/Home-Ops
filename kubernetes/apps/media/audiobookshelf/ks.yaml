@@ -3,21 +3,33 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app spoolman
-  namespace: &namespace default
+  name: &app audiobookshelf
+  namespace: &namespace media
 spec:
   components:
     - ../../../../components/kopiur/backup
+    - ../../../../components/zeroscaler
   dependsOn:
     - name: kopiur
       namespace: kopiur-system
   interval: 30m
-  path: ./kubernetes/apps/default/spoolman/app
+  path: ./kubernetes/apps/media/audiobookshelf/app
+  patches:
+    - patch: |-
+        - op: add
+          path: /spec/volumeName
+          value: pvc-46e47ab5-ba16-43d2-8901-b527554c3f44
+      target:
+        kind: PersistentVolumeClaim
+        name: '^\$\{APP\}$'
   postBuild:
     substitute:
       APP: *app
       KOPIUR_CAPACITY: 5Gi
-  prune: true 
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
   retryInterval: 1m
   sourceRef:
     kind: OCIRepository

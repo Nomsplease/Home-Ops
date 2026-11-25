@@ -11,7 +11,3 @@ resources:
   - ./namespace.yaml
   ## Deployments
   - ./actual-budget/ks.yaml
-  - ./ntfy/ks.yaml
-  # - ./openwakeword/ks.yaml
-  # - ./piper/ks.yaml
-  # - ./whisper/ks.yaml

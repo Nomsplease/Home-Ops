@@ -12,7 +12,6 @@ resources:
   ## Deployments
   - ./actual-budget/ks.yaml
   - ./audiobookshelf/ks.yaml
-  - ./homepage/ks.yaml
   - ./immich/ks.yaml
   - ./karakeep/ks.yaml
   - ./lubelogger/ks.yaml

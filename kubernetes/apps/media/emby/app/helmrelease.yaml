@@ -23,7 +23,7 @@ spec:
               # renovate: datasource=github-releases depName=Tracearr/Media-Server-SSE
               SSE_VERSION: v0.6.1
               # renovate: datasource=github-releases depName=fscorrupt/posterizarr
-              POSTERIZARR_VERSION: "4.0.0"
+              POSTERIZARR_VERSION: "4.0.2"
               # renovate: datasource=github-releases depName=Moonfin-Client/Plugin
               MOONFIN_VERSION: "3.1.1"
             command:

@@ -19,7 +19,7 @@ env:
   # renovate: datasource=github-releases depName=fluxcd/flux2
   FLUX_VERSION: v2.10.1
   # renovate: datasource=github-releases depName=sigstore/cosign
-  COSIGN_VERSION: v3.1.5
+  COSIGN_VERSION: v3.1.6
 
 jobs:
   push:

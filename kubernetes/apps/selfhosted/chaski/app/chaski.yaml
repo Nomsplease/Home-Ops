@@ -5,9 +5,27 @@ targets:
   matrix-finances:
     apprise:
       url: '{{ env "MATRIX_APPRISE_URL_FINANCES" }}'
+  moonbase:
+    http:
+      url: '{{ env "MOONFIN_WEBHOOK_URL" }}'
+  seerr-matrix-loopback:
+    http:
+      url: 'http://localhost:8080/hooks/seerr-matrix'
+      headers:
+        Authorization: '{{ env "CHASKI_WEBHOOK_SECRET" }}'
 
 routes:
+  # Seerr allows only one webhook URL, so fan out here instead.
+  # Loopback into /hooks/seerr-matrix re-enters routing for Matrix formatting.
   seerr:
+    target:
+      - moonbase
+      - seerr-matrix-loopback
+    verify:
+      token:
+        header: Authorization
+        secret: '{{ env "CHASKI_WEBHOOK_SECRET" }}'
+  seerr-matrix:
     target: matrix-media
     verify:
       token:

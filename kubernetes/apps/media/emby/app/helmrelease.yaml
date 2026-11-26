@@ -68,7 +68,7 @@ spec:
           app:
             image:
               repository: docker.io/emby/embyserver
-              tag: 4.11.0.18@sha256:b0558d94cea246105c73df0b63c3e1198e07b6d9967992b484eeb083eea3c970
+              tag: 4.11.0.19@sha256:cc19db1b53db4874143d4356bb5e1cdd6dac590f2818c02898d346dee3e460c7
             env:
               TZ: America/New_York
               PUID: "1000"

@@ -1,0 +1,89 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: netbird-router
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: netbird-router
+  values:
+    controllers:
+      netbird-router:
+        forceRename: netbird-router
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: netbirdio/netbird
+              tag: 0.84.0@sha256:0095ff483b5a06b0f4e9528032e4dd28a9ec126dc2e246c2336d3a7a4d54fcbe
+            env:
+              NB_MANAGEMENT_URL: "https://netbird.${SECRET_DOMAIN}:443"
+              NB_HOSTNAME: "netbird-hme-router"
+              NB_LOG_LEVEL: "info"
+            envFrom:
+              - secretRef:
+                  name: netbird-router
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - "netbird"
+                      - "status"
+                      - "--check"
+                      - "live"
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - "netbird"
+                      - "status"
+                      - "--check"
+                      - "ready"
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - "netbird"
+                      - "status"
+                      - "--check"
+                      - "startup"
+                  periodSeconds: 2
+                  timeoutSeconds: 10
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+
+    defaultPodOptions:
+      dnsPolicy: None
+      dnsConfig:
+        nameservers:
+          - 1.1.1.1
+      securityContext:
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_RESOURCE
+            - SYS_ADMIN
+

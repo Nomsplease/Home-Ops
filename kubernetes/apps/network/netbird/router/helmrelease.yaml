@@ -81,9 +81,3 @@ spec:
               limits:
                 memory: 1Gi
 
-    defaultPodOptions:
-      dnsPolicy: None
-      dnsConfig:
-        nameservers:
-          - 1.1.1.1
-

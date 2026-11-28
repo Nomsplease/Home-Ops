@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/chaski
-              tag: 0.5.4@sha256:25b5939e30f9382db68f79930ab244d419d5cca11244a3cad68493864dceead4
+              tag: 0.5.5@sha256:b8be163339db52bac7ecc8e0714bd9d677d1aad0441add2b28c9e48f9a67266b
             envFrom:
               - secretRef:
                   name: chaski-secret

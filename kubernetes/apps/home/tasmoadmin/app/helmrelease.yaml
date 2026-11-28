@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/tasmoadmin/tasmoadmin
-              tag: v5.0.0@sha256:459df5a79b7d4fbef52dc5aa04884ad917bcd6d94e359dfc5c6fd69205c2f471
+              tag: v5.1.1@sha256:78eae5e6e8813a9c33eafb1cd18ff8cffcfd23bff5ecd0ef73ba729e5308a076
             probes:
               liveness: &probes
                 enabled: true
